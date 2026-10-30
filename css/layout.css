@@ -1230,7 +1230,52 @@ body.is-loading {
 .partner-remaining-name {
   color: #F8F8FC;
   white-space: nowrap;
+  display: inline-flex;
+  align-items: baseline;
   transition: all 0.3s ease;
+}
+
+.typed-text {
+  display: inline;
+  color: #F8F8FC;
+  white-space: nowrap;
+}
+
+.typewriter-cursor {
+  display: inline-block;
+  color: var(--accent-red);
+  font-weight: 300;
+  margin-left: 2px;
+  animation: typewriterCaretBlink 0.75s step-start infinite;
+  text-shadow: 0 0 12px rgba(255, 30, 38, 0.85);
+  user-select: none;
+  vertical-align: baseline;
+}
+
+.typewriter-cursor.cursor-idle {
+  opacity: 0.35;
+  animation: typewriterCaretBlink 1.4s step-start infinite;
+}
+
+@keyframes typewriterCaretBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Palavras e caracteres do texto de especialidade (ScrollTrigger letter-by-letter reveal) */
+.word-span {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.type-char {
+  display: inline-block;
+  will-change: transform, opacity, color;
+  transition: none;
+}
+
+.type-space {
+  display: inline-block;
 }
 
 /* Linha 2: Tipografia Secundária / Especialidade (Abaixo do nome, alinhada à esquerda) */

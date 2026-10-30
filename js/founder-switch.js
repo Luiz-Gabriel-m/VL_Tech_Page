@@ -102,35 +102,33 @@ export function initFounderSwitch() {
       // Header Switch Button
       if (activeName) activeName.textContent = data.buttonLabel;
 
-      // Tipografia Gigante
-      if (partnerInitial) {
-        partnerInitial.textContent = data.initial;
-        partnerInitial.setAttribute('data-partner', data.key);
-      }
-      if (partnerRemainingName) partnerRemainingName.textContent = data.remainingName;
-      if (heroGiantOutline) heroGiantOutline.textContent = data.outlineTitle;
+      const hasSeparateStages = !!document.getElementById('stageVictor');
 
-      // Conexão e Justificativa da Inicial (L / V)
-      if (justificationLetter) justificationLetter.textContent = data.initial;
-      if (justificationTitle) justificationTitle.textContent = data.justificationTitle;
-      if (justificationPillars) justificationPillars.textContent = data.justificationPillars;
-
-      // Retrato Limpo
-      if (founderImage) {
-        founderImage.src = data.image;
-        founderImage.alt = `Retrato do Co-founder ${data.fullName}`;
+      if (!hasSeparateStages) {
+        // Fallback caso não existam estágios dedicados
+        if (partnerInitial) {
+          partnerInitial.textContent = data.initial;
+          partnerInitial.setAttribute('data-partner', data.key);
+        }
+        if (partnerRemainingName) partnerRemainingName.textContent = data.remainingName;
+        if (heroGiantOutline) heroGiantOutline.textContent = data.outlineTitle;
+        if (justificationLetter) justificationLetter.textContent = data.initial;
+        if (justificationTitle) justificationTitle.textContent = data.justificationTitle;
+        if (justificationPillars) justificationPillars.textContent = data.justificationPillars;
+        if (founderImage) {
+          founderImage.src = data.image;
+          founderImage.alt = `Retrato do Co-founder ${data.fullName}`;
+        }
+        if (portraitWatermark) portraitWatermark.textContent = data.initial;
+        if (metaFounderName) metaFounderName.textContent = data.fullName;
+        if (metaFounderRole) metaFounderRole.textContent = data.metaRole;
       }
-      if (portraitWatermark) portraitWatermark.textContent = data.initial;
 
       // Background Vector Letter
       if (bgVectorLetter) {
         bgVectorLetter.textContent = data.bgLetter;
         bgVectorLetter.setAttribute('title', `Conexão VL Tech: ${data.fullName}`);
       }
-
-      // Meta do Hero
-      if (metaFounderName) metaFounderName.textContent = data.fullName;
-      if (metaFounderRole) metaFounderRole.textContent = data.metaRole;
 
       // Seção Sobre / Bio
       if (aboutFounderName) aboutFounderName.textContent = `${data.fullName} — Co-founder & ${data.specialty}`;

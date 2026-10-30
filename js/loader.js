@@ -130,36 +130,24 @@ export function initLoader() {
   );
 
   // 3. Pausa rápida de leitura ao atingir 100%
-  tl.to({}, { duration: 0.22 });
+  tl.to({}, { duration: 0.25 });
 
-  // 4. Fade-out e leve subida dos elementos de texto internos antes da cortina
-  if (inner) {
-    tl.to(inner, {
-      y: -30,
-      autoAlpha: 0,
-      duration: 0.4,
-      ease: 'power2.in',
-    });
-  }
-
-  // 5. Transição de saída com cortina deslizante para cima (transform: translateY(-100%) e power4.inOut)
+  // 4. Fade-out suave em tela cheia para revelar a página principal
   tl.to(
     preloader,
     {
-      yPercent: -100,
-      duration: 1.05,
-      ease: 'power4.inOut',
+      autoAlpha: 0,
+      duration: 0.85,
+      ease: 'power2.inOut',
       onStart: () => {
-        // Libera o scroll da página no momento exato em que a cortina começa a subir
         releaseScroll();
-        // Dispara o evento de revelação do Hero e do site
         window.__loaderComplete = true;
         document.dispatchEvent(new CustomEvent(LOADER_COMPLETE_EVENT));
         window.dispatchEvent(new CustomEvent(LOADER_COMPLETE_EVENT));
       },
       onComplete: finish,
     },
-    '-=0.15'
+    '+=0.05'
   );
 
   return { timeline: tl, finish };
