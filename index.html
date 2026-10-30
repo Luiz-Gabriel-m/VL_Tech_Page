@@ -551,6 +551,15 @@
                 <div class="notebook-screen" id="notebookScreen">
                   <div class="notebook-screen-inner" id="notebookScreenInner">
 
+                    <!-- Overlay da Matriz Binária na Tela do Notebook (0 e 1 - System Boot) -->
+                    <div class="screen-matrix-overlay" id="screenMatrixOverlay" aria-hidden="true">
+                      <canvas class="screen-matrix-canvas" id="screenMatrixCanvas"></canvas>
+                      <div class="screen-matrix-hud" id="screenMatrixHud">
+                        <span class="hud-status-dot"></span>
+                        <span class="hud-text">VL-TECH // OS BOOT · INICIALIZANDO SISTEMA...</span>
+                      </div>
+                    </div>
+
                     <div class="screen-browser-chrome">
                       <div class="screen-controls" aria-hidden="true">
                         <span class="control-dot dot--red"></span>

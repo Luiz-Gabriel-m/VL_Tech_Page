@@ -3202,6 +3202,65 @@ body.is-loading {
   will-change: transform;
 }
 
+/* Overlay da Matriz Binária na Tela do Notebook (0 e 1 - System Boot) */
+.screen-matrix-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: #08080C;
+  z-index: 10;
+  pointer-events: none;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 16px;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  will-change: opacity, transform;
+}
+
+.screen-matrix-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.screen-matrix-hud {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(14, 14, 20, 0.9);
+  border: 1px solid rgba(255, 30, 38, 0.5);
+  border-radius: 999px;
+  box-shadow: 0 0 16px rgba(255, 30, 38, 0.35);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  color: #F8F8FC;
+  width: fit-content;
+}
+
+.hud-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-red);
+  box-shadow: 0 0 8px var(--accent-red);
+  animation: pulse-core 1.2s infinite;
+}
+
+.hud-text {
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
 /* Browser Chrome na Tela do Notebook */
 .screen-browser-chrome {
   display: flex;
