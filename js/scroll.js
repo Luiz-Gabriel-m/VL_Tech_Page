@@ -177,26 +177,26 @@ function setupPortfolioFanScroll() {
 
     if (window.innerWidth > 820) {
       gsap.set(cards, {
-        autoAlpha: 0,
-        y: 80,
+        autoAlpha: 1,
+        y: 40,
         x: 0,
         rotation: 0,
-        scale: 0.88,
+        scale: 0.94,
         transformOrigin: '50% 120%',
       });
 
       gsap.to(cards, {
         scrollTrigger: {
-          trigger: container,
-          start: 'top 80%',
+          trigger: section,
+          start: 'top 92%',
         },
         autoAlpha: 1,
         y: (i) => fanConfig[i].y,
         x: (i) => fanConfig[i].x,
         rotation: (i) => fanConfig[i].rot,
         scale: (i) => fanConfig[i].scale,
-        duration: 1.25,
-        stagger: 0.08,
+        duration: 1.0,
+        stagger: 0.06,
         ease: 'power3.out',
         onComplete: () => {
           cards.forEach((card) => {
@@ -207,13 +207,13 @@ function setupPortfolioFanScroll() {
     } else {
       gsap.from(cards, {
         scrollTrigger: {
-          trigger: container,
-          start: 'top 85%',
+          trigger: section,
+          start: 'top 92%',
         },
         autoAlpha: 0,
-        y: 40,
-        stagger: 0.12,
-        duration: 0.9,
+        y: 30,
+        stagger: 0.1,
+        duration: 0.8,
         ease: 'power2.out',
         clearProps: 'transform,opacity,visibility',
       });

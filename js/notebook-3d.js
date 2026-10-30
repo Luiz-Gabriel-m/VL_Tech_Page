@@ -1,9 +1,9 @@
 /* ==========================================================================
    NOTEBOOK 3D & PORTFÓLIO — Sequência Interativa de Zoom e Matriz Binária
-   1. Tela do notebook exibe animação fluida de cascata binária (0 e 1 - System Boot)
+   1. Tela do notebook exibe animação fluida de cascata binária (0 e 1 - 100% Vermelho)
    2. GSAP ScrollTrigger fixa (pin) o notebook e aplica zoom-in progressivo na tela
-   3. Ao cobrir 100% da viewport, números binários realizam fade-out rápido
-   4. Revela imediatamente o Portfólio de Projetos, liberando o scroll normal
+   3. Os números binários somem rapidamente revelando os cases do portfólio imediatamente
+   4. Sem espaço em branco: transição direta e contínua para os projetos
    ========================================================================== */
 
 import { gsap, ScrollTrigger } from './core/gsap.js';
@@ -39,7 +39,7 @@ export function initNotebook3D() {
   }
 
   // =========================================================================
-  // 1. ANIMAÇÃO DE MATRIZ (0 E 1) DENTRO DA TELA DO NOTEBOOK
+  // 1. ANIMAÇÃO DE MATRIZ (0 E 1) DENTRO DA TELA DO NOTEBOOK (100% VERMELHO)
   // =========================================================================
   let matrixAnimationId = null;
   let isScreenVisible = false;
@@ -48,7 +48,18 @@ export function initNotebook3D() {
     const ctx = matrixCanvas.getContext('2d');
     const FONT_SIZE = 13;
     const BINARY = ['0', '1'];
-    const COLORS = ['#FF1E26', '#FF3B30', '#00FF66', '#27C93F', '#00FF88', '#FF4D4D'];
+    // Todos os dígitos 0 e 1 estritamente vermelhos neon VL Tech (sem verde)
+    const RED_COLORS = [
+      '#FF1E26',
+      '#FF2A2A',
+      '#FF0033',
+      '#FF3B30',
+      '#E11D48',
+      '#FF4D4D',
+      '#FF1122',
+      '#FF3344',
+      '#D6001C'
+    ];
 
     let width = 0;
     let height = 0;
@@ -75,10 +86,9 @@ export function initNotebook3D() {
 
       for (let i = 0; i < columns; i++) {
         drops[i] = Math.random() * -50;
-        speeds[i] = 1.2 + Math.random() * 2.4;
-        colColors[i] = Math.random() > 0.35
-          ? (Math.random() > 0.5 ? '#00FF66' : '#27C93F')
-          : (Math.random() > 0.5 ? '#FF1E26' : '#FF3B30');
+        speeds[i] = 1.3 + Math.random() * 2.5;
+        // 100% tonalidades de vermelho vibrante
+        colColors[i] = RED_COLORS[Math.floor(Math.random() * RED_COLORS.length)];
       }
     };
 
@@ -88,7 +98,7 @@ export function initNotebook3D() {
         return;
       }
 
-      ctx.fillStyle = 'rgba(8, 8, 12, 0.22)';
+      ctx.fillStyle = 'rgba(8, 8, 12, 0.24)';
       ctx.fillRect(0, 0, width, height);
 
       ctx.font = `bold ${FONT_SIZE}px "JetBrains Mono", monospace`;
@@ -99,8 +109,8 @@ export function initNotebook3D() {
         const x = i * FONT_SIZE + (FONT_SIZE / 2);
         const y = drops[i] * FONT_SIZE;
 
-        // Cabeça com brilho branco intenso
-        if (Math.random() > 0.88) {
+        // Cabeça com brilho branco/rosa ou vermelho elétrico intenso
+        if (Math.random() > 0.92) {
           ctx.fillStyle = '#FFFFFF';
         } else {
           ctx.fillStyle = colColors[i];
@@ -110,7 +120,7 @@ export function initNotebook3D() {
 
         if (y > height && Math.random() > 0.96) {
           drops[i] = 0;
-          speeds[i] = 1.2 + Math.random() * 2.4;
+          speeds[i] = 1.3 + Math.random() * 2.5;
         }
 
         drops[i] += speeds[i];
@@ -153,7 +163,7 @@ export function initNotebook3D() {
       once: true,
       onEnter: () => {
         gsap.fromTo(device,
-          { scale: 0.95, y: 25 },
+          { scale: 0.95, y: 20 },
           { scale: 1, y: 0, duration: 0.8, ease: 'power2.out' }
         );
         gsap.fromTo(glow,
@@ -166,66 +176,63 @@ export function initNotebook3D() {
 
   // =========================================================================
   // 2. ZOOM-IN PROGRESSIVO COM SCROLLTRIGGER (PINNING)
-  // 3. FADE-OUT DOS 0 E 1 QUANDO ATINGE 100% DA VIEWPORT E REVELA O PORTFÓLIO
+  // 3. FADE-OUT IMEDIATO DOS 0 E 1 REVELANDO OS ELEMENTOS DO PORTFÓLIO
   // =========================================================================
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: section,
       start: 'top top',
-      end: '+=1600',
+      end: '+=900',
       pin: pinViewport,
       pinSpacing: true,
-      scrub: 1.0,
+      scrub: 0.9,
       anticipatePin: 1,
       invalidateOnRefresh: true,
     }
   });
 
-  // Fase 1: Desaparecimento de cabeçalho e dicas iniciais
+  // Fase 1: Desaparecimento de cabeçalho e dicas
   tl.to(hint, {
     opacity: 0,
-    y: 12,
-    duration: 0.25,
+    y: 10,
+    duration: 0.15,
     ease: 'power2.in',
   }, 0)
   .to(introHeader, {
     opacity: 0,
-    y: -24,
-    duration: 0.45,
+    y: -20,
+    duration: 0.25,
     ease: 'power2.in',
   }, 0.05)
 
-  // Fase 2: Zoom-In cinematográfico na tela do notebook até cobrir 100% da viewport
+  // Fase 2: Zoom-In cinematográfico na tela do notebook até enquadrar perfeitamente os cases
   .to(device, {
-    scale: 8.5,
-    y: '22%',
-    duration: 1.8,
+    scale: 3.8,
+    y: '-2%',
+    duration: 1.2,
     ease: 'power2.inOut',
-  }, 0.15)
+  }, 0.1)
   .to(base, {
     opacity: 0,
-    duration: 0.6,
+    duration: 0.4,
     ease: 'power2.in',
-  }, 0.4)
+  }, 0.2)
   .to(screenInner, {
-    scale: 1.15,
-    duration: 1.8,
+    scale: 1.05,
+    duration: 1.2,
     ease: 'power2.out',
-  }, 0.15);
+  }, 0.1);
 
-  // Fase 3: Ao atingir 100% da viewport, fade-out rápido dos números binários (0 e 1)
-  // revelando limpa e fluidamente o Portfólio de Projetos completo!
+  // Fase 3: Ao dar zoom, os números binários (0 e 1) somem rapidamente,
+  // revelando os elementos do portfólio (cases em produção) imediatamente,
+  // sem deixar nenhum espaço em branco!
   if (matrixOverlay) {
     tl.to(matrixOverlay, {
       opacity: 0,
-      scale: 1.06,
-      duration: 0.4,
+      duration: 0.35,
       ease: 'power2.out',
-    }, 1.25);
+    }, 0.45);
   }
-
-  // Pausa final de contemplação na tela antes de despin e liberar o fluxo natural
-  tl.to({}, { duration: 0.4 }, 1.7);
 
   return { timeline: tl };
 }

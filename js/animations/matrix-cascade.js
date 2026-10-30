@@ -37,8 +37,8 @@ export function initMatrixCascade() {
   let textParticles = [];
 
   const BINARY_CHARS = ['0', '1'];
-  const NEON_GREENS = ['#00FF66', '#27C93F', '#10B981', '#34D399'];
-  const NEON_REDS = ['#FF1E26', '#FF3B30', '#E11D48', '#FF4D4D'];
+  // Todos os dígitos 0 e 1 estritamente em vermelho neon (sem verde)
+  const NEON_REDS = ['#FF1E26', '#FF2A2A', '#FF0033', '#FF3B30', '#E11D48', '#FF4D4D', '#FF1122', '#D6001C'];
 
   function resize() {
     const rect = wrapper.getBoundingClientRect();
@@ -58,10 +58,8 @@ export function initMatrixCascade() {
     for (let i = 0; i < columns; i++) {
       drops[i] = Math.random() * -100;
       dropSpeeds[i] = 1.2 + Math.random() * 2.8;
-      // 70% verde-neon clássico, 30% vermelho-neon VL Tech
-      dropColors[i] = Math.random() > 0.3
-        ? NEON_GREENS[Math.floor(Math.random() * NEON_GREENS.length)]
-        : NEON_REDS[Math.floor(Math.random() * NEON_REDS.length)];
+      // 100% vermelho-neon VL Tech
+      dropColors[i] = NEON_REDS[Math.floor(Math.random() * NEON_REDS.length)];
     }
 
     calculateConvergenceTargets();
@@ -225,7 +223,7 @@ export function initMatrixCascade() {
           ctx.shadowBlur = Math.min(25, ease * 28);
         }
 
-        ctx.fillStyle = ease > 0.75 ? p.color : (Math.random() > 0.3 ? '#00FF66' : '#FF1E26');
+        ctx.fillStyle = ease > 0.75 ? p.color : (Math.random() > 0.3 ? '#FF1E26' : '#FF3B30');
         ctx.globalAlpha = Math.min(1, ease * 1.4);
         ctx.fillText(p.currentDisplay, p.x, p.y);
         ctx.restore();
