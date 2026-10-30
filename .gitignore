@@ -1,0 +1,28 @@
+# Dependencies & Environment
+node_modules/
+.env*
+
+# Local Backups & Large Archives
+assets.zip
+assets/assets/
+backup/
+*.zip
+*.tar.gz
+*.bak
+*.mp4
+
+# OS Metadata
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE & Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Server Logs & Test Scripts
+*.log
+serve.ps1
+convert.ps1
