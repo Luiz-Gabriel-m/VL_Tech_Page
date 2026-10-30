@@ -448,26 +448,54 @@
         </header>
 
         <div class="tracks__grid">
-          <article class="track-card track-card--on" id="track-card-on">
-            <div class="media-frame track-card__media" data-label="Engenharia"></div>
-            <span class="eyebrow track-card__label">Core Engineering</span>
-            <h3 class="display track-card__title">Tecnologia</h3>
-            <p class="track-card__text">Desenvolvimento fullstack, microserviços em nuvem, inteligência artificial
-              aplicada e APIs ultravelozes.</p>
-            <a href="#loja" class="btn btn--neon track-card__cta" id="track-cta-on">
-              Ver Soluções <span class="btn__arrow" aria-hidden="true">→</span>
-            </a>
+          <article class="track-card track-card--on track-card--hat-tip" id="track-card-on" data-tilt-hat>
+            <!-- Camada Interna Secreta Revelada ao Tirar o Chapéu (Underlay Glow & Core Circuit) -->
+            <div class="track-card__underlay" aria-hidden="true">
+              <div class="track-card__core-glow"></div>
+              <div class="track-card__core-grid"></div>
+              <div class="track-card__core-badge">
+                <span class="core-dot"></span>
+                <span>VL ARCHITECTURE · CLOUD &amp; AI CORE</span>
+              </div>
+            </div>
+
+            <!-- Superfície 3D com Efeito de Inclinação e Levantar do Chapéu -->
+            <div class="track-card__surface">
+              <div class="track-card__glare" aria-hidden="true"></div>
+              <div class="media-frame track-card__media" data-label="Engenharia"></div>
+              <span class="eyebrow track-card__label">Core Engineering</span>
+              <h3 class="display track-card__title">Tecnologia</h3>
+              <p class="track-card__text">Desenvolvimento fullstack, microserviços em nuvem, inteligência artificial
+                aplicada e APIs ultravelozes.</p>
+              <a href="#loja" class="btn btn--neon track-card__cta" id="track-cta-on">
+                Ver Soluções <span class="btn__arrow" aria-hidden="true">→</span>
+              </a>
+            </div>
           </article>
 
-          <article class="track-card track-card--off" id="track-card-off">
-            <div class="media-frame track-card__media" data-label="Estratégia"></div>
-            <span class="eyebrow track-card__label">Estratégia & Produto</span>
-            <h3 class="display track-card__title">Negócios</h3>
-            <p class="track-card__text">Consultoria corporativa, modernização de sistemas legados, discovery de produtos
-              e escala operacional.</p>
-            <a href="#rodape" class="btn btn--outline track-card__cta" id="track-cta-off">
-              Falar Conosco <span class="btn__arrow" aria-hidden="true">→</span>
-            </a>
+          <article class="track-card track-card--off track-card--hat-tip" id="track-card-off" data-tilt-hat>
+            <!-- Camada Interna Secreta Revelada ao Tirar o Chapéu (Underlay Glow & Core Circuit) -->
+            <div class="track-card__underlay" aria-hidden="true">
+              <div class="track-card__core-glow"></div>
+              <div class="track-card__core-grid"></div>
+              <div class="track-card__core-badge">
+                <span class="core-dot"></span>
+                <span>ENTERPRISE STRATEGY · REVENUE ENGINE</span>
+              </div>
+            </div>
+
+            <!-- Superfície 3D com Efeito de Inclinação e Levantar do Chapéu -->
+            <div class="track-card__surface">
+              <div class="track-card__glare" aria-hidden="true"></div>
+              <div class="media-frame track-card__media" data-label="Estratégia"></div>
+              <span class="eyebrow track-card__label">Estratégia & Produto</span>
+              <h3 class="display track-card__title">Negócios</h3>
+              <p class="track-card__text">Consultoria corporativa, modernização de sistemas legados, discovery de produtos
+                e escala operacional.</p>
+              <a href="#rodape" class="btn btn--outline track-card__cta" id="track-cta-off">
+                Falar Conosco <span class="btn__arrow" aria-hidden="true">→</span>
+              </a>
+            </div>
           </article>
         </div>
 
@@ -627,13 +655,18 @@
 
     <!-- ============================== 5. HALL OF FAME / PORTFÓLIO DE PROJETOS (LEQUE 3D) ============================== -->
     <section class="section section--dark portfolio-fan-section" id="capacetes" aria-labelledby="portfolio-title">
-      <div class="container">
-        <header class="portfolio-fan-header">
+      <!-- Canvas de Cascata de Matriz (Binário 0 e 1) com Convergência Tipográfica -->
+      <div class="matrix-cascade-wrapper" id="matrixCascadeWrapper" aria-hidden="true">
+        <canvas class="matrix-cascade-canvas" id="matrixCascadeCanvas"></canvas>
+      </div>
+
+      <div class="container portfolio-header-container">
+        <header class="portfolio-fan-header" id="portfolioFanHeader">
           <div class="portfolio-fan-glyph" aria-hidden="true">✦</div>
           <span class="eyebrow text-red">04 — HALL OF FAME</span>
           <h2 class="display portfolio-fan-title" id="portfolio-title">
-            <span class="portfolio-fan-title__main">NOSSOS PROJETOS</span>
-            <span class="portfolio-fan-title__sub text-red">WEB PORTFOLIO</span>
+            <span class="portfolio-fan-title__main" id="matrixTargetMain">NOSSOS PROJETOS</span>
+            <span class="portfolio-fan-title__sub text-red" id="matrixTargetSub">WEB PORTFOLIO</span>
           </h2>
           <p class="portfolio-fan-lead">
             Cases reais desenvolvidos e acelerados com a engenharia de alta performance da VL Tech.

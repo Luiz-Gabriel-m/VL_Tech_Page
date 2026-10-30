@@ -15,6 +15,8 @@ import { initHero } from './hero.js';
 import { initReveal } from './animations/reveal.js';
 import { initScroll } from './scroll.js';
 import { initNotebook3D } from './notebook-3d.js';
+import { initTiltHat } from './animations/tilt-hat.js';
+import { initMatrixCascade } from './animations/matrix-cascade.js';
 
 /**
  * Módulos essenciais — funcionam mesmo se o GSAP não carregar.
@@ -34,7 +36,9 @@ const CORE_MODULES = [
 const MOTION_MODULES = [
   ['loader', initLoader],
   ['hero', initHero],
+  ['tiltHat', initTiltHat],
   ['notebook3D', initNotebook3D],
+  ['matrixCascade', initMatrixCascade],
   ['reveal', initReveal],
   ['scroll', initScroll],
 ];
