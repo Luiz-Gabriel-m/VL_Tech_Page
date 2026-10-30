@@ -1,20 +1,16 @@
 /* ==========================================================================
-   MATRIX CASCADE — Efeito de Cascata de Matriz (Binário 0 e 1)
-   - Transição cinematográfica para computadores/desktops
-   - Cascata densa de números binários ("0" e "1" em verde-neon / vermelho-neon)
-   - Os caracteres binários se organizam e convergem suavemente para formar
-     a escrita tipográfica da seção de projetos ("NOSSOS PROJETOS // WEB PORTFOLIO")
-   - Integração física e suave com GSAP ScrollTrigger
+   MATRIX CASCADE — Efeito Contínuo de Matriz Binária (0 e 1 - 100% Vermelho)
+   - Transição cinematográfica contínua da tela do notebook 3D para o Portfólio
+   - Cascata densa de números binários ("0" e "1" estritamente em vermelho-neon)
+   - Preenche toda a extensão vertical e horizontal da seção de projetos (#capacetes)
+   - Resposta magnética ao ponteiro do mouse
+   - Otimizado com IntersectionObserver para máxima fluidez e 60 FPS
    ========================================================================== */
-
-import { gsap, ScrollTrigger } from '../core/gsap.js';
 
 export function initMatrixCascade() {
   const wrapper = document.getElementById('matrixCascadeWrapper');
   const canvas = document.getElementById('matrixCascadeCanvas');
   const section = document.getElementById('capacetes');
-  const targetMain = document.getElementById('matrixTargetMain');
-  const targetSub = document.getElementById('matrixTargetSub');
 
   if (!wrapper || !canvas || !section) return null;
 
@@ -32,18 +28,27 @@ export function initMatrixCascade() {
   let dropSpeeds = [];
   let dropColors = [];
 
-  // Alvos da convergência tipográfica
-  let convergenceProgress = 0; // 0: Chuva pura -> 1: Totalmente convergido no texto
-  let textParticles = [];
-
   const BINARY_CHARS = ['0', '1'];
-  // Todos os dígitos 0 e 1 estritamente em vermelho neon (sem verde)
-  const NEON_REDS = ['#FF1E26', '#FF2A2A', '#FF0033', '#FF3B30', '#E11D48', '#FF4D4D', '#FF1122', '#D6001C'];
+  // Todos os dígitos 0 e 1 estritamente em vermelho neon (sem verde nem branco puro)
+  const NEON_REDS = [
+    '#FF1E26',
+    '#FF2A2A',
+    '#FF0033',
+    '#FF3B30',
+    '#E11D48',
+    '#FF4D4D',
+    '#FF1122',
+    '#D6001C',
+    '#FF3344',
+    '#FF5555'
+  ];
 
   function resize() {
-    const rect = wrapper.getBoundingClientRect();
+    const rect = section.getBoundingClientRect();
     width = rect.width;
     height = rect.height;
+    if (width === 0 || height === 0) return;
+
     dpr = Math.min(window.devicePixelRatio || 1, 2);
 
     canvas.width = width * dpr;
@@ -55,74 +60,14 @@ export function initMatrixCascade() {
     dropSpeeds = [];
     dropColors = [];
 
+    const rowsCount = Math.floor(height / FONT_SIZE);
+
     for (let i = 0; i < columns; i++) {
-      drops[i] = Math.random() * -100;
-      dropSpeeds[i] = 1.2 + Math.random() * 2.8;
+      // Distribui as gotas ao longo da altura para que a chuva já esteja ativa
+      drops[i] = Math.random() * rowsCount;
+      dropSpeeds[i] = 1.3 + Math.random() * 2.5;
       // 100% vermelho-neon VL Tech
       dropColors[i] = NEON_REDS[Math.floor(Math.random() * NEON_REDS.length)];
-    }
-
-    calculateConvergenceTargets();
-  }
-
-  // Mapeia as posições relativas dos caracteres do título no canvas
-  function calculateConvergenceTargets() {
-    textParticles = [];
-    if (!targetMain || !targetSub) return;
-
-    const wrapperRect = wrapper.getBoundingClientRect();
-    const mainRect = targetMain.getBoundingClientRect();
-    const subRect = targetSub.getBoundingClientRect();
-
-    const mainText = (targetMain.textContent || 'NOSSOS PROJETOS').trim();
-    const subText = (targetSub.textContent || 'WEB PORTFOLIO').trim();
-
-    // Mapeia linha 1: "NOSSOS PROJETOS"
-    const mainCharWidth = mainRect.width / Math.max(1, mainText.length);
-    for (let i = 0; i < mainText.length; i++) {
-      const char = mainText[i];
-      if (char === ' ') continue;
-
-      const targetX = (mainRect.left - wrapperRect.left) + (i * mainCharWidth) + (mainCharWidth * 0.5);
-      const targetY = (mainRect.top - wrapperRect.top) + (mainRect.height * 0.75);
-
-      textParticles.push({
-        char,
-        currentDisplay: Math.random() > 0.5 ? '0' : '1',
-        x: Math.random() * width,
-        y: Math.random() * -height * 0.5,
-        targetX,
-        targetY,
-        color: '#FFFFFF',
-        glowColor: '#FF1E26',
-        isSub: false,
-        size: Math.max(18, Math.min(36, mainCharWidth * 1.3)),
-        scrambleCounter: Math.floor(Math.random() * 20),
-      });
-    }
-
-    // Mapeia linha 2: "WEB PORTFOLIO"
-    const subCharWidth = subRect.width / Math.max(1, subText.length);
-    for (let i = 0; i < subText.length; i++) {
-      const char = subText[i];
-      if (char === ' ') continue;
-
-      const targetX = (subRect.left - wrapperRect.left) + (i * subCharWidth) + (subCharWidth * 0.5);
-      const targetY = (subRect.top - wrapperRect.top) + (subRect.height * 0.75);
-
-      textParticles.push({
-        char,
-        currentDisplay: Math.random() > 0.5 ? '0' : '1',
-        x: Math.random() * width,
-        y: Math.random() * -height * 0.5,
-        targetX,
-        targetY,
-        color: '#FF1E26',
-        glowColor: '#FF1E26',
-        isSub: true,
-        size: Math.max(22, Math.min(42, subCharWidth * 1.3)),
-        scrambleCounter: Math.floor(Math.random() * 20),
-      });
     }
   }
 
@@ -143,91 +88,43 @@ export function initMatrixCascade() {
     }
 
     // Fundo semitransparente criando rastro fosfórico
-    ctx.fillStyle = 'rgba(10, 10, 12, 0.18)';
+    ctx.fillStyle = 'rgba(10, 10, 12, 0.22)';
     ctx.fillRect(0, 0, width, height);
 
     ctx.font = `bold ${FONT_SIZE}px "JetBrains Mono", monospace`;
     ctx.textAlign = 'center';
 
-    const rainOpacity = Math.max(0, 1 - (convergenceProgress * 1.25));
+    // Cascata Contínua de Matriz (Chuva binária de 0s e 1s em toda a seção)
+    for (let i = 0; i < columns; i++) {
+      const char = BINARY_CHARS[(Math.floor(Math.random() * 2))];
+      const x = i * FONT_SIZE + (FONT_SIZE / 2);
+      const y = drops[i] * FONT_SIZE;
 
-    // 1. Cascata de Matriz (Chuva binária de 0s e 1s)
-    if (rainOpacity > 0.05) {
-      for (let i = 0; i < columns; i++) {
-        const char = BINARY_CHARS[(Math.floor(Math.random() * 2))];
-        const x = i * FONT_SIZE + (FONT_SIZE / 2);
-        const y = drops[i] * FONT_SIZE;
-
-        // Desvio magnético por aproximação do cursor
-        let drawX = x;
-        const dx = x - mouseX;
-        const dy = y - mouseY;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 100) {
-          drawX += (dx / dist) * (100 - dist) * 0.3;
-        }
-
-        // Cabeça brilhante do rastro (Leading spark)
-        ctx.fillStyle = Math.random() > 0.85
-          ? `rgba(255, 255, 255, ${rainOpacity})`
-          : dropColors[i].replace(')', `, ${rainOpacity})`).replace('rgb', 'rgba').replace('#', 'rgba(');
-
-        // Se a cor for hex, desenha direto
-        if (dropColors[i].startsWith('#')) {
-          ctx.fillStyle = dropColors[i];
-          ctx.globalAlpha = rainOpacity;
-        }
-
-        ctx.fillText(char, drawX, y);
-        ctx.globalAlpha = 1.0;
-
-        // Reseta gota ao passar do rodapé
-        if (y > height && Math.random() > 0.975) {
-          drops[i] = 0;
-          dropSpeeds[i] = 1.2 + Math.random() * 2.8;
-        }
-
-        drops[i] += dropSpeeds[i] * (1 - convergenceProgress * 0.5);
+      // Desvio magnético por aproximação do cursor
+      let drawX = x;
+      const dx = x - mouseX;
+      const dy = y - mouseY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 120) {
+        drawX += (dx / dist) * (120 - dist) * 0.35;
       }
-    }
 
-    // 2. Convergência Tipográfica: os binários migram e formam as palavras
-    if (convergenceProgress > 0.05 && textParticles.length) {
-      const ease = convergenceProgress;
+      // Cabeça brilhante do rastro (100% vermelho elétrico neon, sem verde ou branco puro)
+      if (Math.random() > 0.88) {
+        ctx.fillStyle = '#FF7B80';
+      } else {
+        ctx.fillStyle = dropColors[i];
+      }
 
-      textParticles.forEach((p) => {
-        // Interpolação suave (lerp) das coordenadas em direção ao caractere alvo
-        p.x += (p.targetX - p.x) * (0.08 + ease * 0.12);
-        p.y += (p.targetY - p.y) * (0.08 + ease * 0.12);
+      ctx.fillText(char, drawX, y);
 
-        // Decodificação binária: alterna 0 e 1 rapidamente e fixa na letra final
-        if (ease < 0.88) {
-          p.scrambleCounter--;
-          if (p.scrambleCounter <= 0) {
-            p.currentDisplay = Math.random() > 0.5 ? '0' : '1';
-            p.scrambleCounter = Math.floor(Math.random() * 6) + 2;
-          }
-        } else {
-          p.currentDisplay = p.char;
-        }
+      // Reseta gota ao ultrapassar o rodapé da seção de projetos
+      if (y > height && Math.random() > 0.975) {
+        drops[i] = 0;
+        dropSpeeds[i] = 1.3 + Math.random() * 2.5;
+      }
 
-        // Desenha caractere em convergência
-        ctx.save();
-        ctx.font = `900 ${p.size}px ${p.isSub ? '"Anton", sans-serif' : '"Monument Extended", "Syne", sans-serif'}`;
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-
-        // Brilho volumétrico neon
-        if (ease > 0.4) {
-          ctx.shadowColor = p.glowColor;
-          ctx.shadowBlur = Math.min(25, ease * 28);
-        }
-
-        ctx.fillStyle = ease > 0.75 ? p.color : (Math.random() > 0.3 ? '#FF1E26' : '#FF3B30');
-        ctx.globalAlpha = Math.min(1, ease * 1.4);
-        ctx.fillText(p.currentDisplay, p.x, p.y);
-        ctx.restore();
-      });
+      drops[i] += dropSpeeds[i];
     }
 
     rafId = requestAnimationFrame(render);
@@ -257,36 +154,11 @@ export function initMatrixCascade() {
         stop();
       }
     });
-  }, { rootMargin: '150px' });
+  }, { rootMargin: '200px' });
 
   observer.observe(section);
   resize();
   window.addEventListener('resize', resize, { passive: true });
-  document.fonts?.ready.then(() => {
-    calculateConvergenceTargets();
-  });
-
-  // GSAP ScrollTrigger orquestrando o progresso da cascata e convergência
-  if (typeof ScrollTrigger !== 'undefined') {
-    ScrollTrigger.addEventListener('refresh', calculateConvergenceTargets);
-
-    ScrollTrigger.create({
-      trigger: section,
-      start: 'top 85%',
-      end: 'top 20%',
-      scrub: 1.1,
-      onUpdate: (self) => {
-        convergenceProgress = self.progress;
-
-        // Ao se aproximar de 100%, faz fade sutil no canvas para liberar a tipografia DOM oficial
-        if (self.progress > 0.88) {
-          wrapper.style.opacity = `${(1 - (self.progress - 0.88) / 0.12 * 0.7).toFixed(2)}`;
-        } else {
-          wrapper.style.opacity = '0.95';
-        }
-      },
-    });
-  }
 
   return {
     resize,
