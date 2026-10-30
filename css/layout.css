@@ -34,238 +34,78 @@ body.is-loading {
   user-select: none;
 }
 
-/* Brilho radial ambiente vermelho suave */
+/* ==========================================================================
+   PRELOADER MINIMALISTA VL TECH (Fundo #0A0A0C + "VL" Central + 0% a 100%)
+   ========================================================================== */
+
+/* Brilho radial ambiente vermelho suave centralizado */
 .preloader__glow {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: min(580px, 85vw);
-  height: min(580px, 85vw);
+  width: min(720px, 90vw);
+  height: min(720px, 90vw);
   transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(255, 30, 38, 0.16) 0%, rgba(10, 10, 12, 0) 70%);
-  filter: blur(55px);
+  background: radial-gradient(circle, rgba(255, 30, 38, 0.22) 0%, rgba(255, 30, 38, 0.05) 45%, transparent 70%);
+  filter: blur(65px);
   pointer-events: none;
   z-index: 1;
 }
 
-/* Grade gráfica milimétrica sutil no fundo */
-.preloader__grid {
-  position: absolute;
-  inset: 0;
-  background-image: 
-    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-  background-size: 50px 50px;
-  mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
-  -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* Container centralizado com composição editorial */
-.preloader__inner {
+/* Container centralizado minimalista */
+.preloader__minimal-wrap {
   position: relative;
   z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  max-width: 520px;
-  padding-inline: var(--space-lg);
   text-align: center;
+  padding-inline: var(--space-lg);
 }
 
-/* Linha superior de metadados técnicos */
-.preloader__eyebrow {
+/* Monograma "VL" Monumental Limpo */
+.preloader__monogram-display {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  margin-bottom: var(--space-xl);
-  font-family: var(--font-mono);
-  font-size: var(--fs-xs);
-  letter-spacing: 0.14em;
-  color: rgba(248, 248, 252, 0.45);
-  text-transform: uppercase;
-}
-
-.preloader__tag {
-  color: rgba(248, 248, 252, 0.5);
-}
-
-.preloader__badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 3px 8px;
-  border-radius: var(--radius-pill);
-  background: rgba(255, 30, 38, 0.1);
-  border: 1px solid rgba(255, 30, 38, 0.3);
-  color: var(--accent-red);
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-}
-
-.preloader__pulse-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: var(--accent-red);
-  box-shadow: 0 0 8px var(--accent-red);
-  animation: preloaderDotPulse 1.2s infinite ease-in-out;
-}
-
-@keyframes preloaderDotPulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.35; transform: scale(0.75); }
-}
-
-/* Área da marca / logotipo / monograma */
-.preloader__brand {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: var(--space-xl);
-}
-
-.preloader__logo-box {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  margin-bottom: var(--space-md);
-}
-
-.preloader__logo-img {
-  height: 48px;
-  width: auto;
-  object-fit: contain;
-  border-radius: var(--radius-sm);
-  filter: drop-shadow(0 0 16px rgba(255, 30, 38, 0.35));
-}
-
-.preloader__monogram {
-  position: relative;
-  width: 38px;
-  height: 38px;
-  display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+.preloader__vl-text {
   font-family: var(--font-monument);
+  font-size: clamp(6.5rem, 18vw, 14rem);
   font-weight: 900;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 30, 38, 0.35);
-  border-radius: 8px;
+  line-height: 0.82;
+  letter-spacing: -0.05em;
+  color: #FFFFFF;
+  text-shadow: 0 0 45px rgba(255, 255, 255, 0.2), 0 0 85px rgba(255, 30, 38, 0.35);
 }
 
-.preloader__letter-v {
-  position: absolute;
-  font-size: 1.2rem;
-  color: rgba(248, 248, 252, 0.35);
-  transform: translate(-3px, -2px);
-}
-
-.preloader__letter-l {
-  position: absolute;
-  font-size: 1.25rem;
-  color: var(--accent-red);
-  text-shadow: 0 0 12px rgba(255, 30, 38, 0.8);
-  transform: translate(2px, 2px);
-}
-
-.preloader__title {
-  font-family: var(--font-monument);
-  font-size: clamp(2rem, 6vw, 3.25rem);
-  font-weight: 900;
-  line-height: 1;
-  letter-spacing: 0.16em;
-  color: #F8F8FC;
-  text-transform: uppercase;
-  margin: 0;
-}
-
-.preloader__subtitle {
+/* Tagline Editorial Subjacente */
+.preloader__tagline {
   font-family: var(--font-mono);
-  font-size: clamp(0.68rem, 1.5vw, 0.78rem);
-  letter-spacing: 0.22em;
-  color: rgba(248, 248, 252, 0.45);
+  font-size: clamp(0.68rem, 1.4vw, 0.82rem);
+  letter-spacing: 0.24em;
+  color: rgba(248, 248, 252, 0.65);
   text-transform: uppercase;
-  margin-top: var(--space-xs);
+  margin-top: 1.5rem;
+  margin-bottom: 0;
 }
 
-/* Barra de progresso com detalhes em vermelho (#FF1E26) */
-.preloader__bar-container {
-  width: 100%;
-  margin-bottom: var(--space-md);
-}
-
-.preloader__bar-track {
-  position: relative;
-  width: 100%;
-  height: 4px;
-  background: rgba(255, 255, 255, 0.07);
-  border-radius: var(--radius-pill);
-  border: 1px solid rgba(255, 30, 38, 0.18);
-  overflow: hidden;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.8);
-}
-
-.preloader__bar-fill {
-  position: relative;
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, #FF1E26 0%, #FF3D44 70%, #FFFFFF 100%);
-  box-shadow: 0 0 16px rgba(255, 30, 38, 0.9), 0 0 30px rgba(255, 30, 38, 0.5);
-  border-radius: var(--radius-pill);
-  will-change: width;
-}
-
-.preloader__bar-flare {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #FFFFFF;
-  box-shadow: 0 0 10px #FFFFFF, 0 0 18px rgba(255, 30, 38, 1);
-}
-
-/* Rodapé do Preloader: Status dinâmico e Contador Numérico de Porcentagem */
-.preloader__footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  gap: var(--space-md);
-}
-
-.preloader__status {
-  font-family: var(--font-mono);
-  font-size: var(--fs-xs);
-  letter-spacing: 0.12em;
-  color: rgba(248, 248, 252, 0.7);
-  text-transform: uppercase;
-  text-align: left;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.preloader__counter-box {
+/* Contador Numérico de Progresso em números puros (0% a 100%) */
+.preloader__counter-clean {
   display: inline-flex;
   align-items: baseline;
   font-family: var(--font-mono);
-  font-size: var(--fs-lg);
+  font-size: clamp(1.2rem, 2.5vw, 1.85rem);
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
   color: #F8F8FC;
   font-variant-numeric: tabular-nums;
+  margin-top: 1.25rem;
 }
 
-.preloader__counter {
+.preloader__counter-number {
   min-width: 2.2ch;
   text-align: right;
 }
@@ -274,22 +114,7 @@ body.is-loading {
   color: var(--accent-red);
   font-size: 0.85em;
   margin-left: 2px;
-  text-shadow: 0 0 10px rgba(255, 30, 38, 0.6);
-}
-
-@media (max-width: 600px) {
-  .preloader__eyebrow {
-    margin-bottom: var(--space-md);
-  }
-  .preloader__brand {
-    margin-bottom: var(--space-lg);
-  }
-  .preloader__title {
-    font-size: 2.2rem;
-  }
-  .preloader__status {
-    font-size: 0.65rem;
-  }
+  text-shadow: 0 0 12px rgba(255, 30, 38, 0.8);
 }
 
 /* ==========================================================================
@@ -440,6 +265,17 @@ body.is-loading {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.45s ease;
+  will-change: opacity, transform;
+}
+
+/* O menu flutuante superior desaparece suavemente fora da seção Hero */
+.nav.is-outside-hero .nav__center-group,
+.nav-floating.is-outside-hero .nav__center-group {
+  opacity: 0 !important;
+  transform: translate(-50%, -24px) !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
 }
 
 /* Switcher de Perfil dos Sócios */
@@ -909,18 +745,23 @@ body.is-loading {
   padding-top: calc(var(--nav-height) + var(--space-xl));
   padding-bottom: var(--space-xl);
   overflow: hidden;
-  will-change: opacity, transform;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  will-change: opacity, transform, visibility;
 }
 
 .scrolly-stage--luiz {
   z-index: 4;
   opacity: 1;
+  visibility: visible;
   pointer-events: auto;
 }
 
 .scrolly-stage--logo {
   z-index: 10;
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
   display: flex;
   align-items: center;
@@ -931,6 +772,7 @@ body.is-loading {
 .scrolly-stage--victor {
   z-index: 5;
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
 }
 
@@ -1201,8 +1043,8 @@ body.is-loading {
   align-items: baseline;
   text-align: left;
   text-shadow: 0 0 25px rgba(255, 30, 38, 0.25);
-  visibility: visible !important;
-  opacity: 1 !important;
+  visibility: visible;
+  opacity: 1;
 }
 
 /* Integração visual da letra inicial (L / V) com a marca VL Tech */
@@ -1296,8 +1138,8 @@ body.is-loading {
   text-align: left;
   align-self: flex-start;
   display: block;
-  visibility: visible !important;
-  opacity: 1 !important;
+  visibility: visible;
+  opacity: 1;
   transition: all 0.3s ease;
 }
 
@@ -3316,12 +3158,16 @@ body.is-loading {
   aspect-ratio: 16 / 10;
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
 }
 
+.screen-mockup-card:hover,
 .screen-mockup-card.is-active {
   border-color: var(--accent-red);
-  box-shadow: 0 0 16px rgba(255, 30, 38, 0.4);
+  box-shadow: 0 0 20px rgba(255, 30, 38, 0.45);
   transform: translateY(-4px) scale(1.05);
 }
 
@@ -3329,16 +3175,21 @@ body.is-loading {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.screen-mockup-card:hover img {
+  transform: scale(1.08);
 }
 
 .screen-mockup-meta {
   position: absolute;
   inset: 0;
-  background: linear-gradient(0deg, rgba(10, 10, 14, 0.95) 0%, transparent 65%);
+  background: linear-gradient(0deg, rgba(10, 10, 14, 0.95) 0%, rgba(10, 10, 14, 0.4) 50%, transparent 80%);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 6px;
+  padding: 8px;
   font-size: 0.6rem;
   color: #F8F8FC;
 }
@@ -3347,12 +3198,35 @@ body.is-loading {
   font-family: var(--font-body);
   font-size: 0.65rem;
   line-height: 1.1;
+  color: #FFFFFF;
 }
 
 .screen-mockup-meta span {
   font-family: var(--font-mono);
   font-size: 0.55rem;
   color: var(--accent-red);
+}
+
+.screen-mockup-tag {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 4px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(255, 30, 38, 0.2);
+  border: 1px solid rgba(255, 30, 38, 0.5);
+  color: #FFF !important;
+  font-family: var(--font-mono) !important;
+  font-size: 0.52rem !important;
+  letter-spacing: 0.05em;
+  width: fit-content;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.screen-mockup-card:hover .screen-mockup-tag {
+  background: var(--accent-red);
+  border-color: var(--accent-red);
+  color: #FFF !important;
 }
 
 /* Base / Teclado do Notebook */
@@ -3770,4 +3644,73 @@ body.is-loading {
     margin-inline: auto;
   }
 }
+
+/* ==========================================================================
+   RODAPÉ AWWWARDS — FAQ ACORDEÃO E MARCA MONUMENTAL VL TECH
+   ========================================================================== */
+
+.footer--awwwards {
+  background-color: #0A0A0C !important;
+  position: relative;
+  overflow: hidden;
+  padding-top: var(--space-3xl);
+  padding-bottom: var(--space-xl);
+}
+
+.footer-faq-section {
+  position: relative;
+  margin-top: var(--space-3xl);
+  margin-bottom: var(--space-3xl);
+  padding-top: var(--space-2xl);
+  border-top: 1px solid rgba(255, 30, 38, 0.2);
+}
+
+.footer-faq__header {
+  text-align: left;
+  margin-bottom: var(--space-xl);
+}
+
+.footer-faq__title {
+  font-family: var(--font-monument);
+  font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+  font-weight: 900;
+  color: #F8F8FC;
+  margin: 0.25rem 0 0.5rem 0;
+  line-height: 1.15;
+}
+
+.footer-faq__lead {
+  font-size: 0.95rem;
+  color: var(--text-muted-light);
+  max-width: 680px;
+  line-height: 1.6;
+}
+
+/* Grande Destaque Tipográfico no rodapé inferior */
+.footer-brand-monumental {
+  position: relative;
+  width: 100%;
+  margin-top: var(--space-2xl);
+  margin-bottom: var(--space-lg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.footer-brand-monumental .footer__wordmark {
+  font-family: var(--font-monument);
+  font-size: clamp(4.5rem, 16vw, 17rem);
+  font-weight: 900;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  color: #FF1E26;
+  text-shadow: 0 0 35px rgba(255, 30, 38, 0.75), 0 0 90px rgba(255, 30, 38, 0.4), 0 0 160px rgba(255, 30, 38, 0.2);
+  text-align: center;
+  margin: 0;
+  white-space: nowrap;
+  user-select: none;
+}
+
 

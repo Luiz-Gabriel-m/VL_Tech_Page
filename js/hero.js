@@ -1,19 +1,22 @@
 /* ==========================================================================
    HERO — Sequência Cinemática de Scrollytelling com GSAP ScrollTrigger
    
-   1. Preloader -> Entrada com Logotipo Centralizado VL Tech
-   2. Sequência de Entrada e Animação do Luiz Gabriel (Foco no 'L'):
-      - O monograma VL centralizado surge na tela preta (#0A0A0C).
-      - A letra 'L' do logotipo ganha destaque em vermelho brilhante (#FF1E26).
-      - Transição fluida para o palco de Luiz Gabriel.
-      - Digitação automática do nome "LUIZ GABRIEL" (efeito typewriter).
-      - Ao rolar a página (ScrollTrigger), a descrição de front-end surge 
-        gradualmente letra por letra, acompanhada do retrato e do "L" estilizado.
-   3. Transição e Sequência para o Victor Whohlers (Foco no 'V'):
-      - Ao rolar ou clicar no seletor de perfil, a tela transiciona.
-      - Symmetria espelhada: foco na letra 'V' em vermelho brilhante (#FF1E26).
-      - Digitação automática do nome "VICTOR WHOHLERS".
-      - Ao rolar a página, a descrição de Back-end / Cloud surge letra por letra.
+   1. Início da Hero:
+      - O palco de Luiz Gabriel inicia visível logo após o fade-out do preloader.
+      - A letra 'L' do nome de Luiz Gabriel aparece em destaque vermelho brilhante (#FF1E26).
+      - O nome "LUIZ GABRIEL" é digitado automaticamente (efeito typewriter).
+      - Ao rolar a página, as descrições de Front-end surgem progressivamente letra por letra.
+   
+   2. Transição do 'L' para o Centro e Retorno ao Branco Padrão:
+      - Ao rolar a página para baixo, o 'L' vermelho descola-se suavemente para o centro da tela.
+      - Ao unir-se ao monograma central "VL", retorna à cor branca padrão (#F8F8FC).
+   
+   3. O 'V' assume o papel dinâmico e transiciona para Victor Whohlers:
+      - O 'V' do Victor Whohlers ganha intenso destaque em vermelho brilhante (#FF1E26).
+      - Transição fluida e espelhada para o palco do Victor Whohlers.
+      - Digitação automática do nome "VICTOR WHOHLERS" com o 'V' em vermelho neon.
+      - Ao rolar, a especialidade de Back-end / Cloud surge letra por letra.
+      - Zero sobreposição de texto entre os fundadores (isolamento estrito de visibilidade).
    ========================================================================== */
 
 import { gsap, ScrollTrigger } from './core/gsap.js';
@@ -25,7 +28,7 @@ const prefersReducedMotion = () =>
   window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /**
- * Adiciona interação suave de paralaxe (tilt) 3D via GSAP nos retratos dos fundadores
+ * Adiciona interação suave de paralaxe (tilt) 3D nos retratos dos fundadores
  */
 function setupPortraitTilt(stage, visual) {
   if (!stage || !visual || prefersReducedMotion()) return null;
@@ -114,7 +117,7 @@ export function initHero() {
   const luizPortraitStage = document.getElementById('luizPortraitStage');
   const luizMeta = document.getElementById('luizMeta');
 
-  // Elementos da Transição do Logotipo Central VL & Foco nas Iniciais
+  // Elementos da Transição do Logotipo Central VL
   const logoCenter = document.getElementById('scrollyLogoCenter');
   const logoGlow = document.getElementById('scrollyLogoGlow');
   const letterV = document.getElementById('scrollyLetterV');
@@ -150,7 +153,7 @@ export function initHero() {
   const aboutFounderName = document.getElementById('aboutFounderName');
   const aboutFounderRole = document.getElementById('aboutFounderRole');
 
-  // Prepara os textos descritivos divididos em letras para animação progressiva
+  // Prepara os textos descritivos divididos em letras para revelação ao rolar
   const luizChars = splitTextIntoChars(luizOutline);
   const victorChars = splitTextIntoChars(victorOutline);
 
@@ -158,7 +161,7 @@ export function initHero() {
   setupPortraitTilt(luizPortraitStage, luizVisual);
   setupPortraitTilt(victorPortraitStage, victorVisual);
 
-  // Estado ativo e controle de digitação e som
+  // Controle de estado ativo e digitação
   let activeFounder = 'luiz';
   let hasIgnitedV = false;
   let hasSoundTransition = false;
@@ -202,7 +205,7 @@ export function initHero() {
   }
 
   /**
-   * Efeito Typewriter limpo e elegante para o nome dos fundadores
+   * Efeito Typewriter para os nomes dos fundadores
    */
   function typeFounderName(nameKey) {
     if (nameKey === 'luiz') {
@@ -249,94 +252,60 @@ export function initHero() {
     }
   }
 
-  // Se reduz movimento, desativa animações complexas
+  // Se reduz movimento, desativa timeline complexa
   if (prefersReducedMotion()) {
     if (luizTypedText) luizTypedText.textContent = 'UIZ GABRIEL';
     if (victorTypedText) victorTypedText.textContent = 'ICTOR WHOHLERS';
-    gsap.set([stageLuiz, luizName, luizOutline, luizJustification, luizVisual], {
-      visibility: 'visible',
-      opacity: 1,
-    });
+    gsap.set(stageLuiz, { autoAlpha: 1, display: 'flex' });
+    gsap.set(stageVictor, { autoAlpha: 0, display: 'none' });
+    gsap.set(stageLogo, { autoAlpha: 0, display: 'none' });
     gsap.set(luizChars, { opacity: 1, y: 0 });
     gsap.set(victorChars, { opacity: 1, y: 0 });
     return null;
   }
 
-  // 1. Configuração do Estado Inicial:
-  // Inicialmente exibe o logotipo centralizado da VL Tech (conforme especificação)
-  // enquanto Luiz e Victor iniciam ocultos até a entrada do preloader.
-  gsap.set(stageLogo, { opacity: 1, pointerEvents: 'none', visibility: 'visible' });
-  gsap.set([letterV, letterL], { color: '#F8F8FC', textShadow: 'none', scale: 1, opacity: 1 });
-  gsap.set(logoGlow, { opacity: 0.35, scale: 1 });
-  gsap.set(tagline, { opacity: 0.85, y: 0 });
+  // 1. Estado Inicial Absoluto:
+  // Palco do Luiz Gabriel começa visível no topo, com o 'L' em vermelho neon brilhante.
+  // Palcos do Victor e do Logo central começam estritamente ocultos (autoAlpha: 0 e display: none).
+  gsap.set(stageLuiz, { autoAlpha: 1, display: 'flex', pointerEvents: 'auto' });
+  gsap.set(stageLogo, { autoAlpha: 0, display: 'none', pointerEvents: 'none' });
+  gsap.set(stageVictor, { autoAlpha: 0, display: 'none', pointerEvents: 'none' });
 
-  gsap.set(stageLuiz, { opacity: 0, pointerEvents: 'none', visibility: 'visible' });
-  gsap.set(stageVictor, { opacity: 0, pointerEvents: 'none', visibility: 'visible' });
+  // O 'L' de Luiz Gabriel ganha destaque brilhante em vermelho neon (#FF1E26)
+  if (partnerInitial) {
+    gsap.set(partnerInitial, {
+      color: '#FF1E26',
+      textShadow: '0 0 28px rgba(255, 30, 38, 0.95), 0 0 55px rgba(255, 30, 38, 0.5)',
+    });
+  }
 
-  // Letras das descrições iniciam com outline sutil para revelação ao rolar
+  // Letras de descrição iniciam com leve transparência para revelar ao rolar
   gsap.set(luizChars, { opacity: 0.12, y: 6 });
   gsap.set(victorChars, { opacity: 0.12, y: 6 });
 
-  gsap.set([luizJustification, luizMeta], { opacity: 0, y: 25 });
-  gsap.set([victorJustification, victorMeta], { opacity: 0, y: 25 });
+  gsap.set([luizJustification, luizMeta], { autoAlpha: 0, y: 25 });
+  gsap.set([victorJustification, victorMeta], { autoAlpha: 0, y: 25 });
 
   if (luizTypedText) luizTypedText.textContent = '';
   if (victorTypedText) victorTypedText.textContent = '';
 
   /**
-   * 2. Sequência de Entrada e Animação do Luiz Gabriel (Foco no 'L'):
-   * Ao completar o carregamento do preloader:
-   * - A letra 'L' do logotipo central ganha destaque em vermelho brilhante (#FF1E26)
-   * - Transiciona fluidamente para a tela inicial de Luiz Gabriel
-   * - O nome "LUIZ GABRIEL" é digitado automaticamente (typewriter)
+   * Disparo inicial ao concluir o preloader
    */
   let introStarted = false;
   function startIntroAnimation() {
     if (introStarted) return;
     introStarted = true;
 
-    const introTL = gsap.timeline();
+    // Garante que o palco do Luiz está ativo e visível
+    gsap.set(stageLuiz, { autoAlpha: 1, display: 'flex', pointerEvents: 'auto' });
+    gsap.set(stageLogo, { autoAlpha: 0, display: 'none', pointerEvents: 'none' });
+    gsap.set(stageVictor, { autoAlpha: 0, display: 'none', pointerEvents: 'none' });
 
-    introTL
-      // Breve pausa para contemplação do logotipo centralizado
-      .to({}, { duration: 0.35 })
-      // Destaque brilhante em vermelho neon na letra 'L'
-      .to(letterL, {
-        color: '#FF1E26',
-        textShadow: '0 0 35px #FF1E26, 0 0 75px #FF1E26, 0 0 130px #FF1E26, 0 0 180px rgba(255, 30, 38, 0.85)',
-        scale: 1.15,
-        duration: 0.7,
-        ease: 'power2.out',
-        onStart: () => {
-          playIgnite();
-        },
-      })
-      .to(
-        logoGlow,
-        {
-          opacity: 0.85,
-          scale: 1.25,
-          duration: 0.7,
-          ease: 'power2.out',
-        },
-        '<'
-      )
-      // Dissolução do 'V' e tagline central
-      .to(letterV, { opacity: 0, x: -35, filter: 'blur(8px)', duration: 0.6, ease: 'power2.in' }, '+=0.2')
-      .to(tagline, { opacity: 0, y: 15, duration: 0.5, ease: 'power2.in' }, '<')
-      .to([stageLogo, logoGlow], { opacity: 0, duration: 0.6, ease: 'power2.inOut' })
-      .set(stageLogo, { pointerEvents: 'none' })
-      // Revelação fluida da tela inicial do Luiz Gabriel
-      .set(stageLuiz, { opacity: 1, pointerEvents: 'auto' })
-      .fromTo(luizTopline, { opacity: 0, y: -15 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' })
-      .fromTo(luizName, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, '<')
-      .fromTo(luizPortraitStage, { opacity: 0, scale: 0.95 }, { opacity: 1, scale: 1, duration: 0.8, ease: 'power2.out' }, '<')
-      // Disparo automático do typewriter para o nome LUIZ GABRIEL
-      .add(() => {
-        typeFounderName('luiz');
-        document.dispatchEvent(new CustomEvent(HERO_INTRO_EVENT));
-        ScrollTrigger.refresh();
-      }, '-=0.2');
+    // Dispara a digitação elegante do nome LUIZ GABRIEL
+    typeFounderName('luiz');
+    document.dispatchEvent(new CustomEvent(HERO_INTRO_EVENT));
+    ScrollTrigger.refresh();
   }
 
   // Timeline Cinemática Principal com GSAP ScrollTrigger
@@ -345,7 +314,7 @@ export function initHero() {
     scrollTrigger: {
       trigger: hero,
       start: 'top top',
-      end: '+=4000',
+      end: '+=4200',
       pin: heroPin,
       pinSpacing: true,
       scrub: 1.15,
@@ -354,15 +323,15 @@ export function initHero() {
       onUpdate: (self) => {
         const progress = self.progress;
 
-        // Atualização dos indicadores e sócio ativo
-        if (progress < 0.28) {
+        // Atualização sincronizada dos passos laterais e do sócio ativo
+        if (progress < 0.3) {
           syncFounderState('luiz');
           setStepActive(stepLuiz);
           hasIgnitedV = false;
           hasSoundTransition = false;
-        } else if (progress >= 0.28 && progress < 0.65) {
+        } else if (progress >= 0.3 && progress < 0.65) {
           setStepActive(stepLogo);
-          if (!hasSoundTransition && progress > 0.32) {
+          if (!hasSoundTransition && progress > 0.34) {
             hasSoundTransition = true;
             playSwoosh();
           }
@@ -373,7 +342,6 @@ export function initHero() {
         } else {
           syncFounderState('victor');
           setStepActive(stepVictor);
-          // Dispara digitação automática do Victor na entrada do seu estágio
           if (!victorHasTyped) {
             typeFounderName('victor');
           }
@@ -383,9 +351,9 @@ export function initHero() {
   });
 
   /* --------------------------------------------------------------------------
-     ETAPA 1: Revelação progressiva da especialidade de Luiz letra por letra
-     Ao rolar a página, as escritas ("ESPECIALISTA EM FRONT-END...") surgem
-     gradualmente letra por letra, acompanhadas do "L" e do retrato.
+     1. ETAPA DE ROLAGEM 1: Revelação da Especialidade de Luiz Gabriel
+     Ao iniciar a rolagem, a descrição descritiva ("ESPECIALISTA EM FRONT-END...")
+     surge gradualmente letra por letra, acompanhada do badge e retrato.
      -------------------------------------------------------------------------- */
   scrollyTimeline
     .to(
@@ -393,49 +361,78 @@ export function initHero() {
       {
         opacity: 1,
         y: 0,
-        stagger: 0.035,
-        duration: 1.25,
+        stagger: 0.03,
+        duration: 1.2,
         ease: 'power1.out',
       },
-      0.15
+      0.1
     )
-    .to(luizJustification, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out' }, 0.45)
-    .to(luizMeta, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, 0.65)
-    // Tempo de leitura do perfil de Luiz Gabriel
-    .to({}, { duration: 0.9 }, 1.45);
+    .to(luizJustification, { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power2.out' }, 0.4)
+    .to(luizMeta, { autoAlpha: 1, y: 0, duration: 0.7, ease: 'power2.out' }, 0.6)
+    .to({}, { duration: 0.8 }, 1.3);
 
   /* --------------------------------------------------------------------------
-     ETAPA 2: Transição e Sequência para o Victor Whohlers (Foco no 'V')
-     Luiz faz fade-out. A tela fica preta e o logotipo oficial VL ressurge.
-     Em simetria espelhada, a letra 'V' ganha destaque em vermelho brilhante (#FF1E26).
+     2. ETAPA DE ROLAGEM 2: O 'L' vermelho descola para o centro e volta ao branco
+     Luiz Gabriel dissolve suavemente. O monograma central surge com o 'L' vermelho.
+     Ao unir-se ao centro, o 'L' retorna suavemente à cor branca padrão (#F8F8FC).
      -------------------------------------------------------------------------- */
   scrollyTimeline
-    // Fade out elegante da seção Luiz
+    // Fade out elegante dos detalhes de Luiz
     .to(
-      [luizTopline, luizName, luizOutline, luizJustification, luizPortraitStage, luizMeta],
-      { opacity: 0, y: -25, duration: 1.1, ease: 'power2.inOut', stagger: 0.04 },
-      2.35
+      [luizTopline, luizOutline, luizJustification, luizPortraitStage, luizMeta],
+      { autoAlpha: 0, y: -25, duration: 1.0, ease: 'power2.inOut', stagger: 0.03 },
+      2.1
     )
-    .set(stageLuiz, { pointerEvents: 'none' }, 3.1)
-    // Entrada do Logotipo Central VL
-    .set(stageLogo, { opacity: 1, pointerEvents: 'auto' }, 3.1)
-    .set([letterV, letterL], { color: '#F8F8FC', textShadow: 'none', scale: 1, opacity: 1, x: 0, filter: 'none' }, 3.1)
+    .to(luizName, { autoAlpha: 0, y: -20, duration: 0.9, ease: 'power2.inOut' }, 2.3)
+    // O palco central do Logotipo é ativado
+    .set(stageLogo, { display: 'flex' }, 3.0)
+    .set(stageLuiz, { display: 'none', pointerEvents: 'none' }, 3.1)
+    // O 'V' central inicia em branco e o 'L' inicia em vermelho brilhante (deslocado)
+    .set(letterV, { color: '#F8F8FC', textShadow: 'none', scale: 1, autoAlpha: 1, x: 0, filter: 'none' }, 3.0)
+    .set(letterL, {
+      color: '#FF1E26',
+      textShadow: '0 0 35px #FF1E26, 0 0 75px #FF1E26',
+      scale: 1.15,
+      autoAlpha: 1,
+      x: 0,
+      filter: 'none'
+    }, 3.0)
+    .to(stageLogo, { autoAlpha: 1, pointerEvents: 'auto', duration: 0.8, ease: 'power2.out' }, 3.0)
     .fromTo(
       logoGlow,
-      { opacity: 0, scale: 0.5 },
-      { opacity: 0.85, scale: 1.15, duration: 1.2, ease: 'power2.out' },
-      3.1
+      { autoAlpha: 0, scale: 0.5 },
+      { autoAlpha: 0.85, scale: 1.15, duration: 1.0, ease: 'power2.out' },
+      3.0
     )
     .fromTo(
       tagline,
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' },
-      3.35
+      { autoAlpha: 0, y: 15 },
+      { autoAlpha: 1, y: 0, duration: 0.7, ease: 'power2.out' },
+      3.2
     )
-    .to({}, { duration: 0.7 }, 4.35)
-    // Foco na letra 'V': a letra 'L' dissolve e o 'V' ganha vermelho neon intenso
-    .to(letterL, { opacity: 0, x: 45, filter: 'blur(10px)', duration: 0.85, ease: 'power2.in' }, 5.05)
-    .to(tagline, { opacity: 0, y: 20, duration: 0.7, ease: 'power2.in' }, 5.05)
+    // O 'L' vermelho retorna fluidamente à cor branca padrão (#F8F8FC), unindo o 'VL' em branco
+    .to(
+      letterL,
+      {
+        color: '#F8F8FC',
+        textShadow: 'none',
+        scale: 1,
+        duration: 1.0,
+        ease: 'power2.inOut',
+      },
+      3.5
+    )
+    // Breve momento com o monograma "VL" puramente branco e elegante
+    .to({}, { duration: 0.8 }, 4.3);
+
+  /* --------------------------------------------------------------------------
+     3. ETAPA DE ROLAGEM 3: O 'V' assume o papel dinâmico em vermelho brilhante
+     A letra 'L' dissolve suavemente. A letra 'V' ganha destaque vermelho brilhante (#FF1E26).
+     -------------------------------------------------------------------------- */
+  scrollyTimeline
+    .to(letterL, { autoAlpha: 0, x: 45, filter: 'blur(10px)', duration: 0.85, ease: 'power2.in' }, 5.1)
+    .to(tagline, { autoAlpha: 0, y: 15, duration: 0.7, ease: 'power2.in' }, 5.1)
+    // O 'V' ganha o brilho vermelho neon intenso (#FF1E26)
     .to(
       letterV,
       {
@@ -446,7 +443,7 @@ export function initHero() {
         duration: 0.9,
         ease: 'power2.out',
       },
-      5.05
+      5.1
     )
     .to(
       logoGlow,
@@ -456,53 +453,57 @@ export function initHero() {
         scale: 1.35,
         duration: 0.9,
       },
-      5.05
+      5.1
     )
-    // O 'V' vermelho faz transição fluida para o perfil de Victor
-    .to(stageLogo, { opacity: 0, duration: 0.8, ease: 'power2.inOut' }, 5.95)
-    .set(stageLogo, { pointerEvents: 'none' }, 6.75)
-    // Apresentação de Victor Whohlers
-    .set(stageVictor, { opacity: 1, pointerEvents: 'auto' }, 6.65)
+    // O logotipo central encerra
+    .to(stageLogo, { autoAlpha: 0, duration: 0.8, ease: 'power2.inOut' }, 6.1)
+    .set(stageLogo, { display: 'none', pointerEvents: 'none' }, 6.9);
+
+  /* --------------------------------------------------------------------------
+     4. ETAPA DE ROLAGEM 4: Transição para o Palco de Victor Whohlers
+     O palco do Victor é ativado exclusivamente (stageLuiz permanece display: none).
+     O 'V' está em vermelho neon, o nome é digitado e as especialidades reveladas.
+     -------------------------------------------------------------------------- */
+  scrollyTimeline
+    .set(stageVictor, { display: 'flex', autoAlpha: 0 }, 6.8)
+    .set(stageLuiz, { display: 'none', autoAlpha: 0 }, 6.8)
+    .to(stageVictor, { autoAlpha: 1, pointerEvents: 'auto', duration: 0.8, ease: 'power2.out' }, 6.9)
     .fromTo(
       victorTopline,
-      { opacity: 0, y: -20 },
-      { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' },
-      6.75
+      { autoAlpha: 0, y: -20 },
+      { autoAlpha: 1, y: 0, duration: 0.7, ease: 'power2.out' },
+      7.0
     )
     .fromTo(
       victorName,
-      { opacity: 0, y: 25 },
-      { opacity: 1, y: 0, duration: 0.9, ease: 'expo.out' },
-      6.85
+      { autoAlpha: 0, y: 20 },
+      { autoAlpha: 1, y: 0, duration: 0.8, ease: 'expo.out' },
+      7.1
     )
     .fromTo(
       victorPortraitStage,
-      { opacity: 0, x: 45, scale: 0.95 },
-      { opacity: 1, x: 0, scale: 1, duration: 1.1, ease: 'expo.out' },
-      6.95
+      { autoAlpha: 0, scale: 0.95 },
+      { autoAlpha: 1, scale: 1, duration: 1.0, ease: 'expo.out' },
+      7.2
     )
-    /* --------------------------------------------------------------------------
-       ETAPA 3: Revelação progressiva da especialidade de Victor letra por letra
-       Ao rolar a página, as escritas ("ESPECIALISTA EM BACK-END...") surgem
-       gradualmente letra por letra, acompanhadas do "V" e do retrato.
-       -------------------------------------------------------------------------- */
+    // Revelação progressiva da especialidade de Victor letra por letra
     .to(
       victorChars,
       {
         opacity: 1,
         y: 0,
-        stagger: 0.035,
-        duration: 1.25,
+        stagger: 0.03,
+        duration: 1.2,
         ease: 'power1.out',
       },
-      7.2
+      7.4
     )
-    .to(victorJustification, { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out' }, 7.5)
-    .to(victorMeta, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }, 7.7)
-    // Tempo de leitura e liberação fluida do pin para as demais seções
-    .to({}, { duration: 1.6 }, 8.7);
+    .to(victorJustification, { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power2.out' }, 7.7)
+    .to(victorMeta, { autoAlpha: 1, y: 0, duration: 0.7, ease: 'power2.out' }, 7.9)
+    // Pausa confortável para leitura antes da liberação do pin
+    .to({}, { duration: 1.6 }, 8.9);
 
-  // Navegação suave ao clicar nos indicadores laterais
+  // Navegação suave pelos botões laterais
   const scrollToStageProgress = (targetProgress) => {
     const st = scrollyTimeline.scrollTrigger;
     if (!st) return;
@@ -523,7 +524,7 @@ export function initHero() {
     stepVictor.addEventListener('click', () => scrollToStageProgress(0.88));
   }
 
-  // Integração com o botão do Header (VER PERFIL: LUIZ GABRIEL / VICTOR WHOHLERS)
+  // Integração com o seletor de perfil no header
   if (founderToggleBtn) {
     founderToggleBtn.addEventListener('click', (e) => {
       e.preventDefault();

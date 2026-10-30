@@ -31,47 +31,24 @@
 <body class="is-loading">
 
   <!-- ============================== PRELOADER EDITORIAL ============================== -->
-  <aside id="preloader" class="preloader" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+  <!-- ============================== 1. PRELOADER MINIMALISTA VL TECH ============================== -->
+  <aside id="preloader" class="preloader preloader--minimal" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
     aria-label="Carregando experiência VL Tech">
-    <!-- Efeitos de iluminação ambiente e grade técnica de precisão -->
+    <!-- Brilho radial ambiente vermelho suave centralizado -->
     <div class="preloader__glow" aria-hidden="true"></div>
-    <div class="preloader__grid" aria-hidden="true"></div>
 
-    <div class="preloader__inner">
-      <!-- Tagline editorial de metadados técnicos -->
-      <div class="preloader__eyebrow">
-        <span class="preloader__tag">VL-TECH // ARCHITECTURE & SYSTEMS</span>
-        <span class="preloader__badge"><span class="preloader__pulse-dot" aria-hidden="true"></span> SYSTEM BOOT</span>
+    <div class="preloader__minimal-wrap">
+      <!-- Monograma 'VL' Monumental Limpo e Centralizado -->
+      <div class="preloader__monogram-display">
+        <span class="preloader__vl-text">VL</span>
       </div>
 
-      <!-- Centro: Logotipo oficial e nome VL TECH estilizado com Monograma -->
-      <div class="preloader__brand">
-        <div class="preloader__logo-box">
-          <img src="assets/logo/vl-logo.jpg" alt="VL Tech Logotipo" class="preloader__logo-img" width="150" height="48">
-          <div class="preloader__monogram" title="Victor Whohlers & Luiz Gabriel">
-            <span class="preloader__letter-v">V</span>
-            <span class="preloader__letter-l">L</span>
-          </div>
-        </div>
-        <h1 class="preloader__title">VL TECH</h1>
-        <p class="preloader__subtitle">HIGH PERFORMANCE SOFTWARE & WEB ARCHITECTURE</p>
-      </div>
+      <!-- Tagline Editorial Subjacente -->
+      <p class="preloader__tagline">VL TECH · HIGH PERFORMANCE ENGINEERING</p>
 
-      <!-- Barra de progresso elegante com detalhes na cor vermelha (#FF1E26) -->
-      <div class="preloader__bar-container">
-        <div class="preloader__bar-track">
-          <div id="preloaderFill" class="preloader__bar-fill">
-            <span class="preloader__bar-flare" aria-hidden="true"></span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Rodapé do Preloader: Status dinâmico + Contador Numérico de Porcentagem (0% a 100%) -->
-      <div class="preloader__footer">
-        <span id="preloaderStatus" class="preloader__status">INICIALIZANDO SISTEMAS...</span>
-        <div class="preloader__counter-box">
-          <span id="preloaderCounter" class="preloader__counter">0</span><span class="preloader__counter-unit">%</span>
-        </div>
+      <!-- Contador Numérico de Progresso (0% a 100% em números puros) -->
+      <div class="preloader__counter-clean">
+        <span id="preloaderCounter" class="preloader__counter-number">0</span><span class="preloader__counter-unit">%</span>
       </div>
     </div>
   </aside>
@@ -569,41 +546,51 @@
                       </div>
 
                       <div class="screen-mockups-grid">
-                        <div class="screen-mockup-card is-active">
+                        <a href="https://maciel-fit.vercel.app/" target="_blank" rel="noopener noreferrer"
+                          class="screen-mockup-card is-active" aria-label="Acessar projeto Maciel Fit na Vercel">
                           <img src="assets/images/portfolio/maciel-fit.jpg" alt="Maciel Fit Studio" loading="lazy">
                           <div class="screen-mockup-meta">
                             <strong>Maciel Fit Studio</strong>
                             <span>Fitness &amp; Conversão</span>
+                            <span class="screen-mockup-tag">Vercel Live ↗</span>
                           </div>
-                        </div>
-                        <div class="screen-mockup-card">
+                        </a>
+                        <a href="https://g4-beneficiadora-de-batatas.vercel.app/" target="_blank" rel="noopener noreferrer"
+                          class="screen-mockup-card" aria-label="Acessar projeto G4 Batatas na Vercel">
                           <img src="assets/images/portfolio/g4-batatas.jpg" alt="G4 Beneficiadora" loading="lazy">
                           <div class="screen-mockup-meta">
                             <strong>G4 Batatas</strong>
                             <span>Indústria &amp; B2B</span>
+                            <span class="screen-mockup-tag">Vercel Live ↗</span>
                           </div>
-                        </div>
-                        <div class="screen-mockup-card">
+                        </a>
+                        <a href="https://marinho-odonto.vercel.app/" target="_blank" rel="noopener noreferrer"
+                          class="screen-mockup-card" aria-label="Acessar projeto Marinho Odonto na Vercel">
                           <img src="assets/images/portfolio/marinho-odonto.jpg" alt="Marinho Odonto" loading="lazy">
                           <div class="screen-mockup-meta">
                             <strong>Marinho Odonto</strong>
                             <span>Estética &amp; Clínica</span>
+                            <span class="screen-mockup-tag">Vercel Live ↗</span>
                           </div>
-                        </div>
-                        <div class="screen-mockup-card">
+                        </a>
+                        <a href="https://ribeiro-team.vercel.app/" target="_blank" rel="noopener noreferrer"
+                          class="screen-mockup-card" aria-label="Acessar projeto Ribeiro Team na Vercel">
                           <img src="assets/images/portfolio/ribeiro-team.jpg" alt="Ribeiro Team" loading="lazy">
                           <div class="screen-mockup-meta">
                             <strong>Ribeiro Team</strong>
                             <span>Performance &amp; Lutas</span>
+                            <span class="screen-mockup-tag">Vercel Live ↗</span>
                           </div>
-                        </div>
-                        <div class="screen-mockup-card">
+                        </a>
+                        <a href="https://project-zil-zildo.vercel.app/" target="_blank" rel="noopener noreferrer"
+                          class="screen-mockup-card" aria-label="Acessar projeto Zildo Oliveira na Vercel">
                           <img src="assets/images/portfolio/zildo-oliveira.jpg" alt="Zildo Oliveira" loading="lazy">
                           <div class="screen-mockup-meta">
                             <strong>Zildo Oliveira</strong>
                             <span>Portal Público</span>
+                            <span class="screen-mockup-tag">Vercel Live ↗</span>
                           </div>
-                        </div>
+                        </a>
                       </div>
                     </div>
 
@@ -1037,136 +1024,10 @@
       </div>
     </section>
 
-    <!-- ============================== 7. PERGUNTAS FREQUENTES (FAQ) ============================== -->
-    <section class="section section--dark faq-section" id="faq" aria-labelledby="faq-title">
-      <div class="container">
-        <header class="section__header faq-header">
-          <div>
-            <span class="eyebrow text-red">07 — DÚVIDAS &amp; DIRETRIZES TÉCNICAS</span>
-            <h2 class="display section__title" id="faq-title">Perguntas Frequentes</h2>
-          </div>
-          <p class="section__lead">
-            Entenda como funcionam nossos ciclos de desenvolvimento ágil, arquitetura cloud de alto volume e modelos de contratação técnica.
-          </p>
-        </header>
-
-        <div class="faq-container">
-          <!-- FAQ ITEM 1 -->
-          <div class="faq-item is-open">
-            <button class="faq-trigger" type="button" aria-expanded="true" id="faq-q1" aria-controls="faq-a1">
-              <span class="faq-question">
-                <span class="faq-dot"></span>
-                Como funciona o modelo de desenvolvimento e squad dedicado da VL Tech?
-              </span>
-              <span class="faq-icon" aria-hidden="true">+</span>
-            </button>
-            <div class="faq-panel" id="faq-a1" role="region" aria-labelledby="faq-q1">
-              <div class="faq-panel__content">
-                <p>
-                  Atuamos tanto por <strong>escopo fechado</strong> (desenvolvimento integral de landing pages, plataformas 3D e sistemas web sob medida) quanto por <strong>alocação de squad dedicado</strong> liderado diretamente pelos fundadores Luiz Gabriel (Front-end &amp; Design System) e Victor Whohlers (Back-end &amp; Arquitetura Cloud). Garantimos entregas contínuas em sprints ágeis, com deploys transparentes e alinhamento estratégico semanal.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- FAQ ITEM 2 -->
-          <div class="faq-item">
-            <button class="faq-trigger" type="button" aria-expanded="false" id="faq-q2" aria-controls="faq-a2">
-              <span class="faq-question">
-                <span class="faq-dot"></span>
-                Quais são os prazos médios de entrega para uma landing page de alta conversão ou sistema?
-              </span>
-              <span class="faq-icon" aria-hidden="true">+</span>
-            </button>
-            <div class="faq-panel" id="faq-a2" role="region" aria-labelledby="faq-q2">
-              <div class="faq-panel__content">
-                <p>
-                  Landing pages institucionais e páginas de conversão de alto impacto são entregues em média entre <strong>5 a 12 dias úteis</strong>, com design exclusivo, responsividade impecável e testes de performance. Sistemas corporativos, plataformas SaaS e automações completas seguem cronogramas modulares de <strong>3 a 8 semanas</strong>, com prototipação interativa e validação prévia de cada etapa.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- FAQ ITEM 3 -->
-          <div class="faq-item">
-            <button class="faq-trigger" type="button" aria-expanded="false" id="faq-q3" aria-controls="faq-a3">
-              <span class="faq-question">
-                <span class="faq-dot"></span>
-                Como a VL Tech garante notas máximas no Google PageSpeed (Core Web Vitals)?
-              </span>
-              <span class="faq-icon" aria-hidden="true">+</span>
-            </button>
-            <div class="faq-panel" id="faq-a3" role="region" aria-labelledby="faq-q3">
-              <div class="faq-panel__content">
-                <p>
-                  Nossos projetos são desenvolvidos do zero com <strong>código nativo e enxuto</strong>, sem excesso de dependências ou construtores de páginas pesados. Aplicamos compressão avançada de assets, renderização acelerada por GPU, técnicas modernas de preloading, layouts sem Cumulative Layout Shift (CLS) e infraestrutura na borda (Edge Network / CDN global).
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- FAQ ITEM 4 -->
-          <div class="faq-item">
-            <button class="faq-trigger" type="button" aria-expanded="false" id="faq-q4" aria-controls="faq-a4">
-              <span class="faq-question">
-                <span class="faq-dot"></span>
-                Vocês criam automações e robôs integrados com WhatsApp, Instagram e CRMs?
-              </span>
-              <span class="faq-icon" aria-hidden="true">+</span>
-            </button>
-            <div class="faq-panel" id="faq-a4" role="region" aria-labelledby="faq-q4">
-              <div class="faq-panel__content">
-                <p>
-                  Sim. Desenvolvemos agentes inteligentes e fluxos automatizados de atendimento 24/7 conectados às APIs oficiais do WhatsApp Business e Instagram Graph, além de webhooks diretos para plataformas como HubSpot, RD Station, ActiveCampaign, gateways de pagamento e bancos de dados customizados.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- FAQ ITEM 5 -->
-          <div class="faq-item">
-            <button class="faq-trigger" type="button" aria-expanded="false" id="faq-q5" aria-controls="faq-a5">
-              <span class="faq-question">
-                <span class="faq-dot"></span>
-                Como funciona o suporte técnico e a evolução contínua após a entrega?
-              </span>
-              <span class="faq-icon" aria-hidden="true">+</span>
-            </button>
-            <div class="faq-panel" id="faq-a5" role="region" aria-labelledby="faq-q5">
-              <div class="faq-panel__content">
-                <p>
-                  Todos os projetos contam com <strong>garantia técnica inicial de estabilidade</strong> de 30 dias após a homologação. Oferecemos também contratos recorrentes de sustentação técnica, backups automáticos diários, monitoramento de uptime 99.9% e evolução contínua de novas funcionalidades.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- FAQ ITEM 6 -->
-          <div class="faq-item">
-            <button class="faq-trigger" type="button" aria-expanded="false" id="faq-q6" aria-controls="faq-a6">
-              <span class="faq-question">
-                <span class="faq-dot"></span>
-                Como posso solicitar uma proposta comercial ou agendar uma reunião técnica?
-              </span>
-              <span class="faq-icon" aria-hidden="true">+</span>
-            </button>
-            <div class="faq-panel" id="faq-a6" role="region" aria-labelledby="faq-q6">
-              <div class="faq-panel__content">
-                <p>
-                  Você pode falar diretamente com nossos fundadores através do botão de <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" class="faq-inline-link">WhatsApp Oficial</a>, preencher o formulário no rodapé ou enviar um e-mail para <a href="mailto:contato@vltech.com" class="faq-inline-link">contato@vltech.com</a>. Respondemos prontamente em até 2 horas úteis.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
   </main>
 
-  <!-- ============================== 8. RODAPÉ ESTILIZADO (CO-FOUNDERS & LINKEDIN) ============================== -->
-  <footer class="section section--dark footer" id="rodape">
+  <!-- ============================== 8. RODAPÉ ESTILIZADO (CO-FOUNDERS, LINKEDIN & FAQ AWWWARDS) ============================== -->
+  <footer class="section section--dark footer footer--awwwards" id="rodape">
     <div class="container">
 
       <!-- ABA DE APRESENTAÇÃO DOS CO-FOUNDERS COM LINKEDIN DIRETO -->
@@ -1285,8 +1146,131 @@
         </nav>
       </div>
 
-      <!-- Wordmark Gigante com identidade VL Tech -->
-      <p class="display footer__wordmark text-red" aria-hidden="true">VL TECH</p>
+      <!-- ============================== PERGUNTAS FREQUENTES (FAQ) ACORDEÃO LIMPO ============================== -->
+      <div class="footer-faq-section" id="faq" aria-labelledby="faq-title">
+        <header class="footer-faq__header">
+          <span class="eyebrow text-red">Dúvidas &amp; Diretrizes Técnicas</span>
+          <h3 class="display footer-faq__title" id="faq-title">Perguntas Frequentes</h3>
+          <p class="footer-faq__lead">
+            Entenda como funcionam nossos ciclos de desenvolvimento ágil, arquitetura cloud de alto volume e modelos de contratação técnica.
+          </p>
+        </header>
+
+        <div class="faq-container">
+          <!-- FAQ ITEM 1 -->
+          <div class="faq-item is-open">
+            <button class="faq-trigger" type="button" aria-expanded="true" id="faq-q1" aria-controls="faq-a1">
+              <span class="faq-question">
+                <span class="faq-dot"></span>
+                Como funciona o modelo de desenvolvimento e squad dedicado da VL Tech?
+              </span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-panel" id="faq-a1" role="region" aria-labelledby="faq-q1">
+              <div class="faq-panel__content">
+                <p>
+                  Atuamos tanto por <strong>escopo fechado</strong> (desenvolvimento integral de landing pages, plataformas 3D e sistemas web sob medida) quanto por <strong>alocação de squad dedicado</strong> liderado diretamente pelos fundadores Luiz Gabriel (Front-end &amp; Design System) e Victor Whohlers (Back-end &amp; Arquitetura Cloud). Garantimos entregas contínuas em sprints ágeis, com deploys transparentes e alinhamento estratégico semanal.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ ITEM 2 -->
+          <div class="faq-item">
+            <button class="faq-trigger" type="button" aria-expanded="false" id="faq-q2" aria-controls="faq-a2">
+              <span class="faq-question">
+                <span class="faq-dot"></span>
+                Quais são os prazos médios de entrega para uma landing page de alta conversão ou sistema?
+              </span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-panel" id="faq-a2" role="region" aria-labelledby="faq-q2">
+              <div class="faq-panel__content">
+                <p>
+                  Landing pages institucionais e páginas de conversão de alto impacto são entregues em média entre <strong>5 a 12 dias úteis</strong>, com design exclusivo, responsividade impecável e testes de performance. Sistemas corporativos, plataformas SaaS e automações completas seguem cronogramas modulares de <strong>3 a 8 semanas</strong>, com prototipação interativa e validação prévia de cada etapa.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ ITEM 3 -->
+          <div class="faq-item">
+            <button class="faq-trigger" type="button" aria-expanded="false" id="faq-q3" aria-controls="faq-a3">
+              <span class="faq-question">
+                <span class="faq-dot"></span>
+                Como a VL Tech garante notas máximas no Google PageSpeed (Core Web Vitals)?
+              </span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-panel" id="faq-a3" role="region" aria-labelledby="faq-q3">
+              <div class="faq-panel__content">
+                <p>
+                  Nossos projetos são desenvolvidos do zero com <strong>código nativo e enxuto</strong>, sem excesso de dependências ou construtores de páginas pesados. Aplicamos compressão avançada de assets, renderização acelerada por GPU, técnicas modernas de preloading, layouts sem Cumulative Layout Shift (CLS) e infraestrutura na borda (Edge Network / CDN global).
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ ITEM 4 -->
+          <div class="faq-item">
+            <button class="faq-trigger" type="button" aria-expanded="false" id="faq-q4" aria-controls="faq-a4">
+              <span class="faq-question">
+                <span class="faq-dot"></span>
+                Vocês criam automações e robôs integrados com WhatsApp, Instagram e CRMs?
+              </span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-panel" id="faq-a4" role="region" aria-labelledby="faq-q4">
+              <div class="faq-panel__content">
+                <p>
+                  Sim. Desenvolvemos agentes inteligentes e fluxos automatizados de atendimento 24/7 conectados às APIs oficiais do WhatsApp Business e Instagram Graph, além de webhooks diretos para plataformas como HubSpot, RD Station, ActiveCampaign, gateways de pagamento e bancos de dados customizados.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ ITEM 5 -->
+          <div class="faq-item">
+            <button class="faq-trigger" type="button" aria-expanded="false" id="faq-q5" aria-controls="faq-a5">
+              <span class="faq-question">
+                <span class="faq-dot"></span>
+                Como funciona o suporte técnico e a evolução contínua após a entrega?
+              </span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-panel" id="faq-a5" role="region" aria-labelledby="faq-q5">
+              <div class="faq-panel__content">
+                <p>
+                  Todos os projetos contam com <strong>garantia técnica inicial de estabilidade</strong> de 30 dias após a homologação. Oferecemos também contratos recorrentes de sustentação técnica, backups automáticos diários, monitoramento de uptime 99.9% e evolução contínua de novas funcionalidades.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ ITEM 6 -->
+          <div class="faq-item">
+            <button class="faq-trigger" type="button" aria-expanded="false" id="faq-q6" aria-controls="faq-a6">
+              <span class="faq-question">
+                <span class="faq-dot"></span>
+                Como posso solicitar uma proposta comercial ou agendar uma reunião técnica?
+              </span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-panel" id="faq-a6" role="region" aria-labelledby="faq-q6">
+              <div class="faq-panel__content">
+                <p>
+                  Você pode falar diretamente com nossos fundadores através do botão de <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" class="faq-inline-link">WhatsApp Oficial</a>, preencher o formulário no rodapé ou enviar um e-mail para <a href="mailto:contato@vltech.com" class="faq-inline-link">contato@vltech.com</a>. Respondemos prontamente em até 2 horas úteis.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GRANDE DESTAQUE TIPOGRÁFICO FINAL VL TECH EM VERMELHO BRILHANTE -->
+      <div class="footer-brand-monumental" aria-hidden="true">
+        <p class="display footer__wordmark text-red">VL TECH</p>
+      </div>
 
       <div class="footer__bottom">
         <p>© 2026 VL Tech — Engenharia de Software e Alta Performance. Todos os direitos reservados.</p>

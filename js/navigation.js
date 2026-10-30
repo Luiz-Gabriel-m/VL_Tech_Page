@@ -184,6 +184,20 @@ export function initNavigation() {
   toggle.addEventListener('click', toggleMenu);
   links.forEach((link) => link.addEventListener('click', onLinkClick));
 
+  // O menu superior flutuante (seletor de perfil, WhatsApp e Serviços)
+  // fica visível apenas na seção Hero. Fora da Hero, desaparece suavemente.
+  const heroEl = document.getElementById('hero');
+  if (nav && heroEl) {
+    const handleHeroScroll = () => {
+      const heroRect = heroEl.getBoundingClientRect();
+      const isOutside = heroRect.bottom <= 80;
+      nav.classList.toggle('is-outside-hero', isOutside);
+    };
+
+    window.addEventListener('scroll', handleHeroScroll, { passive: true });
+    handleHeroScroll();
+  }
+
   setState(false);
 
   return {
