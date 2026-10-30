@@ -71,7 +71,6 @@ export function initHero() {
   // Elementos da Transição do Logotipo Central VL & 'V' Dinâmico
   const logoCenter = document.getElementById('scrollyLogoCenter');
   const logoGlow = document.getElementById('scrollyLogoGlow');
-  const logoOfficial = document.getElementById('scrollyLogoOfficial');
   const letterV = document.getElementById('scrollyLetterV');
   const letterL = document.getElementById('scrollyLetterL');
   const monogram = document.getElementById('scrollyMonogramDisplay');
@@ -239,22 +238,16 @@ export function initHero() {
       2.9
     )
     .fromTo(
-      logoOfficial,
-      { opacity: 0, y: -25, scale: 0.85 },
-      { opacity: 1, y: 0, scale: 1, duration: 1.0, ease: 'power3.out' },
-      3.05
-    )
-    .fromTo(
       monogram,
       { opacity: 0, scale: 0.82 },
       { opacity: 1, scale: 1, duration: 1.2, ease: 'expo.out' },
-      3.15
+      3.05
     )
     .fromTo(
       tagline,
       { opacity: 0, y: 20 },
       { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out' },
-      3.35
+      3.25
     )
     // Momento contemplativo com a identidade monumental VL
     .to({}, { duration: 0.9 }, 4.35);
@@ -265,9 +258,9 @@ export function initHero() {
      Em seguida, o 'V' brilha e desloca-se suavemente para o canto superior esquerdo.
      -------------------------------------------------------------------------- */
   scrollyTimeline
-    // A letra 'L', o badge oficial e a tagline dissolvem, deixando o foco total no 'V'
+    // A letra 'L' e a tagline dissolvem, deixando o foco total no 'V'
     .to(letterL, { opacity: 0, x: 55, filter: 'blur(10px)', duration: 0.9, ease: 'power2.in' }, 5.25)
-    .to([logoOfficial, tagline], { opacity: 0, y: 25, duration: 0.8, ease: 'power2.in' }, 5.25)
+    .to(tagline, { opacity: 0, y: 25, duration: 0.8, ease: 'power2.in' }, 5.25)
     // O 'V' ganha o efeito intenso de brilho vermelho neon (#FF1E26)
     .to(
       letterV,

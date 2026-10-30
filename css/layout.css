@@ -970,26 +970,6 @@ body.is-loading {
   gap: var(--space-md);
 }
 
-.scrolly-logo-official {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 26px;
-  background: rgba(18, 18, 24, 0.75);
-  border: 1px solid rgba(255, 30, 38, 0.35);
-  border-radius: 999px;
-  box-shadow: 0 0 35px rgba(255, 30, 38, 0.25);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  will-change: transform, opacity;
-}
-
-.scrolly-logo-official-img {
-  height: 48px;
-  width: auto;
-  object-fit: contain;
-}
-
 .scrolly-monogram-display {
   display: flex;
   align-items: center;
