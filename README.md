@@ -37,7 +37,29 @@ Uma narrativa interativa guiada pela rolagem do usuário com pinning dinâmico (
 5. **4ª Etapa de Rolagem:** Apresentação monumental do co-founder **Victor Whohlers**, revelando seu retrato limpo, especialidades em Back-end, Cloud & Lógica de Sistemas.
 6. **Conclusão:** Liberação imperceptível do pin do ScrollTrigger para que o usuário prossiga suavemente para as próximas seções.
 
-### 2. 🔊 Sistema de Efeitos Sonoros Nativos (Sound FX Engine)
+### 2. 🖱️ Cursor Personalizado (Mouse Follower)
+- Cursor procedural de alta precisão construído em `js/cursor.js` com interpolação matemática suave (lerp) via `requestAnimationFrame`.
+- Composto por anel externo dinâmico (`.custom-cursor__ring`) com brilho vermelho neon e ponto central instantâneo (`.custom-cursor__dot`).
+- Efeito de expansão, glassmorphism e realce de borda ao interagir com links, botões, cards e inputs.
+- Desativação inteligente em dispositivos touch/móveis (`pointer: coarse`).
+
+### 3. 💻 Showcase de Notebook 3D com Zoom-In para o Portfólio
+- Seção imersiva (`#portfolio-experience`) com modelo de notebook 3D renderizado com CSS 3D Transforms (`perspective: 1300px`, `transform-style: preserve-3d`) e pinada com GSAP ScrollTrigger.
+- **Abertura da Tela:** Conforme o usuário rola a página, a tampa do notebook abre suavemente de 68° para a vertical.
+- **Zoom-In Progressivo:** O viewport aproxima-se rapidamente da tela interna do notebook, expandindo a interface dos cases reais de clientes até cobrir 100% da tela (`100vw × 100vh`).
+- Transição fluida para o carrossel em leque 3D e links dos clientes em produção (**Maciel Fit**, **G4 Batatas**, **Marinho Odonto**, **Ribeiro Team**, **Zildo Oliveira**).
+
+### 4. ❓ Perguntas Frequentes (FAQ Acordeão)
+- Seção dedicada (`#faq`) com acordeões clean em superfície dark (`#121216`), bordas arredondadas e detalhes em vermelho VL Tech.
+- Controle suave de abertura e fechamento via JavaScript acessível (`aria-expanded`, navegação por teclado e feedback sonoro ao clique).
+- Respostas objetivas sobre modelos de contratação (escopo fechado vs. squad dedicado), prazos, Core Web Vitals, automações e suporte.
+
+### 5. 💼 Rodapé Estilizado com Links para LinkedIn dos Co-founders
+- Layout editorial de alto impacto inspirado em portfólios mundiais de referência.
+- **Aba de Destaque dos Co-founders:** Apresentação visual de **Luiz Gabriel** (*Co-founder & Tech Lead*) e **Victor Whohlers** (*Co-founder & Cloud Architect*), com foto, especialidades e botões diretos para conexão no **LinkedIn**.
+- Navegação rápida completa, links diretos de WhatsApp corporativo, termos de serviço, privacidade e wordmark monumental "VL TECH".
+
+### 6. 🔊 Sistema de Efeitos Sonoros Nativos (Sound FX Engine)
 - Sintetizador construído 100% sobre a **Web Audio API** do navegador (zero arquivos de áudio externos, sem risco de 404 ou latência).
 - Micro-sons dinâmicos sintetizados com osciladores senoidais e triangulares:
   - **Hover suave** em botões, links e cards;
@@ -46,21 +68,21 @@ Uma narrativa interativa guiada pela rolagem do usuário com pinning dinâmico (
   - **Ignição sonora e swoosh** nas transições do scrollytelling.
 - Botão interativo **FX ON / FX OFF** em formato de pílula integrado ao header, com persistência automática de preferência no `localStorage`.
 
-### 3. 🌐 Cabeçalho Minimalista Flutuante
+### 7. 🌐 Cabeçalho Minimalista Flutuante
 - Header 100% transparente integrado ao topo da página sem caixas pesadas.
 - Logotipo oficial à extrema esquerda.
 - Seletor de perfil interativo e botões de ação rápida no centro flutuante.
 - Botão de áudio (Sound FX) e menu hambúrguer arredondado à extrema direita.
 - Menu em tela cheia com overlay fluido e bloqueio inteligente de scroll.
 
-### 4. 🚀 Seção de Serviços com Rolagem Horizontal (Pinned Track)
+### 8. 🚀 Seção de Serviços com Rolagem Horizontal (Pinned Track)
 - Pinned viewport que converte o scroll vertical em deslocamento horizontal fluído dos cards de serviço da agência.
 
-### 5. 🎴 Hall of Fame / Portfólio em Leque 3D
+### 9. 🎴 Hall of Fame / Portfólio em Leque 3D
 - Apresentação em perspectiva 3D dos projetos de clientes reais desenvolvidos pela agência (Maciel Fit, Zildo Oliveira, G4 Beneficiadora, Marinho Odonto, Ribeiro Team).
 - Efeito de profundidade com cartões sobrepostos em arco e bordas com brilho vermelho.
 
-### 6. ⏳ Preloader Editorial Imersivo
+### 10. ⏳ Preloader Editorial Imersivo
 - Tela preta de alta prioridade (`z-index: 99999`) com contador numérico de progresso (0% a 100%) e barra de carregamento com brilho neon.
 - Saída cinematográfica em cortina deslizante (`yPercent: -100`) com curva de aceleração `power4.inOut`.
 

@@ -7,19 +7,24 @@
 import { isReady, ScrollTrigger } from './core/gsap.js';
 import { initLoader } from './loader.js';
 import { initSound } from './sound.js';
+import { initCustomCursor } from './cursor.js';
 import { initNavigation } from './navigation.js';
 import { initFounderSwitch } from './founder-switch.js';
+import { initFAQ } from './faq.js';
 import { initHero } from './hero.js';
 import { initReveal } from './animations/reveal.js';
 import { initScroll } from './scroll.js';
+import { initNotebook3D } from './notebook-3d.js';
 
 /**
  * Módulos essenciais — funcionam mesmo se o GSAP não carregar.
  */
 const CORE_MODULES = [
   ['sound', initSound],
+  ['cursor', initCustomCursor],
   ['navigation', initNavigation],
   ['founderSwitch', initFounderSwitch],
+  ['faq', initFAQ],
 ];
 
 /**
@@ -29,6 +34,7 @@ const CORE_MODULES = [
 const MOTION_MODULES = [
   ['loader', initLoader],
   ['hero', initHero],
+  ['notebook3D', initNotebook3D],
   ['reveal', initReveal],
   ['scroll', initScroll],
 ];
