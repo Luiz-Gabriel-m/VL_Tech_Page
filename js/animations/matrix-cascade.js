@@ -264,9 +264,14 @@ export function initMatrixCascade() {
   observer.observe(section);
   resize();
   window.addEventListener('resize', resize, { passive: true });
+  document.fonts?.ready.then(() => {
+    calculateConvergenceTargets();
+  });
 
   // GSAP ScrollTrigger orquestrando o progresso da cascata e convergência
   if (typeof ScrollTrigger !== 'undefined') {
+    ScrollTrigger.addEventListener('refresh', calculateConvergenceTargets);
+
     ScrollTrigger.create({
       trigger: section,
       start: 'top 85%',
@@ -279,7 +284,7 @@ export function initMatrixCascade() {
         if (self.progress > 0.88) {
           wrapper.style.opacity = `${(1 - (self.progress - 0.88) / 0.12 * 0.7).toFixed(2)}`;
         } else {
-          wrapper.style.opacity = '0.92';
+          wrapper.style.opacity = '0.95';
         }
       },
     });
