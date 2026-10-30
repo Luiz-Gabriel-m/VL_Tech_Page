@@ -151,22 +151,24 @@ function setupPortfolioFanScroll() {
   const cards = gsap.utils.toArray('.fan-card');
   const footer = section.querySelector('.portfolio-fan-footer');
 
-  // 1. Revelação suave do header editorial
+  // 1. Revelação imediata do header editorial (sem espaço em branco)
   if (headerElements.length) {
+    gsap.set(headerElements, { autoAlpha: 1 });
     gsap.from(headerElements, {
       scrollTrigger: {
         trigger: section,
-        start: 'top 85%',
+        start: 'top 98%',
       },
       autoAlpha: 0,
-      y: 35,
-      stagger: 0.1,
-      duration: 1,
+      y: 20,
+      stagger: 0.08,
+      duration: 0.8,
       ease: 'power3.out',
+      clearProps: 'transform,opacity,visibility',
     });
   }
 
-  // 2. Abertura monumental em leque 3D com GSAP
+  // 2. Abertura monumental em leque 3D com GSAP imediata
   if (cards.length) {
     const fanConfig = cards.map((card) => ({
       rot: parseFloat(card.dataset.fanRot) || 0,
@@ -188,15 +190,15 @@ function setupPortfolioFanScroll() {
       gsap.to(cards, {
         scrollTrigger: {
           trigger: section,
-          start: 'top 92%',
+          start: 'top 98%',
         },
         autoAlpha: 1,
         y: (i) => fanConfig[i].y,
         x: (i) => fanConfig[i].x,
         rotation: (i) => fanConfig[i].rot,
         scale: (i) => fanConfig[i].scale,
-        duration: 1.0,
-        stagger: 0.06,
+        duration: 0.9,
+        stagger: 0.05,
         ease: 'power3.out',
         onComplete: () => {
           cards.forEach((card) => {
@@ -208,12 +210,12 @@ function setupPortfolioFanScroll() {
       gsap.from(cards, {
         scrollTrigger: {
           trigger: section,
-          start: 'top 92%',
+          start: 'top 98%',
         },
         autoAlpha: 0,
-        y: 30,
-        stagger: 0.1,
-        duration: 0.8,
+        y: 25,
+        stagger: 0.08,
+        duration: 0.7,
         ease: 'power2.out',
         clearProps: 'transform,opacity,visibility',
       });

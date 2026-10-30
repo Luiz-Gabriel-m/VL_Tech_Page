@@ -74,7 +74,7 @@ export function initNotebook3D() {
       height = rect.height;
       if (width === 0 || height === 0) return;
 
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, 2) * 1.5;
       matrixCanvas.width = width * dpr;
       matrixCanvas.height = height * dpr;
       ctx.scale(dpr, dpr);
@@ -109,9 +109,9 @@ export function initNotebook3D() {
         const x = i * FONT_SIZE + (FONT_SIZE / 2);
         const y = drops[i] * FONT_SIZE;
 
-        // Cabeça com brilho branco/rosa ou vermelho elétrico intenso
+        // Cabeça com brilho vermelho neon intenso (100% no espectro vermelho, sem verde ou branco puro)
         if (Math.random() > 0.92) {
-          ctx.fillStyle = '#FFFFFF';
+          ctx.fillStyle = '#FF7B80';
         } else {
           ctx.fillStyle = colColors[i];
         }
@@ -151,7 +151,6 @@ export function initNotebook3D() {
 
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (prefersReduced) {
-    if (matrixOverlay) gsap.set(matrixOverlay, { opacity: 0 });
     return null;
   }
 
@@ -176,22 +175,25 @@ export function initNotebook3D() {
 
   // =========================================================================
   // 2. ZOOM-IN PROGRESSIVO COM SCROLLTRIGGER (PINNING)
-  // 3. FADE-OUT IMEDIATO DOS 0 E 1 REVELANDO OS ELEMENTOS DO PORTFÓLIO
+  // A animação de matriz (0 e 1 em vermelho) fica 100% ativa na tela do notebook
+  // durante todo o zoom, até a chegada direta e contínua na próxima seção
   // =========================================================================
+  const hud = document.getElementById('screenMatrixHud');
+
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: section,
       start: 'top top',
-      end: '+=900',
+      end: '+=750',
       pin: pinViewport,
       pinSpacing: true,
-      scrub: 0.9,
+      scrub: 0.8,
       anticipatePin: 1,
       invalidateOnRefresh: true,
     }
   });
 
-  // Fase 1: Desaparecimento de cabeçalho e dicas
+  // Fase 1: Desaparecimento de cabeçalho, dicas e HUD
   tl.to(hint, {
     opacity: 0,
     y: 10,
@@ -203,36 +205,35 @@ export function initNotebook3D() {
     y: -20,
     duration: 0.25,
     ease: 'power2.in',
-  }, 0.05)
+  }, 0.05);
 
-  // Fase 2: Zoom-In cinematográfico na tela do notebook até enquadrar perfeitamente os cases
-  .to(device, {
-    scale: 3.8,
-    y: '-2%',
+  if (hud) {
+    tl.to(hud, {
+      opacity: 0,
+      y: 10,
+      duration: 0.2,
+      ease: 'power2.in',
+    }, 0.05);
+  }
+
+  // Fase 2: Zoom-In cinematográfico na tela do notebook
+  // A tela preenche a viewport com a cascata contínua de 0 e 1 em vermelho neon
+  tl.to(device, {
+    scale: 4.2,
+    y: '0%',
     duration: 1.2,
     ease: 'power2.inOut',
   }, 0.1)
   .to(base, {
     opacity: 0,
-    duration: 0.4,
+    duration: 0.35,
     ease: 'power2.in',
-  }, 0.2)
+  }, 0.15)
   .to(screenInner, {
     scale: 1.05,
     duration: 1.2,
     ease: 'power2.out',
   }, 0.1);
-
-  // Fase 3: Ao dar zoom, os números binários (0 e 1) somem rapidamente,
-  // revelando os elementos do portfólio (cases em produção) imediatamente,
-  // sem deixar nenhum espaço em branco!
-  if (matrixOverlay) {
-    tl.to(matrixOverlay, {
-      opacity: 0,
-      duration: 0.35,
-      ease: 'power2.out',
-    }, 0.45);
-  }
 
   return { timeline: tl };
 }
