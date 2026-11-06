@@ -1784,4 +1784,347 @@
   }
 }
 
+/* ==========================================================================
+   4.5 3D NOTEBOOK / LAPTOP SCROLLYTELLING — EXPERIÊNCIA FECHADO-PARA-ABERTO
+   Design: Chassi Unibody de Alumínio Anodizado Espacial + Logo VL Retroiluminada
+   Stack: Three.js WebGL + CSS 3D Perspective + GSAP 3 ScrollTrigger
+   ========================================================================== */
+
+/* Canvas WebGL Three.js para Iluminação Volumétrica e Reflexos Metálicos */
+.notebook-webgl-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Palco 3D e Perspectiva */
+.notebook-stage {
+  perspective: 1400px;
+  -webkit-perspective: 1400px;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+}
+
+/* Chassi do Dispositivo */
+.notebook-device {
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Dobradiça e Tampa do Notebook (Lid) */
+.notebook-lid {
+  transform-origin: bottom center;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  will-change: transform;
+  z-index: 4;
+}
+
+/* --------------------------------------------------------------------------
+   TAMPA EXTERNA (LID OUTER) — ESTADO FECHADO COM LOGO VL RETROILUMINADA
+   Estilo Apple MacBook Pro: Alumínio Escuro + Logotipo Neon Vermelho Pulsante
+   -------------------------------------------------------------------------- */
+.notebook-lid-outer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 18px 18px 0 0;
+  background: radial-gradient(130% 95% at 50% 15%, #22222E 0%, #15151C 45%, #0B0B10 100%);
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 35px 90px rgba(0, 0, 0, 0.96),
+              0 0 50px rgba(255, 30, 38, 0.16),
+              inset 0 1px 2px rgba(255, 255, 255, 0.22),
+              inset 0 -1px 2px rgba(0, 0, 0, 0.85);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: opacity, transform;
+  z-index: 5;
+  transition: opacity 0.25s ease-out;
+}
+
+.notebook-outer-shell {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Container da Logo Retroiluminada Centralizada */
+.notebook-outer-logo-wrap {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notebook-backlit-logo-container {
+  position: relative;
+  width: min(150px, 22vw);
+  aspect-ratio: 4 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Imagem da Logo com Blend Screen e Filtro Neon Intenso */
+.notebook-backlit-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: screen;
+  filter: drop-shadow(0 0 16px #FF1E26) drop-shadow(0 0 40px rgba(255, 30, 38, 0.85));
+  position: relative;
+  z-index: 2;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Luz de Fundo Neon Radiante (Backlight LED estilo MacBook) */
+.notebook-logo-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120%;
+  height: 120%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 30, 38, 0.85) 0%, rgba(255, 30, 38, 0.35) 45%, transparent 75%);
+  filter: blur(14px);
+  z-index: 1;
+  pointer-events: none;
+  animation: macbook-logo-breathe 2.6s ease-in-out infinite alternate;
+}
+
+/* Flare Óptico Horizontal Sutil */
+.notebook-logo-flare {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 170%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 120, 130, 0.85) 50%, transparent 100%);
+  filter: blur(1px);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Reflexo Especular Diagonal da Tampa (Sheen de Alumínio) */
+.notebook-lid-sheen {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(125deg, transparent 38%, rgba(255, 255, 255, 0.03) 46%, rgba(255, 255, 255, 0.12) 50%, transparent 56%);
+  opacity: 0.85;
+}
+
+.notebook-lid-reflection {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 100%, rgba(255, 30, 38, 0.14) 0%, transparent 60%);
+}
+
+/* Pulsação Suave de Respiração da Logo */
+@keyframes macbook-logo-breathe {
+  0% {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(0.96);
+    filter: blur(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+    filter: blur(18px);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   MOLDURA E TELA INTERNA (BEZEL & SCREEN)
+   -------------------------------------------------------------------------- */
+.notebook-bezel {
+  will-change: opacity;
+  transition: opacity 0.25s ease-out;
+}
+
+.camera-indicator {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #00FF66;
+  box-shadow: 0 0 5px #00FF66;
+  margin-left: 6px;
+  opacity: 0.85;
+}
+
+/* --------------------------------------------------------------------------
+   SISTEMA OPERACIONAL VL-TECH OS — DESKTOP COM CASES REAIS
+   -------------------------------------------------------------------------- */
+.screen-os-header {
+  position: relative;
+  z-index: 5;
+  height: 22px;
+  background: rgba(10, 10, 14, 0.94);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.58rem;
+  color: rgba(248, 248, 252, 0.75);
+  user-select: none;
+}
+
+.screen-os-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.os-apple-icon {
+  color: var(--accent-red, #FF1E26);
+  font-size: 0.7rem;
+}
+
+.os-brand {
+  font-weight: 700;
+  color: #FFFFFF;
+  letter-spacing: 0.06em;
+}
+
+.screen-os-center {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.os-badge-pulse {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent-red, #FF1E26);
+  box-shadow: 0 0 6px var(--accent-red, #FF1E26);
+  animation: pulse-core 1.2s infinite;
+}
+
+.os-status-text {
+  font-size: 0.52rem;
+  letter-spacing: 0.08em;
+  color: rgba(248, 248, 252, 0.55);
+}
+
+.screen-os-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.52rem;
+}
+
+.os-wifi-icon {
+  color: var(--accent-red, #FF1E26);
+}
+
+.os-clock {
+  font-weight: 600;
+  color: #F8F8FC;
+}
+
+/* Grid de Cases Reais dentro do Notebook */
+.screen-cases-desktop {
+  position: relative;
+  flex: 1;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #07070A;
+  z-index: 2;
+}
+
+.screen-cases-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  width: 100%;
+}
+
+.screen-case-tile {
+  background: #0E0E15;
+  border: 1px solid rgba(255, 30, 38, 0.22);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.7);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.screen-case-tile:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 30, 38, 0.6);
+  box-shadow: 0 6px 20px rgba(255, 30, 38, 0.25);
+}
+
+.case-tile-thumb {
+  width: 100%;
+  height: 68px;
+  object-fit: cover;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.case-tile-info {
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.case-tile-tag {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.48rem;
+  font-weight: 700;
+  color: var(--accent-red, #FF1E26);
+  letter-spacing: 0.06em;
+}
+
+.case-tile-name {
+  font-family: var(--font-mona, sans-serif);
+  font-size: 0.64rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Responsividade Mobile da Tela do Notebook */
+@media (max-width: 768px) {
+  .screen-cases-grid {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .screen-case-tile:nth-child(n+2) {
+    display: none;
+  }
+  .case-tile-thumb {
+    height: 55px;
+  }
+  .screen-os-center {
+    display: none;
+  }
+}
+
+
 

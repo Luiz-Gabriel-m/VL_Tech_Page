@@ -511,17 +511,85 @@
 
         <!-- Palco do Notebook 3D (Perspectiva e Hardware estilizado) -->
         <div class="notebook-stage" id="notebookStage">
+          <!-- Canvas Three.js WebGL para Iluminação Volumétrica e Reflexos Metálicos -->
+          <canvas class="notebook-webgl-canvas" id="notebookWebglCanvas" aria-hidden="true"></canvas>
+
           <div class="notebook-ambient-glow" id="notebookGlow" aria-hidden="true"></div>
 
           <div class="notebook-device" id="notebookDevice">
-            <!-- Tampa e Tela do Notebook (Lid que abre no scroll) -->
+            <!-- Tampa do Notebook (Lid que abre no scroll via GSAP ScrollTrigger) -->
             <div class="notebook-lid" id="notebookLid">
-              <div class="notebook-bezel">
-                <div class="notebook-camera" aria-hidden="true"><span class="camera-lens"></span></div>
+
+              <!-- Face Traseira / Tampa Externa (Visível no estado fechado com Logo VL Tech Retroiluminada) -->
+              <div class="notebook-lid-outer" id="notebookLidOuter">
+                <div class="notebook-outer-shell">
+                  <div class="notebook-outer-logo-wrap" id="notebookOuterLogoWrap">
+                    <div class="notebook-backlit-logo-container">
+                      <img src="assets/logo/vl-logo.jpg" alt="VL Tech Monograma Retroiluminado"
+                        class="notebook-backlit-logo" id="notebookBacklitLogo" width="140" height="110">
+                      <div class="notebook-logo-glow" id="notebookLogoGlow" aria-hidden="true"></div>
+                      <div class="notebook-logo-flare" aria-hidden="true"></div>
+                    </div>
+                  </div>
+                  <!-- Efeito de acabamento de alumínio escovado e reflexo especular -->
+                  <div class="notebook-lid-sheen" aria-hidden="true"></div>
+                  <div class="notebook-lid-reflection" aria-hidden="true"></div>
+                </div>
+              </div>
+
+              <!-- Face Frontal / Bezel da Tela (Revelada suavemente durante a abertura) -->
+              <div class="notebook-bezel" id="notebookBezel">
+                <div class="notebook-camera" aria-hidden="true">
+                  <span class="camera-lens"></span>
+                  <span class="camera-indicator"></span>
+                </div>
 
                 <!-- Display do Notebook (Tela que expande no Zoom-in) -->
                 <div class="notebook-screen" id="notebookScreen">
                   <div class="notebook-screen-inner" id="notebookScreenInner">
+
+                    <!-- Barra Superior do Sistema Operacional VL-TECH OS -->
+                    <div class="screen-os-header" id="screenOsHeader">
+                      <div class="screen-os-left">
+                        <span class="os-apple-icon">✦</span>
+                        <span class="os-brand">VL-TECH // OS v4.2</span>
+                      </div>
+                      <div class="screen-os-center">
+                        <span class="os-badge-pulse"></span>
+                        <span class="os-status-text">PRODUÇÃO REAL · CLIENTES ATIVOS</span>
+                      </div>
+                      <div class="screen-os-right">
+                        <span class="os-wifi-icon" title="Conexão Segura">⚡ 100Gbps</span>
+                        <span class="os-clock" id="screenOsClock">18:40</span>
+                      </div>
+                    </div>
+
+                    <!-- Desktop do Sistema com Preview dos Cases Reais em Produção -->
+                    <div class="screen-cases-desktop" id="screenCasesDesktop">
+                      <div class="screen-cases-grid">
+                        <div class="screen-case-tile">
+                          <img src="assets/images/portfolio/maciel-fit.jpg" alt="Maciel Fit Studio" class="case-tile-thumb">
+                          <div class="case-tile-info">
+                            <span class="case-tile-tag">FITNESS // CONVERSÃO</span>
+                            <span class="case-tile-name">Maciel Fit Studio</span>
+                          </div>
+                        </div>
+                        <div class="screen-case-tile">
+                          <img src="assets/images/portfolio/g4-batatas.jpg" alt="G4 Beneficiadora" class="case-tile-thumb">
+                          <div class="case-tile-info">
+                            <span class="case-tile-tag">AGRONEGÓCIO // B2B</span>
+                            <span class="case-tile-name">G4 Beneficiadora</span>
+                          </div>
+                        </div>
+                        <div class="screen-case-tile">
+                          <img src="assets/images/portfolio/marinho-odonto.jpg" alt="Marinho Odonto" class="case-tile-thumb">
+                          <div class="case-tile-info">
+                            <span class="case-tile-tag">SAÚDE // CLÍNICA</span>
+                            <span class="case-tile-name">Marinho Odonto</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
                     <!-- Animação da Matriz Binária na Tela do Notebook (0 e 1 - 100% Vermelho) -->
                     <div class="screen-matrix-overlay" id="screenMatrixOverlay" aria-hidden="true">
@@ -531,6 +599,7 @@
                         <span class="hud-text">VL-TECH // OS BOOT · INICIALIZANDO SISTEMA...</span>
                       </div>
                     </div>
+
                   </div>
                 </div>
               </div>
@@ -555,7 +624,7 @@
 
         <!-- Indicador de Scroll -->
         <div class="notebook-scroll-hint" id="notebookScrollHint">
-          <span class="hint-text">Role para abrir e aproximar</span>
+          <span class="hint-text">Role para abrir o notebook</span>
           <span class="hint-icon" aria-hidden="true">↓</span>
         </div>
 
