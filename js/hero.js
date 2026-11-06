@@ -96,9 +96,9 @@ function splitTextIntoChars(element) {
 }
 
 export function initHero() {
-  const hero = document.getElementById('hero');
+  const scrollySection = document.getElementById('socios-scrolly') || document.getElementById('hero');
   const heroPin = document.getElementById('heroPin');
-  if (!hero || !heroPin) return null;
+  if (!scrollySection || !heroPin) return null;
 
   // Palcos do Scrollytelling
   const stageLuiz = document.getElementById('stageLuiz');
@@ -199,6 +199,13 @@ export function initHero() {
 
     if (bgVectorLetter) {
       bgVectorLetter.textContent = founder === 'luiz' ? 'L' : 'V';
+    }
+
+    const directBtnLuiz = document.getElementById('scrollyBtnLuizDirect');
+    const directBtnVictor = document.getElementById('scrollyBtnVictorDirect');
+    if (directBtnLuiz && directBtnVictor) {
+      directBtnLuiz.classList.toggle('is-active', founder === 'luiz');
+      directBtnVictor.classList.toggle('is-active', founder === 'victor');
     }
 
     document.dispatchEvent(new CustomEvent('founder:changed', { detail: { founder } }));
@@ -312,7 +319,7 @@ export function initHero() {
   const scrollyTimeline = gsap.timeline({
     defaults: { ease: 'none' },
     scrollTrigger: {
-      trigger: hero,
+      trigger: scrollySection,
       start: 'top top',
       end: '+=4200',
       pin: heroPin,
@@ -522,6 +529,22 @@ export function initHero() {
   }
   if (stepVictor) {
     stepVictor.addEventListener('click', () => scrollToStageProgress(0.88));
+  }
+
+  // Botões de alternância direta na introdução da seção dos Sócios
+  const directBtnLuiz = document.getElementById('scrollyBtnLuizDirect');
+  const directBtnVictor = document.getElementById('scrollyBtnVictorDirect');
+  if (directBtnLuiz) {
+    directBtnLuiz.addEventListener('click', (e) => {
+      e.preventDefault();
+      scrollToStageProgress(0.05);
+    });
+  }
+  if (directBtnVictor) {
+    directBtnVictor.addEventListener('click', (e) => {
+      e.preventDefault();
+      scrollToStageProgress(0.88);
+    });
   }
 
   // Integração com o seletor de perfil no header

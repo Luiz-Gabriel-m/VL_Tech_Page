@@ -4,14 +4,20 @@
    ========================================================================== */
 
 :root {
-  /* ---------- Cores principais da Marca VL Tech ---------- */
-  --bg-dark: #0A0A0C;             /* Preto principal VL Tech */
-  --bg-olive: #121216;            /* Superfície carvão escura */
-  --bg-offwhite: #16161D;         /* Superfície grafite de contraste */
-  --bg-surface: #1E1E26;
-  --bg-black: #050507;
+  /* ---------- Design Tokens Principais VL Tech (Architecture Update) ---------- */
+  --color--black: #111112;        /* Deep dark theme corporativo de alta tecnologia */
+  --color--lime: #d2ff00;         /* Neon lime-green de destaque técnico */
+  --color--lime-glow: rgba(210, 255, 0, 0.45);
+  --color--lime-glow-strong: 0 0 30px rgba(210, 255, 0, 0.8), 0 0 60px rgba(210, 255, 0, 0.4);
 
-  --accent-red: #FF1E26;          /* Vermelho oficial VL Tech */
+  /* ---------- Cores de Fundo e Superfície ---------- */
+  --bg-dark: #111112;             /* Atualizado para alinhar ao deep dark theme */
+  --bg-olive: #161618;            /* Superfície carvão escura */
+  --bg-offwhite: #1a1a1e;         /* Superfície grafite de contraste */
+  --bg-surface: #1E1E26;
+  --bg-black: #0d0d0e;
+
+  --accent-red: #FF1E26;          /* Vermelho oficial VL Tech (mantido para contrastes) */
   --accent-neon: #FF1E26;         /* Alias mantido para consistência */
   --accent-red-hover: #E0141C;
 
@@ -21,6 +27,13 @@
   --accent-red-glow-subtle: 0 0 15px rgba(255, 30, 38, 0.28);
   --accent-neon-glow: rgba(255, 30, 38, 0.5);
   --border-red-glow: 0 0 16px rgba(255, 30, 38, 0.25);
+
+  /* ---------- Painéis Glassmórficos Crisp ---------- */
+  --glass-bg: rgba(17, 17, 18, 0.75);
+  --glass-bg-hover: rgba(24, 24, 26, 0.88);
+  --glass-border: rgba(210, 255, 0, 0.16);
+  --glass-border-subtle: rgba(255, 255, 255, 0.08);
+  --glass-shadow: 0 24px 60px -15px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 
   /* ---------- Cores derivadas de texto e bordas ---------- */
   --text-on-light: #F8F8FC;
@@ -33,9 +46,10 @@
   --dark-soft: #121218;
 
   /* ---------- Tipografia ---------- */
-  --font-display: 'Anton', 'Impact', 'Arial Narrow', sans-serif;
+  --font-mona: 'Mona Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Monument Extended', 'Syne', 'Anton', sans-serif;
   --font-monument: 'Monument Extended', 'Syne', 'Anton', sans-serif;
-  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Mona Sans', 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Consolas, monospace;
 
   --fs-xs: 0.75rem;

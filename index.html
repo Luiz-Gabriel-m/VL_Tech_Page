@@ -16,13 +16,17 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@700;800;900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Mona+Sans:ital,wght@0,300..900;1,300..900&family=Syne:wght@700;800;900&display=swap"
     rel="stylesheet">
   <link href="https://fonts.cdnfonts.com/css/monument-extended" rel="stylesheet">
 
   <!-- Estilos -->
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Three.js WebGL Engine (Carregado antecipadamente para o Hero 3D) -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
 
   <!-- Sinaliza JS ativo cedo para evitar flash do conteúdo que será animado -->
   <script>document.documentElement.classList.add('js');</script>
@@ -134,6 +138,10 @@
                 class="menu-overlay__text">Serviços</span><span class="menu-overlay__index">06</span></a></li>
           <li class="menu-overlay__item"><a href="#parceiros" class="menu-overlay__link" id="menu-link-parceiros"><span
                 class="menu-overlay__text">Parceiros</span><span class="menu-overlay__index">07</span></a></li>
+          <li class="menu-overlay__item"><a href="#socios-scrolly" class="menu-overlay__link" id="menu-link-socios"><span
+                class="menu-overlay__text">Sócios (Liderança)</span><span class="menu-overlay__index">08</span></a></li>
+          <li class="menu-overlay__item"><a href="#rodape" class="menu-overlay__link" id="menu-link-contato"><span
+                class="menu-overlay__text">Contato</span><span class="menu-overlay__index">09</span></a></li>
         </ul>
       </nav>
 
@@ -151,194 +159,101 @@
 
   <main>
 
-    <!-- ============================== 1. HERO SCROLLYTELLING ============================== -->
-    <section class="section section--dark hero scrolly-hero" id="hero" aria-labelledby="heroGiantName">
-      <!-- Container interno fixado (Pinned Viewport via ScrollTrigger) -->
-      <div class="scrolly-hero__pin" id="heroPin">
+    <!-- ============================== 1. NEW SUPER-TECHNOLOGICAL HERO ============================== -->
+    <section class="section section--dark tech-hero" id="hero" aria-labelledby="heroTechTitle">
+      <!-- Interactive Three.js WebGL Particle Field & Glowing Neon Matrix Grid Canvas -->
+      <canvas id="techHeroCanvas" class="tech-hero__canvas"></canvas>
 
-        <!-- Letra vetorial monumental ao fundo da seção Hero conectada à identidade VL Tech -->
-        <div class="bg-vector-letter" id="bgVectorLetter" aria-hidden="true">V</div>
-        <div class="hero-ambient-glow" id="heroAmbientGlow" aria-hidden="true"></div>
+      <!-- Ambient Cyber Radial & Grid Overlay -->
+      <div class="tech-hero__ambient-radial" aria-hidden="true"></div>
+      <div class="tech-hero__grid-overlay" aria-hidden="true"></div>
 
-        <!-- ================= ETAPA 1 & 2: PALCO LUIZ GABRIEL ================= -->
-        <div class="scrolly-stage scrolly-stage--luiz" id="stageLuiz">
-          <div class="container hero__inner">
-            <div class="hero__topline" id="luizTopline">
-              <div class="hero-status-pill">
-                <span class="status-dot"></span>
-                <span id="heroPartnerStatus">CO-FOUNDER & ESPECIALISTA ATIVO</span>
-              </div>
-              <div class="hero-brand-tag">
-                <span>VL TECH · HIGH PERFORMANCE ENGINEERING</span>
-              </div>
-            </div>
-
-            <div class="hero__stage-monumental">
-              <!-- Coluna Principal: Tipografia Gigante em Camadas (Foco Principal) -->
-              <div class="hero-typography-stack">
-                <!-- Linha 1: Nome Gigante em negrito branco (#F8F8FC) com 'L' vermelho estilizado -->
-                <h1 class="hero-giant-name hero-title hero-title-luiz" id="heroGiantName">
-                  <span class="partner-initial-integrated" id="partnerInitial">L</span><span
-                    class="partner-remaining-name" id="partnerRemainingName"><span class="typed-text" id="luizTypedText">UIZ GABRIEL</span><span class="typewriter-cursor" id="luizCaret" aria-hidden="true">|</span></span>
-                </h1>
-
-                <!-- Linha 2: Tipografia Secundária / Especialidade (revelada fluidamente na 1ª etapa de rolagem) -->
-                <div class="hero-giant-outline hero-spec-desktop hero-info-block" id="heroGiantOutline">
-                  Especialista em Front-end, Arquitetura Web e Automações
-                </div>
-
-                <!-- Justificativa da Inicial (L) conectada ao VL Tech (revelada fluidamente na 1ª etapa de rolagem) -->
-                <div class="hero-partner-justification" id="heroJustification">
-                  <div class="justification-badge">
-                    <span class="justification-letter" id="justificationLetter">L</span>
-                    <div class="justification-content">
-                      <span class="justification-label" id="justificationTitle">CONEXÃO VL TECH: FRONT-END</span>
-                      <span class="justification-pillars" id="justificationPillars">Layout · Lógica · Liderança Técnica
-                        no front</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Coluna Direita: Retrato Limpo (Clean Portrait) de Luiz Gabriel -->
-              <div class="hero-portrait-stage" id="luizPortraitStage">
-                <div class="portrait-glow-aura" aria-hidden="true"></div>
-                <div class="media-frame hero__visual placeholder-3d portrait-container" id="luiz-visual">
-                  <img id="founderImage" src="assets/images/rosto.jpg" alt="Retrato do Co-founder Luiz Gabriel"
-                    class="clean-portrait">
-                  <div class="portrait-initial-watermark" id="portraitWatermark" aria-hidden="true">L</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="hero__meta" id="luizMeta">
-              <div class="hero__meta-item">
-                <span class="hero__meta-label">Co-founder</span>
-                <span class="hero__meta-value" id="metaFounderName">Luiz Gabriel</span>
-              </div>
-              <div class="hero__meta-item">
-                <span class="hero__meta-label">Expertise</span>
-                <span class="hero__meta-value" id="metaFounderRole">Front-end, Arquitetura Web & Automações</span>
-              </div>
-              <div class="hero__meta-item">
-                <a href="#mensagem" class="hero__scroll" id="hero-scroll">
-                  Role para continuar
-                  <span class="hero__scroll-icon" aria-hidden="true">↓</span>
-                </a>
-              </div>
-            </div>
+      <div class="tech-hero__container">
+        <!-- Live Telemetry Ticker -->
+        <div class="tech-hero__telemetry-bar" id="heroTelemetryBar">
+          <div class="telemetry-status">
+            <span class="telemetry-pulse"></span>
+            <span>SYS_STATUS: OPERATIONAL</span>
+          </div>
+          <span class="telemetry-divider">//</span>
+          <div class="telemetry-item">
+            <span>EDGE LATENCY: </span><strong id="telemetryPing">12ms</strong>
+          </div>
+          <span class="telemetry-divider">//</span>
+          <div class="telemetry-item">
+            <span>CLUSTER LOAD: </span><strong id="telemetryCluster">24%</strong>
+          </div>
+          <span class="telemetry-divider">//</span>
+          <div class="telemetry-item">
+            <span>UPTIME: <strong>99.98%</strong></span>
+          </div>
+          <span class="telemetry-divider">//</span>
+          <div class="telemetry-item">
+            <span>REGION: <strong>SA-EAST-1 (SP)</strong></span>
           </div>
         </div>
 
-        <!-- ================= ETAPA 3 & 4: TRANSIÇÃO LOGOTIPO CENTRAL & O 'V' DINÂMICO ================= -->
-        <div class="scrolly-stage scrolly-stage--logo" id="stageVLLogo" aria-hidden="true">
-          <div class="scrolly-logo-overlay">
-            <div class="scrolly-logo-glow" id="scrollyLogoGlow"></div>
+        <!-- Immersive Typography Headline -->
+        <div class="tech-hero__headline-wrap">
+          <span class="tech-hero__eyebrow">VL TECH · HIGH-PERFORMANCE SOFTWARE ENGINEERING</span>
+          <h1 class="tech-hero__title" id="heroTechTitle">
+            TRANSFORMAMOS TECNOLOGIA <br>
+            <span class="highlight-lime">EM ESCALA</span>
+          </h1>
+        </div>
 
-            <div class="scrolly-logo-center" id="scrollyLogoCenter">
-              <!-- Monograma Monumental Tipográfico com 'V' e 'L' individuais -->
-              <div class="scrolly-monogram-display" id="scrollyMonogramDisplay">
-                <span class="scrolly-letter scrolly-letter--v" id="scrollyLetterV">V</span>
-                <span class="scrolly-letter scrolly-letter--l" id="scrollyLetterL">L</span>
-              </div>
+        <!-- Lead Narrativo Corporativo -->
+        <p class="tech-hero__lead">
+          Arquitetura de software de missão crítica, plataformas imersivas 3D WebGL e engenharia de nuvem resiliente.
+          Desenvolvemos soluções de alta precisão que convertem complexidade técnica em vantagem competitiva incontestável.
+        </p>
 
-              <!-- Tagline Editorial Subjacente -->
-              <div class="scrolly-tagline-container" id="scrollyTaglineContainer">
-                <span class="scrolly-tagline-sub">VL TECH · HIGH PERFORMANCE ENGINEERING</span>
-              </div>
-            </div>
+        <!-- Direct High-Contrast CTA & Quick Links -->
+        <div class="tech-hero__actions">
+          <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20iniciar%20um%20projeto%20com%20a%20VL%20Tech"
+            target="_blank" rel="noopener noreferrer" class="btn--tech-whatsapp" id="heroWhatsappCta"
+            aria-label="Falar no WhatsApp diretamente com a equipe técnica da VL Tech">
+            <span class="wa-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.06-2.146-.541-1.859-.77-3.045-2.66-3.137-2.784-.093-.124-.755-.998-.755-1.918 0-.92.482-1.371.654-1.557.172-.186.375-.232.5-.232.125 0 .25.002.359.006.115.004.269-.044.421.32.158.379.539 1.314.586 1.41.047.095.078.207.016.331-.063.125-.094.204-.188.312-.093.109-.197.243-.281.326-.094.093-.192.195-.083.382.109.187.485.801 1.042 1.297.717.639 1.32.837 1.508.931.188.093.297.079.407-.047.109-.125.469-.544.594-.73.125-.187.25-.156.422-.093.172.062 1.092.515 1.279.609.188.093.313.14.359.218.047.078.047.453-.097.858z"/>
+              </svg>
+            </span>
+            <span>Falar no WhatsApp</span>
+            <span class="btn-arrow" aria-hidden="true">↗</span>
+          </a>
+
+          <a href="#mensagem" class="btn--tech-secondary" id="heroExploreBtn">
+            <span>Explorar Soluções</span>
+            <span class="btn-arrow" aria-hidden="true">↓</span>
+          </a>
+
+          <a href="#socios-scrolly" class="btn--tech-secondary" id="heroFoundersBtn">
+            <span>Conhecer os Sócios</span>
+            <span class="btn-arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+
+        <!-- Floating Tech Badges (Physics Parallax) -->
+        <div class="tech-badges-grid">
+          <div class="tech-badge-floating">
+            <span class="tech-badge-dot"></span>
+            <span>DISTRIBUTED CLOUD // AWS &amp; GCP</span>
+          </div>
+          <div class="tech-badge-floating">
+            <span class="tech-badge-dot"></span>
+            <span>WEBGL 3D &amp; GPU ACCELERATION</span>
+          </div>
+          <div class="tech-badge-floating">
+            <span class="tech-badge-dot"></span>
+            <span>99.98% SLA // ZERO DOWNTIME</span>
+          </div>
+          <div class="tech-badge-floating">
+            <span class="tech-badge-dot"></span>
+            <span>INTELLIGENT AI AGENTS &amp; APIS</span>
           </div>
         </div>
-
-        <!-- ================= ETAPA 5: PALCO VICTOR WHOHLERS ================= -->
-        <div class="scrolly-stage scrolly-stage--victor" id="stageVictor" aria-hidden="true">
-          <div class="container hero__inner">
-            <div class="hero__topline" id="victorTopline">
-              <div class="hero-status-pill">
-                <span class="status-dot"></span>
-                <span>CO-FOUNDER & ESPECIALISTA ATIVO</span>
-              </div>
-              <div class="hero-brand-tag">
-                <span>VL TECH · HIGH PERFORMANCE ENGINEERING</span>
-              </div>
-            </div>
-
-            <div class="hero__stage-monumental">
-              <!-- Coluna Principal: Tipografia Gigante de Victor -->
-              <div class="hero-typography-stack">
-                <!-- Linha 1: Nome Gigante de Victor Whohlers com o 'V' em vermelho neon -->
-                <h2 class="hero-giant-name hero-title hero-title-victor" id="victorGiantName">
-                  <span class="partner-initial-integrated partner-initial-v" id="victorInitial">V</span><span
-                    class="partner-remaining-name" id="victorRemainingName"><span class="typed-text" id="victorTypedText">ICTOR WHOHLERS</span><span class="typewriter-cursor" id="victorCaret" aria-hidden="true">|</span></span>
-                </h2>
-
-                <!-- Linha 2: Tipografia Secundária / Especialidade de Back-end / Cloud -->
-                <div class="hero-giant-outline hero-spec-desktop hero-info-block" id="victorGiantOutline">
-                  Especialista em Back-end, Cloud & Lógica de Sistemas
-                </div>
-
-                <!-- Justificativa da Inicial 'V' conectada ao VL Tech -->
-                <div class="hero-partner-justification" id="victorJustification">
-                  <div class="justification-badge justification-badge--victor">
-                    <span class="justification-letter">V</span>
-                    <div class="justification-content">
-                      <span class="justification-label">CONEXÃO VL TECH: BACK-END</span>
-                      <span class="justification-pillars">Virtualização · Volumes de Dados · Visão Sistêmica no
-                        back</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Coluna Direita: Retrato Limpo de Victor Whohlers -->
-              <div class="hero-portrait-stage" id="victorPortraitStage">
-                <div class="portrait-glow-aura" aria-hidden="true"></div>
-                <div class="media-frame hero__visual placeholder-3d portrait-container" id="victor-visual">
-                  <img src="assets/images/victor.jpg" alt="Retrato do Co-founder Victor Whohlers"
-                    class="clean-portrait">
-                  <div class="portrait-initial-watermark" aria-hidden="true">V</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="hero__meta" id="victorMeta">
-              <div class="hero__meta-item">
-                <span class="hero__meta-label">Co-founder</span>
-                <span class="hero__meta-value">Victor Whohlers</span>
-              </div>
-              <div class="hero__meta-item">
-                <span class="hero__meta-label">Expertise</span>
-                <span class="hero__meta-value">Back-end, Cloud & Lógica de Sistemas</span>
-              </div>
-              <div class="hero__meta-item">
-                <a href="#mensagem" class="hero__scroll" id="hero-scroll-victor">
-                  Explorar a VL Tech
-                  <span class="hero__scroll-icon" aria-hidden="true">↓</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Indicador de passos lateral (Scrollytelling Nav) -->
-        <div class="scrolly-nav-indicator" aria-hidden="true">
-          <button type="button" class="scrolly-step is-active" id="scrollyStepLuiz" aria-label="Ir para Luiz Gabriel">
-            <span class="scrolly-step__dot"></span>
-            <span class="scrolly-step__label">LUIZ G.</span>
-          </button>
-          <button type="button" class="scrolly-step" id="scrollyStepLogo" aria-label="Ir para Identidade VL">
-            <span class="scrolly-step__dot"></span>
-            <span class="scrolly-step__label">VL TECH</span>
-          </button>
-          <button type="button" class="scrolly-step" id="scrollyStepVictor" aria-label="Ir para Victor Whohlers">
-            <span class="scrolly-step__dot"></span>
-            <span class="scrolly-step__label">VICTOR W.</span>
-          </button>
-        </div>
-
       </div>
     </section>
-
     <!-- ============================== 2. MENSAGEM ============================== -->
     <section class="section section--olive message" id="mensagem" aria-labelledby="mensagem-title">
       <div class="container message__inner">
@@ -994,6 +909,242 @@
       </div>
     </section>
 
+    <!-- ============================== 7.5. CONECTE-SE DIRETAMENTE COM OS SÓCIOS (IMMERSIVE SCROLLYTELLING) ============================== -->
+    <section class="section section--dark founders-scrolly-section" id="socios-scrolly" aria-labelledby="foundersSectionTitle">
+      <!-- Introdução Editorial da Seção dos Sócios -->
+      <div class="founders-section__intro">
+        <div class="founders-section__intro-inner">
+          <div class="founders-section__eyebrow">
+            <span class="founders-section__eyebrow-dot"></span>
+            <span>07 — LIDERANÇA TÉCNICA EXECUTIVA</span>
+          </div>
+          <h2 class="founders-section__title" id="foundersSectionTitle">Conecte-se Diretamente com os Sócios</h2>
+          <p class="founders-section__lead">
+            Sem intermediários. Trate seu projeto diretamente com os líderes técnicos responsáveis pela arquitetura de sistemas, engenharia 3D e deploys corporativos de alta resiliência.
+          </p>
+          <div class="founders-quick-switch-bar">
+            <button type="button" class="founders-switch-btn is-active" id="scrollyBtnLuizDirect">
+              <span>LUIZ GABRIEL (FRONT-END &amp; 3D)</span>
+            </button>
+            <button type="button" class="founders-switch-btn founders-switch-btn--vitor" id="scrollyBtnVictorDirect">
+              <span>VITOR WHOHLERS (BACK-END &amp; CLOUD)</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Container interno fixado (Pinned Viewport via ScrollTrigger) -->
+      <div class="scrolly-hero__pin founders-scrolly__pin" id="heroPin">
+
+        <!-- Letra vetorial monumental ao fundo da seção conectada à identidade VL Tech -->
+        <div class="bg-vector-letter" id="bgVectorLetter" aria-hidden="true">V</div>
+        <div class="hero-ambient-glow" id="heroAmbientGlow" aria-hidden="true"></div>
+
+        <!-- ================= ETAPA 1 & 2: PALCO LUIZ GABRIEL ================= -->
+        <div class="scrolly-stage scrolly-stage--luiz" id="stageLuiz">
+          <div class="container hero__inner">
+            <div class="hero__topline" id="luizTopline">
+              <div class="hero-status-pill">
+                <span class="status-dot"></span>
+                <span id="heroPartnerStatus">CO-FOUNDER &amp; ESPECIALISTA ATIVO</span>
+              </div>
+              <div class="hero-brand-tag">
+                <span>VL TECH · HIGH PERFORMANCE ENGINEERING</span>
+              </div>
+            </div>
+
+            <div class="hero__stage-monumental">
+              <!-- Coluna Principal: Tipografia Gigante em Camadas (Foco Principal) -->
+              <div class="hero-typography-stack">
+                <!-- Linha 1: Nome Gigante em negrito branco (#F8F8FC) com 'L' vermelho estilizado -->
+                <h3 class="hero-giant-name hero-title hero-title-luiz" id="heroGiantName">
+                  <span class="partner-initial-integrated" id="partnerInitial">L</span><span
+                    class="partner-remaining-name" id="partnerRemainingName"><span class="typed-text" id="luizTypedText">UIZ GABRIEL</span><span class="typewriter-cursor" id="luizCaret" aria-hidden="true">|</span></span>
+                </h3>
+
+                <!-- Linha 2: Tipografia Secundária / Especialidade -->
+                <div class="hero-giant-outline hero-spec-desktop hero-info-block" id="heroGiantOutline">
+                  Especialista em Front-end, Arquitetura Web e Automações
+                </div>
+
+                <!-- Justificativa da Inicial (L) conectada ao VL Tech -->
+                <div class="hero-partner-justification" id="heroJustification">
+                  <div class="justification-badge">
+                    <span class="justification-letter" id="justificationLetter">L</span>
+                    <div class="justification-content">
+                      <span class="justification-label" id="justificationTitle">CONEXÃO VL TECH: FRONT-END</span>
+                      <span class="justification-pillars" id="justificationPillars">Layout · Lógica · Liderança Técnica no front</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Ações Diretas com Luiz Gabriel -->
+                <div class="stage-founder-actions">
+                  <a href="https://wa.me/5511999999999?text=Ol%C3%A1%20Luiz%20Gabriel%2C%20gostaria%20de%20conversar%20sobre%20um%20projeto%20com%20a%20VL%20Tech"
+                    target="_blank" rel="noopener noreferrer" class="btn--founder-direct-wa" id="scrolly-wa-luiz"
+                    aria-label="Falar com Luiz Gabriel no WhatsApp">
+                    <span>Conversar no WhatsApp</span>
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                  <a href="https://www.linkedin.com/in/luiz-gabriel-moraes/" target="_blank" rel="noopener noreferrer"
+                    class="btn--founder-direct-linkedin" id="scrolly-linkedin-luiz" aria-label="LinkedIn de Luiz Gabriel">
+                    <span>LinkedIn ↗</span>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Coluna Direita: Retrato Limpo (Clean Portrait) de Luiz Gabriel -->
+              <div class="hero-portrait-stage" id="luizPortraitStage">
+                <div class="portrait-glow-aura" aria-hidden="true"></div>
+                <div class="media-frame hero__visual placeholder-3d portrait-container" id="luiz-visual">
+                  <img id="founderImage" src="assets/images/rosto.jpg" alt="Retrato do Co-founder Luiz Gabriel"
+                    class="clean-portrait">
+                  <div class="portrait-initial-watermark" id="portraitWatermark" aria-hidden="true">L</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="hero__meta" id="luizMeta">
+              <div class="hero__meta-item">
+                <span class="hero__meta-label">Co-founder</span>
+                <span class="hero__meta-value" id="metaFounderName">Luiz Gabriel</span>
+              </div>
+              <div class="hero__meta-item">
+                <span class="hero__meta-label">Expertise</span>
+                <span class="hero__meta-value" id="metaFounderRole">Front-end, Arquitetura Web &amp; Automações</span>
+              </div>
+              <div class="hero__meta-item">
+                <a href="#rodape" class="hero__scroll" id="hero-scroll">
+                  Ir para Rodapé e Contato
+                  <span class="hero__scroll-icon" aria-hidden="true">↓</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= ETAPA 3 & 4: TRANSIÇÃO LOGOTIPO CENTRAL & O 'V' DINÂMICO ================= -->
+        <div class="scrolly-stage scrolly-stage--logo" id="stageVLLogo" aria-hidden="true">
+          <div class="scrolly-logo-overlay">
+            <div class="scrolly-logo-glow" id="scrollyLogoGlow"></div>
+
+            <div class="scrolly-logo-center" id="scrollyLogoCenter">
+              <!-- Monograma Monumental Tipográfico com 'V' e 'L' individuais -->
+              <div class="scrolly-monogram-display" id="scrollyMonogramDisplay">
+                <span class="scrolly-letter scrolly-letter--v" id="scrollyLetterV">V</span>
+                <span class="scrolly-letter scrolly-letter--l" id="scrollyLetterL">L</span>
+              </div>
+
+              <!-- Tagline Editorial Subjacente -->
+              <div class="scrolly-tagline-container" id="scrollyTaglineContainer">
+                <span class="scrolly-tagline-sub">VL TECH · HIGH PERFORMANCE ENGINEERING</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= ETAPA 5: PALCO VICTOR WHOHLERS ================= -->
+        <div class="scrolly-stage scrolly-stage--victor" id="stageVictor" aria-hidden="true">
+          <div class="container hero__inner">
+            <div class="hero__topline" id="victorTopline">
+              <div class="hero-status-pill">
+                <span class="status-dot"></span>
+                <span>CO-FOUNDER &amp; ESPECIALISTA ATIVO</span>
+              </div>
+              <div class="hero-brand-tag">
+                <span>VL TECH · HIGH PERFORMANCE ENGINEERING</span>
+              </div>
+            </div>
+
+            <div class="hero__stage-monumental">
+              <!-- Coluna Principal: Tipografia Gigante de Victor -->
+              <div class="hero-typography-stack">
+                <!-- Linha 1: Nome Gigante de Victor Whohlers com o 'V' em vermelho neon -->
+                <h3 class="hero-giant-name hero-title hero-title-victor" id="victorGiantName">
+                  <span class="partner-initial-integrated partner-initial-v" id="victorInitial">V</span><span
+                    class="partner-remaining-name" id="victorRemainingName"><span class="typed-text" id="victorTypedText">ICTOR WHOHLERS</span><span class="typewriter-cursor" id="victorCaret" aria-hidden="true">|</span></span>
+                </h3>
+
+                <!-- Linha 2: Tipografia Secundária / Especialidade de Back-end / Cloud -->
+                <div class="hero-giant-outline hero-spec-desktop hero-info-block" id="victorGiantOutline">
+                  Especialista em Back-end, Cloud &amp; Lógica de Sistemas
+                </div>
+
+                <!-- Justificativa da Inicial 'V' conectada ao VL Tech -->
+                <div class="hero-partner-justification" id="victorJustification">
+                  <div class="justification-badge justification-badge--victor">
+                    <span class="justification-letter">V</span>
+                    <div class="justification-content">
+                      <span class="justification-label">CONEXÃO VL TECH: BACK-END</span>
+                      <span class="justification-pillars">Virtualização · Volumes de Dados · Visão Sistêmica no back</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Ações Diretas com Victor Whohlers -->
+                <div class="stage-founder-actions">
+                  <a href="https://wa.me/5511999999999?text=Ol%C3%A1%20Victor%20Whohlers%2C%20gostaria%20de%20conversar%20sobre%20arquitetura%20cloud%20com%20a%20VL%20Tech"
+                    target="_blank" rel="noopener noreferrer" class="btn--founder-direct-wa btn--founder-direct-wa--victor" id="scrolly-wa-victor"
+                    aria-label="Falar com Victor Whohlers no WhatsApp">
+                    <span>Conversar no WhatsApp</span>
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                  <a href="https://www.linkedin.com/in/victor-whohlers/" target="_blank" rel="noopener noreferrer"
+                    class="btn--founder-direct-linkedin" id="scrolly-linkedin-victor" aria-label="LinkedIn de Victor Whohlers">
+                    <span>LinkedIn ↗</span>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Coluna Direita: Retrato Limpo de Victor Whohlers -->
+              <div class="hero-portrait-stage" id="victorPortraitStage">
+                <div class="portrait-glow-aura" aria-hidden="true"></div>
+                <div class="media-frame hero__visual placeholder-3d portrait-container" id="victor-visual">
+                  <img src="assets/images/victor.jpg" alt="Retrato do Co-founder Victor Whohlers"
+                    class="clean-portrait">
+                  <div class="portrait-initial-watermark" aria-hidden="true">V</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="hero__meta" id="victorMeta">
+              <div class="hero__meta-item">
+                <span class="hero__meta-label">Co-founder</span>
+                <span class="hero__meta-value">Victor Whohlers</span>
+              </div>
+              <div class="hero__meta-item">
+                <span class="hero__meta-label">Expertise</span>
+                <span class="hero__meta-value">Back-end, Cloud &amp; Lógica de Sistemas</span>
+              </div>
+              <div class="hero__meta-item">
+                <a href="#rodape" class="hero__scroll" id="hero-scroll-victor">
+                  Iniciar Projeto no Rodapé
+                  <span class="hero__scroll-icon" aria-hidden="true">↓</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Indicador de passos lateral (Scrollytelling Nav) -->
+        <div class="scrolly-nav-indicator" aria-hidden="true">
+          <button type="button" class="scrolly-step is-active" id="scrollyStepLuiz" aria-label="Ir para Luiz Gabriel">
+            <span class="scrolly-step__dot"></span>
+            <span class="scrolly-step__label">LUIZ G.</span>
+          </button>
+          <button type="button" class="scrolly-step" id="scrollyStepLogo" aria-label="Ir para Identidade VL">
+            <span class="scrolly-step__dot"></span>
+            <span class="scrolly-step__label">VL TECH</span>
+          </button>
+          <button type="button" class="scrolly-step" id="scrollyStepVictor" aria-label="Ir para Victor Whohlers">
+            <span class="scrolly-step__dot"></span>
+            <span class="scrolly-step__label">VICTOR W.</span>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
   </main>
 
   <!-- ============================== 8. RODAPÉ ULTRA-PREMIUM (VL TECH ENGINEERING) ============================== -->
@@ -1309,7 +1460,8 @@
             <li><a href="#tracks" class="footer-col__link"><span class="link-num">04</span><span>Tech &amp; Negócios</span></a></li>
             <li><a href="#portfolio-experience" class="footer-col__link"><span class="link-num">05</span><span>Notebook 3D</span></a></li>
             <li><a href="#capacetes" class="footer-col__link"><span class="link-num">06</span><span>Portfólio em Leque</span></a></li>
-            <li><a href="#faq" class="footer-col__link"><span class="link-num">07</span><span>Perguntas Frequentes</span></a></li>
+            <li><a href="#socios-scrolly" class="footer-col__link"><span class="link-num">07</span><span>Sócios &amp; Liderança</span></a></li>
+            <li><a href="#faq" class="footer-col__link"><span class="link-num">08</span><span>Perguntas Frequentes</span></a></li>
           </ul>
         </nav>
 
