@@ -796,14 +796,18 @@
 .founders-showcase-section {
   position: relative !important;
   width: 100% !important;
+  min-height: 100vh !important;
   background-color: #0A0A0C !important;
-  padding-top: clamp(4.5rem, 7vw, 7.5rem) !important;
-  padding-bottom: clamp(4.5rem, 7vw, 7.5rem) !important;
+  padding-top: clamp(2.5rem, 4.5vh, 4rem) !important;
+  padding-bottom: clamp(2.5rem, 4.5vh, 4rem) !important;
   border-top: 1px solid rgba(255, 30, 38, 0.16) !important;
   border-bottom: 1px solid rgba(255, 30, 38, 0.16) !important;
   overflow: hidden !important;
   clear: both !important;
   z-index: 10 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
 }
 
 /* Ambient Radial Glow & Cyber Grid */
@@ -1063,97 +1067,39 @@
   color: rgba(255, 255, 255, 0.85);
 }
 
-/* Switcher Pills Bar */
-.vl-switcher-bar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.85rem;
-  margin-top: 1.5rem;
-  flex-wrap: wrap;
-  z-index: 2;
-}
-
-.vl-switch-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 18px;
-  background: rgba(18, 18, 26, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 999px;
-  backdrop-filter: blur(12px);
-  font-family: var(--font-mono, monospace);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: rgba(248, 248, 252, 0.65);
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.vl-switch-pill:hover {
-  border-color: rgba(255, 30, 38, 0.4);
-  color: #FFFFFF;
-  box-shadow: 0 0 15px rgba(255, 30, 38, 0.25);
-  transform: translateY(-2px);
-}
-
-.vl-switch-pill.is-active {
-  background: rgba(255, 30, 38, 0.16);
-  border-color: rgba(255, 30, 38, 0.7);
-  color: #FFFFFF;
-  box-shadow: 0 0 20px rgba(255, 30, 38, 0.35);
-}
-
-.pill-beacon {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: rgba(248, 248, 252, 0.4);
-  transition: background-color 0.3s, box-shadow 0.3s;
-}
-
-.vl-switch-pill.is-active .pill-beacon {
-  background-color: var(--accent-red, #FF1E26);
-  box-shadow: 0 0 8px var(--accent-red, #FF1E26);
-}
-
-/* Telemetria de Status */
-.vl-brandmark-hint {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-mono, monospace);
-  font-size: 0.68rem;
-  letter-spacing: 0.12em;
-  color: rgba(248, 248, 252, 0.55);
-  text-transform: uppercase;
-  margin-top: 1rem;
-  z-index: 2;
-}
-
 /* ==========================================================================
-   CO-FOUNDER PROFILES STAGE (CLEAN DOCUMENT FLOW — ZERO OVERLAPS)
+   CO-FOUNDER PROFILES STAGE (GRID OVERLAY FOR PINNED SCROLLYTELLING MORPH)
    ========================================================================== */
 .founders-profiles-stage {
   position: relative;
   width: 100%;
   max-width: var(--container-max, 1440px);
-  margin: clamp(2.5rem, 5vw, 4rem) auto 0 auto;
+  margin: clamp(1rem, 2.5vh, 2rem) auto 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  align-items: center;
   z-index: 5;
 }
 
 .founder-profile-pane {
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
   width: 100%;
-  display: none;
-  opacity: 0;
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  display: block !important;
+  will-change: transform, opacity;
 }
 
-.founder-profile-pane.is-active {
-  display: block;
+.founder-profile-pane--victor {
   opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.founder-profile-pane--luiz {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .founder-profile-grid {
@@ -1240,23 +1186,7 @@
   color: rgba(248, 248, 252, 0.7);
 }
 
-.founder-stage-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
 
-.founder-chip {
-  font-family: var(--font-mono, monospace);
-  font-size: 0.68rem;
-  font-weight: 600;
-  padding: 0.35rem 0.8rem;
-  background: rgba(255, 30, 38, 0.08);
-  border: 1px solid rgba(255, 30, 38, 0.22);
-  color: rgba(248, 248, 252, 0.85);
-  border-radius: 6px;
-  letter-spacing: 0.04em;
-}
 
 .stage-founder-actions {
   display: flex;

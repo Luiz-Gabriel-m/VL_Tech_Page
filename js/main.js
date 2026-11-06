@@ -12,7 +12,7 @@ import { initNavigation } from './navigation.js';
 import { initFounderSwitch } from './founder-switch.js';
 import { initFAQ } from './faq.js';
 import { initFooter } from './footer.js?v=4.0';
-import { initHero } from './hero.js?v=4.1';
+import { initHero } from './hero.js?v=4.4';
 import { initReveal } from './animations/reveal.js';
 import { initScroll } from './scroll.js';
 import { initNotebook3D } from './notebook-3d.js?v=4.3';
