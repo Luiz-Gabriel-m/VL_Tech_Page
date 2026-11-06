@@ -1020,26 +1020,188 @@
       </div>
     </section>
 
-    <!-- ============================== 7. PARCEIROS ============================== -->
-    <section class="section section--offwhite partners" id="parceiros" aria-labelledby="parceiros-title">
+    <!-- ============================== 7. PARCEIROS & TECNOLOGIAS ============================== -->
+    <section class="section section--dark partners-tech-section" id="parceiros" aria-labelledby="parceiros-title">
+      <!-- Iluminação e Grid Tecnológica de Fundo -->
+      <div class="partners-ambient-glow" aria-hidden="true"></div>
+      <div class="partners-grid-overlay" aria-hidden="true"></div>
+
       <div class="container">
-        <header class="section__header">
-          <div>
-            <span class="eyebrow">06 — Ecossistema</span>
-            <h2 class="display section__title" id="parceiros-title">Parceiros & Tecnologias</h2>
+        <header class="section__header partners-tech-header">
+          <div class="partners-header__badge">
+            <span class="tech-badge-dot" aria-hidden="true"></span>
+            <span class="eyebrow text-red">06 — ECOSSISTEMA &amp; STACK TECNOLÓGICA</span>
           </div>
+          <h2 class="display section__title tech-main-title" id="parceiros-title">
+            PARCEIROS &amp; TECNOLOGIAS
+          </h2>
+          <p class="section__lead tech-lead-text">
+            Engenharia de precisão fundamentada nas tecnologias mais velozes e escaláveis do mercado global.
+          </p>
         </header>
 
-        <ul class="partners__grid">
-          <li class="partner">Node.js & Go</li>
-          <li class="partner">Amazon AWS</li>
-          <li class="partner">Three.js & WebGL</li>
-          <li class="partner">Google Cloud</li>
-          <li class="partner">Docker & K8s</li>
-          <li class="partner">TypeScript</li>
-          <li class="partner">PostgreSQL & Redis</li>
-          <li class="partner">VL Tech Cloud</li>
-        </ul>
+        <!-- Grid de Cards Glassmórficos Tecnológicos -->
+        <div class="tech-stack-grid" id="techStackGrid">
+          <!-- CARD 01: NODE.JS & GO -->
+          <article class="tech-glass-card" data-tech="node-go">
+            <div class="tech-card__sheen" aria-hidden="true"></div>
+            <div class="tech-card__top">
+              <span class="tech-telemetry">
+                <span class="telemetry-beacon"></span>
+                <span>ONLINE // RUNTIME</span>
+              </span>
+              <span class="tech-card-id">01</span>
+            </div>
+            <div class="tech-card__body">
+              <h3 class="tech-card-name">NODE.JS &amp; GO</h3>
+              <p class="tech-card-desc">Microsserviços de ultra-baixa latência &amp; concorrência massiva.</p>
+            </div>
+            <div class="tech-card__footer">
+              <span class="tech-tag">REST &amp; gRPC API</span>
+              <span class="tech-metric">&lt; 10ms</span>
+            </div>
+          </article>
+
+          <!-- CARD 02: AMAZON AWS -->
+          <article class="tech-glass-card" data-tech="aws">
+            <div class="tech-card__sheen" aria-hidden="true"></div>
+            <div class="tech-card__top">
+              <span class="tech-telemetry">
+                <span class="telemetry-beacon"></span>
+                <span>CLOUD // MULTI-AZ</span>
+              </span>
+              <span class="tech-card-id">02</span>
+            </div>
+            <div class="tech-card__body">
+              <h3 class="tech-card-name">AMAZON AWS</h3>
+              <p class="tech-card-desc">Infraestrutura elástica, Lambda Serverless &amp; CloudFront Edge.</p>
+            </div>
+            <div class="tech-card__footer">
+              <span class="tech-tag">INFRA AS CODE</span>
+              <span class="tech-metric">99.99%</span>
+            </div>
+          </article>
+
+          <!-- CARD 03: THREE.JS & WEBGL -->
+          <article class="tech-glass-card" data-tech="three-webgl">
+            <div class="tech-card__sheen" aria-hidden="true"></div>
+            <div class="tech-card__top">
+              <span class="tech-telemetry">
+                <span class="telemetry-beacon"></span>
+                <span>GRAPHICS // GPU</span>
+              </span>
+              <span class="tech-card-id">03</span>
+            </div>
+            <div class="tech-card__body">
+              <h3 class="tech-card-name">THREE.JS &amp; WEBGL</h3>
+              <p class="tech-card-desc">Cenas tridimensionais imersivas, Shaders GLSL &amp; 60 FPS fluidos.</p>
+            </div>
+            <div class="tech-card__footer">
+              <span class="tech-tag">HARDWARE ACCEL</span>
+              <span class="tech-metric">60 FPS</span>
+            </div>
+          </article>
+
+          <!-- CARD 04: GOOGLE CLOUD -->
+          <article class="tech-glass-card" data-tech="gcp">
+            <div class="tech-card__sheen" aria-hidden="true"></div>
+            <div class="tech-card__top">
+              <span class="tech-telemetry">
+                <span class="telemetry-beacon"></span>
+                <span>EDGE // GLOBAL CDN</span>
+              </span>
+              <span class="tech-card-id">04</span>
+            </div>
+            <div class="tech-card__body">
+              <h3 class="tech-card-name">GOOGLE CLOUD</h3>
+              <p class="tech-card-desc">Kubernetes GKE, BigQuery Analytics &amp; inteligência artificial em nuvem.</p>
+            </div>
+            <div class="tech-card__footer">
+              <span class="tech-tag">ENTERPRISE CLOUD</span>
+              <span class="tech-metric">GLOBAL</span>
+            </div>
+          </article>
+
+          <!-- CARD 05: DOCKER & K8S -->
+          <article class="tech-glass-card" data-tech="docker-k8s">
+            <div class="tech-card__sheen" aria-hidden="true"></div>
+            <div class="tech-card__top">
+              <span class="tech-telemetry">
+                <span class="telemetry-beacon"></span>
+                <span>DEVOPS // CI/CD</span>
+              </span>
+              <span class="tech-card-id">05</span>
+            </div>
+            <div class="tech-card__body">
+              <h3 class="tech-card-name">DOCKER &amp; K8S</h3>
+              <p class="tech-card-desc">Conteinerização isolada, autoscaling instantâneo &amp; zero downtime deploy.</p>
+            </div>
+            <div class="tech-card__footer">
+              <span class="tech-tag">ORCHESTRATION</span>
+              <span class="tech-metric">AUTO-SCALE</span>
+            </div>
+          </article>
+
+          <!-- CARD 06: TYPESCRIPT -->
+          <article class="tech-glass-card" data-tech="typescript">
+            <div class="tech-card__sheen" aria-hidden="true"></div>
+            <div class="tech-card__top">
+              <span class="tech-telemetry">
+                <span class="telemetry-beacon"></span>
+                <span>TYPE-SAFE // ARCHITECTURE</span>
+              </span>
+              <span class="tech-card-id">06</span>
+            </div>
+            <div class="tech-card__body">
+              <h3 class="tech-card-name">TYPESCRIPT</h3>
+              <p class="tech-card-desc">Segurança estática de tipagem eliminando 99% dos erros em tempo de execução.</p>
+            </div>
+            <div class="tech-card__footer">
+              <span class="tech-tag">STRICT COMPLIANCE</span>
+              <span class="tech-metric">100% TYPED</span>
+            </div>
+          </article>
+
+          <!-- CARD 07: POSTGRESQL & REDIS -->
+          <article class="tech-glass-card" data-tech="postgres-redis">
+            <div class="tech-card__sheen" aria-hidden="true"></div>
+            <div class="tech-card__top">
+              <span class="tech-telemetry">
+                <span class="telemetry-beacon"></span>
+                <span>DATABASE // CACHE</span>
+              </span>
+              <span class="tech-card-id">07</span>
+            </div>
+            <div class="tech-card__body">
+              <h3 class="tech-card-name">POSTGRESQL &amp; REDIS</h3>
+              <p class="tech-card-desc">Bancos relacionais robustos ACID somados a cache em memória sub-milissegundo.</p>
+            </div>
+            <div class="tech-card__footer">
+              <span class="tech-tag">IN-MEMORY CACHE</span>
+              <span class="tech-metric">&lt; 1ms</span>
+            </div>
+          </article>
+
+          <!-- CARD 08: VL TECH CLOUD -->
+          <article class="tech-glass-card tech-glass-card--featured" data-tech="vl-cloud">
+            <div class="tech-card__sheen" aria-hidden="true"></div>
+            <div class="tech-card__top">
+              <span class="tech-telemetry">
+                <span class="telemetry-beacon telemetry-beacon--red"></span>
+                <span class="text-red">PROPRIETARY // CORE</span>
+              </span>
+              <span class="tech-card-id text-red">08</span>
+            </div>
+            <div class="tech-card__body">
+              <h3 class="tech-card-name text-red">VL TECH CLOUD</h3>
+              <p class="tech-card-desc">Plataforma própria de orquestração de borda com caching adaptativo e segurança militar.</p>
+            </div>
+            <div class="tech-card__footer">
+              <span class="tech-tag tech-tag--featured">EDGE ENGINE</span>
+              <span class="tech-metric text-red">ZERO LATENCY</span>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 

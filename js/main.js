@@ -21,6 +21,7 @@ import { initMatrixCascade } from './animations/matrix-cascade.js';
 import { initTechHero } from './tech-hero-3d.js?v=4.0';
 import { initArrowScrollytelling } from './arrow-scrollytelling.js?v=4.0';
 import { initDiferenciais } from './diferenciais-3d.js';
+import { initPartnersTech } from './partners-tech.js?v=4.0';
 
 /**
  * Módulos essenciais — funcionam mesmo se o GSAP não carregar.
@@ -47,6 +48,7 @@ const MOTION_MODULES = [
   ['tiltHat', initTiltHat],
   ['notebook3D', initNotebook3D],
   ['matrixCascade', initMatrixCascade],
+  ['partnersTech', initPartnersTech],
   ['reveal', initReveal],
   ['scroll', initScroll],
 ];
