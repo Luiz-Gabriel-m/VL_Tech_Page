@@ -34,7 +34,7 @@ export function initTechHero() {
 
   // Cena e Câmera
   const scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x111112, 0.038);
+  scene.fog = new THREE.FogExp2(0x0a0a0c, 0.038);
 
   const camera = new THREE.PerspectiveCamera(
     60,
@@ -45,7 +45,7 @@ export function initTechHero() {
   camera.position.set(0, 1.2, 10);
 
   // ---------------------------------------------------------------------------
-  // 1. Textura de Partícula Glow Circular (Gerada via Canvas para Zero Latência)
+  // 1. Textura de Partícula Glow Circular (Vermelho VL Tech #FF1E26 & Branco)
   // ---------------------------------------------------------------------------
   function createParticleTexture() {
     const size = 128;
@@ -56,8 +56,8 @@ export function initTechHero() {
 
     const grad = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
     grad.addColorStop(0, 'rgba(255, 255, 255, 1)');
-    grad.addColorStop(0.2, 'rgba(210, 255, 0, 0.9)');
-    grad.addColorStop(0.5, 'rgba(210, 255, 0, 0.35)');
+    grad.addColorStop(0.2, 'rgba(255, 30, 38, 0.95)');
+    grad.addColorStop(0.55, 'rgba(255, 30, 38, 0.35)');
     grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
 
     ctx.fillStyle = grad;
@@ -73,7 +73,7 @@ export function initTechHero() {
   const particleTexture = createParticleTexture();
 
   // ---------------------------------------------------------------------------
-  // 2. Campo de Partículas Interativo (Dust & Digital Constellation)
+  // 2. Campo de Partículas Interativo (Dust & Digital Constellation em Vermelho & Branco)
   // ---------------------------------------------------------------------------
   const particleCount = window.innerWidth < 768 ? 650 : 1500;
   const particleGeometry = new THREE.BufferGeometry();
@@ -81,10 +81,10 @@ export function initTechHero() {
   const colors = new Float32Array(particleCount * 3);
   const scales = new Float32Array(particleCount);
 
-  // Paleta de cores: Lime-green (#d2ff00), Branco puro, e acentos de ciano/vermelho técnico
-  const colorLime = new THREE.Color(0xd2ff00);
+  // Paleta de cores exclusiva: Vermelho neon (#FF1E26), Vermelho Rubi (#FF3B42) e Branco puro
+  const colorRed = new THREE.Color(0xff1e26);
+  const colorRuby = new THREE.Color(0xff3b42);
   const colorWhite = new THREE.Color(0xffffff);
-  const colorCyber = new THREE.Color(0x38bdf8);
 
   for (let i = 0; i < particleCount; i++) {
     const i3 = i * 3;
@@ -97,11 +97,11 @@ export function initTechHero() {
     const rChoice = Math.random();
     let pColor;
     if (rChoice < 0.65) {
-      pColor = colorLime;
+      pColor = colorRed;
     } else if (rChoice < 0.88) {
-      pColor = colorWhite;
+      pColor = colorRuby;
     } else {
-      pColor = colorCyber;
+      pColor = colorWhite;
     }
 
     colors[i3] = pColor.r;
@@ -128,39 +128,39 @@ export function initTechHero() {
   scene.add(particleField);
 
   // ---------------------------------------------------------------------------
-  // 3. Grid Neon de Matriz em Perspectiva (Wireframe Ground Highway)
+  // 3. Grid Neon de Matriz em Perspectiva (Wireframe Ground Highway Vermelho #FF1E26)
   // ---------------------------------------------------------------------------
   const gridWidth = 40;
   const gridDepth = 60;
   const gridDivisions = 40;
 
-  const gridHelper = new THREE.GridHelper(gridWidth, gridDivisions, 0xd2ff00, 0x223322);
+  const gridHelper = new THREE.GridHelper(gridWidth, gridDivisions, 0xff1e26, 0x300507);
   gridHelper.position.set(0, -3.2, -8);
   gridHelper.material.transparent = true;
-  gridHelper.material.opacity = 0.28;
+  gridHelper.material.opacity = 0.32;
   gridHelper.material.blending = THREE.AdditiveBlending;
   scene.add(gridHelper);
 
   // Segundo Grid no teto invertido (estilo túnel tecnológico de dados)
-  const ceilingGrid = new THREE.GridHelper(gridWidth, gridDivisions, 0xd2ff00, 0x182418);
+  const ceilingGrid = new THREE.GridHelper(gridWidth, gridDivisions, 0xff1e26, 0x1f0305);
   ceilingGrid.position.set(0, 8.5, -8);
   ceilingGrid.material.transparent = true;
-  ceilingGrid.material.opacity = 0.12;
+  ceilingGrid.material.opacity = 0.15;
   ceilingGrid.material.blending = THREE.AdditiveBlending;
   scene.add(ceilingGrid);
 
   // ---------------------------------------------------------------------------
-  // 4. Floating Holographic Cyber Polyhedron (Símbolo de Engenharia / Núcleo)
+  // 4. Floating Holographic Cyber Polyhedron (Símbolo de Engenharia Vermelho #FF1E26)
   // ---------------------------------------------------------------------------
   const coreGroup = new THREE.Group();
   coreGroup.position.set(6, 0.5, -4);
 
   const polyGeom = new THREE.IcosahedronGeometry(2.4, 1);
   const polyWireMat = new THREE.MeshBasicMaterial({
-    color: 0xd2ff00,
+    color: 0xff1e26,
     wireframe: true,
     transparent: true,
-    opacity: 0.18,
+    opacity: 0.25,
     blending: THREE.AdditiveBlending,
   });
   const polyMesh = new THREE.Mesh(polyGeom, polyWireMat);

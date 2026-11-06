@@ -1,7 +1,7 @@
 /* ==========================================================================
-   VL TECH — PRODUCTION STYLESHEET (ARCHITECTURE UPDATE)
+   VL TECH — PRODUCTION STYLESHEET (TEMA EXCLUSIVO VERMELHO & PRETO)
    Tech Stack: HTML5, CSS3, GSAP 3 + ScrollTrigger, Three.js WebGL
-   Tokens: --color--black: #111112, --color--lime: #d2ff00, Mona Sans typography
+   Design Tokens: --color--black: #0A0A0C, --accent-red: #FF1E26, Mona Sans typography
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
@@ -11,33 +11,33 @@
 @import url('css/layout.css');
 
 /* --------------------------------------------------------------------------
-   2. Utilitários de Cor & Tipografia Mona Sans
+   2. Utilitários de Cor & Tipografia Mona Sans (Vermelho #FF1E26 & Preto #0A0A0C)
    -------------------------------------------------------------------------- */
 .font-mona {
   font-family: var(--font-mona), sans-serif;
 }
 
-.text-lime {
-  color: var(--color--lime, #d2ff00) !important;
+.text-red {
+  color: var(--accent-red, #FF1E26) !important;
 }
 
-.text-lime-glow {
-  color: var(--color--lime, #d2ff00);
-  text-shadow: 0 0 25px rgba(210, 255, 0, 0.75), 0 0 55px rgba(210, 255, 0, 0.4);
+.text-red-glow {
+  color: var(--accent-red, #FF1E26) !important;
+  text-shadow: 0 0 25px rgba(255, 30, 38, 0.85), 0 0 55px rgba(255, 30, 38, 0.5) !important;
 }
 
 .bg-dark-tech {
-  background-color: var(--color--black, #111112) !important;
+  background-color: var(--color--black, #0A0A0C) !important;
 }
 
 /* --------------------------------------------------------------------------
-   3. NOVO SUPER-TECHNOLOGICAL HERO SECTION (#hero)
+   3. NOVO SUPER-TECHNOLOGICAL HERO SECTION (#hero) EM VERMELHO & PRETO
    -------------------------------------------------------------------------- */
 .tech-hero {
   position: relative;
   min-height: 100vh;
   width: 100%;
-  background-color: var(--color--black, #111112);
+  background-color: var(--color--black, #0A0A0C);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -57,7 +57,7 @@
   pointer-events: auto;
 }
 
-/* Iluminação de Fundo Tecnológica */
+/* Iluminação de Fundo Tecnológica Vermelha */
 .tech-hero__ambient-radial {
   position: absolute;
   top: 20%;
@@ -65,7 +65,7 @@
   transform: translate(-50%, -50%);
   width: 900px;
   height: 550px;
-  background: radial-gradient(circle, rgba(210, 255, 0, 0.08) 0%, rgba(210, 255, 0, 0.02) 45%, transparent 70%);
+  background: radial-gradient(circle, rgba(255, 30, 38, 0.12) 0%, rgba(255, 30, 38, 0.03) 45%, transparent 70%);
   filter: blur(80px);
   pointer-events: none;
   z-index: 1;
@@ -75,11 +75,11 @@
   position: absolute;
   inset: 0;
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    linear-gradient(to right, rgba(255, 30, 38, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 30, 38, 0.04) 1px, transparent 1px);
   background-size: 60px 60px;
-  mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.8) 0%, transparent 75%);
-  -webkit-mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.8) 0%, transparent 75%);
+  mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.85) 0%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.85) 0%, transparent 75%);
   pointer-events: none;
   z-index: 1;
 }
@@ -98,18 +98,18 @@
   text-align: center;
 }
 
-/* Telemetria Ticker ao Vivo */
+/* Telemetria Ticker ao Vivo (Vermelho Neon) */
 .tech-hero__telemetry-bar {
   display: inline-flex;
   align-items: center;
   gap: 1.25rem;
   padding: 0.5rem 1.25rem;
-  background: var(--glass-bg, rgba(17, 17, 18, 0.75));
+  background: var(--glass-bg, rgba(12, 12, 14, 0.82));
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--glass-border, rgba(210, 255, 0, 0.2));
+  border: 1px solid var(--glass-border, rgba(255, 30, 38, 0.25));
   border-radius: var(--radius-pill, 999px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   font-family: var(--font-mono, monospace);
   font-size: 0.8125rem;
   letter-spacing: 0.08em;
@@ -121,8 +121,8 @@
 }
 
 .tech-hero__telemetry-bar:hover {
-  border-color: var(--color--lime, #d2ff00);
-  box-shadow: 0 0 25px rgba(210, 255, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  border-color: var(--accent-red, #FF1E26);
+  box-shadow: 0 0 25px rgba(255, 30, 38, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
 .telemetry-status {
@@ -134,31 +134,31 @@
 .telemetry-pulse {
   width: 8px;
   height: 8px;
-  background-color: var(--color--lime, #d2ff00);
+  background-color: var(--accent-red, #FF1E26);
   border-radius: 50%;
-  box-shadow: 0 0 10px var(--color--lime, #d2ff00);
-  animation: pulseNeonLime 2s infinite ease-in-out;
+  box-shadow: 0 0 10px var(--accent-red, #FF1E26);
+  animation: pulseNeonRed 2s infinite ease-in-out;
 }
 
-@keyframes pulseNeonLime {
+@keyframes pulseNeonRed {
   0%, 100% {
     transform: scale(1);
     opacity: 1;
-    box-shadow: 0 0 8px #d2ff00;
+    box-shadow: 0 0 8px #FF1E26;
   }
   50% {
     transform: scale(1.35);
     opacity: 0.65;
-    box-shadow: 0 0 18px #d2ff00;
+    box-shadow: 0 0 20px #FF1E26;
   }
 }
 
 .telemetry-divider {
-  color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 30, 38, 0.3);
 }
 
 .telemetry-item strong {
-  color: var(--color--lime, #d2ff00);
+  color: var(--accent-red, #FF1E26);
   font-weight: 600;
 }
 
@@ -189,10 +189,10 @@
   margin: 0;
 }
 
-.tech-hero__title .highlight-lime {
+.tech-hero__title .highlight-red {
   display: inline-block;
-  color: var(--color--lime, #d2ff00);
-  text-shadow: 0 0 35px rgba(210, 255, 0, 0.8), 0 0 75px rgba(210, 255, 0, 0.4);
+  color: var(--accent-red, #FF1E26) !important;
+  text-shadow: 0 0 35px rgba(255, 30, 38, 0.95), 0 0 75px rgba(255, 30, 38, 0.5) !important;
   position: relative;
 }
 
@@ -222,22 +222,22 @@
   flex-wrap: wrap;
 }
 
-/* Botão WhatsApp de Alto Contraste com Física de Hover */
+/* Botão WhatsApp em Vermelho Neon de Alto Contraste */
 .btn--tech-whatsapp {
   display: inline-flex;
   align-items: center;
   gap: 0.85rem;
   padding: 1.1rem 2.4rem;
-  background-color: var(--color--lime, #d2ff00);
-  color: #111112 !important;
+  background-color: var(--accent-red, #FF1E26) !important;
+  color: #FFFFFF !important;
   font-family: var(--font-mona, 'Mona Sans', sans-serif);
   font-size: 1rem;
   font-weight: 800;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   border-radius: var(--radius-pill, 999px);
-  border: 1px solid #d2ff00;
-  box-shadow: 0 0 30px rgba(210, 255, 0, 0.55), 0 10px 25px rgba(0, 0, 0, 0.6);
+  border: 1px solid #FF1E26;
+  box-shadow: 0 0 30px rgba(255, 30, 38, 0.65), 0 10px 25px rgba(0, 0, 0, 0.8);
   cursor: pointer;
   transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease, background-color 0.25s ease;
   position: relative;
@@ -251,7 +251,7 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
   transition: 0.5s;
 }
 
@@ -261,8 +261,8 @@
 
 .btn--tech-whatsapp:hover {
   transform: translateY(-3px) scale(1.03);
-  background-color: #e2ff40;
-  box-shadow: 0 0 50px rgba(210, 255, 0, 0.9), 0 15px 35px rgba(0, 0, 0, 0.8);
+  background-color: #ff3b42 !important;
+  box-shadow: 0 0 55px rgba(255, 30, 38, 0.95), 0 15px 35px rgba(0, 0, 0, 0.9);
 }
 
 .btn--tech-whatsapp:active {
@@ -281,7 +281,7 @@
   align-items: center;
   gap: 0.75rem;
   padding: 1.1rem 2.2rem;
-  background: var(--glass-bg, rgba(17, 17, 18, 0.75));
+  background: var(--glass-bg, rgba(12, 12, 14, 0.82));
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   color: #F8F8FC !important;
@@ -297,11 +297,11 @@
 }
 
 .btn--tech-secondary:hover {
-  background: rgba(28, 28, 32, 0.9);
-  border-color: var(--color--lime, #d2ff00);
-  color: var(--color--lime, #d2ff00) !important;
+  background: rgba(28, 14, 16, 0.92);
+  border-color: var(--accent-red, #FF1E26);
+  color: var(--accent-red, #FF1E26) !important;
   transform: translateY(-3px);
-  box-shadow: 0 0 25px rgba(210, 255, 0, 0.25);
+  box-shadow: 0 0 25px rgba(255, 30, 38, 0.35);
 }
 
 .btn--tech-secondary .btn-arrow {
@@ -328,7 +328,7 @@
   align-items: center;
   gap: 0.65rem;
   padding: 0.65rem 1.25rem;
-  background: var(--glass-bg, rgba(17, 17, 18, 0.75));
+  background: var(--glass-bg, rgba(12, 12, 14, 0.82));
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--glass-border-subtle, rgba(255, 255, 255, 0.08));
@@ -342,47 +342,60 @@
 }
 
 .tech-badge-floating:hover {
-  border-color: var(--color--lime, #d2ff00);
-  background: rgba(26, 26, 30, 0.9);
+  border-color: var(--accent-red, #FF1E26);
+  background: rgba(28, 12, 14, 0.92);
   color: #FFFFFF;
   transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(210, 255, 0, 0.2);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7), 0 0 25px rgba(255, 30, 38, 0.3);
 }
 
 .tech-badge-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: var(--color--lime, #d2ff00);
-  box-shadow: 0 0 6px var(--color--lime, #d2ff00);
+  background-color: var(--accent-red, #FF1E26);
+  box-shadow: 0 0 8px var(--accent-red, #FF1E26);
 }
 
 /* --------------------------------------------------------------------------
-   4. REPOSICIONAMENTO DO SCROLLYTELLING DOS SÓCIOS (#socios-scrolly)
-   Localizado logo acima do rodapé / área de contato
+   4. SEÇÃO DOS SÓCIOS (#socios-scrolly) — INTEGRADA, SEM ESPAÇO EM BRANCO
    -------------------------------------------------------------------------- */
 .founders-scrolly-section {
   position: relative;
-  background-color: var(--color--black, #111112);
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  padding: 0;
+  background-color: var(--color--black, #0A0A0C);
+  border-top: 1px solid rgba(255, 30, 38, 0.18);
   overflow: visible;
   z-index: 5;
 }
 
-/* Cabeçalho de Introdução da Seção dos Sócios */
-.founders-section__intro {
-  padding: 6rem 0 3rem;
-  background: linear-gradient(180deg, rgba(17, 17, 18, 0.9) 0%, rgba(17, 17, 18, 1) 100%);
-  text-align: center;
+/* Container fixado via ScrollTrigger — Enquadrado perfeitamente na viewport */
+.founders-scrolly-section .scrolly-hero__pin,
+.founders-scrolly__pin {
   position: relative;
-  z-index: 2;
+  width: 100%;
+  height: 100vh;
+  min-height: 680px;
+  overflow: hidden;
+  background-color: var(--color--black, #0A0A0C) !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: calc(var(--nav-height, 72px) + 0.5rem);
+  padding-bottom: 0.75rem;
+  box-sizing: border-box;
 }
 
-.founders-section__intro-inner {
-  max-width: 900px;
-  margin: 0 auto;
+/* Header Fixado no topo do palco dos sócios */
+.founders-stage-header {
+  position: relative;
+  z-index: 25;
+  text-align: center;
   padding: 0 var(--container-pad, 2rem);
+  margin-bottom: 0.5rem;
+  width: 100%;
+  max-width: 900px;
+  flex-shrink: 0;
 }
 
 .founders-section__eyebrow {
@@ -390,50 +403,43 @@
   align-items: center;
   gap: 0.5rem;
   font-family: var(--font-mono, monospace);
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--color--lime, #d2ff00);
-  margin-bottom: 1rem;
+  color: var(--accent-red, #FF1E26);
+  margin-bottom: 0.25rem;
 }
 
 .founders-section__eyebrow-dot {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background: var(--color--lime, #d2ff00);
-  box-shadow: 0 0 8px var(--color--lime, #d2ff00);
+  background: var(--accent-red, #FF1E26);
+  box-shadow: 0 0 10px var(--accent-red, #FF1E26);
+  animation: pulseNeonRed 2s infinite ease-in-out;
 }
 
 .founders-section__title {
   font-family: var(--font-monument, 'Monument Extended', sans-serif);
-  font-size: clamp(2rem, 1.4rem + 2.5vw, 4rem);
+  font-size: clamp(1.4rem, 1rem + 1.5vw, 2.4rem);
   font-weight: 900;
   color: #F8F8FC;
-  line-height: 1.1;
+  line-height: 1.08;
   text-transform: uppercase;
-  margin: 0 0 1.25rem;
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.02em;
 }
 
-.founders-section__lead {
-  font-family: var(--font-mona, 'Mona Sans', sans-serif);
-  font-size: clamp(1rem, 0.95rem + 0.35vw, 1.2rem);
-  line-height: 1.6;
-  color: rgba(248, 248, 252, 0.7);
-  margin: 0 auto 2rem;
-  max-width: 720px;
-}
-
-/* Switcher Rápido Integrado na Seção dos Sócios */
+/* Switcher Rápido com Destaque Vermelho Neon */
 .founders-quick-switch-bar {
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
-  background: var(--glass-bg, rgba(17, 17, 18, 0.75));
+  gap: 0.65rem;
+  background: var(--glass-bg, rgba(14, 14, 16, 0.85));
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 30, 38, 0.22);
   border-radius: var(--radius-pill, 999px);
-  padding: 0.4rem;
+  padding: 0.35rem 0.5rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
 }
 
@@ -441,12 +447,12 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.65rem 1.4rem;
+  padding: 0.55rem 1.3rem;
   border-radius: var(--radius-pill, 999px);
   background: transparent;
   color: rgba(248, 248, 252, 0.65);
   font-family: var(--font-mona, 'Mona Sans', sans-serif);
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -455,34 +461,97 @@
   transition: all 0.25s ease;
 }
 
+.founders-switch-btn .switch-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transition: all 0.25s ease;
+}
+
 .founders-switch-btn:hover {
   color: #FFFFFF;
+  border-color: rgba(255, 30, 38, 0.4);
 }
 
 .founders-switch-btn.is-active {
-  background: rgba(255, 30, 38, 0.18);
+  background: rgba(255, 30, 38, 0.22);
   border-color: #FF1E26;
   color: #FFFFFF;
-  box-shadow: 0 0 20px rgba(255, 30, 38, 0.35);
+  box-shadow: 0 0 25px rgba(255, 30, 38, 0.45);
 }
 
-.founders-switch-btn--vitor.is-active {
-  background: rgba(210, 255, 0, 0.15);
-  border-color: #d2ff00;
-  box-shadow: 0 0 20px rgba(210, 255, 0, 0.3);
+.founders-switch-btn.is-active .switch-dot {
+  background: #FF1E26;
+  box-shadow: 0 0 8px #FF1E26;
 }
 
-/* Área Pinned do Scrollytelling nos Sócios */
-.founders-scrolly__pin {
+/* Área Flexível para os Palcos */
+.founders-stages-viewport {
   position: relative;
   width: 100%;
-  height: 100vh;
-  min-height: 720px;
-  overflow: hidden;
-  background-color: var(--color--black, #111112);
+  flex: 1;
+  min-height: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Enquadramento Centralizado dos Palcos dos Sócios */
+.founders-scrolly-section .scrolly-stage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.founders-scrolly-section .hero__inner {
+  width: 100%;
+  max-width: var(--container-max, 1440px);
+  margin: 0 auto;
+  padding: 0 var(--container-pad, 2rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.founders-scrolly-section .hero__stage-monumental {
+  margin-block: 0;
+  align-items: center;
+}
+
+.founders-scrolly-section .hero__visual.portrait-container {
+  max-width: clamp(230px, 22vw, 340px);
+}
+
+.founders-scrolly-section .hero-giant-name {
+  font-size: clamp(2rem, 3.8vw, 4.2rem);
+}
+
+/* Chips de Especialidades no Palco */
+.founder-stage-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.founder-stage-chips .founder-chip {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  padding: 0.35rem 0.75rem;
+  background: rgba(255, 30, 38, 0.08);
+  border: 1px solid rgba(255, 30, 38, 0.22);
+  color: rgba(248, 248, 252, 0.85);
+  border-radius: var(--radius-sm, 6px);
+  letter-spacing: 0.04em;
 }
 
 /* Ações Diretas no Palco dos Sócios (WhatsApp / LinkedIn) */
@@ -490,7 +559,7 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   flex-wrap: wrap;
 }
 
@@ -499,7 +568,7 @@
   align-items: center;
   gap: 0.65rem;
   padding: 0.85rem 1.6rem;
-  background: #FF1E26;
+  background: #FF1E26 !important;
   color: #FFFFFF !important;
   font-family: var(--font-mona, 'Mona Sans', sans-serif);
   font-size: 0.875rem;
@@ -507,25 +576,15 @@
   letter-spacing: 0.04em;
   text-transform: uppercase;
   border-radius: var(--radius-pill, 999px);
-  box-shadow: 0 0 25px rgba(255, 30, 38, 0.5);
+  box-shadow: 0 0 25px rgba(255, 30, 38, 0.6);
+  border: 1px solid #FF1E26;
   transition: all 0.25s ease;
 }
 
 .btn--founder-direct-wa:hover {
-  background: #ff3b42;
+  background: #ff3b42 !important;
   transform: translateY(-2px);
-  box-shadow: 0 0 35px rgba(255, 30, 38, 0.8);
-}
-
-.btn--founder-direct-wa--victor {
-  background: var(--color--lime, #d2ff00);
-  color: #111112 !important;
-  box-shadow: 0 0 25px rgba(210, 255, 0, 0.45);
-}
-
-.btn--founder-direct-wa--victor:hover {
-  background: #e2ff40;
-  box-shadow: 0 0 35px rgba(210, 255, 0, 0.8);
+  box-shadow: 0 0 40px rgba(255, 30, 38, 0.9);
 }
 
 .btn--founder-direct-linkedin {
@@ -533,7 +592,7 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.85rem 1.4rem;
-  background: var(--glass-bg, rgba(17, 17, 18, 0.75));
+  background: var(--glass-bg, rgba(14, 14, 16, 0.82));
   backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.12);
   color: rgba(248, 248, 252, 0.85) !important;
@@ -573,6 +632,19 @@
     font-size: 0.75rem;
     padding: 0.5rem 0.9rem;
   }
+
+  .founders-scrolly-section .scrolly-stage {
+    padding-top: calc(var(--nav-height, 72px) + 8.5rem);
+  }
+
+  .founders-section__title {
+    font-size: 1.5rem;
+  }
+
+  .founders-switch-btn {
+    padding: 0.45rem 1rem;
+    font-size: 0.75rem;
+  }
 }
 
 @media (max-width: 640px) {
@@ -604,5 +676,24 @@
 
   .telemetry-item:nth-child(n+4) {
     display: none;
+  }
+
+  .founders-stage-header {
+    margin-bottom: 0.25rem;
+  }
+
+  .founders-section__title {
+    font-size: 1.25rem;
+  }
+
+  .founders-quick-switch-bar {
+    flex-direction: column;
+    gap: 0.25rem;
+    width: 100%;
+  }
+
+  .founders-switch-btn {
+    width: 100%;
+    justify-content: center;
   }
 }

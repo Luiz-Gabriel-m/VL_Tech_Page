@@ -4,36 +4,38 @@
    ========================================================================== */
 
 :root {
-  /* ---------- Design Tokens Principais VL Tech (Architecture Update) ---------- */
-  --color--black: #111112;        /* Deep dark theme corporativo de alta tecnologia */
-  --color--lime: #d2ff00;         /* Neon lime-green de destaque técnico */
-  --color--lime-glow: rgba(210, 255, 0, 0.45);
-  --color--lime-glow-strong: 0 0 30px rgba(210, 255, 0, 0.8), 0 0 60px rgba(210, 255, 0, 0.4);
+  /* ---------- Design Tokens Principais VL Tech (Tema Exclusivo Vermelho & Preto) ---------- */
+  --color--black: #0A0A0C;        /* Deep dark theme corporativo VL Tech */
+  --color--black-surface: #111112;/* Superfície escura de cartões e painéis */
+  --color--red: #FF1E26;          /* Vermelho oficial VL Tech */
+  --color--red-hover: #ff3b42;
+  --color--red-glow: rgba(255, 30, 38, 0.65);
+  --color--red-glow-strong: 0 0 35px rgba(255, 30, 38, 0.95), 0 0 70px rgba(255, 30, 38, 0.5);
 
   /* ---------- Cores de Fundo e Superfície ---------- */
-  --bg-dark: #111112;             /* Atualizado para alinhar ao deep dark theme */
-  --bg-olive: #161618;            /* Superfície carvão escura */
-  --bg-offwhite: #1a1a1e;         /* Superfície grafite de contraste */
+  --bg-dark: #0A0A0C;             /* Preto principal VL Tech */
+  --bg-olive: #111114;            /* Superfície carvão escura */
+  --bg-offwhite: #16161D;         /* Superfície grafite de contraste */
   --bg-surface: #1E1E26;
-  --bg-black: #0d0d0e;
+  --bg-black: #050507;
 
-  --accent-red: #FF1E26;          /* Vermelho oficial VL Tech (mantido para contrastes) */
+  --accent-red: #FF1E26;          /* Vermelho oficial VL Tech */
   --accent-neon: #FF1E26;         /* Alias mantido para consistência */
-  --accent-red-hover: #E0141C;
+  --accent-red-hover: #ff3b42;
 
   /* ---------- Brilhos suaves (Glow) ---------- */
-  --accent-red-glow: 0 0 25px rgba(255, 30, 38, 0.55);
-  --accent-red-glow-strong: 0 0 40px rgba(255, 30, 38, 0.85);
-  --accent-red-glow-subtle: 0 0 15px rgba(255, 30, 38, 0.28);
-  --accent-neon-glow: rgba(255, 30, 38, 0.5);
-  --border-red-glow: 0 0 16px rgba(255, 30, 38, 0.25);
+  --accent-red-glow: 0 0 25px rgba(255, 30, 38, 0.65);
+  --accent-red-glow-strong: 0 0 45px rgba(255, 30, 38, 0.95);
+  --accent-red-glow-subtle: 0 0 15px rgba(255, 30, 38, 0.35);
+  --accent-neon-glow: rgba(255, 30, 38, 0.6);
+  --border-red-glow: 0 0 20px rgba(255, 30, 38, 0.35);
 
   /* ---------- Painéis Glassmórficos Crisp ---------- */
-  --glass-bg: rgba(17, 17, 18, 0.75);
-  --glass-bg-hover: rgba(24, 24, 26, 0.88);
-  --glass-border: rgba(210, 255, 0, 0.16);
+  --glass-bg: rgba(12, 12, 14, 0.82);
+  --glass-bg-hover: rgba(20, 20, 24, 0.92);
+  --glass-border: rgba(255, 30, 38, 0.22);
   --glass-border-subtle: rgba(255, 255, 255, 0.08);
-  --glass-shadow: 0 24px 60px -15px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  --glass-shadow: 0 24px 60px -15px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 
   /* ---------- Cores derivadas de texto e bordas ---------- */
   --text-on-light: #F8F8FC;

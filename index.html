@@ -198,7 +198,7 @@
           <span class="tech-hero__eyebrow">VL TECH · HIGH-PERFORMANCE SOFTWARE ENGINEERING</span>
           <h1 class="tech-hero__title" id="heroTechTitle">
             TRANSFORMAMOS TECNOLOGIA <br>
-            <span class="highlight-lime">EM ESCALA</span>
+            <span class="highlight-red">EM ESCALA</span>
           </h1>
         </div>
 
@@ -911,37 +911,36 @@
 
     <!-- ============================== 7.5. CONECTE-SE DIRETAMENTE COM OS SÓCIOS (IMMERSIVE SCROLLYTELLING) ============================== -->
     <section class="section section--dark founders-scrolly-section" id="socios-scrolly" aria-labelledby="foundersSectionTitle">
-      <!-- Introdução Editorial da Seção dos Sócios -->
-      <div class="founders-section__intro">
-        <div class="founders-section__intro-inner">
+      <!-- Container interno fixado (Pinned Viewport via ScrollTrigger) -->
+      <div class="scrolly-hero__pin founders-scrolly__pin" id="heroPin">
+
+        <!-- Header Fixado no topo do palco dos sócios -->
+        <div class="founders-stage-header">
           <div class="founders-section__eyebrow">
             <span class="founders-section__eyebrow-dot"></span>
             <span>07 — LIDERANÇA TÉCNICA EXECUTIVA</span>
           </div>
           <h2 class="founders-section__title" id="foundersSectionTitle">Conecte-se Diretamente com os Sócios</h2>
-          <p class="founders-section__lead">
-            Sem intermediários. Trate seu projeto diretamente com os líderes técnicos responsáveis pela arquitetura de sistemas, engenharia 3D e deploys corporativos de alta resiliência.
-          </p>
           <div class="founders-quick-switch-bar">
             <button type="button" class="founders-switch-btn is-active" id="scrollyBtnLuizDirect">
+              <span class="switch-dot"></span>
               <span>LUIZ GABRIEL (FRONT-END &amp; 3D)</span>
             </button>
             <button type="button" class="founders-switch-btn founders-switch-btn--vitor" id="scrollyBtnVictorDirect">
+              <span class="switch-dot"></span>
               <span>VITOR WHOHLERS (BACK-END &amp; CLOUD)</span>
             </button>
           </div>
         </div>
-      </div>
-
-      <!-- Container interno fixado (Pinned Viewport via ScrollTrigger) -->
-      <div class="scrolly-hero__pin founders-scrolly__pin" id="heroPin">
 
         <!-- Letra vetorial monumental ao fundo da seção conectada à identidade VL Tech -->
         <div class="bg-vector-letter" id="bgVectorLetter" aria-hidden="true">V</div>
         <div class="hero-ambient-glow" id="heroAmbientGlow" aria-hidden="true"></div>
 
-        <!-- ================= ETAPA 1 & 2: PALCO LUIZ GABRIEL ================= -->
-        <div class="scrolly-stage scrolly-stage--luiz" id="stageLuiz">
+        <!-- Área Flexível dos Palcos dos Sócios -->
+        <div class="founders-stages-viewport">
+          <!-- ================= ETAPA 1 & 2: PALCO LUIZ GABRIEL ================= -->
+          <div class="scrolly-stage scrolly-stage--luiz" id="stageLuiz">
           <div class="container hero__inner">
             <div class="hero__topline" id="luizTopline">
               <div class="hero-status-pill">
@@ -1125,6 +1124,7 @@
             </div>
           </div>
         </div>
+      </div>
 
         <!-- Indicador de passos lateral (Scrollytelling Nav) -->
         <div class="scrolly-nav-indicator" aria-hidden="true">

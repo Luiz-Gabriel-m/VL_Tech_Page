@@ -286,15 +286,15 @@ export function initHero() {
     });
   }
 
-  // Letras de descrição iniciam com leve transparência para revelar ao rolar
-  gsap.set(luizChars, { opacity: 0.12, y: 6 });
-  gsap.set(victorChars, { opacity: 0.12, y: 6 });
+  // Letras de descrição, nomes e metadados iniciam VISÍVEIS e perfeitamente legíveis
+  gsap.set(luizChars, { opacity: 1, y: 0 });
+  gsap.set(victorChars, { opacity: 1, y: 0 });
 
-  gsap.set([luizJustification, luizMeta], { autoAlpha: 0, y: 25 });
-  gsap.set([victorJustification, victorMeta], { autoAlpha: 0, y: 25 });
+  gsap.set([luizJustification, luizMeta], { autoAlpha: 1, y: 0 });
+  gsap.set([victorJustification, victorMeta], { autoAlpha: 1, y: 0 });
 
-  if (luizTypedText) luizTypedText.textContent = '';
-  if (victorTypedText) victorTypedText.textContent = '';
+  if (luizTypedText) luizTypedText.textContent = 'UIZ GABRIEL';
+  if (victorTypedText) victorTypedText.textContent = 'ICTOR WHOHLERS';
 
   /**
    * Disparo inicial ao concluir o preloader
@@ -309,8 +309,6 @@ export function initHero() {
     gsap.set(stageLogo, { autoAlpha: 0, display: 'none', pointerEvents: 'none' });
     gsap.set(stageVictor, { autoAlpha: 0, display: 'none', pointerEvents: 'none' });
 
-    // Dispara a digitação elegante do nome LUIZ GABRIEL
-    typeFounderName('luiz');
     document.dispatchEvent(new CustomEvent(HERO_INTRO_EVENT));
     ScrollTrigger.refresh();
   }
@@ -349,34 +347,17 @@ export function initHero() {
         } else {
           syncFounderState('victor');
           setStepActive(stepVictor);
-          if (!victorHasTyped) {
-            typeFounderName('victor');
-          }
         }
       },
     },
   });
 
   /* --------------------------------------------------------------------------
-     1. ETAPA DE ROLAGEM 1: Revelação da Especialidade de Luiz Gabriel
-     Ao iniciar a rolagem, a descrição descritiva ("ESPECIALISTA EM FRONT-END...")
-     surge gradualmente letra por letra, acompanhada do badge e retrato.
+     1. ETAPA DE ROLAGEM 1: Exibição e Leitura de Luiz Gabriel
+     O palco do Luiz Gabriel permanece confortavelmente fixado para leitura.
      -------------------------------------------------------------------------- */
   scrollyTimeline
-    .to(
-      luizChars,
-      {
-        opacity: 1,
-        y: 0,
-        stagger: 0.03,
-        duration: 1.2,
-        ease: 'power1.out',
-      },
-      0.1
-    )
-    .to(luizJustification, { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power2.out' }, 0.4)
-    .to(luizMeta, { autoAlpha: 1, y: 0, duration: 0.7, ease: 'power2.out' }, 0.6)
-    .to({}, { duration: 0.8 }, 1.3);
+    .to({}, { duration: 1.8 }, 0);
 
   /* --------------------------------------------------------------------------
      2. ETAPA DE ROLAGEM 2: O 'L' vermelho descola para o centro e volta ao branco
@@ -521,14 +502,43 @@ export function initHero() {
     });
   };
 
+  function switchFounderDirect(founder) {
+    syncFounderState(founder);
+    if (founder === 'luiz') {
+      gsap.to(stageVictor, {
+        autoAlpha: 0,
+        duration: 0.25,
+        onComplete: () => {
+          stageVictor.style.display = 'none';
+          stageLogo.style.display = 'none';
+          stageLuiz.style.display = 'flex';
+          gsap.to(stageLuiz, { autoAlpha: 1, duration: 0.25 });
+        },
+      });
+      scrollToStageProgress(0.05);
+    } else {
+      gsap.to(stageLuiz, {
+        autoAlpha: 0,
+        duration: 0.25,
+        onComplete: () => {
+          stageLuiz.style.display = 'none';
+          stageLogo.style.display = 'none';
+          stageVictor.style.display = 'flex';
+          gsap.to(stageVictor, { autoAlpha: 1, duration: 0.25 });
+        },
+      });
+      scrollToStageProgress(0.88);
+    }
+  }
+
   if (stepLuiz) {
-    stepLuiz.addEventListener('click', () => scrollToStageProgress(0.05));
+    stepLuiz.addEventListener('click', () => switchFounderDirect('luiz'));
   }
   if (stepLogo) {
     stepLogo.addEventListener('click', () => scrollToStageProgress(0.42));
   }
   if (stepVictor) {
-    stepVictor.addEventListener('click', () => scrollToStageProgress(0.88));
+    stepVictor.addEventListener('click', () => switchFounderDirect('victor'));
   }
 
   // Botões de alternância direta na introdução da seção dos Sócios
@@ -537,13 +547,13 @@ export function initHero() {
   if (directBtnLuiz) {
     directBtnLuiz.addEventListener('click', (e) => {
       e.preventDefault();
-      scrollToStageProgress(0.05);
+      switchFounderDirect('luiz');
     });
   }
   if (directBtnVictor) {
     directBtnVictor.addEventListener('click', (e) => {
       e.preventDefault();
-      scrollToStageProgress(0.88);
+      switchFounderDirect('victor');
     });
   }
 
@@ -551,8 +561,8 @@ export function initHero() {
   if (founderToggleBtn) {
     founderToggleBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      const nextProgress = activeFounder === 'luiz' ? 0.88 : 0.05;
-      scrollToStageProgress(nextProgress);
+      const nextFounder = activeFounder === 'luiz' ? 'victor' : 'luiz';
+      switchFounderDirect(nextFounder);
     });
   }
 
