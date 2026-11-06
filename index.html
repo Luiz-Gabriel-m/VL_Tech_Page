@@ -129,7 +129,7 @@
           <li class="menu-overlay__item"><a href="#mensagem" class="menu-overlay__link" id="menu-link-mensagem"><span
                 class="menu-overlay__text">Sobre</span><span class="menu-overlay__index">02</span></a></li>
           <li class="menu-overlay__item"><a href="#galeria" class="menu-overlay__link" id="menu-link-galeria"><span
-                class="menu-overlay__text">Sócios & Cultura</span><span class="menu-overlay__index">03</span></a></li>
+                class="menu-overlay__text">Diferenciais</span><span class="menu-overlay__index">03</span></a></li>
           <li class="menu-overlay__item"><a href="#tracks" class="menu-overlay__link" id="menu-link-tracks"><span
                 class="menu-overlay__text">A Flecha da Execução</span><span class="menu-overlay__index">04</span></a></li>
           <li class="menu-overlay__item"><a href="#capacetes" class="menu-overlay__link" id="menu-link-capacetes"><span
@@ -215,69 +215,165 @@
       </div>
     </section>
 
-    <!-- ============================== 3. GALERIA / SÓCIOS & CULTURA ============================== -->
-    <section class="section section--offwhite gallery" id="galeria" aria-labelledby="galeria-title">
+    <!-- ============================== 3. DIFERENCIAIS VL TECH ============================== -->
+    <section class="section section--dark diferenciais-section" id="galeria" aria-labelledby="diferenciais-title">
+      <!-- Iluminação e Grid de Fundo Cibernética -->
+      <div class="diferenciais-ambient-glow" aria-hidden="true"></div>
+      <div class="diferenciais-grid-overlay" aria-hidden="true"></div>
+
       <div class="container">
-        <header class="section__header">
-          <div>
-            <span class="eyebrow">02 — Galeria</span>
-            <h2 class="display section__title" id="galeria-title">Sócios & Cultura</h2>
+        <header class="section__header diferenciais-header">
+          <div class="diferenciais-header__left">
+            <span class="eyebrow text-red">02 — DIFERENCIAIS EXCLUSIVOS</span>
+            <h2 class="display section__title" id="diferenciais-title">DIFERENCIAIS VL TECH</h2>
           </div>
-          <p class="section__lead">
-            Conheça as mentes por trás da VL Tech: liderança técnica, dedicação à engenharia e o padrão de excelência
-            aplicado em cada entrega.
-          </p>
+          <div class="diferenciais-header__right">
+            <p class="section__lead text-mono-sub">ENGENHARIA DE PRECISÃO // RESULTADOS EXPONENCIAIS</p>
+            <p class="diferenciais-sublead">
+              Eliminamos o desperdício técnico e os templates genéricos. Construímos ecossistemas digitais proprietários de alta conversão com foco em velocidade cirúrgica, automação e arquiteturas em nuvem resilientes.
+            </p>
+          </div>
         </header>
 
-        <div class="gallery__grid">
-          <figure class="gallery__item gallery__item--1">
-            <div class="media-frame" data-label="Luiz Moraes · Tech Lead">
-              <img src="assets/socios/luiz-studio.jpg" alt="Luiz Moraes - Tech Lead e Fundador" loading="lazy">
+        <div class="diferenciais-grid">
+          <!-- CARD 1: PERFORMANCE EXTREMA -->
+          <article class="diferencial-card" data-diferencial-type="performance">
+            <div class="diferencial-card__glow" aria-hidden="true"></div>
+            <div class="diferencial-card__header">
+              <span class="diferencial-badge">
+                <span class="badge-dot"></span>
+                <span>CORE WEB VITALS &lt; 800MS</span>
+              </span>
+              <span class="diferencial-index">01</span>
             </div>
-          </figure>
-          <figure class="gallery__item gallery__item--2" data-speed="1.1">
-            <div class="media-frame" data-label="Vitor · Co-Fundador">
-              <img src="assets/socios/vitor-dark.jpg" alt="Vitor - Co-Fundador" loading="lazy">
-            </div>
-          </figure>
-          <figure class="gallery__item gallery__item--3" data-speed="0.9">
-            <div class="media-frame" data-label="VL Tech Identity">
-              <img src="assets/logo/vl-logo.jpg" alt="Logotipo Oficial VL Tech" loading="lazy">
-            </div>
-          </figure>
-          <figure class="gallery__item gallery__item--4" data-speed="1.15">
-            <div class="media-frame" data-label="Engenharia de Software">
-              <img src="assets/socios/vitor-studio.jpg" alt="Engenharia de Software VL Tech" loading="lazy">
-            </div>
-          </figure>
-          <figure class="gallery__item gallery__item--5" data-speed="0.85">
-            <div class="media-frame" data-label="Inovação & Arquitetura">
-              <img src="assets/socios/luiz-dark.jpg" alt="Inovação e Arquitetura" loading="lazy">
-            </div>
-          </figure>
-          <div class="gallery__manifesto">
-            <p class="display gallery__manifesto-text">Código de Alta Precisão. Resultados Exponenciais.</p>
-          </div>
-        </div>
 
-        <div class="manifesto">
-          <article class="manifesto__item">
-            <span class="manifesto__index">/01</span>
-            <h3 class="display manifesto__title">Foco Absoluto</h3>
-            <p class="manifesto__text">Arquitetura limpa, escalabilidade vertical e código otimizado para lidar com
-              altos volumes e cargas críticas.</p>
+            <!-- Palco 3D do Ícone Interativo -->
+            <div class="diferencial-3d-stage">
+              <canvas class="diferencial-canvas" aria-label="Modelo 3D Foguete Supersônico de Alta Performance"></canvas>
+            </div>
+
+            <div class="diferencial-card__body">
+              <h3 class="display diferencial-title">PERFORMANCE EXTREMA</h3>
+              <p class="diferencial-desc">
+                Código limpo, sem <em>page builders</em>, focando em Core Web Vitals (&lt; 800ms LCP). Navegação instantânea que maximiza as taxas de conversão e eleva o SEO orgânico da sua empresa.
+              </p>
+            </div>
+
+            <div class="diferencial-card__footer">
+              <div class="diferencial-metric">
+                <span class="metric-val">&lt; 0.8s</span>
+                <span class="metric-lbl">TEMPO LCP</span>
+              </div>
+              <div class="diferencial-metric">
+                <span class="metric-val">100/100</span>
+                <span class="metric-lbl">PAGESPEED</span>
+              </div>
+            </div>
           </article>
-          <article class="manifesto__item">
-            <span class="manifesto__index">/02</span>
-            <h3 class="display manifesto__title">Parceria Real</h3>
-            <p class="manifesto__text">Atuamos como extensão estratégica do seu negócio, alinhando engenharia com
-              objetivos de crescimento reais.</p>
+
+          <!-- CARD 2: AUTOMAÇÃO INTELIGENTE -->
+          <article class="diferencial-card" data-diferencial-type="automacao">
+            <div class="diferencial-card__glow" aria-hidden="true"></div>
+            <div class="diferencial-card__header">
+              <span class="diferencial-badge">
+                <span class="badge-dot"></span>
+                <span>WHATSAPP API &amp; AI 24/7</span>
+              </span>
+              <span class="diferencial-index">02</span>
+            </div>
+
+            <!-- Palco 3D do Ícone Interativo -->
+            <div class="diferencial-3d-stage">
+              <canvas class="diferencial-canvas" aria-label="Modelo 3D Núcleo Quântico de Automação Inteligente"></canvas>
+            </div>
+
+            <div class="diferencial-card__body">
+              <h3 class="display diferencial-title">AUTOMAÇÃO INTELIGENTE</h3>
+              <p class="diferencial-desc">
+                Chatbots e fluxos de IA personalizados 24/7 integrados ao WhatsApp API e CRM. Qualificação autônoma de leads, atendimento em tempo real e orquestração de processos ponta a ponta.
+              </p>
+            </div>
+
+            <div class="diferencial-card__footer">
+              <div class="diferencial-metric">
+                <span class="metric-val">24/7</span>
+                <span class="metric-lbl">DISPONIBILIDADE</span>
+              </div>
+              <div class="diferencial-metric">
+                <span class="metric-val">0s</span>
+                <span class="metric-lbl">TEMPO RESPOSTA</span>
+              </div>
+            </div>
           </article>
-          <article class="manifesto__item">
-            <span class="manifesto__index">/03</span>
-            <h3 class="display manifesto__title">Inovação Ágil</h3>
-            <p class="manifesto__text">Adoção das tecnologias mais modernas do mercado para entregar soluções rápidas,
-              seguras e prontas para o futuro.</p>
+
+          <!-- CARD 3: DIREÇÃO CRIATIVA F1 -->
+          <article class="diferencial-card" data-diferencial-type="criativa">
+            <div class="diferencial-card__glow" aria-hidden="true"></div>
+            <div class="diferencial-card__header">
+              <span class="diferencial-badge">
+                <span class="badge-dot"></span>
+                <span>AERODINÂMICA F1 UI/UX</span>
+              </span>
+              <span class="diferencial-index">03</span>
+            </div>
+
+            <!-- Palco 3D do Ícone Interativo -->
+            <div class="diferencial-3d-stage">
+              <canvas class="diferencial-canvas" aria-label="Modelo 3D Asa Aerodinâmica Estilo F1"></canvas>
+            </div>
+
+            <div class="diferencial-card__body">
+              <h3 class="display diferencial-title">DIREÇÃO CRIATIVA F1</h3>
+              <p class="diferencial-desc">
+                UI/UX de alta conversão com estética visual inspirada na precisão da Fórmula 1. Micro-interações táteis, WebGL 3D imersivo e tipografia brutalista de alto padrão editorial.
+              </p>
+            </div>
+
+            <div class="diferencial-card__footer">
+              <div class="diferencial-metric">
+                <span class="metric-val">60 FPS</span>
+                <span class="metric-lbl">FLUIDEZ WEBGL</span>
+              </div>
+              <div class="diferencial-metric">
+                <span class="metric-val">AWWWARDS</span>
+                <span class="metric-lbl">DESIGN LEVEL</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- CARD 4: ENTREGA ÁGIL & CONTÍNUA -->
+          <article class="diferencial-card" data-diferencial-type="agil">
+            <div class="diferencial-card__glow" aria-hidden="true"></div>
+            <div class="diferencial-card__header">
+              <span class="diferencial-badge">
+                <span class="badge-dot"></span>
+                <span>VERCEL EDGE &amp; CI/CD</span>
+              </span>
+              <span class="diferencial-index">04</span>
+            </div>
+
+            <!-- Palco 3D do Ícone Interativo -->
+            <div class="diferencial-3d-stage">
+              <canvas class="diferencial-canvas" aria-label="Modelo 3D Pipeline de Entrega Contínua Möbius"></canvas>
+            </div>
+
+            <div class="diferencial-card__body">
+              <h3 class="display diferencial-title">ENTREGA ÁGIL &amp; CONTÍNUA</h3>
+              <p class="diferencial-desc">
+                Infraestrutura global na Vercel Edge e deploys automatizados com garantia de estabilidade. Sprints curtas, entregas funcionais semanais e zero tempo de inatividade em produção.
+              </p>
+            </div>
+
+            <div class="diferencial-card__footer">
+              <div class="diferencial-metric">
+                <span class="metric-val">99.9%</span>
+                <span class="metric-lbl">SLA GARANTIDO</span>
+              </div>
+              <div class="diferencial-metric">
+                <span class="metric-val">EDGE</span>
+                <span class="metric-lbl">GLOBAL CDN</span>
+              </div>
+            </div>
           </article>
         </div>
       </div>
@@ -1293,7 +1389,7 @@
           <ul class="footer-col__list">
             <li><a href="#hero" class="footer-col__link"><span class="link-num">01</span> <span>Início</span></a></li>
             <li><a href="#mensagem" class="footer-col__link"><span class="link-num">02</span> <span>Sobre a VL Tech</span></a></li>
-            <li><a href="#galeria" class="footer-col__link"><span class="link-num">03</span> <span>Sócios &amp; Cultura</span></a></li>
+            <li><a href="#galeria" class="footer-col__link"><span class="link-num">03</span> <span>Diferenciais</span></a></li>
             <li><a href="#tracks" class="footer-col__link"><span class="link-num">04</span> <span>A Flecha da Execução</span></a></li>
             <li><a href="#portfolio-experience" class="footer-col__link"><span class="link-num">05</span> <span>Notebook 3D</span></a></li>
             <li><a href="#capacetes" class="footer-col__link"><span class="link-num">06</span> <span>Portfólio em Leque</span></a></li>
