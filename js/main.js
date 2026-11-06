@@ -11,6 +11,7 @@ import { initCustomCursor } from './cursor.js';
 import { initNavigation } from './navigation.js';
 import { initFounderSwitch } from './founder-switch.js';
 import { initFAQ } from './faq.js';
+import { initFooter } from './footer.js';
 import { initHero } from './hero.js';
 import { initReveal } from './animations/reveal.js';
 import { initScroll } from './scroll.js';
@@ -27,6 +28,7 @@ const CORE_MODULES = [
   ['navigation', initNavigation],
   ['founderSwitch', initFounderSwitch],
   ['faq', initFAQ],
+  ['footer', initFooter],
 ];
 
 /**
