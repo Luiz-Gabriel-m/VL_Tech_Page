@@ -154,7 +154,6 @@ export function initNotebook3D() {
 
   const matrixOverlay = document.getElementById('screenMatrixOverlay');
   const matrixCanvas = document.getElementById('screenMatrixCanvas');
-  const hud = document.getElementById('screenMatrixHud');
   const webglCanvas = document.getElementById('notebookWebglCanvas');
 
   if (!section || !pinViewport || !lid || !device) return null;
@@ -424,14 +423,6 @@ export function initNotebook3D() {
     }, 0.45);
   }
 
-  if (hud) {
-    tl.fromTo(hud,
-      { scale: 0.9, opacity: 0.6 },
-      { scale: 1, opacity: 1, duration: 0.2, ease: 'back.out(1.5)' },
-      0.46
-    );
-  }
-
   // -------------------------------------------------------------------------
   // FASE 3 (Progress 0.68 -> 1.00): ZOOM-IN CINEMATOGRÁFICO NOS CASES
   // A tela expande para preencher a viewport e conectar com o portfólio
@@ -442,15 +433,6 @@ export function initNotebook3D() {
     duration: 0.2,
     ease: 'power2.in',
   }, 0.66);
-
-  if (hud) {
-    tl.to(hud, {
-      opacity: 0,
-      y: 12,
-      duration: 0.15,
-      ease: 'power2.in',
-    }, 0.70);
-  }
 
   tl.to(base, {
     opacity: 0,

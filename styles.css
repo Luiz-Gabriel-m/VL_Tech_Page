@@ -2824,60 +2824,9 @@
   letter-spacing: 0.05em;
 }
 
-/* Marca d'Água Central do Sistema Operacional VL-TECH OS */
-.screen-cyber-watermark {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.65rem;
-  pointer-events: none;
-  user-select: none;
-  opacity: 0.85;
-}
-
-.screen-watermark-logo {
-  width: min(130px, 20vw);
-  height: auto;
-  object-fit: contain;
-  mix-blend-mode: screen;
-  filter: drop-shadow(0 0 25px rgba(255, 30, 38, 0.65)) drop-shadow(0 0 60px rgba(255, 30, 38, 0.35));
-  opacity: 0.45;
-  transition: opacity 0.4s ease;
-}
-
-.screen-watermark-telemetry {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3px;
-  text-align: center;
-}
-
-.watermark-glitch {
-  font-family: var(--font-mono, monospace);
-  font-size: clamp(0.58rem, 1vw, 0.72rem);
-  font-weight: 800;
-  letter-spacing: 0.18em;
-  color: #FFFFFF;
-  text-shadow: 0 0 10px rgba(255, 30, 38, 0.8);
-  text-transform: uppercase;
-}
-
-.watermark-sub {
-  font-family: var(--font-mono, monospace);
-  font-size: clamp(0.48rem, 0.8vw, 0.58rem);
-  letter-spacing: 0.14em;
-  color: rgba(248, 248, 252, 0.5);
-  text-transform: uppercase;
-}
-
-/* Overlay & HUD da Matriz Binária */
+/* ==========================================================================
+   DISPLAY DO NOTEBOOK — ANIMAÇÃO EXCLUSIVA DE MATRIZ BINÁRIA (0 E 1 VERMELHO)
+   ========================================================================== */
 .screen-matrix-overlay {
   position: absolute;
   inset: 0;
@@ -2887,11 +2836,7 @@
   z-index: 5;
   pointer-events: none;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 14px 18px;
+  display: block !important;
   opacity: 1;
 }
 
@@ -2902,28 +2847,6 @@
   height: 100%;
   display: block;
   z-index: 1;
-}
-
-.screen-matrix-hud {
-  position: relative;
-  z-index: 6;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 16px;
-  background: rgba(14, 14, 20, 0.9);
-  border: 1px solid rgba(255, 30, 38, 0.4);
-  border-radius: 999px;
-  box-shadow: 0 0 16px rgba(255, 30, 38, 0.3);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  font-family: var(--font-mono, monospace);
-  font-size: 0.62rem;
-  letter-spacing: 0.1em;
-  color: #F8F8FC;
-  width: fit-content;
-  user-select: none;
-  margin-bottom: 6px;
 }
 
 @media (max-width: 640px) {
