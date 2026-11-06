@@ -55,9 +55,9 @@ export function initTechHero() {
     const ctx = pCanvas.getContext('2d');
 
     const grad = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
-    grad.addColorStop(0, 'rgba(255, 255, 255, 1)');
-    grad.addColorStop(0.2, 'rgba(255, 30, 38, 0.95)');
-    grad.addColorStop(0.55, 'rgba(255, 30, 38, 0.35)');
+    grad.addColorStop(0, 'rgba(255, 120, 120, 1)');
+    grad.addColorStop(0.25, 'rgba(255, 30, 38, 0.98)');
+    grad.addColorStop(0.6, 'rgba(220, 10, 20, 0.45)');
     grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
 
     ctx.fillStyle = grad;
@@ -73,7 +73,7 @@ export function initTechHero() {
   const particleTexture = createParticleTexture();
 
   // ---------------------------------------------------------------------------
-  // 2. Campo de Partículas Interativo (Dust & Digital Constellation em Vermelho & Branco)
+  // 2. Campo de Partículas Interativo (Dust & Digital Constellation 100% Vermelho Neon)
   // ---------------------------------------------------------------------------
   const particleCount = window.innerWidth < 768 ? 650 : 1500;
   const particleGeometry = new THREE.BufferGeometry();
@@ -81,10 +81,10 @@ export function initTechHero() {
   const colors = new Float32Array(particleCount * 3);
   const scales = new Float32Array(particleCount);
 
-  // Paleta de cores exclusiva: Vermelho neon (#FF1E26), Vermelho Rubi (#FF3B42) e Branco puro
+  // Paleta de cores exclusiva: Vermelho neon (#FF1E26), Vermelho Rubi (#FF3B42) e Vermelho Carmesim (#D6001C)
   const colorRed = new THREE.Color(0xff1e26);
   const colorRuby = new THREE.Color(0xff3b42);
-  const colorWhite = new THREE.Color(0xffffff);
+  const colorCrimson = new THREE.Color(0xd6001c);
 
   for (let i = 0; i < particleCount; i++) {
     const i3 = i * 3;
@@ -93,15 +93,15 @@ export function initTechHero() {
     positions[i3 + 1] = (Math.random() - 0.5) * 18;
     positions[i3 + 2] = (Math.random() - 0.5) * 28 - 2;
 
-    // Distribuição de cores
+    // Distribuição de cores 100% vermelhas
     const rChoice = Math.random();
     let pColor;
-    if (rChoice < 0.65) {
+    if (rChoice < 0.6) {
       pColor = colorRed;
-    } else if (rChoice < 0.88) {
+    } else if (rChoice < 0.85) {
       pColor = colorRuby;
     } else {
-      pColor = colorWhite;
+      pColor = colorCrimson;
     }
 
     colors[i3] = pColor.r;
@@ -281,73 +281,7 @@ export function initTechHero() {
   window.addEventListener('resize', onResize, { passive: true });
 
   // ---------------------------------------------------------------------------
-  // 9. Telemetria em Tempo Real (Live Dynamic Ticker)
-  // ---------------------------------------------------------------------------
-  const telemetryPing = document.getElementById('telemetryPing');
-  const telemetryCluster = document.getElementById('telemetryCluster');
-
-  let telemetryInterval = setInterval(() => {
-    if (!isVisible) return;
-    if (telemetryPing) {
-      // Simula flutuação realista de latência edge (9ms a 14ms)
-      const ping = Math.floor(9 + Math.random() * 6);
-      telemetryPing.textContent = `${ping}ms`;
-    }
-    if (telemetryCluster) {
-      const load = Math.floor(18 + Math.random() * 12);
-      telemetryCluster.textContent = `${load}%`;
-    }
-  }, 2800);
-
-  // ---------------------------------------------------------------------------
-  // 10. Hover Physics Magnético no Botão Principal ("Falar no WhatsApp")
-  // ---------------------------------------------------------------------------
-  const heroCtaBtn = document.getElementById('heroWhatsappCta');
-  if (heroCtaBtn && window.gsap) {
-    const gsap = window.gsap;
-    const magneticX = gsap.quickTo(heroCtaBtn, 'x', { duration: 0.35, ease: 'power2.out' });
-    const magneticY = gsap.quickTo(heroCtaBtn, 'y', { duration: 0.35, ease: 'power2.out' });
-
-    heroCtaBtn.addEventListener('mousemove', (e) => {
-      const rect = heroCtaBtn.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
-      magneticX(x * 0.32);
-      magneticY(y * 0.32);
-    });
-
-    heroCtaBtn.addEventListener('mouseleave', () => {
-      magneticX(0);
-      magneticY(0);
-    });
-  }
-
-  // ---------------------------------------------------------------------------
-  // 11. Physics Parallax dos Floating Tech Badges
-  // ---------------------------------------------------------------------------
-  const badges = heroSection.querySelectorAll('.tech-badge-floating');
-  if (badges.length > 0 && window.gsap) {
-    const gsap = window.gsap;
-    window.addEventListener('mousemove', (e) => {
-      if (!isVisible) return;
-      const xNorm = (e.clientX / window.innerWidth) - 0.5;
-      const yNorm = (e.clientY / window.innerHeight) - 0.5;
-
-      badges.forEach((badge, idx) => {
-        const factor = (idx + 1) * 14;
-        gsap.to(badge, {
-          x: xNorm * factor,
-          y: yNorm * (factor * 0.7),
-          duration: 1.2,
-          ease: 'power1.out',
-          overwrite: 'auto',
-        });
-      });
-    }, { passive: true });
-  }
-
-  // ---------------------------------------------------------------------------
-  // 12. Entrada Cinemática dos Elementos da Hero pós-Preloader
+  // 9. Entrada Cinemática dos Elementos da Hero pós-Preloader (Da Esquerda)
   // ---------------------------------------------------------------------------
   function triggerHeroIntro() {
     if (!window.gsap) return;
@@ -355,33 +289,21 @@ export function initTechHero() {
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
     tl.fromTo(
-      '#heroTelemetryBar',
-      { autoAlpha: 0, y: -20, scale: 0.95 },
-      { autoAlpha: 1, y: 0, scale: 1, duration: 0.8, delay: 0.1 }
+      '.tech-hero__eyebrow',
+      { autoAlpha: 0, x: -30 },
+      { autoAlpha: 1, x: 0, duration: 0.8, delay: 0.1 }
     )
       .fromTo(
         '.tech-hero__title',
-        { autoAlpha: 0, y: 35, filter: 'blur(8px)' },
-        { autoAlpha: 1, y: 0, filter: 'blur(0px)', duration: 1.0 },
+        { autoAlpha: 0, x: -45, filter: 'blur(8px)' },
+        { autoAlpha: 1, x: 0, filter: 'blur(0px)', duration: 1.0 },
         '-=0.5'
       )
       .fromTo(
         '.tech-hero__lead',
-        { autoAlpha: 0, y: 20 },
-        { autoAlpha: 1, y: 0, duration: 0.8 },
+        { autoAlpha: 0, x: -25 },
+        { autoAlpha: 1, x: 0, duration: 0.8 },
         '-=0.6'
-      )
-      .fromTo(
-        '.tech-hero__actions',
-        { autoAlpha: 0, y: 20 },
-        { autoAlpha: 1, y: 0, duration: 0.7 },
-        '-=0.5'
-      )
-      .fromTo(
-        '.tech-badge-floating',
-        { autoAlpha: 0, y: 25, scale: 0.9 },
-        { autoAlpha: 1, y: 0, scale: 1, duration: 0.6, stagger: 0.1 },
-        '-=0.4'
       );
   }
 
@@ -395,7 +317,6 @@ export function initTechHero() {
   return {
     destroy: () => {
       if (animationFrameId) cancelAnimationFrame(animationFrameId);
-      if (telemetryInterval) clearInterval(telemetryInterval);
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('resize', onResize);
       observer.disconnect();

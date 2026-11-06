@@ -18,7 +18,7 @@ import { initScroll } from './scroll.js';
 import { initNotebook3D } from './notebook-3d.js';
 import { initTiltHat } from './animations/tilt-hat.js';
 import { initMatrixCascade } from './animations/matrix-cascade.js';
-import { initTechHero } from './tech-hero-3d.js';
+import { initTechHero } from './tech-hero-3d.js?v=3.2';
 
 /**
  * Módulos essenciais — funcionam mesmo se o GSAP não carregar.

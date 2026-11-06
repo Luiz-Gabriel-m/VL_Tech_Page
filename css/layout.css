@@ -346,15 +346,15 @@ body.is-loading {
 }
 
 .nav__whatsapp-btn {
-  background: rgba(37, 211, 102, 0.1);
-  border: 1px solid rgba(37, 211, 102, 0.35);
-  color: #25D366;
+  background: rgba(255, 30, 38, 0.1);
+  border: 1px solid rgba(255, 30, 38, 0.35);
+  color: var(--accent-red, #FF1E26);
 }
 
 .nav__whatsapp-btn:hover {
-  background: rgba(37, 211, 102, 0.22);
-  border-color: #25D366;
-  box-shadow: 0 0 16px rgba(37, 211, 102, 0.35);
+  background: rgba(255, 30, 38, 0.22);
+  border-color: var(--accent-red, #FF1E26);
+  box-shadow: 0 0 16px rgba(255, 30, 38, 0.35);
   transform: translateY(-1px);
 }
 
@@ -1979,7 +1979,7 @@ body.is-loading {
   gap: 0.4rem;
   font-family: var(--font-mono);
   font-size: 0.68rem;
-  color: #00FF88;
+  color: var(--accent-red, #FF1E26);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   background: rgba(10, 10, 12, 0.8);
