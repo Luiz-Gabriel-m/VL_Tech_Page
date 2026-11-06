@@ -1348,35 +1348,86 @@
 }
 
 /* ==========================================================================
-   CARDS DE SCROLLYTELLING (STAGE CALLOUTS)
+   CARDS DE SCROLLYTELLING (STAGE CALLOUTS) — MARGENS LIMPAS & CENTRO LIVRE
    ========================================================================== */
+
+/* Indicador de Modo de Inspeção 360° */
+.arrow-orbit-indicator {
+  position: absolute;
+  top: calc(var(--nav-height, 72px) + 4.2rem);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 15;
+  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.orbit-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: rgba(18, 18, 26, 0.85);
+  border: 1px solid rgba(255, 30, 38, 0.4);
+  border-radius: 999px;
+  box-shadow: 0 0 20px rgba(255, 30, 38, 0.25);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #F8F8FC;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.orbit-icon {
+  display: inline-block;
+  color: var(--accent-red, #FF1E26);
+  animation: orbitSpin 5s linear infinite;
+}
+
+@keyframes orbitSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.arrow-scrolly-canvas {
+  cursor: grab;
+}
+
+.arrow-scrolly-canvas.is-grabbing {
+  cursor: grabbing;
+}
 
 .arrow-stage-container {
   position: absolute;
   inset: 0;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: flex-start;
-  padding: 0 clamp(1.5rem, 5vw, 6rem);
+  padding: 0 clamp(1.5rem, 4vw, 4rem) clamp(2.5rem, 5vh, 4rem);
   z-index: 10;
   pointer-events: none;
 }
 
 .arrow-stage-card {
   position: absolute;
-  max-width: 540px;
-  width: calc(100% - 3rem);
-  background: rgba(14, 14, 20, 0.88);
+  left: clamp(1.5rem, 4vw, 4rem);
+  bottom: clamp(2rem, 5vh, 4rem);
+  max-width: min(500px, calc(100vw - 3rem));
+  width: 100%;
+  background: rgba(12, 12, 18, 0.88);
   border: 1px solid rgba(255, 30, 38, 0.32);
-  border-radius: 20px;
-  padding: clamp(1.8rem, 3.5vw, 2.8rem);
+  border-radius: 18px;
+  padding: clamp(1.4rem, 2.5vw, 2.2rem);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 30, 38, 0.12);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85), 0 0 30px rgba(255, 30, 38, 0.12);
   opacity: 0;
-  transform: translateY(28px) scale(0.97);
+  transform: translateY(24px) scale(0.97);
   pointer-events: none;
-  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .arrow-stage-card.is-active {
@@ -1385,16 +1436,17 @@
   pointer-events: auto;
 }
 
-/* Estágio 4 Centralizado e mais amplo */
+/* Estágio 4 Posicionado no Canto/Margem Inferior Esquerda — Centro 100% Livre para o Alvo */
 .arrow-stage-card--final {
-  max-width: 620px;
-  left: 50%;
-  transform: translate(-50%, 28px) scale(0.97);
-  text-align: center;
+  max-width: min(540px, calc(100vw - 3rem));
+  left: clamp(1.5rem, 4vw, 4rem);
+  bottom: clamp(2rem, 5vh, 4rem);
+  transform: translateY(24px) scale(0.97);
+  text-align: left;
 }
 
 .arrow-stage-card--final.is-active {
-  transform: translate(-50%, 0) scale(1);
+  transform: translateY(0) scale(1);
 }
 
 .arrow-stage-pill {
@@ -1411,24 +1463,24 @@
   letter-spacing: 0.12em;
   color: var(--accent-red, #FF1E26);
   text-transform: uppercase;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
 }
 
 .arrow-stage-title {
   font-family: var(--font-monument, 'Monument Extended', sans-serif);
-  font-size: clamp(1.5rem, 2.8vw, 2.3rem);
+  font-size: clamp(1.35rem, 2.4vw, 1.95rem);
   font-weight: 900;
-  line-height: 1.15;
+  line-height: 1.18;
   color: #F8F8FC;
   letter-spacing: -0.02em;
-  margin-bottom: 0.9rem;
+  margin-bottom: 0.75rem;
 }
 
 .arrow-stage-text {
-  font-size: clamp(0.9rem, 1.15vw, 1.05rem);
-  line-height: 1.6;
+  font-size: clamp(0.85rem, 1.05vw, 0.98rem);
+  line-height: 1.55;
   color: rgba(248, 248, 252, 0.75);
-  margin-bottom: 1.4rem;
+  margin-bottom: 1.2rem;
 }
 
 /* Grade de Obstáculos / Hurdles da Fase 3 */
@@ -1436,7 +1488,7 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-top: 1rem;
+  margin-top: 0.8rem;
 }
 
 .arrow-hurdle-item {
@@ -1474,15 +1526,15 @@
 .arrow-stage-actions {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   flex-wrap: wrap;
-  gap: 14px;
-  margin-top: 1.2rem;
+  gap: 12px;
+  margin-top: 1rem;
 }
 
 .arrow-stage-actions .btn {
-  padding: 13px 26px;
-  font-size: 0.85rem;
+  padding: 12px 22px;
+  font-size: 0.82rem;
 }
 
 /* ==========================================================================
@@ -1495,20 +1547,34 @@
   }
   .arrow-stage-container {
     justify-content: center;
-    padding: 0 1.25rem;
+    padding: 0 1rem 1.5rem;
   }
-  .arrow-stage-card {
-    max-width: 100%;
-    padding: 1.5rem;
-    bottom: 4.5rem;
-  }
+  .arrow-stage-card,
   .arrow-stage-card--final {
-    left: 1.25rem;
-    right: 1.25rem;
-    transform: translateY(28px) scale(0.97);
+    left: 1rem;
+    right: 1rem;
+    bottom: 1.5rem;
+    max-width: calc(100% - 2rem);
+    padding: 1.25rem 1.4rem;
+    transform: translateY(20px) scale(0.97);
   }
+  .arrow-stage-card.is-active,
   .arrow-stage-card--final.is-active {
     transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 480px) {
+  .arrow-hud-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .arrow-hud-metrics-right {
+    align-self: flex-start;
+  }
+  .arrow-stage-title {
+    font-size: 1.25rem;
   }
 }
 

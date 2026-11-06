@@ -2,8 +2,10 @@
    ARROW SCROLLYTELLING — The Arrow of Execution ("A Flecha da Execução")
    Three.js WebGL 3D Interactive Scrollytelling Experience for VL Tech
    - Bow & Arrow Metaphor: A Ideia (Notched Arrow) -> A Execução (Bow Draw & Launch)
+   - 360-Degree Interactive Inspection: Rotação livre por toque e arraste no início
    - Obstacle Avoidance: Bugs, Preço Abusivo, Falta de Execução, Baixa Qualidade
    - Ultimate Target: Fazer Tudo com a VL Tech (Dead-center bullseye impact)
+   - Layout Desobstruído: Cards ancorados na margem, deixando o alvo 100% visível
    - GSAP 3 + ScrollTrigger pinned 60fps cinematic flight choreography
    ========================================================================== */
 
@@ -43,7 +45,7 @@ export function initArrowScrollytelling() {
 
   const camera = new THREE.PerspectiveCamera(
     52,
-    pinViewport.clientWidth / pinViewport.clientHeight,
+    pinViewport.clientWidth / Math.max(pinViewport.clientHeight, 1),
     0.1,
     600
   );
@@ -52,18 +54,18 @@ export function initArrowScrollytelling() {
   // ---------------------------------------------------------------------------
   // 2. ILUMINAÇÃO CINEMATOGRÁFICA (VERMELHO VL TECH & BRANCO NEUTRO)
   // ---------------------------------------------------------------------------
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.65);
   scene.add(ambientLight);
 
-  const keyLight = new THREE.DirectionalLight(0xffffff, 2.0);
+  const keyLight = new THREE.DirectionalLight(0xffffff, 2.2);
   keyLight.position.set(5, 10, 7);
   scene.add(keyLight);
 
-  const redFillLight = new THREE.PointLight(0xff1e26, 4.5, 60);
+  const redFillLight = new THREE.PointLight(0xff1e26, 4.8, 70);
   redFillLight.position.set(-4, 3, -10);
   scene.add(redFillLight);
 
-  const targetLight = new THREE.PointLight(0xff1e26, 6.0, 80);
+  const targetLight = new THREE.PointLight(0xff1e26, 6.5, 90);
   targetLight.position.set(0, 0, -150);
   scene.add(targetLight);
 
@@ -103,7 +105,6 @@ export function initArrowScrollytelling() {
   const bowGroup = new THREE.Group();
   scene.add(bowGroup);
 
-  // Curvas dos braços do arco (superior e inferior)
   function createBowLimbCurve(isUpper) {
     const dir = isUpper ? 1 : -1;
     const points = [
@@ -126,7 +127,6 @@ export function initArrowScrollytelling() {
   bowGroup.add(upperLimbMesh);
   bowGroup.add(lowerLimbMesh);
 
-  // Riser central do arco (empunhadura ergonômica)
   const riserGeo = new THREE.CylinderGeometry(0.12, 0.12, 0.9, 16);
   const riserMesh = new THREE.Mesh(riserGeo, carbonMaterial);
   bowGroup.add(riserMesh);
@@ -135,7 +135,6 @@ export function initArrowScrollytelling() {
   const riserGripMesh = new THREE.Mesh(riserGripGeo, neonRedMaterial);
   bowGroup.add(riserGripMesh);
 
-  // Cams / Roldanas nas pontas
   const camGeo = new THREE.CylinderGeometry(0.24, 0.24, 0.06, 16);
   camGeo.rotateZ(Math.PI / 2);
 
@@ -147,7 +146,6 @@ export function initArrowScrollytelling() {
   lowerCam.position.set(0, -3.3, -0.2);
   bowGroup.add(lowerCam);
 
-  // Corda do arco (Corda superior e inferior conectadas ao nock da flecha)
   const stringMaterial = new THREE.LineBasicMaterial({
     color: 0xff3b42,
     linewidth: 2,
@@ -169,7 +167,6 @@ export function initArrowScrollytelling() {
   bowGroup.add(upperString);
   bowGroup.add(lowerString);
 
-  // Posicionamento do arco no mundo
   bowGroup.position.set(0, 0, 0);
 
   // ---------------------------------------------------------------------------
@@ -178,14 +175,12 @@ export function initArrowScrollytelling() {
   const arrowGroup = new THREE.Group();
   scene.add(arrowGroup);
 
-  // Corpo / Haste da flecha (Cilindro longo de fibra de carbono)
   const shaftLength = 3.6;
   const shaftGeo = new THREE.CylinderGeometry(0.045, 0.045, shaftLength, 16);
   shaftGeo.rotateX(Math.PI / 2);
   const shaftMesh = new THREE.Mesh(shaftGeo, carbonMaterial);
   arrowGroup.add(shaftMesh);
 
-  // Anéis de telemetria iluminados no tubo
   const ringGeo = new THREE.TorusGeometry(0.052, 0.012, 8, 16);
   const ring1 = new THREE.Mesh(ringGeo, neonRedMaterial);
   ring1.position.z = -0.5;
@@ -194,7 +189,6 @@ export function initArrowScrollytelling() {
   arrowGroup.add(ring1);
   arrowGroup.add(ring2);
 
-  // Ponta da Flecha (Broadhead aerodinâmica multifacetada)
   const tipGeo = new THREE.ConeGeometry(0.18, 0.75, 4);
   tipGeo.rotateX(-Math.PI / 2);
   tipGeo.rotateZ(Math.PI / 4);
@@ -202,13 +196,11 @@ export function initArrowScrollytelling() {
   tipMesh.position.set(0, 0, -shaftLength / 2 - 0.35);
   arrowGroup.add(tipMesh);
 
-  // Núcleo de energia rubi na ponta
   const tipCoreGeo = new THREE.SphereGeometry(0.07, 12, 12);
   const tipCoreMesh = new THREE.Mesh(tipCoreGeo, neonRedMaterial);
   tipCoreMesh.position.set(0, 0, -shaftLength / 2 - 0.2);
   arrowGroup.add(tipCoreMesh);
 
-  // Aletas / Fletchings estabilizadoras traseiras (3 aletas a 120 graus)
   const fletchingShape = new THREE.Shape();
   fletchingShape.moveTo(0, 0);
   fletchingShape.lineTo(0.35, -0.6);
@@ -227,14 +219,12 @@ export function initArrowScrollytelling() {
     arrowGroup.add(fletchMesh);
   }
 
-  // Nock traseiro
   const nockGeo = new THREE.CylinderGeometry(0.048, 0.048, 0.3, 12);
   nockGeo.rotateX(Math.PI / 2);
   const nockMesh = new THREE.Mesh(nockGeo, chromeMaterial);
   nockMesh.position.set(0, 0, shaftLength / 2 + 0.15);
   arrowGroup.add(nockMesh);
 
-  // Rastro de Propulsão / Particle Thruster
   const thrusterCount = 60;
   const thrusterGeo = new THREE.BufferGeometry();
   const thrusterPos = new Float32Array(thrusterCount * 3);
@@ -254,7 +244,6 @@ export function initArrowScrollytelling() {
   const thrusterParticles = new THREE.Points(thrusterGeo, thrusterMat);
   arrowGroup.add(thrusterParticles);
 
-  // Inicialmente a flecha repousa no arco
   arrowGroup.position.set(0, 0, 0);
 
   // ---------------------------------------------------------------------------
@@ -309,23 +298,19 @@ export function initArrowScrollytelling() {
     const obsGroup = new THREE.Group();
     obsGroup.position.copy(data.pos);
 
-    // Monólito facetado escuro
     const coreGeo = new THREE.OctahedronGeometry(data.scale * 0.75, 1);
     const coreMesh = new THREE.Mesh(coreGeo, carbonMaterial);
     obsGroup.add(coreMesh);
 
-    // Grade holográfica de risco externa
     const wireGeo = new THREE.OctahedronGeometry(data.scale * 0.85, 1);
     const wireMesh = new THREE.Mesh(wireGeo, glowingWireMaterial);
     obsGroup.add(wireMesh);
 
-    // Anel de aviso rotativo ao redor
     const warningRingGeo = new THREE.TorusGeometry(data.scale * 1.05, 0.04, 8, 24);
     const warningRing = new THREE.Mesh(warningRingGeo, neonRedMaterial);
     warningRing.rotation.x = Math.PI / 3;
     obsGroup.add(warningRing);
 
-    // Marcador numérico do obstáculo
     const markerGeo = new THREE.SphereGeometry(0.18, 12, 12);
     const marker = new THREE.Mesh(markerGeo, neonRedMaterial);
     marker.position.set(0, data.scale * 0.95, 0);
@@ -348,19 +333,16 @@ export function initArrowScrollytelling() {
   targetGroup.position.set(0, 0, -156);
   scene.add(targetGroup);
 
-  // Aro Externo Metálico / Chassi
   const targetChassisGeo = new THREE.CylinderGeometry(5.2, 5.2, 0.35, 36);
   targetChassisGeo.rotateX(Math.PI / 2);
   const targetChassis = new THREE.Mesh(targetChassisGeo, carbonMaterial);
   targetGroup.add(targetChassis);
 
-  // Anel Externo Holográfico com marcações
   const ringOuterGeo = new THREE.RingGeometry(4.2, 4.8, 36);
   const ringOuter = new THREE.Mesh(ringOuterGeo, neonRedMaterial);
   ringOuter.position.z = 0.2;
   targetGroup.add(ringOuter);
 
-  // Faixa intermediária de carbono
   const ringMidGeo = new THREE.RingGeometry(2.6, 4.0, 36);
   const ringMidMat = new THREE.MeshStandardMaterial({
     color: 0x1a1a22,
@@ -371,13 +353,11 @@ export function initArrowScrollytelling() {
   ringMid.position.z = 0.21;
   targetGroup.add(ringMid);
 
-  // Faixa interna vermelha
   const ringInnerGeo = new THREE.RingGeometry(1.2, 2.4, 36);
   const ringInner = new THREE.Mesh(ringInnerGeo, neonRedMaterial);
   ringInner.position.z = 0.22;
   targetGroup.add(ringInner);
 
-  // O Centro do Alvo / Bullseye Luminoso
   const bullseyeGeo = new THREE.CircleGeometry(1.0, 32);
   const bullseyeMat = new THREE.MeshStandardMaterial({
     color: 0xffffff,
@@ -388,7 +368,6 @@ export function initArrowScrollytelling() {
   bullseye.position.z = 0.23;
   targetGroup.add(bullseye);
 
-  // Ondas de Impacto / Shockwave (Invisíveis inicialmente)
   const shockwaveGeo = new THREE.RingGeometry(0.1, 0.35, 36);
   const shockwaveMat = new THREE.MeshBasicMaterial({
     color: 0xff3b42,
@@ -400,7 +379,6 @@ export function initArrowScrollytelling() {
   shockwave.position.z = 0.28;
   targetGroup.add(shockwave);
 
-  // Partículas de Impacto / Sparks
   const sparkCount = 80;
   const sparkGeo = new THREE.BufferGeometry();
   const sparkPos = new Float32Array(sparkCount * 3);
@@ -429,7 +407,7 @@ export function initArrowScrollytelling() {
   targetGroup.add(sparkParticles);
 
   // ---------------------------------------------------------------------------
-  // 8. TÚNEL DE VELOCIDADE / CYBERSPACE PARTICLES (WARP SPEED STREAM)
+  // 8. TÚNEL DE VELOCIDADE / CYBERSPACE PARTICLES
   // ---------------------------------------------------------------------------
   const tunnelCount = 450;
   const tunnelGeo = new THREE.BufferGeometry();
@@ -466,12 +444,65 @@ export function initArrowScrollytelling() {
     document.getElementById('arrowStage4'),
   ];
   const hurdlePills = document.querySelectorAll('[data-hurdle-pill]');
+  const hudSteps = document.querySelectorAll('.arrow-hud-center .hud-step');
+  const orbitIndicator = document.getElementById('arrowOrbitIndicator');
+  const orbitText = document.getElementById('arrowOrbitText');
+  const hudBottom = document.getElementById('arrowHudBottom');
 
   // ---------------------------------------------------------------------------
-  // 10. EQUAÇÃO CINEMÁTICA DE VOO DA FLECHA (TRAJETÓRIA 3D INTERPOLADA)
+  // 10. MODO DE INSPEÇÃO 360° INTERATIVO (DRAG ORBIT CONTROLS)
+  // Permite inspecionar livremente o arco e flecha em 360 graus antes do disparo
+  // ---------------------------------------------------------------------------
+  let isDragging = false;
+  let prevPointerX = 0;
+  let prevPointerY = 0;
+  let orbitTheta = 0; // rotação horizontal 360 graus
+  let orbitPhi = 0;   // rotação vertical (-60 a +60 graus)
+  let targetOrbitTheta = 0;
+  let targetOrbitPhi = 0;
+  let isUserInteracting = false;
+  const idleRotationSpeed = 0.0016;
+
+  function onPointerDown(e) {
+    if (e.target.closest('a, button, .btn')) return;
+    isDragging = true;
+    prevPointerX = e.clientX;
+    prevPointerY = e.clientY;
+    canvas.classList.add('is-grabbing');
+    isUserInteracting = true;
+    if (orbitText) {
+      orbitText.textContent = 'INSPEÇÃO 360° ATIVA · GIRANDO';
+    }
+  }
+
+  function onPointerMove(e) {
+    if (!isDragging) return;
+    const dx = e.clientX - prevPointerX;
+    const dy = e.clientY - prevPointerY;
+    prevPointerX = e.clientX;
+    prevPointerY = e.clientY;
+
+    targetOrbitTheta -= dx * 0.0065;
+    targetOrbitPhi = Math.max(-1.1, Math.min(1.1, targetOrbitPhi + dy * 0.0065));
+  }
+
+  function onPointerUp() {
+    isDragging = false;
+    canvas.classList.remove('is-grabbing');
+    if (orbitText) {
+      orbitText.textContent = 'INSPEÇÃO 360° ATIVA · ARRASTE PARA GIRAR';
+    }
+  }
+
+  pinViewport.addEventListener('pointerdown', onPointerDown, { passive: true });
+  window.addEventListener('pointermove', onPointerMove, { passive: true });
+  window.addEventListener('pointerup', onPointerUp, { passive: true });
+  window.addEventListener('pointercancel', onPointerUp, { passive: true });
+
+  // ---------------------------------------------------------------------------
+  // 11. EQUAÇÃO CINEMÁTICA DE VOO DA FLECHA (TRAJETÓRIA 3D INTERPOLADA)
   // ---------------------------------------------------------------------------
   function calculateArrowState(progress) {
-    // progress: 0.0 (início / repouso) -> 1.0 (impacto no alvo)
     const state = {
       arrowPos: new THREE.Vector3(0, 0, 0),
       arrowRot: new THREE.Euler(0, 0, 0),
@@ -514,43 +545,37 @@ export function initArrowScrollytelling() {
       state.distMeters = Math.round(2 + p * 20);
     } else if (progress < 0.82) {
       // FASE 3: DESVIOS DE MERCADO (Navegando entre os 4 obstáculos)
-      const p = (progress - 0.24) / 0.58; // 0 a 1 na fase 3
+      const p = (progress - 0.24) / 0.58;
       state.phase = 3;
       state.bowOpacity = 0;
 
-      // Trajetória Z principal de -22 a -140
       const currentZ = -22 - p * 118;
       state.distMeters = Math.round(22 + p * 118);
       state.speedKm = 640 + Math.round(Math.sin(p * Math.PI * 4) * 35);
 
-      // Interpolação suave em X e Y para contornar cada obstáculo
       let currentX = 0;
       let currentY = 0;
       let rollZ = 0;
 
       if (p < 0.25) {
-        // Desvio Obstáculo 1 (Bugs em X = -3.2 -> Flecha desvia para a direita)
         const subP = p / 0.25;
         const wave = Math.sin(subP * Math.PI);
         currentX = wave * 2.8;
         currentY = wave * 0.3;
         rollZ = -wave * 0.45;
       } else if (p < 0.5) {
-        // Desvio Obstáculo 2 (Preço Abusivo em X = +3.6 -> Flecha desvia para a esquerda)
         const subP = (p - 0.25) / 0.25;
         const wave = Math.sin(subP * Math.PI);
         currentX = -wave * 2.9;
         currentY = -wave * 0.2;
         rollZ = wave * 0.52;
       } else if (p < 0.75) {
-        // Desvio Obstáculo 3 (Falta de Execução em X = -3.4 -> Flecha sobe e curva à direita)
         const subP = (p - 0.5) / 0.25;
         const wave = Math.sin(subP * Math.PI);
         currentX = wave * 2.7;
         currentY = wave * 0.6;
         rollZ = -wave * 0.42;
       } else {
-        // Desvio Obstáculo 4 (Baixa Qualidade em X = +3.0 -> Flecha mergulha para o centro)
         const subP = (p - 0.75) / 0.25;
         const wave = Math.sin(subP * Math.PI);
         currentX = -wave * 1.5;
@@ -561,7 +586,6 @@ export function initArrowScrollytelling() {
       state.arrowPos.set(currentX, currentY, currentZ);
       state.arrowRot.set(-currentY * 0.15, -currentX * 0.08, rollZ);
 
-      // Câmera dinâmica em perseguição (chase cam)
       state.camPos.set(
         currentX * 0.65,
         currentY * 0.65 + 1.25,
@@ -569,24 +593,20 @@ export function initArrowScrollytelling() {
       );
       state.camLookAt.set(currentX * 0.2, currentY * 0.2, currentZ - 20);
     } else {
-      // FASE 4: O ALVO SUPREMO (VL TECH - Impacto perfeito no centro)
-      const p = (progress - 0.82) / 0.18; // 0 a 1 na fase final
+      // FASE 4: O ALVO SUPREMO (VL TECH - Impacto perfeito no centro, enquadrado à direita/centro)
+      const p = (progress - 0.82) / 0.18;
       state.phase = 4;
       state.bowOpacity = 0;
       state.speedKm = p > 0.85 ? 0 : Math.round((1 - p) * 650);
       state.distMeters = 156;
 
-      // Flecha atinge o alvo cravada em Z = -153.8
       const targetZ = -153.8;
       const startZ = -140;
       const arrowZ = p < 0.85 ? startZ + (p / 0.85) * (targetZ - startZ) : targetZ;
 
-      // Estabiliza perfeitamente no centro (0, 0)
-      const alignFactor = 1 - Math.min(p * 1.5, 1);
       state.arrowPos.set(0, 0, arrowZ);
 
       if (p >= 0.85) {
-        // Efeito de impacto e recuo elástico
         const recoilP = (p - 0.85) / 0.15;
         state.impactProgress = recoilP;
         const quiver = Math.sin(recoilP * Math.PI * 10) * Math.exp(-recoilP * 4) * 0.04;
@@ -596,9 +616,10 @@ export function initArrowScrollytelling() {
         state.arrowRot.set(0, 0, 0);
       }
 
-      // Câmera transiciona para um enquadramento monumental em 3/4 do alvo
-      const camTargetPos = new THREE.Vector3(2.8, 1.4, -147);
-      const camTargetLook = new THREE.Vector3(0, 0, -156);
+      // Enquadramento limpo: Câmera posicionada em ângulo 3/4 aberto,
+      // mantendo o alvo no centro-direita do canvas, sem qualquer obstrução de texto
+      const camTargetPos = new THREE.Vector3(2.4, 1.0, -146);
+      const camTargetLook = new THREE.Vector3(-0.3, 0, -156);
       state.camPos.lerpVectors(new THREE.Vector3(0, 1.2, -135), camTargetPos, p);
       state.camLookAt.lerpVectors(new THREE.Vector3(0, 0, -156), camTargetLook, p);
     }
@@ -607,7 +628,7 @@ export function initArrowScrollytelling() {
   }
 
   // ---------------------------------------------------------------------------
-  // 11. GSAP SCROLLTRIGGER ORCHESTRATION (PINNED TIMELINE)
+  // 12. GSAP SCROLLTRIGGER ORCHESTRATION (PINNED TIMELINE)
   // ---------------------------------------------------------------------------
   let scrollProgress = 0;
   let isSectionActive = true;
@@ -625,19 +646,12 @@ export function initArrowScrollytelling() {
       },
       onUpdate: (self) => {
         scrollProgress = self.progress;
-
-        // Atualização dos cards e HUD conforme o progresso
         updateUI(self.progress);
       },
     },
   });
 
-  // Atualização dos Cards de Conteúdo e Badges com base no frame
   function updateUI(p) {
-    // Stage 1: 0% a 22%
-    // Stage 2: 22% a 44%
-    // Stage 3: 44% a 80%
-    // Stage 4: 80% a 100%
     stageCards.forEach((card, idx) => {
       if (!card) return;
       let active = false;
@@ -653,7 +667,19 @@ export function initArrowScrollytelling() {
       }
     });
 
-    // Pílulas de desvios ativadas dinamicamente
+    if (hudSteps.length >= 4) {
+      hudSteps.forEach((step, idx) => {
+        let stepActive = false;
+        if (idx === 0 && p < 0.22) stepActive = true;
+        if (idx === 1 && p >= 0.22 && p < 0.44) stepActive = true;
+        if (idx === 2 && p >= 0.44 && p < 0.8) stepActive = true;
+        if (idx === 3 && p >= 0.8) stepActive = true;
+
+        if (stepActive) step.classList.add('hud-step-active');
+        else step.classList.remove('hud-step-active');
+      });
+    }
+
     if (hurdlePills.length >= 4) {
       if (p >= 0.48) hurdlePills[0].classList.add('is-dodged');
       else hurdlePills[0].classList.remove('is-dodged');
@@ -670,7 +696,7 @@ export function initArrowScrollytelling() {
   }
 
   // ---------------------------------------------------------------------------
-  // 12. LOOP DE RENDERIZAÇÃO 60 FPS
+  // 13. LOOP DE RENDERIZAÇÃO 60 FPS COM MODO DE ÓRBITA INTEGRADO
   // ---------------------------------------------------------------------------
   let animationFrameId = null;
   let clock = new THREE.Clock();
@@ -682,25 +708,55 @@ export function initArrowScrollytelling() {
 
     const elapsedTime = clock.getElapsedTime();
 
-    // Rotação sutil dos obstáculos flutuantes
+    // Rotação suave dos obstáculos
     obstacles.forEach((obs, idx) => {
       obs.group.rotation.y = elapsedTime * 0.4 + idx * 1.2;
       obs.group.rotation.x = Math.sin(elapsedTime * 0.8 + idx) * 0.15;
       obs.ring.rotation.z = -elapsedTime * 0.6;
     });
 
-    // Rotação do anel holográfico do alvo
     ringOuter.rotation.z = elapsedTime * 0.35;
     ringMid.rotation.z = -elapsedTime * 0.2;
 
-    // Calcular estado da trajetória
+    // Calcular estado cinemático da trajetória
     const state = calculateArrowState(scrollProgress);
 
-    // Aplicar estado na flecha
+    // Órbita 360° interativa: se o scroll está próximo do início, o usuário tem controle 360°
+    if (!isDragging && !isUserInteracting) {
+      targetOrbitTheta += idleRotationSpeed;
+    }
+    orbitTheta += (targetOrbitTheta - orbitTheta) * 0.08;
+    orbitPhi += (targetOrbitPhi - orbitPhi) * 0.08;
+
+    const orbitBlend = Math.max(0, 1 - (scrollProgress / 0.08));
+
+    if (orbitIndicator) {
+      orbitIndicator.style.opacity = orbitBlend.toString();
+      orbitIndicator.style.pointerEvents = orbitBlend > 0.1 ? 'auto' : 'none';
+      orbitIndicator.style.transform = `translateX(-50%) translateY(${(1 - orbitBlend) * -12}px)`;
+    }
+
+    if (hudBottom) {
+      const bottomOpacity = Math.max(0, 1 - (scrollProgress / 0.05));
+      hudBottom.style.opacity = bottomOpacity.toString();
+    }
+
+    if (orbitBlend > 0.001) {
+      const radius = 5.6;
+      const orbitCamX = radius * Math.sin(orbitTheta) * Math.cos(orbitPhi);
+      const orbitCamY = 1.1 + radius * Math.sin(orbitPhi);
+      const orbitCamZ = radius * Math.cos(orbitTheta) * Math.cos(orbitPhi);
+
+      const orbitCamPos = new THREE.Vector3(orbitCamX, orbitCamY, orbitCamZ);
+      const orbitLookAt = new THREE.Vector3(0, 0, 0);
+
+      state.camPos.lerp(orbitCamPos, orbitBlend);
+      state.camLookAt.lerp(orbitLookAt, orbitBlend);
+    }
+
     arrowGroup.position.copy(state.arrowPos);
     arrowGroup.rotation.copy(state.arrowRot);
 
-    // Partículas de propulsão seguindo a flecha
     const thrusterPositions = thrusterGeo.attributes.position.array;
     for (let i = 0; i < thrusterCount; i++) {
       thrusterPositions[i * 3 + 2] += (0.05 + Math.random() * 0.08);
@@ -710,13 +766,11 @@ export function initArrowScrollytelling() {
     }
     thrusterGeo.attributes.position.needsUpdate = true;
 
-    // Aplicar deformação e corda do arco
     if (state.bowOpacity > 0.01) {
       bowGroup.visible = true;
       carbonMaterial.opacity = state.bowOpacity;
       stringMaterial.opacity = state.bowOpacity * 0.9;
 
-      // Puxada da corda até o nock da flecha
       const nockWorldZ = state.bowStringPull;
       const upperStrPos = upperString.geometry.attributes.position.array;
       upperStrPos[3] = 0;
@@ -733,7 +787,6 @@ export function initArrowScrollytelling() {
       bowGroup.visible = false;
     }
 
-    // Impacto no alvo (Shockwave + Sparks)
     if (state.impactProgress > 0) {
       const imp = state.impactProgress;
       shockwave.scale.set(1 + imp * 18, 1 + imp * 18, 1);
@@ -752,11 +805,9 @@ export function initArrowScrollytelling() {
       sparkMat.opacity = 0;
     }
 
-    // Suavização da câmera (Lerp suave)
     camera.position.lerp(state.camPos, 0.14);
     camera.lookAt(state.camLookAt);
 
-    // Telemetria em tempo real no HUD
     if (telemetryDistance) telemetryDistance.textContent = `${state.distMeters}M`;
     if (telemetrySpeed) telemetrySpeed.textContent = `${state.speedKm} KM/H`;
     if (telemetryStatus) {
@@ -775,13 +826,13 @@ export function initArrowScrollytelling() {
   animate();
 
   // ---------------------------------------------------------------------------
-  // 13. RESIZE RESPONSIVO & CLEANUP
+  // 14. RESIZE RESPONSIVO & CLEANUP
   // ---------------------------------------------------------------------------
   function handleResize() {
     if (!pinViewport) return;
     const width = pinViewport.clientWidth;
     const height = pinViewport.clientHeight;
-    camera.aspect = width / height;
+    camera.aspect = width / Math.max(height, 1);
     camera.fov = width < 768 ? 64 : 52;
     camera.updateProjectionMatrix();
     renderer.setSize(width, height);
@@ -793,6 +844,10 @@ export function initArrowScrollytelling() {
     destroy: () => {
       if (animationFrameId) cancelAnimationFrame(animationFrameId);
       window.removeEventListener('resize', handleResize);
+      pinViewport.removeEventListener('pointerdown', onPointerDown);
+      window.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('pointerup', onPointerUp);
+      window.removeEventListener('pointercancel', onPointerUp);
       renderer.dispose();
       scrollTimeline.kill();
     },

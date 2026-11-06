@@ -383,7 +383,7 @@
         <div class="arrow-ambient-glow" aria-hidden="true"></div>
         <div class="arrow-grid-overlay" aria-hidden="true"></div>
 
-        <!-- Barra de Telemetria e HUD Superior -->
+        <!-- Barra de Telemetria e HUD Superior (Margens Limpas e Desobstruídas) -->
         <header class="arrow-hud-top" aria-label="Telemetria de Voo">
           <div class="arrow-hud-badge-left">
             <span class="arrow-hud-dot" aria-hidden="true"></span>
@@ -391,13 +391,13 @@
           </div>
 
           <div class="arrow-hud-center" aria-hidden="true">
-            <span class="hud-step">01. IDEIA</span>
+            <span class="hud-step hud-step-active" data-step-idx="0">01. IDEIA</span>
             <span>→</span>
-            <span class="hud-step">02. DISPARO</span>
+            <span class="hud-step" data-step-idx="1">02. DISPARO</span>
             <span>→</span>
-            <span class="hud-step">03. DESVIOS</span>
+            <span class="hud-step" data-step-idx="2">03. DESVIOS</span>
             <span>→</span>
-            <span class="hud-step hud-step-active">04. ALVO VL TECH</span>
+            <span class="hud-step" data-step-idx="3">04. ALVO VL TECH</span>
           </div>
 
           <div class="arrow-hud-metrics-right">
@@ -416,8 +416,16 @@
           </div>
         </header>
 
+        <!-- Indicador Interativo de Inspeção 360° -->
+        <div class="arrow-orbit-indicator" id="arrowOrbitIndicator" aria-live="polite">
+          <span class="orbit-badge">
+            <span class="orbit-icon" aria-hidden="true">🔄</span>
+            <span class="orbit-text" id="arrowOrbitText">INSPEÇÃO 360° ATIVA · ARRASTE PARA GIRAR</span>
+          </span>
+        </div>
+
         <!-- Indicador de Scroll Inferior -->
-        <div class="arrow-hud-bottom" aria-hidden="true">
+        <div class="arrow-hud-bottom" id="arrowHudBottom" aria-hidden="true">
           <span>ROLE PARA NAVEGAR A TRAJETÓRIA</span>
           <span class="arrow-hud-arrow-down">↓</span>
         </div>
