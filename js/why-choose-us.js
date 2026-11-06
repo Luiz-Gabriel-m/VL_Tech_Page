@@ -1,11 +1,12 @@
 /* ==========================================================================
-   WHY CHOOSE US — Horizontal Scrollytelling Typography Sequence
-   - GSAP 3 + ScrollTrigger pinned horizontal scroll (scrubbing right to left).
-   - Massive typographic headers addressing "Por que escolher a VL Tech".
-   - Starts clean with minimal initial breathing space.
-   - Deep dark theme (#111112), crisp white headers, glowing red (#ff2a2a)
-     and lime (#d2ff00) accents.
-   - Smooth 60 FPS transitions with GPU acceleration.
+   WHY CHOOSE US — Pinned Horizontal Scrollytelling Sequence
+   - GSAP 3 + ScrollTrigger pinned horizontal scroll (scrub: 1, pin: true).
+   - Strict Black & Red Aesthetic: pure black background, crisp white headers,
+     and vibrant neon red glows (#ff2a2a). Zero lime/cyan accents.
+   - Pinned scrollytelling container locks vertical page scrolling temporarily,
+     sliding smoothly horizontally to reveal all differential cards sequentially
+     from left to right until the final card is fully revealed.
+   - Smooth 60 FPS performance with GPU hardware acceleration.
    ========================================================================== */
 
 import { gsap, ScrollTrigger } from './core/gsap.js';
@@ -34,7 +35,7 @@ export function initWhyChooseUs() {
   // 1. CÁLCULO DINÂMICO DA DISTÂNCIA DE ROLAGEM HORIZONTAL
   // ---------------------------------------------------------------------------
   const getScrollDistance = () => {
-    // Distância total necessária para que o último slide termine no canto direito
+    // Distância total necessária para que o último card fique completamente visível
     return Math.max(0, track.scrollWidth - window.innerWidth);
   };
 
@@ -46,8 +47,8 @@ export function initWhyChooseUs() {
       trigger: section,
       pin: true,
       start: 'top top',
-      end: () => `+=${getScrollDistance() + 450}`,
-      scrub: 1.1, // Suavização fluida de inércia (60 FPS)
+      end: () => `+=${Math.round(getScrollDistance() + window.innerHeight * 0.85)}`,
+      scrub: 1, // Suavização fluida de inércia a 60 FPS
       invalidateOnRefresh: true,
       anticipatePin: 1,
       onUpdate: (self) => {
@@ -58,11 +59,15 @@ export function initWhyChooseUs() {
     },
   });
 
-  // Movimenta todo o trilho horizontal suavemente da direita para a esquerda
+  // Movimenta suavemente o trilho horizontal revelando cada diferencial da esquerda para a direita
   horizontalTl.to(track, {
     x: () => -getScrollDistance(),
-    ease: 'none', // linear dentro do scrub para mapeamento perfeito com a rolagem
+    ease: 'none',
+    duration: 1,
   });
+
+  // Período de acomodação no último card (Pilar 04 com CTAs) antes de liberar o scroll vertical da página
+  horizontalTl.to({}, { duration: 0.18 });
 
   // ---------------------------------------------------------------------------
   // 3. PARALLAX SUTIL E REVEAL DAS MARCAS D'ÁGUA E PILARES INDIVIDUAIS
@@ -73,13 +78,13 @@ export function initWhyChooseUs() {
 
     if (watermark) {
       gsap.to(watermark, {
-        xPercent: -35,
+        xPercent: -30,
         ease: 'none',
         scrollTrigger: {
           trigger: section,
           start: 'top top',
-          end: () => `+=${getScrollDistance() + 450}`,
-          scrub: 1.6,
+          end: () => `+=${Math.round(getScrollDistance() + window.innerHeight * 0.85)}`,
+          scrub: 1.5,
         },
       });
     }
@@ -88,11 +93,12 @@ export function initWhyChooseUs() {
       // Efeito de entrada suave dos cards conforme entram no viewport
       gsap.fromTo(
         card,
-        { y: 30, opacity: 0.88 },
+        { y: 35, opacity: 0.75, scale: 0.98 },
         {
           y: 0,
           opacity: 1,
-          duration: 0.55,
+          scale: 1,
+          duration: 0.6,
           ease: 'power2.out',
           scrollTrigger: {
             trigger: slide,

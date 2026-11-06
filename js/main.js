@@ -22,7 +22,7 @@ import { initTechHero } from './tech-hero-3d.js?v=4.0';
 import { initArrowScrollytelling } from './arrow-scrollytelling.js?v=4.0';
 import { initDiferenciais } from './diferenciais-3d.js';
 import { initPartnersTech } from './partners-tech.js?v=4.0';
-import { initWhyChooseUs } from './why-choose-us.js?v=4.2';
+import { initWhyChooseUs } from './why-choose-us.js?v=4.5';
 
 /**
  * Módulos essenciais — funcionam mesmo se o GSAP não carregar.

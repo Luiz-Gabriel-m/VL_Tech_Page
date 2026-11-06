@@ -297,10 +297,10 @@
 
 /* ==========================================================================
    3.5. POR QUE ESCOLHER A VL TECH — HORIZONTAL SCROLLYTELLING (#mensagem)
-   - Deep dark theme (#0A0A0C / #111112)
-   - Scrubbed horizontal sequence: right to left on vertical scroll
-   - Glowing Red (#ff2a2a) and Lime (#d2ff00) neon accents
-   - Massive typography in Monument Extended & Mona Sans
+   - Strict Black & Red Aesthetic (#0A0A0C / #111112 / #000000 background)
+   - Crisp white typography & vibrant neon red glows (#ff2a2a)
+   - Pinned GSAP ScrollTrigger sequence sliding smoothly horizontally
+   - All differential cards fully showcased sequentially before scroll resumes
    ========================================================================== */
 .why-horizontal-section {
   position: relative !important;
@@ -310,7 +310,7 @@
   z-index: 6 !important;
 }
 
-/* Fundo Atmosférico Cibernético */
+/* Fundo Atmosférico Cibernético (Strict Red & Black Glow) */
 .why-ambient-glow {
   position: absolute;
   top: 50%;
@@ -318,7 +318,7 @@
   transform: translate(-50%, -50%);
   width: clamp(450px, 65vw, 950px);
   height: clamp(400px, 60vh, 750px);
-  background: radial-gradient(circle, rgba(255, 42, 42, 0.12) 0%, rgba(210, 255, 0, 0.04) 48%, transparent 72%);
+  background: radial-gradient(circle, rgba(255, 42, 42, 0.16) 0%, rgba(255, 42, 42, 0.04) 50%, transparent 75%);
   filter: blur(95px);
   pointer-events: none;
   z-index: 1;
@@ -340,7 +340,7 @@
 .why-scanline {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 0%, rgba(255, 42, 42, 0.02) 50%, transparent 100%);
+  background: linear-gradient(180deg, transparent 0%, rgba(255, 42, 42, 0.03) 50%, transparent 100%);
   pointer-events: none;
   z-index: 1;
 }
@@ -367,7 +367,7 @@
   font-family: var(--font-mono, monospace);
   font-size: 0.75rem;
   font-weight: 700;
-  color: rgba(248, 248, 252, 0.65);
+  color: rgba(248, 248, 252, 0.7);
   letter-spacing: 0.14em;
 }
 
@@ -397,8 +397,8 @@
 
 .why-hud-counter {
   font-weight: 900;
-  color: #d2ff00;
-  text-shadow: 0 0 12px rgba(210, 255, 0, 0.6);
+  color: #ff2a2a;
+  text-shadow: 0 0 14px rgba(255, 42, 42, 0.85);
 }
 
 /* Viewport Pinned Frame & Horizontal Track */
@@ -419,6 +419,7 @@
   height: 100%;
   width: max-content;
   align-items: center;
+  padding-right: clamp(6rem, 16vw, 24vw);
   will-change: transform;
   transform: translate3d(0, 0, 0);
 }
@@ -430,18 +431,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 clamp(2rem, 3.5vw, 4.5rem);
   flex-shrink: 0;
   box-sizing: border-box;
 }
 
 .why-slide--intro {
-  width: clamp(520px, 48vw, 760px);
-  padding-left: clamp(2rem, 6vw, 7rem);
+  width: clamp(720px, 80vw, 1150px);
+  padding-left: clamp(2.5rem, 6vw, 8rem);
+  padding-right: clamp(2rem, 4vw, 5rem);
 }
 
 .why-slide--pillar {
-  width: clamp(680px, 66vw, 920px);
+  width: clamp(760px, 78vw, 1080px);
+  padding: 0 clamp(1.5rem, 3.5vw, 4rem);
 }
 
 /* Cartão Introdutório Limpo */
@@ -450,13 +452,13 @@
   z-index: 2;
   display: flex;
   flex-direction: column;
-  gap: 1.4rem;
-  max-width: 620px;
+  gap: 1.5rem;
+  max-width: 680px;
 }
 
 .why-intro-headline {
   font-family: var(--font-monument, 'Monument Extended', sans-serif);
-  font-size: clamp(2.4rem, 4.2vw, 4.4rem);
+  font-size: clamp(2.4rem, 4.4vw, 4.6rem);
   font-weight: 900;
   line-height: 1.02;
   letter-spacing: -0.04em;
@@ -481,12 +483,14 @@
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.16em;
-  color: #d2ff00;
+  color: #ff2a2a;
+  text-shadow: 0 0 12px rgba(255, 42, 42, 0.6);
   margin-top: 0.5rem;
 }
 
 .prompt-arrow {
   font-size: 1.15rem;
+  color: #ff2a2a;
   animation: promptArrowNudge 1.8s infinite ease-in-out;
 }
 
@@ -500,13 +504,14 @@
   position: relative;
   z-index: 2;
   width: 100%;
-  background: rgba(14, 14, 18, 0.88);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  max-width: 980px;
+  background: rgba(12, 12, 16, 0.94);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 28px;
   padding: clamp(2.2rem, 3.8vw, 3.8rem);
-  box-shadow: 0 25px 65px rgba(0, 0, 0, 0.85), inset 0 1px 1px rgba(255, 255, 255, 0.08);
+  box-shadow: 0 25px 65px rgba(0, 0, 0, 0.9), inset 0 1px 1px rgba(255, 255, 255, 0.08);
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -514,8 +519,8 @@
 }
 
 .why-pillar-card:hover {
-  border-color: rgba(255, 42, 42, 0.45);
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9), 0 0 35px rgba(255, 42, 42, 0.15);
+  border-color: rgba(255, 42, 42, 0.55);
+  box-shadow: 0 30px 85px rgba(0, 0, 0, 0.95), 0 0 35px rgba(255, 42, 42, 0.22);
 }
 
 .why-card-topline {
@@ -531,7 +536,7 @@
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.16em;
-  color: rgba(248, 248, 252, 0.5);
+  color: rgba(248, 248, 252, 0.55);
 }
 
 .why-badge-status {
@@ -549,11 +554,11 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: #d2ff00;
-  box-shadow: 0 0 8px #d2ff00;
+  background-color: #ff2a2a;
+  box-shadow: 0 0 10px #ff2a2a;
 }
 
-/* Pills de Métricas Destacadas */
+/* Pills de Métricas Destacadas (Strict Red Accent) */
 .why-metric-pill {
   display: inline-flex;
   align-items: center;
@@ -567,18 +572,11 @@
   text-transform: uppercase;
 }
 
-.why-metric-pill--lime {
-  background: rgba(210, 255, 0, 0.09);
-  border: 1px solid rgba(210, 255, 0, 0.4);
-  color: #d2ff00;
-  box-shadow: 0 0 15px rgba(210, 255, 0, 0.2);
-}
-
 .why-metric-pill--red {
   background: rgba(255, 42, 42, 0.09);
-  border: 1px solid rgba(255, 42, 42, 0.4);
+  border: 1px solid rgba(255, 42, 42, 0.45);
   color: #ff2a2a;
-  box-shadow: 0 0 15px rgba(255, 42, 42, 0.2);
+  box-shadow: 0 0 18px rgba(255, 42, 42, 0.28);
 }
 
 .pill-dot {
@@ -587,17 +585,12 @@
   border-radius: 50%;
 }
 
-.pill-dot--lime {
-  background: #d2ff00;
-  box-shadow: 0 0 8px #d2ff00;
-}
-
 .pill-dot--red {
   background: #ff2a2a;
   box-shadow: 0 0 8px #ff2a2a;
 }
 
-/* Headings Monumentais com Glow Neon */
+/* Headings Monumentais com Glow Neon Vermelho */
 .why-giant-headline {
   font-family: var(--font-monument, 'Monument Extended', sans-serif);
   font-size: clamp(1.8rem, 3.2vw, 3.1rem);
@@ -613,14 +606,7 @@
   color: #ff2a2a !important;
   text-shadow: 
     0 0 18px rgba(255, 42, 42, 0.95),
-    0 0 45px rgba(255, 42, 42, 0.6) !important;
-}
-
-.text-glow-lime {
-  color: #d2ff00 !important;
-  text-shadow: 
-    0 0 18px rgba(210, 255, 0, 0.95),
-    0 0 45px rgba(210, 255, 0, 0.6) !important;
+    0 0 45px rgba(255, 42, 42, 0.65) !important;
 }
 
 .why-pillar-body {
@@ -714,7 +700,7 @@
 .why-btn-cta--primary:hover {
   background: #ff4747;
   transform: translateY(-2px);
-  box-shadow: 0 0 40px rgba(255, 42, 42, 0.9);
+  box-shadow: 0 0 40px rgba(255, 42, 42, 0.95);
 }
 
 .why-btn-cta--secondary {
@@ -724,10 +710,10 @@
 }
 
 .why-btn-cta--secondary:hover {
-  background: rgba(210, 255, 0, 0.12);
-  border-color: #d2ff00;
-  color: #d2ff00;
-  box-shadow: 0 0 20px rgba(210, 255, 0, 0.4);
+  background: rgba(255, 42, 42, 0.12);
+  border-color: #ff2a2a;
+  color: #FFFFFF;
+  box-shadow: 0 0 25px rgba(255, 42, 42, 0.45);
 }
 
 /* Barra de Progresso Horizontal Inferior */
@@ -744,20 +730,24 @@
 .why-progress-bar-fill {
   height: 100%;
   width: 0%;
-  background: linear-gradient(90deg, #ff2a2a, #d2ff00);
-  box-shadow: 0 0 14px rgba(210, 255, 0, 0.85);
+  background: linear-gradient(90deg, #ff2a2a, #ff4747);
+  box-shadow: 0 0 16px rgba(255, 42, 42, 0.9);
   transition: width 0.05s linear;
 }
 
 /* Responsividade Mobile e Tablet para o Scrollytelling Horizontal */
 @media (max-width: 768px) {
+  .why-track {
+    padding-right: 2rem;
+  }
+
   .why-slide--intro {
-    width: 88vw;
+    width: 90vw;
     padding: 0 1.25rem;
   }
 
   .why-slide--pillar {
-    width: 88vw;
+    width: 90vw;
     padding: 0 1.25rem;
   }
 
