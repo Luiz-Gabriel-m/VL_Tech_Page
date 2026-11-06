@@ -1134,3 +1134,383 @@
     align-items: flex-start !important;
   }
 }
+
+/* ==========================================================================
+   THE ARROW OF EXECUTION ("A FLECHA DA EXECUÇÃO") — 3D SCROLLYTELLING
+   Theme: Exclusive High-End Red (#FF1E26) & Cyber Black (#0A0A0C)
+   ========================================================================== */
+
+.arrow-scrollytelling-section {
+  position: relative;
+  background-color: var(--color--black, #0A0A0C);
+  color: #F8F8FC;
+  overflow: visible;
+  padding: 0 !important;
+  margin: 0 !important;
+  z-index: 10;
+}
+
+.arrow-scrolly-pin {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 40%, rgba(20, 20, 28, 0.95) 0%, #0A0A0C 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Canvas Three.js WebGL */
+.arrow-scrolly-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Ambient Radial Glow */
+.arrow-ambient-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 900px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(255, 30, 38, 0.14) 0%, rgba(255, 30, 38, 0.03) 50%, transparent 75%);
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Grid Cibernética de Fundo */
+.arrow-grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, rgba(255, 30, 38, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 30, 38, 0.04) 1px, transparent 1px);
+  background-size: 50px 50px;
+  mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.85) 0%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.85) 0%, transparent 80%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ==========================================================================
+   HUD TELEMETRY BAR (BARRA SUPERIOR & INFERIOR)
+   ========================================================================== */
+
+.arrow-hud-top {
+  position: absolute;
+  top: calc(var(--nav-height, 72px) + 1rem);
+  left: 0;
+  right: 0;
+  padding: 0 clamp(1.5rem, 4vw, 3.5rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  z-index: 15;
+  pointer-events: none;
+}
+
+.arrow-hud-badge-left {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  background: rgba(18, 18, 24, 0.8);
+  border: 1px solid rgba(255, 30, 38, 0.3);
+  border-radius: 999px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: #F8F8FC;
+  text-transform: uppercase;
+}
+
+.arrow-hud-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--accent-red, #FF1E26);
+  box-shadow: 0 0 10px var(--accent-red, #FF1E26);
+  animation: arrowDotPulse 1.8s infinite ease-in-out;
+}
+
+@keyframes arrowDotPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.35); opacity: 0.6; }
+}
+
+.arrow-hud-center {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(14, 14, 20, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  backdrop-filter: blur(10px);
+  font-family: var(--font-mono, monospace);
+  font-size: 0.7rem;
+  color: rgba(248, 248, 252, 0.7);
+  letter-spacing: 0.08em;
+}
+
+.arrow-hud-center .hud-step-active {
+  color: var(--accent-red, #FF1E26);
+  font-weight: 700;
+}
+
+.arrow-hud-metrics-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.arrow-metric-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 6px 14px;
+  background: rgba(18, 18, 24, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  font-family: var(--font-mono, monospace);
+}
+
+.arrow-metric-label {
+  font-size: 0.58rem;
+  color: rgba(248, 248, 252, 0.5);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.arrow-metric-value {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent-red, #FF1E26);
+  letter-spacing: 0.06em;
+}
+
+/* HUD Inferior com indicador de scroll */
+.arrow-hud-bottom {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 20px;
+  background: rgba(14, 14, 20, 0.8);
+  border: 1px solid rgba(255, 30, 38, 0.25);
+  border-radius: 999px;
+  backdrop-filter: blur(12px);
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  color: rgba(248, 248, 252, 0.8);
+  text-transform: uppercase;
+  z-index: 15;
+  pointer-events: none;
+}
+
+.arrow-hud-arrow-down {
+  color: var(--accent-red, #FF1E26);
+  animation: arrowBounce 1.5s infinite;
+}
+
+@keyframes arrowBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+
+/* ==========================================================================
+   CARDS DE SCROLLYTELLING (STAGE CALLOUTS)
+   ========================================================================== */
+
+.arrow-stage-container {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 clamp(1.5rem, 5vw, 6rem);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.arrow-stage-card {
+  position: absolute;
+  max-width: 540px;
+  width: calc(100% - 3rem);
+  background: rgba(14, 14, 20, 0.88);
+  border: 1px solid rgba(255, 30, 38, 0.32);
+  border-radius: 20px;
+  padding: clamp(1.8rem, 3.5vw, 2.8rem);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 30, 38, 0.12);
+  opacity: 0;
+  transform: translateY(28px) scale(0.97);
+  pointer-events: none;
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.arrow-stage-card.is-active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+/* Estágio 4 Centralizado e mais amplo */
+.arrow-stage-card--final {
+  max-width: 620px;
+  left: 50%;
+  transform: translate(-50%, 28px) scale(0.97);
+  text-align: center;
+}
+
+.arrow-stage-card--final.is-active {
+  transform: translate(-50%, 0) scale(1);
+}
+
+.arrow-stage-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  background: rgba(255, 30, 38, 0.12);
+  border: 1px solid rgba(255, 30, 38, 0.4);
+  border-radius: 6px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--accent-red, #FF1E26);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.arrow-stage-title {
+  font-family: var(--font-monument, 'Monument Extended', sans-serif);
+  font-size: clamp(1.5rem, 2.8vw, 2.3rem);
+  font-weight: 900;
+  line-height: 1.15;
+  color: #F8F8FC;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.9rem;
+}
+
+.arrow-stage-text {
+  font-size: clamp(0.9rem, 1.15vw, 1.05rem);
+  line-height: 1.6;
+  color: rgba(248, 248, 252, 0.75);
+  margin-bottom: 1.4rem;
+}
+
+/* Grade de Obstáculos / Hurdles da Fase 3 */
+.arrow-hurdles-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 1rem;
+}
+
+.arrow-hurdle-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  background: rgba(20, 20, 28, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.74rem;
+  color: rgba(248, 248, 252, 0.85);
+  transition: all 0.3s ease;
+}
+
+.arrow-hurdle-item.is-dodged {
+  border-color: rgba(39, 201, 63, 0.45);
+  background: rgba(39, 201, 63, 0.08);
+  color: #F8F8FC;
+}
+
+.arrow-hurdle-status {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--accent-red, #FF1E26);
+}
+
+.arrow-hurdle-item.is-dodged .arrow-hurdle-status {
+  color: #27C93F;
+}
+
+/* Ações Finais no Alvo */
+.arrow-stage-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 1.2rem;
+}
+
+.arrow-stage-actions .btn {
+  padding: 13px 26px;
+  font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   RESPONSIVIDADE SCROLLYTELLING
+   ========================================================================== */
+
+@media (max-width: 860px) {
+  .arrow-hud-center {
+    display: none;
+  }
+  .arrow-stage-container {
+    justify-content: center;
+    padding: 0 1.25rem;
+  }
+  .arrow-stage-card {
+    max-width: 100%;
+    padding: 1.5rem;
+    bottom: 4.5rem;
+  }
+  .arrow-stage-card--final {
+    left: 1.25rem;
+    right: 1.25rem;
+    transform: translateY(28px) scale(0.97);
+  }
+  .arrow-stage-card--final.is-active {
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 480px) {
+  .arrow-hud-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .arrow-hud-metrics-right {
+    align-self: flex-start;
+  }
+  .arrow-stage-title {
+    font-size: 1.35rem;
+  }
+}
+

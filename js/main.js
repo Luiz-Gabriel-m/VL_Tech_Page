@@ -19,6 +19,7 @@ import { initNotebook3D } from './notebook-3d.js';
 import { initTiltHat } from './animations/tilt-hat.js';
 import { initMatrixCascade } from './animations/matrix-cascade.js';
 import { initTechHero } from './tech-hero-3d.js?v=4.0';
+import { initArrowScrollytelling } from './arrow-scrollytelling.js';
 
 /**
  * Módulos essenciais — funcionam mesmo se o GSAP não carregar.
@@ -40,6 +41,7 @@ const MOTION_MODULES = [
   ['loader', initLoader],
   ['techHero', initTechHero],
   ['hero', initHero],
+  ['arrowScrollytelling', initArrowScrollytelling],
   ['tiltHat', initTiltHat],
   ['notebook3D', initNotebook3D],
   ['matrixCascade', initMatrixCascade],
