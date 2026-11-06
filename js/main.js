@@ -11,7 +11,7 @@ import { initCustomCursor } from './cursor.js';
 import { initNavigation } from './navigation.js';
 import { initFounderSwitch } from './founder-switch.js';
 import { initFAQ } from './faq.js';
-import { initFooter } from './footer.js';
+import { initFooter } from './footer.js?v=4.0';
 import { initHero } from './hero.js?v=4.0';
 import { initReveal } from './animations/reveal.js';
 import { initScroll } from './scroll.js';

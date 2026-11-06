@@ -1421,87 +1421,63 @@
         </div>
       </div>
 
-      <!-- ============================== 8.4. MULTI-COLUMN EDITORIAL NAVIGATION GRID ============================== -->
-      <div class="footer-editorial-grid">
-        <!-- COL 1: IDENTIDADE & TERMINAL DA ESTAÇÃO EM TEMPO REAL -->
-        <div class="footer-col footer-col--brand">
-          <div class="footer-brand-header">
-            <img src="assets/logo/vl-logo.jpg" alt="VL Tech Logotipo Oficial" class="footer-brand-logo" width="120" height="38">
-            <span class="footer-brand-sub">ENGINEERING STUDIO</span>
+      <!-- ============================== 8.4. MINIMALIST 3-COLUMN FOOTER ============================== -->
+      <div class="footer-minimal-grid">
+        <!-- COLUNA 1: MARCA & STATUS LIVE -->
+        <div class="footer-clean-col footer-clean-col--brand">
+          <div class="footer-clean-brand">
+            <img src="assets/logo/vl-logo.jpg" alt="VL Tech Logotipo Oficial" class="footer-brand-logo" width="130" height="42">
+            <span class="footer-clean-tag">ENGINEERING STUDIO</span>
           </div>
-          <p class="footer-brand-desc">
+          <p class="footer-clean-desc">
             Engenharia de software extrema, interfaces 3D imersivas e arquiteturas em nuvem de alta escala e resiliência.
           </p>
-
-          <!-- Terminal de Estação & Relógio em Tempo Real -->
-          <div class="footer-station-card">
-            <div class="station-header">
-              <span class="station-pulse-dot"></span>
-              <span class="station-city">SÃO PAULO, BR (UTC-3)</span>
-            </div>
-            <div class="station-clock" id="footerClock">12:00:00</div>
-            <div class="station-uptime">
-              <span class="uptime-dot"></span>
-              <span>SISTEMAS OPERACIONAIS: 99.98% UPTIME</span>
-            </div>
+          <div class="footer-live-status">
+            <span class="status-pulse-dot" aria-hidden="true"></span>
+            <span class="status-location">SÃO PAULO, BR</span>
+            <span class="status-divider" aria-hidden="true">/</span>
+            <span class="status-uptime">99.98% UPTIME</span>
           </div>
         </div>
 
-        <!-- COL 2: ECOSSISTEMA & NAVEGAÇÃO -->
-        <nav class="footer-col" aria-label="Navegação do Ecossistema">
-          <p class="eyebrow footer-col__title">Ecossistema</p>
-          <ul class="footer-col__list">
-            <li><a href="#hero" class="footer-col__link"><span class="link-num">01</span> <span>Início</span></a></li>
-            <li><a href="#mensagem" class="footer-col__link"><span class="link-num">02</span> <span>Sobre a VL Tech</span></a></li>
-            <li><a href="#galeria" class="footer-col__link"><span class="link-num">03</span> <span>Diferenciais</span></a></li>
-            <li><a href="#tracks" class="footer-col__link"><span class="link-num">04</span> <span>A Flecha da Execução</span></a></li>
-            <li><a href="#portfolio-experience" class="footer-col__link"><span class="link-num">05</span> <span>Notebook 3D</span></a></li>
-            <li><a href="#capacetes" class="footer-col__link"><span class="link-num">06</span> <span>Portfólio em Leque</span></a></li>
-            <li><a href="#socios-scrolly" class="footer-col__link"><span class="link-num">07</span> <span>Sócios &amp; Liderança</span></a></li>
-            <li><a href="#faq" class="footer-col__link"><span class="link-num">08</span> <span>Perguntas Frequentes</span></a></li>
+        <!-- COLUNA 2: NAVEGAÇÃO ESSENCIAL (SEM LISTAS NUMERADAS OU POLUIÇÃO) -->
+        <nav class="footer-clean-col footer-clean-col--nav" aria-label="Navegação Principal do Rodapé">
+          <p class="footer-clean-heading">
+            <span class="heading-dot" aria-hidden="true"></span> NAVEGAÇÃO
+          </p>
+          <ul class="footer-nav-clean-list">
+            <li><a href="#hero" class="footer-nav-item">Início</a></li>
+            <li><a href="#galeria" class="footer-nav-item">Diferenciais</a></li>
+            <li><a href="#capacetes" class="footer-nav-item">Cases de Produção</a></li>
+            <li><a href="#socios-scrolly" class="footer-nav-item">Sócios &amp; Liderança</a></li>
+            <li><a href="#faq" class="footer-nav-item">Perguntas Frequentes</a></li>
           </ul>
         </nav>
 
-        <!-- COL 3: SOLUÇÕES & ENGENHARIA -->
-        <nav class="footer-col" aria-label="Soluções Técnicas">
-          <p class="eyebrow footer-col__title">Soluções</p>
-          <ul class="footer-col__list">
-            <li><a href="#loja" class="footer-col__link">Web Applications &amp; 3D WebGL</a></li>
-            <li><a href="#loja" class="footer-col__link">Arquitetura Cloud &amp; Microsserviços</a></li>
-            <li><a href="#loja" class="footer-col__link">Automação Inteligente &amp; Agentes</a></li>
-            <li><a href="#loja" class="footer-col__link">Sistemas Corporativos &amp; SaaS</a></li>
-            <li><a href="#loja" class="footer-col__link">Performance &amp; Core Web Vitals</a></li>
-            <li><a href="#loja" class="footer-col__link">Alocação de Squads Dedicados</a></li>
-          </ul>
-        </nav>
+        <!-- COLUNA 3: CONTATO DIRETO & PROPOSTA -->
+        <div class="footer-clean-col footer-clean-col--contact">
+          <p class="footer-clean-heading">
+            <span class="heading-dot" aria-hidden="true"></span> CONTATO DIRETO
+          </p>
+          <div class="footer-contact-actions">
+            <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20conversar%20sobre%20um%20projeto%20com%20a%20VL%20Tech"
+              target="_blank" rel="noopener noreferrer" class="footer-direct-link text-red">
+              <span>WhatsApp Oficial</span>
+              <span class="link-arrow" aria-hidden="true">↗</span>
+            </a>
+            <a href="mailto:contato@vltech.com" class="footer-direct-link">
+              <span>contato@vltech.com</span>
+              <span class="link-arrow" aria-hidden="true">↗</span>
+            </a>
+          </div>
 
-        <!-- COL 4: CONTATO & BRIEFING RÁPIDO -->
-        <div class="footer-col footer-col--contact">
-          <p class="eyebrow footer-col__title">Contato Direto</p>
-          <ul class="footer-col__list">
-            <li>
-              <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20gostaria%20de%20conversar%20sobre%20um%20projeto%20com%20a%20VL%20Tech" target="_blank" rel="noopener noreferrer" class="footer-col__link text-red">
-                <span>WhatsApp Oficial</span>
-                <span class="link-arrow">↗</span>
-              </a>
-            </li>
-            <li>
-              <a href="mailto:contato@vltech.com" class="footer-col__link">
-                <span>contato@vltech.com</span>
-              </a>
-            </li>
-            <li>
-              <span class="footer-schedule-text">Atendimento: Seg – Sex, 09h às 19h (BRT)</span>
-            </li>
-          </ul>
-
-          <div class="footer-quick-briefing">
-            <span class="briefing-label">Envie seu e-mail para contato:</span>
-            <form class="footer__form" id="newsletter-form" action="#" method="post">
+          <div class="footer-cta-box">
+            <span class="footer-cta-label">Envie seu e-mail para receber uma proposta técnica:</span>
+            <form class="footer-pill-form" id="newsletter-form" action="#" method="post">
               <label for="newsletter-email" class="visually-hidden">Seu e-mail corporativo</label>
-              <input class="footer__input" id="newsletter-email" type="email" name="email"
+              <input class="footer-pill-input" id="newsletter-email" type="email" name="email"
                 placeholder="seu-email@empresa.com" required>
-              <button class="btn btn--neon footer-btn--submit" id="newsletter-submit" type="submit">Enviar</button>
+              <button class="btn btn--neon footer-pill-btn" id="newsletter-submit" type="submit">Enviar</button>
             </form>
           </div>
         </div>
@@ -1519,15 +1495,10 @@
         </div>
       </div>
 
-      <!-- ============================== 8.6. SUB-FOOTER LEGAL & COMPLIANCE BAR ============================== -->
+      <!-- ============================== 8.6. SUB-FOOTER LEGAL & SOCIAL BAR ============================== -->
       <div class="footer__bottom">
         <div class="footer-bottom__left">
-          <p>© 2026 VL Tech — Engenharia de Software e Alta Performance. Todos os direitos reservados.</p>
-          <div class="footer-compliance-badges">
-            <span class="compliance-badge">SOC-2 READY</span>
-            <span class="compliance-badge">256-BIT SSL ENCRYPTION</span>
-            <span class="compliance-badge">EDGE NETWORK CDN</span>
-          </div>
+          <p class="footer-copyright">© 2026 VL Tech — Engenharia de Software e Alta Performance. Todos os direitos reservados.</p>
         </div>
 
         <div class="footer-bottom__right">

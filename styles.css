@@ -2192,5 +2192,247 @@
   }
 }
 
+/* ==========================================================================
+   8.4. MINIMALIST 3-COLUMN FOOTER REDESIGN
+   Design: Arquitetura Minimalista, Sem Poluição Visual, 3 Colunas Respiráveis
+   ========================================================================== */
+.footer-minimal-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 0.9fr 1.35fr;
+  gap: clamp(2.5rem, 5vw, 5rem);
+  padding-top: clamp(3.5rem, 6vw, 5.5rem);
+  padding-bottom: clamp(3.5rem, 6vw, 5.5rem);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  align-items: start;
+}
+
+.footer-clean-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-clean-col--brand {
+  gap: 1.25rem;
+}
+
+.footer-clean-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.footer-brand-logo {
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px rgba(255, 30, 38, 0.35));
+}
+
+.footer-clean-tag {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
+  color: var(--accent-red, #FF1E26);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.footer-clean-desc {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: rgba(248, 248, 252, 0.65);
+  max-width: 36ch;
+  margin: 0;
+}
+
+/* Minimalist Live Status Badge */
+.footer-live-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(18, 18, 24, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  width: fit-content;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  color: rgba(248, 248, 252, 0.75);
+}
+
+.status-pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #27C93F;
+  box-shadow: 0 0 8px #27C93F;
+  animation: pulse-core 1.4s infinite;
+}
+
+.status-location {
+  font-weight: 600;
+  color: #F8F8FC;
+}
+
+.status-divider {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.status-uptime {
+  color: #27C93F;
+  font-weight: 600;
+}
+
+/* Coluna 2: Navegação Limpa */
+.footer-clean-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #F8F8FC;
+  text-transform: uppercase;
+  margin-bottom: 1.3rem;
+}
+
+.heading-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent-red, #FF1E26);
+  box-shadow: 0 0 6px var(--accent-red, #FF1E26);
+}
+
+.footer-nav-clean-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-nav-item {
+  font-family: var(--font-mona, sans-serif);
+  font-size: 0.92rem;
+  color: rgba(248, 248, 252, 0.68);
+  text-decoration: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  width: fit-content;
+  display: inline-block;
+}
+
+.footer-nav-item:hover {
+  color: #FFFFFF;
+  transform: translateX(4px);
+  text-shadow: 0 0 12px rgba(255, 30, 38, 0.5);
+}
+
+/* Coluna 3: Contato & CTA de Proposta */
+.footer-contact-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 1.6rem;
+}
+
+.footer-direct-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.88rem;
+  color: rgba(248, 248, 252, 0.85);
+  text-decoration: none;
+  transition: all 0.25s ease;
+  width: fit-content;
+}
+
+.footer-direct-link.text-red {
+  color: var(--accent-red, #FF1E26);
+}
+
+.footer-direct-link:hover {
+  color: #FFFFFF;
+  transform: translateX(3px);
+  text-shadow: 0 0 10px rgba(255, 30, 38, 0.4);
+}
+
+.footer-direct-link:hover .link-arrow {
+  transform: translate(2px, -2px);
+}
+
+.footer-cta-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-cta-label {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  color: rgba(248, 248, 252, 0.5);
+  letter-spacing: 0.04em;
+}
+
+.footer-pill-form {
+  display: flex;
+  align-items: center;
+  background: rgba(18, 18, 26, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  padding: 4px 6px;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.footer-pill-form:focus-within {
+  border-color: var(--accent-red, #FF1E26);
+  box-shadow: 0 0 15px rgba(255, 30, 38, 0.25);
+}
+
+.footer-pill-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 8px 14px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.78rem;
+  color: #FFFFFF;
+  outline: none;
+}
+
+.footer-pill-input::placeholder {
+  color: rgba(248, 248, 252, 0.35);
+}
+
+.footer-pill-btn {
+  padding: 8px 18px;
+  font-size: 0.72rem;
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.footer-copyright {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  color: rgba(248, 248, 252, 0.45);
+  margin: 0;
+}
+
+/* Responsividade do Rodapé Minimalista */
+@media (max-width: 960px) {
+  .footer-minimal-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+}
+
+
 
 
