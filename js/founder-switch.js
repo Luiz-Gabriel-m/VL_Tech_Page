@@ -65,7 +65,7 @@ export function initFounderSwitch() {
     }
   };
 
-  let currentKey = 'luiz';
+  let currentKey = 'victor';
 
   function applyFounder(key, animate = true) {
     const data = founders[key];

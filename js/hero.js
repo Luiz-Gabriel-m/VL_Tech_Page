@@ -1,22 +1,13 @@
 /* ==========================================================================
-   HERO — Sequência Cinemática de Scrollytelling com GSAP ScrollTrigger
-   
-   1. Início da Hero:
-      - O palco de Luiz Gabriel inicia visível logo após o fade-out do preloader.
-      - A letra 'L' do nome de Luiz Gabriel aparece em destaque vermelho brilhante (#FF1E26).
-      - O nome "LUIZ GABRIEL" é digitado automaticamente (efeito typewriter).
-      - Ao rolar a página, as descrições de Front-end surgem progressivamente letra por letra.
-   
-   2. Transição do 'L' para o Centro e Retorno ao Branco Padrão:
-      - Ao rolar a página para baixo, o 'L' vermelho descola-se suavemente para o centro da tela.
-      - Ao unir-se ao monograma central "VL", retorna à cor branca padrão (#F8F8FC).
-   
-   3. O 'V' assume o papel dinâmico e transiciona para Victor Whohlers:
-      - O 'V' do Victor Whohlers ganha intenso destaque em vermelho brilhante (#FF1E26).
-      - Transição fluida e espelhada para o palco do Victor Whohlers.
-      - Digitação automática do nome "VICTOR WHOHLERS" com o 'V' em vermelho neon.
-      - Ao rolar, a especialidade de Back-end / Cloud surge letra por letra.
-      - Zero sobreposição de texto entre os fundadores (isolamento estrito de visibilidade).
+   HERO / SÓCIOS — Interactive VL Brandmark Sequence & State Machine
+   - State 1 (Vitor Whohlers): "V" highlighted in vibrant red (#FF1E26 / #ff2a2a),
+     "L" remains subdued/white. Triggers and reveals Vitor's profile information,
+     backend/cloud expertise, and portrait.
+   - State 2 (Luiz Gabriel): "V" transitions to neutral white, "L" lights up in
+     vibrant red (#FF1E26 / #ff2a2a). Shifts the view to reveal Luiz Gabriel's
+     profile information, front-end/3D expertise, and portrait.
+   - GSAP ScrollTrigger & Click Synchronization: Seamless color morphing and
+     crossfade between co-founders via both scroll scrubbing and direct clicks.
    ========================================================================== */
 
 import { gsap, ScrollTrigger } from './core/gsap.js';
@@ -61,7 +52,6 @@ function setupPortraitTilt(stage, visual) {
 
 /**
  * Divide o texto do elemento em palavras e caracteres individuais (.type-char)
- * para revelação progressiva letra por letra no ScrollTrigger, preservando quebras de linha naturais.
  */
 function splitTextIntoChars(element) {
   if (!element) return [];
@@ -96,36 +86,22 @@ function splitTextIntoChars(element) {
 }
 
 export function initHero() {
-  const scrollySection = document.getElementById('socios-scrolly') || document.getElementById('hero');
+  const scrollySection = document.getElementById('socios-scrolly');
   const heroPin = document.getElementById('heroPin');
   if (!scrollySection || !heroPin) return null;
 
-  // Palcos do Scrollytelling
-  const stageLuiz = document.getElementById('stageLuiz');
-  const stageLogo = document.getElementById('stageVLLogo');
+  // Palcos dos Sócios (Estado 1: Victor, Estado 2: Luiz)
   const stageVictor = document.getElementById('stageVictor');
+  const stageLuiz = document.getElementById('stageLuiz');
 
-  // Elementos do Palco Luiz Gabriel
-  const luizTopline = document.getElementById('luizTopline');
-  const luizName = document.getElementById('heroGiantName');
-  const partnerInitial = document.getElementById('partnerInitial');
-  const luizTypedText = document.getElementById('luizTypedText');
-  const luizCaret = document.getElementById('luizCaret');
-  const luizOutline = document.getElementById('heroGiantOutline');
-  const luizJustification = document.getElementById('heroJustification');
-  const luizVisual = document.getElementById('luiz-visual');
-  const luizPortraitStage = document.getElementById('luizPortraitStage');
-  const luizMeta = document.getElementById('luizMeta');
+  // Interactive VL Brandmark Switcher Elements
+  const vlSymbolV = document.getElementById('vlSymbolV');
+  const vlSymbolL = document.getElementById('vlSymbolL');
+  const vlCharV = vlSymbolV ? vlSymbolV.querySelector('.vl-char') : null;
+  const vlCharL = vlSymbolL ? vlSymbolL.querySelector('.vl-char') : null;
+  const vlBrandmarkStatusText = document.getElementById('vlBrandmarkStatusText');
 
-  // Elementos da Transição do Logotipo Central VL
-  const logoCenter = document.getElementById('scrollyLogoCenter');
-  const logoGlow = document.getElementById('scrollyLogoGlow');
-  const letterV = document.getElementById('scrollyLetterV');
-  const letterL = document.getElementById('scrollyLetterL');
-  const monogram = document.getElementById('scrollyMonogramDisplay');
-  const tagline = document.getElementById('scrollyTaglineContainer');
-
-  // Elementos do Palco Victor Whohlers
+  // Elementos do Palco Victor Whohlers (Estado 1)
   const victorTopline = document.getElementById('victorTopline');
   const victorName = document.getElementById('victorGiantName');
   const victorInitial = document.getElementById('victorInitial');
@@ -137,15 +113,25 @@ export function initHero() {
   const victorPortraitStage = document.getElementById('victorPortraitStage');
   const victorMeta = document.getElementById('victorMeta');
 
+  // Elementos do Palco Luiz Gabriel (Estado 2)
+  const luizTopline = document.getElementById('luizTopline');
+  const luizName = document.getElementById('heroGiantName');
+  const partnerInitial = document.getElementById('partnerInitial');
+  const luizTypedText = document.getElementById('luizTypedText');
+  const luizCaret = document.getElementById('luizCaret');
+  const luizOutline = document.getElementById('heroGiantOutline');
+  const luizJustification = document.getElementById('heroJustification');
+  const luizVisual = document.getElementById('luiz-visual');
+  const luizPortraitStage = document.getElementById('luizPortraitStage');
+  const luizMeta = document.getElementById('luizMeta');
+
   // Background Letter & Ambient Glow
   const bgVectorLetter = document.getElementById('bgVectorLetter');
   const heroAmbientGlow = document.getElementById('heroAmbientGlow');
 
   // Indicadores de Passos Laterais
-  const stepLuiz = document.getElementById('scrollyStepLuiz');
-  const stepLogo = document.getElementById('scrollyStepLogo');
   const stepVictor = document.getElementById('scrollyStepVictor');
-  const steps = [stepLuiz, stepLogo, stepVictor].filter(Boolean);
+  const stepLuiz = document.getElementById('scrollyStepLuiz');
 
   // Sincronização com Header Switch & Seção Manifesto
   const activeName = document.getElementById('activeName');
@@ -153,69 +139,51 @@ export function initHero() {
   const aboutFounderName = document.getElementById('aboutFounderName');
   const aboutFounderRole = document.getElementById('aboutFounderRole');
 
-  // Prepara os textos descritivos divididos em letras para revelação ao rolar
-  const luizChars = splitTextIntoChars(luizOutline);
+  // Prepara os textos descritivos divididos em letras para revelação
   const victorChars = splitTextIntoChars(victorOutline);
+  const luizChars = splitTextIntoChars(luizOutline);
 
   // Configura tilt nos retratos
-  setupPortraitTilt(luizPortraitStage, luizVisual);
   setupPortraitTilt(victorPortraitStage, victorVisual);
+  setupPortraitTilt(luizPortraitStage, luizVisual);
 
-  // Controle de estado ativo e digitação
-  let activeFounder = 'luiz';
-  let hasIgnitedV = false;
-  let hasSoundTransition = false;
-  let victorHasTyped = false;
-  let luizTypingTimer = null;
+  // Cores da Máquina de Estados VL
+  const RED_COLOR = '#FF1E26';
+  const RED_GLOW = '0 0 15px rgba(255, 30, 38, 0.95), 0 0 35px rgba(255, 30, 38, 0.75), 0 0 70px rgba(255, 30, 38, 0.45)';
+  const WHITE_SUBDUED = 'rgba(248, 248, 252, 0.45)';
+  const WHITE_GLOW = 'none';
+
+  // Controle de estado ativo
+  let activeFounder = 'victor'; // Inicia com Victor (Estado 1)
+  let isTransitioning = false;
   let victorTypingTimer = null;
-
-  function setStepActive(activeStep) {
-    steps.forEach((step) => {
-      const isActive = step === activeStep;
-      step.classList.toggle('is-active', isActive);
-      step.setAttribute('aria-current', isActive ? 'step' : 'false');
-    });
-  }
-
-  function syncFounderState(founder) {
-    if (activeFounder === founder) return;
-    activeFounder = founder;
-
-    if (activeName) {
-      activeName.textContent = founder === 'luiz' ? 'LUIZ GABRIEL' : 'VICTOR WHOHLERS';
-    }
-
-    if (aboutFounderName) {
-      aboutFounderName.textContent = founder === 'luiz' 
-        ? 'Luiz Gabriel — Co-founder & Tech Lead' 
-        : 'Victor Whohlers — Co-founder & Cloud Architect';
-    }
-
-    if (aboutFounderRole) {
-      aboutFounderRole.textContent = founder === 'luiz'
-        ? 'Especialista em Front-end, Arquitetura Web & Automações · VL Tech'
-        : 'Especialista em Back-end, Cloud & Lógica de Sistemas · VL Tech';
-    }
-
-    if (bgVectorLetter) {
-      bgVectorLetter.textContent = founder === 'luiz' ? 'L' : 'V';
-    }
-
-    const directBtnLuiz = document.getElementById('scrollyBtnLuizDirect');
-    const directBtnVictor = document.getElementById('scrollyBtnVictorDirect');
-    if (directBtnLuiz && directBtnVictor) {
-      directBtnLuiz.classList.toggle('is-active', founder === 'luiz');
-      directBtnVictor.classList.toggle('is-active', founder === 'victor');
-    }
-
-    document.dispatchEvent(new CustomEvent('founder:changed', { detail: { founder } }));
-  }
+  let luizTypingTimer = null;
 
   /**
-   * Efeito Typewriter para os nomes dos fundadores
+   * Typewriter Effect para o nome ativo
    */
   function typeFounderName(nameKey) {
-    if (nameKey === 'luiz') {
+    if (nameKey === 'victor') {
+      if (victorTypingTimer) clearInterval(victorTypingTimer);
+      if (!victorTypedText) return;
+      const target = 'ICTOR WHOHLERS';
+      victorTypedText.textContent = '';
+      if (victorCaret) {
+        victorCaret.style.display = 'inline-block';
+        victorCaret.classList.remove('cursor-idle');
+      }
+      let idx = 0;
+      victorTypingTimer = setInterval(() => {
+        if (idx < target.length) {
+          victorTypedText.textContent += target.charAt(idx);
+          idx++;
+        } else {
+          clearInterval(victorTypingTimer);
+          victorTypingTimer = null;
+          if (victorCaret) victorCaret.classList.add('cursor-idle');
+        }
+      }, 40);
+    } else if (nameKey === 'luiz') {
       if (luizTypingTimer) clearInterval(luizTypingTimer);
       if (!luizTypedText) return;
       const target = 'UIZ GABRIEL';
@@ -234,339 +202,322 @@ export function initHero() {
           luizTypingTimer = null;
           if (luizCaret) luizCaret.classList.add('cursor-idle');
         }
-      }, 45);
-    } else if (nameKey === 'victor') {
-      if (victorTypingTimer) clearInterval(victorTypingTimer);
-      if (!victorTypedText) return;
-      const target = 'ICTOR WHOHLERS';
-      victorTypedText.textContent = '';
-      if (victorCaret) {
-        victorCaret.style.display = 'inline-block';
-        victorCaret.classList.remove('cursor-idle');
-      }
-      let idx = 0;
-      victorTypingTimer = setInterval(() => {
-        if (idx < target.length) {
-          victorTypedText.textContent += target.charAt(idx);
-          idx++;
-        } else {
-          clearInterval(victorTypingTimer);
-          victorTypingTimer = null;
-          victorHasTyped = true;
-          if (victorCaret) victorCaret.classList.add('cursor-idle');
-        }
-      }, 45);
+      }, 40);
     }
   }
 
-  // Se reduz movimento, desativa timeline complexa
+  /**
+   * Sincronização de Metadados e Interfaces Globais
+   */
+  function syncFounderMetadata(founder) {
+    activeFounder = founder;
+
+    if (activeName) {
+      activeName.textContent = founder === 'victor' ? 'VICTOR WHOHLERS' : 'LUIZ GABRIEL';
+    }
+
+    if (aboutFounderName) {
+      aboutFounderName.textContent = founder === 'victor'
+        ? 'Victor Whohlers — Co-founder & Cloud Architect'
+        : 'Luiz Gabriel — Co-founder & Tech Lead';
+    }
+
+    if (aboutFounderRole) {
+      aboutFounderRole.textContent = founder === 'victor'
+        ? 'Especialista em Back-end, Cloud & Lógica de Sistemas · VL Tech'
+        : 'Especialista em Front-end, Arquitetura Web & Automações · VL Tech';
+    }
+
+    if (bgVectorLetter) {
+      bgVectorLetter.textContent = founder === 'victor' ? 'V' : 'L';
+    }
+
+    if (vlBrandmarkStatusText) {
+      vlBrandmarkStatusText.textContent = founder === 'victor'
+        ? 'ESTADO ATIVO: VITOR WHOHLERS // BACK-END & CLOUD ARCHITECT'
+        : 'ESTADO ATIVO: LUIZ GABRIEL // FRONT-END & 3D WEBGL LEAD';
+    }
+
+    if (stepVictor && stepLuiz) {
+      stepVictor.classList.toggle('is-active', founder === 'victor');
+      stepLuiz.classList.toggle('is-active', founder === 'luiz');
+    }
+
+    if (vlSymbolV && vlSymbolL) {
+      vlSymbolV.classList.toggle('is-active', founder === 'victor');
+      vlSymbolL.classList.toggle('is-active', founder === 'luiz');
+      vlSymbolV.setAttribute('aria-selected', founder === 'victor' ? 'true' : 'false');
+      vlSymbolL.setAttribute('aria-selected', founder === 'luiz' ? 'true' : 'false');
+    }
+
+    document.dispatchEvent(new CustomEvent('founder:changed', { detail: { founder } }));
+  }
+
+  // Se o usuário prefere movimento reduzido:
   if (prefersReducedMotion()) {
-    if (luizTypedText) luizTypedText.textContent = 'UIZ GABRIEL';
     if (victorTypedText) victorTypedText.textContent = 'ICTOR WHOHLERS';
-    gsap.set(stageLuiz, { autoAlpha: 1, display: 'flex' });
-    gsap.set(stageVictor, { autoAlpha: 0, display: 'none' });
-    gsap.set(stageLogo, { autoAlpha: 0, display: 'none' });
-    gsap.set(luizChars, { opacity: 1, y: 0 });
-    gsap.set(victorChars, { opacity: 1, y: 0 });
+    if (luizTypedText) luizTypedText.textContent = 'UIZ GABRIEL';
+    gsap.set(stageVictor, { autoAlpha: 1, display: 'flex' });
+    gsap.set(stageLuiz, { autoAlpha: 0, display: 'none' });
+    syncFounderMetadata('victor');
     return null;
   }
 
-  // 1. Estado Inicial Absoluto:
-  // Palco do Luiz Gabriel começa visível no topo, com o 'L' em vermelho neon brilhante.
-  // Palcos do Victor e do Logo central começam estritamente ocultos (autoAlpha: 0 e display: none).
-  gsap.set(stageLuiz, { autoAlpha: 1, display: 'flex', pointerEvents: 'auto' });
-  gsap.set(stageLogo, { autoAlpha: 0, display: 'none', pointerEvents: 'none' });
-  gsap.set(stageVictor, { autoAlpha: 0, display: 'none', pointerEvents: 'none' });
+  // ==========================================================================
+  // 1. CONFIGURAÇÃO DO ESTADO INICIAL 1 (VITOR WHOHLERS)
+  // "V" em vermelho vibrante (#FF1E26), "L" em branco neutro/subdued
+  // ==========================================================================
+  gsap.set(stageVictor, { autoAlpha: 1, display: 'flex', pointerEvents: 'auto' });
+  gsap.set(stageLuiz, { autoAlpha: 0, display: 'none', pointerEvents: 'none' });
 
-  // O 'L' de Luiz Gabriel ganha destaque brilhante em vermelho neon (#FF1E26)
+  if (vlCharV) {
+    gsap.set(vlCharV, { color: RED_COLOR, textShadow: RED_GLOW, scale: 1.06 });
+  }
+  if (vlCharL) {
+    gsap.set(vlCharL, { color: WHITE_SUBDUED, textShadow: WHITE_GLOW, scale: 1 });
+  }
+
+  if (victorInitial) {
+    gsap.set(victorInitial, { color: RED_COLOR, textShadow: RED_GLOW });
+  }
   if (partnerInitial) {
-    gsap.set(partnerInitial, {
-      color: '#FF1E26',
-      textShadow: '0 0 28px rgba(255, 30, 38, 0.95), 0 0 55px rgba(255, 30, 38, 0.5)',
-    });
+    gsap.set(partnerInitial, { color: RED_COLOR, textShadow: RED_GLOW });
   }
 
-  // Letras de descrição, nomes e metadados iniciam VISÍVEIS e perfeitamente legíveis
-  gsap.set(luizChars, { opacity: 1, y: 0 });
   gsap.set(victorChars, { opacity: 1, y: 0 });
-
-  gsap.set([luizJustification, luizMeta], { autoAlpha: 1, y: 0 });
-  gsap.set([victorJustification, victorMeta], { autoAlpha: 1, y: 0 });
-
-  if (luizTypedText) luizTypedText.textContent = 'UIZ GABRIEL';
+  gsap.set(luizChars, { opacity: 1, y: 0 });
   if (victorTypedText) victorTypedText.textContent = 'ICTOR WHOHLERS';
+  if (luizTypedText) luizTypedText.textContent = 'UIZ GABRIEL';
 
-  /**
-   * Disparo inicial ao concluir o preloader
-   */
-  let introStarted = false;
-  function startIntroAnimation() {
-    if (introStarted) return;
-    introStarted = true;
+  syncFounderMetadata('victor');
 
-    // Garante que o palco do Luiz está ativo e visível
-    gsap.set(stageLuiz, { autoAlpha: 1, display: 'flex', pointerEvents: 'auto' });
-    gsap.set(stageLogo, { autoAlpha: 0, display: 'none', pointerEvents: 'none' });
-    gsap.set(stageVictor, { autoAlpha: 0, display: 'none', pointerEvents: 'none' });
-
-    document.dispatchEvent(new CustomEvent(HERO_INTRO_EVENT));
-    ScrollTrigger.refresh();
-  }
-
-  // Timeline Cinemática Principal com GSAP ScrollTrigger
+  // ==========================================================================
+  // 2. TIMELINE GSAP SCROLLTRIGGER — MORPHING "VL" & SWAP SUAVE
+  // ==========================================================================
   const scrollyTimeline = gsap.timeline({
     defaults: { ease: 'none' },
     scrollTrigger: {
       trigger: scrollySection,
       start: 'top top',
-      end: '+=4200',
+      end: '+=2800',
       pin: heroPin,
       pinSpacing: true,
-      scrub: 1.15,
+      scrub: 0.9,
       anticipatePin: 1,
       invalidateOnRefresh: true,
       onUpdate: (self) => {
         const progress = self.progress;
 
-        // Atualização sincronizada dos passos laterais e do sócio ativo
-        if (progress < 0.3) {
-          syncFounderState('luiz');
-          setStepActive(stepLuiz);
-          hasIgnitedV = false;
-          hasSoundTransition = false;
-        } else if (progress >= 0.3 && progress < 0.65) {
-          setStepActive(stepLogo);
-          if (!hasSoundTransition && progress > 0.34) {
-            hasSoundTransition = true;
-            playSwoosh();
-          }
-          if (!hasIgnitedV && progress > 0.52) {
-            hasIgnitedV = true;
-            playIgnite();
+        if (progress < 0.5) {
+          if (activeFounder !== 'victor') {
+            syncFounderMetadata('victor');
           }
         } else {
-          syncFounderState('victor');
-          setStepActive(stepVictor);
+          if (activeFounder !== 'luiz') {
+            syncFounderMetadata('luiz');
+          }
         }
       },
     },
   });
 
-  /* --------------------------------------------------------------------------
-     1. ETAPA DE ROLAGEM 1: Exibição e Leitura de Luiz Gabriel
-     O palco do Luiz Gabriel permanece confortavelmente fixado para leitura.
-     -------------------------------------------------------------------------- */
-  scrollyTimeline
-    .to({}, { duration: 1.8 }, 0);
+  // ETAPA 1 (0.0 -> 0.4): Vitor Whohlers visível e fixado para leitura confortável
+  scrollyTimeline.to({}, { duration: 1.4 });
 
-  /* --------------------------------------------------------------------------
-     2. ETAPA DE ROLAGEM 2: O 'L' vermelho descola para o centro e volta ao branco
-     Luiz Gabriel dissolve suavemente. O monograma central surge com o 'L' vermelho.
-     Ao unir-se ao centro, o 'L' retorna suavemente à cor branca padrão (#F8F8FC).
-     -------------------------------------------------------------------------- */
+  // TRANSIÇÃO INTERATIVA DE MORPHING DO BRANDMARK "VL" (0.4 -> 0.6)
+  // 1. "V" apaga de vermelho para branco neutro
+  // 2. "L" acende de branco para vermelho neon vibrante
+  // 3. Stage Victor crossfades suavemente para Stage Luiz
   scrollyTimeline
-    // Fade out elegante dos detalhes de Luiz
+    .addLabel('morphStart')
+    // Desvanece palco de Victor suavemente
     .to(
-      [luizTopline, luizOutline, luizJustification, luizPortraitStage, luizMeta],
-      { autoAlpha: 0, y: -25, duration: 1.0, ease: 'power2.inOut', stagger: 0.03 },
-      2.1
-    )
-    .to(luizName, { autoAlpha: 0, y: -20, duration: 0.9, ease: 'power2.inOut' }, 2.3)
-    // O palco central do Logotipo é ativado
-    .set(stageLogo, { display: 'flex' }, 3.0)
-    .set(stageLuiz, { display: 'none', pointerEvents: 'none' }, 3.1)
-    // O 'V' central inicia em branco e o 'L' inicia em vermelho brilhante (deslocado)
-    .set(letterV, { color: '#F8F8FC', textShadow: 'none', scale: 1, autoAlpha: 1, x: 0, filter: 'none' }, 3.0)
-    .set(letterL, {
-      color: '#FF1E26',
-      textShadow: '0 0 35px #FF1E26, 0 0 75px #FF1E26',
-      scale: 1.15,
-      autoAlpha: 1,
-      x: 0,
-      filter: 'none'
-    }, 3.0)
-    .to(stageLogo, { autoAlpha: 1, pointerEvents: 'auto', duration: 0.8, ease: 'power2.out' }, 3.0)
-    .fromTo(
-      logoGlow,
-      { autoAlpha: 0, scale: 0.5 },
-      { autoAlpha: 0.85, scale: 1.15, duration: 1.0, ease: 'power2.out' },
-      3.0
-    )
-    .fromTo(
-      tagline,
-      { autoAlpha: 0, y: 15 },
-      { autoAlpha: 1, y: 0, duration: 0.7, ease: 'power2.out' },
-      3.2
-    )
-    // O 'L' vermelho retorna fluidamente à cor branca padrão (#F8F8FC), unindo o 'VL' em branco
-    .to(
-      letterL,
+      stageVictor,
       {
-        color: '#F8F8FC',
+        autoAlpha: 0,
+        y: -25,
+        filter: 'blur(6px)',
+        duration: 0.85,
+        ease: 'power2.inOut',
+        onStart: () => {
+          playSwoosh();
+        },
+      },
+      'morphStart'
+    )
+    // Transição de cores na letra 'V' (Vermelho -> Branco Subdued)
+    .to(
+      vlCharV,
+      {
+        color: WHITE_SUBDUED,
         textShadow: 'none',
         scale: 1,
-        duration: 1.0,
+        duration: 0.8,
         ease: 'power2.inOut',
       },
-      3.5
+      'morphStart'
     )
-    // Breve momento com o monograma "VL" puramente branco e elegante
-    .to({}, { duration: 0.8 }, 4.3);
-
-  /* --------------------------------------------------------------------------
-     3. ETAPA DE ROLAGEM 3: O 'V' assume o papel dinâmico em vermelho brilhante
-     A letra 'L' dissolve suavemente. A letra 'V' ganha destaque vermelho brilhante (#FF1E26).
-     -------------------------------------------------------------------------- */
-  scrollyTimeline
-    .to(letterL, { autoAlpha: 0, x: 45, filter: 'blur(10px)', duration: 0.85, ease: 'power2.in' }, 5.1)
-    .to(tagline, { autoAlpha: 0, y: 15, duration: 0.7, ease: 'power2.in' }, 5.1)
-    // O 'V' ganha o brilho vermelho neon intenso (#FF1E26)
+    // Transição de cores na letra 'L' (Branco Subdued -> Vermelho Neon Vibrante)
     .to(
-      letterV,
+      vlCharL,
       {
-        color: '#FF1E26',
-        textShadow:
-          '0 0 35px #FF1E26, 0 0 75px #FF1E26, 0 0 130px #FF1E26, 0 0 180px rgba(255, 30, 38, 0.85)',
-        scale: 1.2,
-        duration: 0.9,
+        color: RED_COLOR,
+        textShadow: RED_GLOW,
+        scale: 1.06,
+        duration: 0.8,
+        ease: 'power2.inOut',
+        onStart: () => {
+          playIgnite();
+        },
+      },
+      'morphStart+=0.15'
+    )
+    // Troca de display e ativação do palco de Luiz Gabriel
+    .set(stageVictor, { display: 'none', pointerEvents: 'none' }, 'morphStart+=0.85')
+    .set(stageLuiz, { display: 'flex', autoAlpha: 0, y: 25, filter: 'blur(6px)' }, 'morphStart+=0.85')
+    .to(
+      stageLuiz,
+      {
+        autoAlpha: 1,
+        y: 0,
+        filter: 'blur(0px)',
+        pointerEvents: 'auto',
+        duration: 0.85,
         ease: 'power2.out',
       },
-      5.1
-    )
-    .to(
-      logoGlow,
-      {
-        background:
-          'radial-gradient(circle, rgba(255, 30, 38, 0.75) 0%, rgba(255, 30, 38, 0.2) 48%, transparent 75%)',
-        scale: 1.35,
-        duration: 0.9,
-      },
-      5.1
-    )
-    // O logotipo central encerra
-    .to(stageLogo, { autoAlpha: 0, duration: 0.8, ease: 'power2.inOut' }, 6.1)
-    .set(stageLogo, { display: 'none', pointerEvents: 'none' }, 6.9);
+      'morphStart+=0.85'
+    );
 
-  /* --------------------------------------------------------------------------
-     4. ETAPA DE ROLAGEM 4: Transição para o Palco de Victor Whohlers
-     O palco do Victor é ativado exclusivamente (stageLuiz permanece display: none).
-     O 'V' está em vermelho neon, o nome é digitado e as especialidades reveladas.
-     -------------------------------------------------------------------------- */
-  scrollyTimeline
-    .set(stageVictor, { display: 'flex', autoAlpha: 0 }, 6.8)
-    .set(stageLuiz, { display: 'none', autoAlpha: 0 }, 6.8)
-    .to(stageVictor, { autoAlpha: 1, pointerEvents: 'auto', duration: 0.8, ease: 'power2.out' }, 6.9)
-    .fromTo(
-      victorTopline,
-      { autoAlpha: 0, y: -20 },
-      { autoAlpha: 1, y: 0, duration: 0.7, ease: 'power2.out' },
-      7.0
-    )
-    .fromTo(
-      victorName,
-      { autoAlpha: 0, y: 20 },
-      { autoAlpha: 1, y: 0, duration: 0.8, ease: 'expo.out' },
-      7.1
-    )
-    .fromTo(
-      victorPortraitStage,
-      { autoAlpha: 0, scale: 0.95 },
-      { autoAlpha: 1, scale: 1, duration: 1.0, ease: 'expo.out' },
-      7.2
-    )
-    // Revelação progressiva da especialidade de Victor letra por letra
-    .to(
-      victorChars,
-      {
-        opacity: 1,
-        y: 0,
-        stagger: 0.03,
-        duration: 1.2,
-        ease: 'power1.out',
-      },
-      7.4
-    )
-    .to(victorJustification, { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power2.out' }, 7.7)
-    .to(victorMeta, { autoAlpha: 1, y: 0, duration: 0.7, ease: 'power2.out' }, 7.9)
-    // Pausa confortável para leitura antes da liberação do pin
-    .to({}, { duration: 1.6 }, 8.9);
+  // ETAPA 2 (0.6 -> 1.0): Luiz Gabriel visível e fixado para leitura confortável
+  scrollyTimeline.to({}, { duration: 1.4 });
 
-  // Navegação suave pelos botões laterais
-  const scrollToStageProgress = (targetProgress) => {
-    const st = scrollyTimeline.scrollTrigger;
-    if (!st) return;
-    const targetScroll = st.start + (st.end - st.start) * targetProgress;
-    window.scrollTo({
-      top: targetScroll,
-      behavior: 'smooth',
-    });
-  };
-
+  // ==========================================================================
+  // 3. CONTROLE DE ALTERNÂNCIA DIRETA POR CLIQUE (CLICK-DRIVEN SWITCHING)
+  // ==========================================================================
   function switchFounderDirect(founder) {
-    syncFounderState(founder);
-    if (founder === 'luiz') {
-      gsap.to(stageVictor, {
-        autoAlpha: 0,
-        duration: 0.25,
-        onComplete: () => {
-          stageVictor.style.display = 'none';
-          stageLogo.style.display = 'none';
-          stageLuiz.style.display = 'flex';
-          gsap.to(stageLuiz, { autoAlpha: 1, duration: 0.25 });
-        },
-      });
-      scrollToStageProgress(0.05);
-    } else {
+    if (isTransitioning || activeFounder === founder) return;
+    isTransitioning = true;
+    syncFounderMetadata(founder);
+
+    const st = scrollyTimeline.scrollTrigger;
+    const targetProgress = founder === 'victor' ? 0.08 : 0.88;
+
+    if (founder === 'victor') {
+      playIgnite();
+      gsap.to(vlCharL, { color: WHITE_SUBDUED, textShadow: 'none', scale: 1, duration: 0.35 });
+      gsap.to(vlCharV, { color: RED_COLOR, textShadow: RED_GLOW, scale: 1.06, duration: 0.35 });
+
       gsap.to(stageLuiz, {
         autoAlpha: 0,
-        duration: 0.25,
+        y: 20,
+        duration: 0.3,
+        ease: 'power2.inOut',
         onComplete: () => {
           stageLuiz.style.display = 'none';
-          stageLogo.style.display = 'none';
+          stageLuiz.style.pointerEvents = 'none';
           stageVictor.style.display = 'flex';
-          gsap.to(stageVictor, { autoAlpha: 1, duration: 0.25 });
+          stageVictor.style.pointerEvents = 'auto';
+          gsap.fromTo(
+            stageVictor,
+            { autoAlpha: 0, y: -20, filter: 'blur(4px)' },
+            {
+              autoAlpha: 1,
+              y: 0,
+              filter: 'blur(0px)',
+              duration: 0.35,
+              ease: 'power2.out',
+              onComplete: () => {
+                isTransitioning = false;
+                typeFounderName('victor');
+              },
+            }
+          );
         },
       });
-      scrollToStageProgress(0.88);
+    } else {
+      playIgnite();
+      gsap.to(vlCharV, { color: WHITE_SUBDUED, textShadow: 'none', scale: 1, duration: 0.35 });
+      gsap.to(vlCharL, { color: RED_COLOR, textShadow: RED_GLOW, scale: 1.06, duration: 0.35 });
+
+      gsap.to(stageVictor, {
+        autoAlpha: 0,
+        y: -20,
+        duration: 0.3,
+        ease: 'power2.inOut',
+        onComplete: () => {
+          stageVictor.style.display = 'none';
+          stageVictor.style.pointerEvents = 'none';
+          stageLuiz.style.display = 'flex';
+          stageLuiz.style.pointerEvents = 'auto';
+          gsap.fromTo(
+            stageLuiz,
+            { autoAlpha: 0, y: 20, filter: 'blur(4px)' },
+            {
+              autoAlpha: 1,
+              y: 0,
+              filter: 'blur(0px)',
+              duration: 0.35,
+              ease: 'power2.out',
+              onComplete: () => {
+                isTransitioning = false;
+                typeFounderName('luiz');
+              },
+            }
+          );
+        },
+      });
+    }
+
+    if (st) {
+      const targetScroll = st.start + (st.end - st.start) * targetProgress;
+      window.scrollTo({
+        top: targetScroll,
+        behavior: 'smooth',
+      });
     }
   }
 
-  if (stepLuiz) {
-    stepLuiz.addEventListener('click', () => switchFounderDirect('luiz'));
-  }
-  if (stepLogo) {
-    stepLogo.addEventListener('click', () => scrollToStageProgress(0.42));
-  }
-  if (stepVictor) {
-    stepVictor.addEventListener('click', () => switchFounderDirect('victor'));
-  }
-
-  // Botões de alternância direta na introdução da seção dos Sócios
-  const directBtnLuiz = document.getElementById('scrollyBtnLuizDirect');
-  const directBtnVictor = document.getElementById('scrollyBtnVictorDirect');
-  if (directBtnLuiz) {
-    directBtnLuiz.addEventListener('click', (e) => {
-      e.preventDefault();
-      switchFounderDirect('luiz');
-    });
-  }
-  if (directBtnVictor) {
-    directBtnVictor.addEventListener('click', (e) => {
+  // Click listeners nos botões do Brandmark Interativo VL
+  if (vlSymbolV) {
+    vlSymbolV.addEventListener('click', (e) => {
       e.preventDefault();
       switchFounderDirect('victor');
     });
   }
 
-  // Integração com o seletor de perfil no header
+  if (vlSymbolL) {
+    vlSymbolL.addEventListener('click', (e) => {
+      e.preventDefault();
+      switchFounderDirect('luiz');
+    });
+  }
+
+  // Click listeners nos indicadores laterais
+  if (stepVictor) {
+    stepVictor.addEventListener('click', () => switchFounderDirect('victor'));
+  }
+
+  if (stepLuiz) {
+    stepLuiz.addEventListener('click', () => switchFounderDirect('luiz'));
+  }
+
+  // Click listener no seletor de perfil da barra de navegação superior
   if (founderToggleBtn) {
     founderToggleBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      const nextFounder = activeFounder === 'luiz' ? 'victor' : 'luiz';
+      const nextFounder = activeFounder === 'victor' ? 'luiz' : 'victor';
       switchFounderDirect(nextFounder);
     });
   }
 
-  // Sincronização estrita com a conclusão do preloader
+  // Gatilho inicial ao concluir o preloader
+  function startIntroAnimation() {
+    syncFounderMetadata('victor');
+    typeFounderName('victor');
+    document.dispatchEvent(new CustomEvent(HERO_INTRO_EVENT));
+    ScrollTrigger.refresh();
+  }
+
   if (window.__loaderComplete) {
     startIntroAnimation();
   } else {
@@ -576,7 +527,7 @@ export function initHero() {
 
   return {
     timeline: scrollyTimeline,
-    scrollToFounder: (name) => scrollToStageProgress(name === 'victor' ? 0.88 : 0.05),
+    switchFounder: switchFounderDirect,
     getCurrentFounder: () => activeFounder,
   };
 }

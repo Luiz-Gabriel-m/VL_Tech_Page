@@ -12,13 +12,13 @@ import { initNavigation } from './navigation.js';
 import { initFounderSwitch } from './founder-switch.js';
 import { initFAQ } from './faq.js';
 import { initFooter } from './footer.js';
-import { initHero } from './hero.js';
+import { initHero } from './hero.js?v=4.0';
 import { initReveal } from './animations/reveal.js';
 import { initScroll } from './scroll.js';
 import { initNotebook3D } from './notebook-3d.js';
 import { initTiltHat } from './animations/tilt-hat.js';
 import { initMatrixCascade } from './animations/matrix-cascade.js';
-import { initTechHero } from './tech-hero-3d.js?v=3.2';
+import { initTechHero } from './tech-hero-3d.js?v=4.0';
 
 /**
  * Módulos essenciais — funcionam mesmo se o GSAP não carregar.
