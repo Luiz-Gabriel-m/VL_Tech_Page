@@ -854,15 +854,7 @@ body.is-loading {
 
 /* Indicador de passos lateral (Scrollytelling Nav Indicator) */
 .scrolly-nav-indicator {
-  position: absolute;
-  right: var(--space-lg);
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-  z-index: 20;
-  pointer-events: auto;
+  display: none !important;
 }
 
 .scrolly-step {
@@ -2811,19 +2803,7 @@ body.is-loading {
 }
 
 .hero-partner-switch {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  background: rgba(14, 14, 20, 0.92);
-  padding: 0.45rem 1.15rem;
-  border-radius: var(--radius-pill);
-  border: 1px solid rgba(255, 30, 38, 0.35);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.75), 0 0 16px rgba(255, 30, 38, 0.16);
-  cursor: pointer;
-  transition: all var(--dur-fast) var(--ease-out);
-  text-decoration: none;
+  display: none !important;
 }
 
 .hero-partner-switch:hover {
