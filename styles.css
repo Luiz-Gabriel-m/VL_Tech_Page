@@ -5,10 +5,8 @@
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   1. Importação das Variáveis e Estrutura Base
+   1. Design System Tokens & Base Structure
    -------------------------------------------------------------------------- */
-@import url('css/variables.css');
-@import url('css/layout.css');
 
 /* --------------------------------------------------------------------------
    2. Utilitários de Cor & Tipografia Mona Sans (Vermelho #FF1E26 & Preto #0A0A0C)
@@ -695,5 +693,355 @@
   .founders-switch-btn {
     width: 100%;
     justify-content: center;
+  }
+}
+
+/* ==========================================================================
+   6. RODAPÉ ULTRA-PREMIUM (VL TECH ENGINEERING) — TEMA VERMELHO & PRETO
+   ========================================================================== */
+.footer--awwwards {
+  background-color: #070709 !important;
+  position: relative !important;
+  overflow: hidden !important;
+  padding-top: clamp(3rem, 6vw, 6rem) !important;
+  padding-bottom: 2.5rem !important;
+  border-top: 1px solid rgba(255, 30, 38, 0.22) !important;
+}
+
+.footer--awwwards .container {
+  width: 100% !important;
+  max-width: var(--container-max, 1440px) !important;
+  margin: 0 auto !important;
+  padding: 0 var(--container-pad, 2rem) !important;
+  position: relative !important;
+  z-index: 2 !important;
+  display: block !important;
+}
+
+/* Grid Editorial de 4 Colunas */
+.footer-editorial-grid {
+  display: grid !important;
+  grid-template-columns: 1.5fr 1fr 1.1fr 1.4fr !important;
+  gap: clamp(2rem, 3.5vw, 4rem) !important;
+  width: 100% !important;
+  align-items: start !important;
+  padding-top: 3.5rem !important;
+  padding-bottom: 3.5rem !important;
+  border-top: 1px solid rgba(255, 30, 38, 0.18) !important;
+}
+
+.footer-col {
+  display: flex !important;
+  flex-direction: column !important;
+  min-width: 0 !important;
+}
+
+.footer-col--brand {
+  gap: 1.25rem !important;
+}
+
+.footer-brand-header {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+  align-items: flex-start !important;
+}
+
+.footer-brand-logo {
+  object-fit: contain !important;
+  filter: drop-shadow(0 0 10px rgba(255, 30, 38, 0.4)) !important;
+}
+
+.footer-brand-sub {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 0.7rem !important;
+  letter-spacing: 0.18em !important;
+  text-transform: uppercase !important;
+  color: var(--accent-red, #FF1E26) !important;
+  font-weight: 700 !important;
+}
+
+.footer-brand-desc {
+  font-family: var(--font-mona, 'Mona Sans', sans-serif) !important;
+  font-size: 0.88rem !important;
+  color: rgba(248, 248, 252, 0.7) !important;
+  line-height: 1.6 !important;
+  max-width: 32ch !important;
+  margin: 0 !important;
+}
+
+/* Card de Estação & Relógio em Tempo Real */
+.footer-station-card {
+  padding: 1rem 1.25rem !important;
+  background: rgba(14, 14, 18, 0.9) !important;
+  backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 30, 38, 0.25) !important;
+  border-radius: 12px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.5rem !important;
+  max-width: 320px !important;
+  margin-top: 0.75rem !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6) !important;
+}
+
+.station-header {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.station-pulse-dot {
+  width: 7px !important;
+  height: 7px !important;
+  border-radius: 50% !important;
+  background-color: var(--accent-red, #FF1E26) !important;
+  box-shadow: 0 0 8px var(--accent-red, #FF1E26) !important;
+  animation: pulseNeonRed 2s infinite ease-in-out !important;
+}
+
+.station-city {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 0.68rem !important;
+  letter-spacing: 0.12em !important;
+  color: var(--accent-red, #FF1E26) !important;
+  font-weight: 700 !important;
+}
+
+.station-clock {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 1.75rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.08em !important;
+  color: #FFFFFF !important;
+  text-shadow: 0 0 15px rgba(255, 30, 38, 0.35) !important;
+  margin: 0.15rem 0 !important;
+}
+
+.station-uptime {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 0.65rem !important;
+  letter-spacing: 0.06em !important;
+  color: #27C93F !important;
+  font-weight: 700 !important;
+}
+
+.uptime-dot {
+  width: 6px !important;
+  height: 6px !important;
+  border-radius: 50% !important;
+  background-color: #27C93F !important;
+  box-shadow: 0 0 8px #27C93F !important;
+}
+
+/* Títulos das Colunas */
+.footer-col__title {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.16em !important;
+  text-transform: uppercase !important;
+  color: var(--accent-red, #FF1E26) !important;
+  margin: 0 0 1.25rem 0 !important;
+}
+
+.footer-col__list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.75rem !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+
+.footer-col__link {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+  font-family: var(--font-mona, 'Mona Sans', sans-serif) !important;
+  font-size: 0.88rem !important;
+  color: rgba(248, 248, 252, 0.72) !important;
+  text-decoration: none !important;
+  transition: all 0.25s ease !important;
+  width: fit-content !important;
+}
+
+.footer-col__link:hover {
+  color: #FFFFFF !important;
+  transform: translateX(4px) !important;
+  text-shadow: 0 0 12px rgba(255, 30, 38, 0.6) !important;
+}
+
+.link-num {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 0.75rem !important;
+  color: var(--accent-red, #FF1E26) !important;
+  font-weight: 700 !important;
+  min-width: 1.5rem !important;
+  display: inline-block !important;
+}
+
+.footer-schedule-note {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 0.72rem !important;
+  color: rgba(248, 248, 252, 0.5) !important;
+  margin-top: 0.35rem !important;
+  list-style: none !important;
+}
+
+/* Briefing & Newsletter Rápida */
+.footer-quick-briefing {
+  margin-top: 1.5rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.6rem !important;
+}
+
+.briefing-label {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 0.75rem !important;
+  color: rgba(248, 248, 252, 0.65) !important;
+}
+
+.footer-quick-briefing .footer__form {
+  display: flex !important;
+  align-items: center !important;
+  background: rgba(14, 14, 18, 0.88) !important;
+  border: 1px solid rgba(255, 30, 38, 0.3) !important;
+  border-radius: var(--radius-pill, 999px) !important;
+  padding: 4px 6px !important;
+  width: 100% !important;
+  max-width: 330px !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5) !important;
+}
+
+.footer-quick-briefing .footer__input {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  color: #FFFFFF !important;
+  padding: 0.55rem 0.85rem !important;
+  font-size: 0.8125rem !important;
+  flex: 1 !important;
+  min-width: 0 !important;
+  font-family: var(--font-mona, 'Mona Sans', sans-serif) !important;
+}
+
+.footer-btn--submit {
+  background: #FF1E26 !important;
+  color: #FFFFFF !important;
+  border: 1px solid #FF1E26 !important;
+  padding: 0.55rem 1.3rem !important;
+  border-radius: var(--radius-pill, 999px) !important;
+  font-family: var(--font-mona, 'Mona Sans', sans-serif) !important;
+  font-weight: 800 !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
+  cursor: pointer !important;
+  box-shadow: 0 0 15px rgba(255, 30, 38, 0.5) !important;
+  transition: all 0.25s ease !important;
+  flex-shrink: 0 !important;
+}
+
+.footer-btn--submit:hover {
+  background: #ff3b42 !important;
+  box-shadow: 0 0 25px rgba(255, 30, 38, 0.8) !important;
+  transform: scale(1.02) !important;
+}
+
+/* Monumental Wordmark & Botão Voltar ao Topo */
+.footer-monument-wrap {
+  position: relative !important;
+  width: 100% !important;
+  margin-top: 2rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  overflow: hidden !important;
+}
+
+.btn-back-to-top {
+  position: relative !important;
+  z-index: 5 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.65rem !important;
+  padding: 0.75rem 1.6rem !important;
+  background: rgba(18, 18, 22, 0.9) !important;
+  backdrop-filter: blur(14px) !important;
+  border: 1px solid rgba(255, 30, 38, 0.35) !important;
+  border-radius: var(--radius-pill, 999px) !important;
+  color: #F8F8FC !important;
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  cursor: pointer !important;
+  margin-bottom: 1rem !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6) !important;
+  transition: all 0.25s ease !important;
+}
+
+.btn-back-to-top:hover {
+  background: var(--accent-red, #FF1E26) !important;
+  border-color: #FF1E26 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 0 30px rgba(255, 30, 38, 0.7) !important;
+  transform: translateY(-3px) !important;
+}
+
+.footer-brand-monumental {
+  position: relative !important;
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  pointer-events: none !important;
+  overflow: hidden !important;
+}
+
+.footer-brand-monumental .footer__wordmark {
+  font-family: var(--font-monument, 'Monument Extended', sans-serif) !important;
+  font-size: clamp(3.8rem, 13vw, 13.5rem) !important;
+  font-weight: 900 !important;
+  line-height: 0.88 !important;
+  letter-spacing: -0.04em !important;
+  color: #FF1E26 !important;
+  text-shadow: 0 0 35px rgba(255, 30, 38, 0.75), 0 0 85px rgba(255, 30, 38, 0.35) !important;
+  text-align: center !important;
+  margin: 0 !important;
+  white-space: nowrap !important;
+  user-select: none !important;
+  width: 100% !important;
+}
+
+/* Responsividade do Rodapé */
+@media (max-width: 1024px) {
+  .footer-editorial-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 2rem !important;
+  }
+  .footer-col--brand {
+    grid-column: 1 / -1 !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .footer-editorial-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+  .footer-col {
+    align-items: flex-start !important;
   }
 }
