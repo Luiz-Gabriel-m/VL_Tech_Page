@@ -121,7 +121,7 @@
           <li class="menu-overlay__item"><a href="#hero" class="menu-overlay__link" id="menu-link-hero"><span
                 class="menu-overlay__text">Início</span><span class="menu-overlay__index">01</span></a></li>
           <li class="menu-overlay__item"><a href="#mensagem" class="menu-overlay__link" id="menu-link-mensagem"><span
-                class="menu-overlay__text">Sobre</span><span class="menu-overlay__index">02</span></a></li>
+                class="menu-overlay__text">Por que a VL Tech</span><span class="menu-overlay__index">02</span></a></li>
           <li class="menu-overlay__item"><a href="#galeria" class="menu-overlay__link" id="menu-link-galeria"><span
                 class="menu-overlay__text">Diferenciais</span><span class="menu-overlay__index">03</span></a></li>
           <li class="menu-overlay__item"><a href="#tracks" class="menu-overlay__link" id="menu-link-tracks"><span
@@ -180,32 +180,242 @@
         </p>
       </div>
     </section>
-    <!-- ============================== 2. MENSAGEM ============================== -->
-    <section class="section section--olive message" id="mensagem" aria-labelledby="mensagem-title">
-      <div class="container message__inner">
-        <aside class="message__aside">
-          <span class="eyebrow">01 — Manifesto</span>
-          <h2 class="visually-hidden" id="mensagem-title">Mensagem da VL Tech</h2>
-          <span>Nossa Filosofia</span>
-        </aside>
+    <!-- ============================== 2. POR QUE ESCOLHER A VL TECH (HORIZONTAL SCROLLYTELLING) ============================== -->
+    <section class="section section--dark why-horizontal-section" id="mensagem" aria-labelledby="why-section-title">
+      <!-- Iluminação Cibernética de Fundo & Grid Tecnológica -->
+      <div class="why-ambient-glow" aria-hidden="true"></div>
+      <div class="why-grid-lines" aria-hidden="true"></div>
+      <div class="why-scanline" aria-hidden="true"></div>
 
-        <div class="message__body">
-          <p class="message__text" data-reveal>
-            Cada linha de código é um diálogo entre <em>precisão cirúrgica</em> e arquitetura escalável.
-            No universo da alta tecnologia, a velocidade e a resiliência definem quem lidera.
-          </p>
-          <p class="message__text" data-reveal>
-            Construímos sistemas com foco obsessivo em <em>performance extrema</em>, design de classe mundial
-            e soluções que transformam complexidade técnica em vantagem competitiva sólida.
-          </p>
-
-          <div class="message__signature">
-            <div>
-              <p class="message__signature-name" id="aboutFounderName">Luiz Gabriel & Victor Whohlers</p>
-              <p class="message__signature-role" id="aboutFounderRole">Analistas de Sistemas & Co-founders · VL Tech</p>
-            </div>
-          </div>
+      <!-- Header HUD Fixo do Pinned Scrollytelling -->
+      <header class="why-hud-header" aria-hidden="true">
+        <div class="why-hud-left">
+          <span class="why-hud-beacon"></span>
+          <span class="why-hud-tag">01 // POR QUE ESCOLHER A VL TECH</span>
         </div>
+        <div class="why-hud-right">
+          <span class="why-hud-telemetry">SCRUBBING TIMELINE // 60 FPS</span>
+          <span class="why-hud-counter" id="whyProgressCounter">0%</span>
+        </div>
+      </header>
+
+      <!-- Viewport Pinned Wrapper (GSAP ScrollTrigger Pinned Frame) -->
+      <div class="why-viewport" id="whyViewport">
+        <!-- Trilho Horizontal Contínuo (Desliza da direita para a esquerda ao rolar verticalmente) -->
+        <div class="why-track" id="whyTrack">
+          
+          <!-- ================= SLIDE 0: ENTRADA LIMPA & ESPAÇO RESPIRATÓRIO INICIAL ================= -->
+          <article class="why-slide why-slide--intro" data-slide-index="0">
+            <div class="why-intro-card">
+              <div class="why-card-topline">
+                <span class="why-badge-eyebrow">[ NÚCLEO ESTRATÉGICO ]</span>
+                <span class="why-badge-status">
+                  <span class="status-pulse-dot" aria-hidden="true"></span>
+                  ENGENHARIA SEM COMPROMISSOS
+                </span>
+              </div>
+
+              <h2 class="why-intro-headline display" id="why-section-title">
+                POR QUE ESCOLHER<br>
+                <span class="text-glow-red">A VL TECH?</span>
+              </h2>
+
+              <p class="why-intro-lead">
+                Eliminamos a mediocridade das agências comuns. Não vendemos sites genéricos; forjamos ecossistemas digitais de alta precisão que multiplicam autoridade, velocidade e conversão.
+              </p>
+
+              <div class="why-scroll-prompt" aria-hidden="true">
+                <span class="prompt-arrow">➔</span>
+                <span class="prompt-label">ROLE VERTICALMENTE PARA NAVEGAR</span>
+              </div>
+            </div>
+
+            <!-- Marca d'água monumental translúcida com parallax -->
+            <div class="why-ghost-watermark" aria-hidden="true">WHY</div>
+          </article>
+
+          <!-- ================= SLIDE 1: PILAR 01 - PERFORMANCE EXTREMA & CÓDIGO PURO ================= -->
+          <article class="why-slide why-slide--pillar" data-slide-index="1">
+            <div class="why-pillar-card">
+              <div class="why-card-topline">
+                <span class="why-badge-eyebrow">01.01 // PERFORMANCE CIRÚRGICA</span>
+                <span class="why-metric-pill why-metric-pill--lime">
+                  <span class="pill-dot pill-dot--lime" aria-hidden="true"></span>
+                  CORE WEB VITALS &lt; 800MS
+                </span>
+              </div>
+
+              <h3 class="why-giant-headline display">
+                ZERO TEMPLATES GENÉRICOS.<br>
+                CÓDIGO PURO COM <span class="text-glow-lime">MÁXIMA VELOCIDADE</span>.
+              </h3>
+
+              <p class="why-pillar-body">
+                Descartamos CMS inchados, plugins vulneráveis e temas pré-fabricados. Cada linha de código é forjada artesanalmente para atingir <strong class="text-white">100/100 no Google Lighthouse</strong>, garantindo ranqueamento orgânico e conversão instantânea.
+              </p>
+
+              <div class="why-pillar-metrics">
+                <div class="why-metric-box">
+                  <span class="metric-val text-glow-lime">&lt; 0.8s</span>
+                  <span class="metric-lbl">Largest Contentful Paint</span>
+                </div>
+                <div class="why-metric-box">
+                  <span class="metric-val text-glow-red">100%</span>
+                  <span class="metric-lbl">Código Proprietário</span>
+                </div>
+                <div class="why-metric-box">
+                  <span class="metric-val">0 Bloat</span>
+                  <span class="metric-lbl">Zero Bibliotecas Inúteis</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="why-ghost-watermark" aria-hidden="true">SPEED</div>
+          </article>
+
+          <!-- ================= SLIDE 2: PILAR 02 - INTERFACES 3D WEBGL & HIPERIMERSÃO ================= -->
+          <article class="why-slide why-slide--pillar" data-slide-index="2">
+            <div class="why-pillar-card">
+              <div class="why-card-topline">
+                <span class="why-badge-eyebrow">01.02 // VISUAL ENGINEERING</span>
+                <span class="why-metric-pill why-metric-pill--red">
+                  <span class="pill-dot pill-dot--red" aria-hidden="true"></span>
+                  GPU ACCELERATED // 60 FPS
+                </span>
+              </div>
+
+              <h3 class="why-giant-headline display">
+                INTERFACES 3D WEBGL<br>
+                QUE <span class="text-glow-red">HIPNOTIZAM</span> E CONVERTEM.
+              </h3>
+
+              <p class="why-pillar-body">
+                Fundimos WebGL de alta fidelidade, Three.js e animações aceleradas por GPU com transições fluidas. Transformamos visitantes em clientes encantados através de narrativa sensorial de padrão Awwwards.
+              </p>
+
+              <div class="why-pillar-metrics">
+                <div class="why-metric-box">
+                  <span class="metric-val text-glow-red">60 FPS</span>
+                  <span class="metric-lbl">Locked Frame Rate</span>
+                </div>
+                <div class="why-metric-box">
+                  <span class="metric-val text-glow-lime">3.8x</span>
+                  <span class="metric-lbl">Aumento no Tempo de Retenção</span>
+                </div>
+                <div class="why-metric-box">
+                  <span class="metric-val">WebGL 2.0</span>
+                  <span class="metric-lbl">Shaders Customizados</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="why-ghost-watermark" aria-hidden="true">3D</div>
+          </article>
+
+          <!-- ================= SLIDE 3: PILAR 03 - CLOUD RESILIENTE & ALTA CONCORRÊNCIA ================= -->
+          <article class="why-slide why-slide--pillar" data-slide-index="3">
+            <div class="why-pillar-card">
+              <div class="why-card-topline">
+                <span class="why-badge-eyebrow">01.03 // CLOUD &amp; RESILIÊNCIA</span>
+                <span class="why-metric-pill why-metric-pill--lime">
+                  <span class="pill-dot pill-dot--lime" aria-hidden="true"></span>
+                  99.99% UPTIME CORPORATIVO
+                </span>
+              </div>
+
+              <h3 class="why-giant-headline display">
+                ESCALABILIDADE TOTAL.<br>
+                <span class="text-glow-lime">TOLERÂNCIA ZERO</span> A QUEDAS.
+              </h3>
+
+              <p class="why-pillar-body">
+                Infraestrutura corporativa em AWS e GCP com orquestração de microsserviços, cache em borda global e resiliência militar. Sua operação suporta picos massivos de tráfego com latência próxima de zero.
+              </p>
+
+              <div class="why-pillar-metrics">
+                <div class="why-metric-box">
+                  <span class="metric-val text-glow-lime">99.99%</span>
+                  <span class="metric-lbl">SLA Garantido em Contrato</span>
+                </div>
+                <div class="why-metric-box">
+                  <span class="metric-val text-glow-red">&lt; 15ms</span>
+                  <span class="metric-lbl">Edge Latency Global</span>
+                </div>
+                <div class="why-metric-box">
+                  <span class="metric-val">Auto-Scale</span>
+                  <span class="metric-lbl">Concorrência Ilimitada</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="why-ghost-watermark" aria-hidden="true">CLOUD</div>
+          </article>
+
+          <!-- ================= SLIDE 4: PILAR 04 - ACESSO DIRETO AOS SÓCIOS FUNDADORES ================= -->
+          <article class="why-slide why-slide--pillar" data-slide-index="4">
+            <div class="why-pillar-card">
+              <div class="why-card-topline">
+                <span class="why-badge-eyebrow">01.04 // LIDERANÇA TÉCNICA</span>
+                <span class="why-metric-pill why-metric-pill--red">
+                  <span class="pill-dot pill-dot--red" aria-hidden="true"></span>
+                  DIRECT EXECUTIVE ACCESS
+                </span>
+              </div>
+
+              <h3 class="why-giant-headline display">
+                FALE DIRETAMENTE<br>
+                COM OS <span class="text-glow-red">FUNDADORES TÉCNICOS</span>.
+              </h3>
+
+              <p class="why-pillar-body">
+                Zero intermediários ou gerentes de conta comerciais. Você alinha estratégia e engenharia diretamente com 
+                <strong class="text-white">Luiz Gabriel</strong> (Front-end &amp; 3D) e <strong class="text-white">Victor Whohlers</strong> (Back-end &amp; Cloud), do primeiro protótipo ao deploy em produção.
+              </p>
+
+              <div class="why-pillar-metrics">
+                <div class="why-metric-box">
+                  <span class="metric-val text-glow-red">0</span>
+                  <span class="metric-lbl">Intermediários Comerciais</span>
+                </div>
+                <div class="why-metric-box">
+                  <span class="metric-val text-glow-lime">100%</span>
+                  <span class="metric-lbl">Atenção Técnica Executiva</span>
+                </div>
+                <div class="why-metric-box">
+                  <span class="metric-val">Direto</span>
+                  <span class="metric-lbl">WhatsApp dos Sócios</span>
+                </div>
+              </div>
+
+              <div class="why-actions-row">
+                <a href="#galeria" class="why-btn-cta why-btn-cta--primary" id="why-cta-diferenciais">
+                  <span>Explorar Diferenciais</span>
+                  <span class="btn-arrow" aria-hidden="true">↓</span>
+                </a>
+                <a href="#socios-scrolly" class="why-btn-cta why-btn-cta--secondary" id="why-cta-socios">
+                  <span>Conhecer os Sócios</span>
+                  <span class="btn-arrow" aria-hidden="true">➔</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="why-ghost-watermark" aria-hidden="true">FOUNDERS</div>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- Barra de Progresso Horizontal Inferior do Scroll -->
+      <div class="why-progress-bar-wrap" aria-hidden="true">
+        <div class="why-progress-bar-fill" id="whyProgressBarFill"></div>
+      </div>
+
+      <!-- Elementos semânticos de compatibilidade retroativa para scripts de perfil -->
+      <div class="visually-hidden" aria-hidden="true">
+        <span id="aboutFounderName">Luiz Gabriel &amp; Victor Whohlers</span>
+        <span id="aboutFounderRole">Analistas de Sistemas &amp; Co-founders · VL Tech</span>
+        <span id="aboutQuote">Cada linha de código é um diálogo entre precisão cirúrgica e arquitetura escalável.</span>
+        <span id="aboutDesc">Construímos sistemas com foco obsessivo em performance extrema, design de classe mundial e soluções proprietárias.</span>
       </div>
     </section>
 
@@ -1674,7 +1884,7 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 
   <!-- Aplicação (módulos ES) -->
-  <script type="module" src="js/main.js?v=4.1"></script>
+  <script type="module" src="js/main.js?v=4.2"></script>
 </body>
 
 </html>

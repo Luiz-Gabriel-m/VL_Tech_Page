@@ -295,6 +295,501 @@
   box-shadow: 0 0 8px var(--accent-red, #FF1E26);
 }
 
+/* ==========================================================================
+   3.5. POR QUE ESCOLHER A VL TECH — HORIZONTAL SCROLLYTELLING (#mensagem)
+   - Deep dark theme (#0A0A0C / #111112)
+   - Scrubbed horizontal sequence: right to left on vertical scroll
+   - Glowing Red (#ff2a2a) and Lime (#d2ff00) neon accents
+   - Massive typography in Monument Extended & Mona Sans
+   ========================================================================== */
+.why-horizontal-section {
+  position: relative !important;
+  width: 100% !important;
+  background-color: #0A0A0C !important;
+  overflow: hidden !important;
+  z-index: 6 !important;
+}
+
+/* Fundo Atmosférico Cibernético */
+.why-ambient-glow {
+  position: absolute;
+  top: 50%;
+  left: 35%;
+  transform: translate(-50%, -50%);
+  width: clamp(450px, 65vw, 950px);
+  height: clamp(400px, 60vh, 750px);
+  background: radial-gradient(circle, rgba(255, 42, 42, 0.12) 0%, rgba(210, 255, 0, 0.04) 48%, transparent 72%);
+  filter: blur(95px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.why-grid-lines {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+  background-size: 50px 50px;
+  mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.9) 0%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.9) 0%, transparent 80%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.why-scanline {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(255, 42, 42, 0.02) 50%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Header Fixo / HUD Superior do Pin */
+.why-hud-header {
+  position: absolute;
+  top: clamp(1.2rem, 3.2vh, 2.8rem);
+  left: 0;
+  right: 0;
+  padding: 0 clamp(1.5rem, 4vw, 4rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 15;
+  pointer-events: none;
+  user-select: none;
+}
+
+.why-hud-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: rgba(248, 248, 252, 0.65);
+  letter-spacing: 0.14em;
+}
+
+.why-hud-beacon {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #ff2a2a;
+  box-shadow: 0 0 10px #ff2a2a;
+  animation: whyPulseBeacon 2s infinite ease-in-out;
+}
+
+@keyframes whyPulseBeacon {
+  0%, 100% { opacity: 0.6; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.25); box-shadow: 0 0 16px #ff2a2a; }
+}
+
+.why-hud-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  color: rgba(248, 248, 252, 0.5);
+}
+
+.why-hud-counter {
+  font-weight: 900;
+  color: #d2ff00;
+  text-shadow: 0 0 12px rgba(210, 255, 0, 0.6);
+}
+
+/* Viewport Pinned Frame & Horizontal Track */
+.why-viewport {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  z-index: 5;
+}
+
+.why-track {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  height: 100%;
+  width: max-content;
+  align-items: center;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Slides do Carrossel Horizontal */
+.why-slide {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 clamp(2rem, 3.5vw, 4.5rem);
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.why-slide--intro {
+  width: clamp(520px, 48vw, 760px);
+  padding-left: clamp(2rem, 6vw, 7rem);
+}
+
+.why-slide--pillar {
+  width: clamp(680px, 66vw, 920px);
+}
+
+/* Cartão Introdutório Limpo */
+.why-intro-card {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  max-width: 620px;
+}
+
+.why-intro-headline {
+  font-family: var(--font-monument, 'Monument Extended', sans-serif);
+  font-size: clamp(2.4rem, 4.2vw, 4.4rem);
+  font-weight: 900;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.why-intro-lead {
+  font-family: var(--font-mona, 'Mona Sans', sans-serif);
+  font-size: clamp(1rem, 1.3vw, 1.25rem);
+  line-height: 1.6;
+  color: rgba(248, 248, 252, 0.72);
+  margin: 0;
+}
+
+.why-scroll-prompt {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: #d2ff00;
+  margin-top: 0.5rem;
+}
+
+.prompt-arrow {
+  font-size: 1.15rem;
+  animation: promptArrowNudge 1.8s infinite ease-in-out;
+}
+
+@keyframes promptArrowNudge {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(8px); }
+}
+
+/* Cartões de Pilares Monumentais */
+.why-pillar-card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  background: rgba(14, 14, 18, 0.88);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 28px;
+  padding: clamp(2.2rem, 3.8vw, 3.8rem);
+  box-shadow: 0 25px 65px rgba(0, 0, 0, 0.85), inset 0 1px 1px rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.why-pillar-card:hover {
+  border-color: rgba(255, 42, 42, 0.45);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9), 0 0 35px rgba(255, 42, 42, 0.15);
+}
+
+.why-card-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.why-badge-eyebrow {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: rgba(248, 248, 252, 0.5);
+}
+
+.why-badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #FFFFFF;
+}
+
+.status-pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #d2ff00;
+  box-shadow: 0 0 8px #d2ff00;
+}
+
+/* Pills de Métricas Destacadas */
+.why-metric-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.why-metric-pill--lime {
+  background: rgba(210, 255, 0, 0.09);
+  border: 1px solid rgba(210, 255, 0, 0.4);
+  color: #d2ff00;
+  box-shadow: 0 0 15px rgba(210, 255, 0, 0.2);
+}
+
+.why-metric-pill--red {
+  background: rgba(255, 42, 42, 0.09);
+  border: 1px solid rgba(255, 42, 42, 0.4);
+  color: #ff2a2a;
+  box-shadow: 0 0 15px rgba(255, 42, 42, 0.2);
+}
+
+.pill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.pill-dot--lime {
+  background: #d2ff00;
+  box-shadow: 0 0 8px #d2ff00;
+}
+
+.pill-dot--red {
+  background: #ff2a2a;
+  box-shadow: 0 0 8px #ff2a2a;
+}
+
+/* Headings Monumentais com Glow Neon */
+.why-giant-headline {
+  font-family: var(--font-monument, 'Monument Extended', sans-serif);
+  font-size: clamp(1.8rem, 3.2vw, 3.1rem);
+  font-weight: 900;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.text-glow-red {
+  color: #ff2a2a !important;
+  text-shadow: 
+    0 0 18px rgba(255, 42, 42, 0.95),
+    0 0 45px rgba(255, 42, 42, 0.6) !important;
+}
+
+.text-glow-lime {
+  color: #d2ff00 !important;
+  text-shadow: 
+    0 0 18px rgba(210, 255, 0, 0.95),
+    0 0 45px rgba(210, 255, 0, 0.6) !important;
+}
+
+.why-pillar-body {
+  font-family: var(--font-mona, 'Mona Sans', sans-serif);
+  font-size: clamp(0.95rem, 1.15vw, 1.08rem);
+  line-height: 1.65;
+  color: rgba(248, 248, 252, 0.75);
+  margin: 0;
+}
+
+/* Grid de Métricas do Pilar */
+.why-pillar-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.why-metric-box {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.metric-val {
+  font-family: var(--font-monument, 'Monument Extended', sans-serif);
+  font-size: clamp(1.4rem, 2.2vw, 2rem);
+  font-weight: 900;
+  line-height: 1;
+  color: #FFFFFF;
+}
+
+.metric-lbl {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: rgba(248, 248, 252, 0.5);
+  text-transform: uppercase;
+}
+
+/* Marca d'Água Monumental de Fundo */
+.why-ghost-watermark {
+  position: absolute;
+  right: 6%;
+  bottom: 8%;
+  font-family: var(--font-monument, 'Monument Extended', sans-serif);
+  font-size: clamp(8rem, 18vw, 18rem);
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.02);
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+  line-height: 0.8;
+  letter-spacing: -0.05em;
+  transition: transform 0.2s linear;
+}
+
+/* Botões de Ação no Último Pilar */
+.why-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+.why-btn-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.85rem 1.6rem;
+  border-radius: 999px;
+  font-family: var(--font-mona, sans-serif);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.why-btn-cta--primary {
+  background: #ff2a2a;
+  color: #FFFFFF;
+  border: 1px solid #ff2a2a;
+  box-shadow: 0 0 25px rgba(255, 42, 42, 0.6);
+}
+
+.why-btn-cta--primary:hover {
+  background: #ff4747;
+  transform: translateY(-2px);
+  box-shadow: 0 0 40px rgba(255, 42, 42, 0.9);
+}
+
+.why-btn-cta--secondary {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+}
+
+.why-btn-cta--secondary:hover {
+  background: rgba(210, 255, 0, 0.12);
+  border-color: #d2ff00;
+  color: #d2ff00;
+  box-shadow: 0 0 20px rgba(210, 255, 0, 0.4);
+}
+
+/* Barra de Progresso Horizontal Inferior */
+.why-progress-bar-wrap {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.06);
+  z-index: 20;
+}
+
+.why-progress-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #ff2a2a, #d2ff00);
+  box-shadow: 0 0 14px rgba(210, 255, 0, 0.85);
+  transition: width 0.05s linear;
+}
+
+/* Responsividade Mobile e Tablet para o Scrollytelling Horizontal */
+@media (max-width: 768px) {
+  .why-slide--intro {
+    width: 88vw;
+    padding: 0 1.25rem;
+  }
+
+  .why-slide--pillar {
+    width: 88vw;
+    padding: 0 1.25rem;
+  }
+
+  .why-pillar-card {
+    padding: 1.75rem 1.35rem;
+    gap: 1.25rem;
+  }
+
+  .why-intro-headline {
+    font-size: 2rem;
+  }
+
+  .why-giant-headline {
+    font-size: 1.45rem;
+  }
+
+  .why-pillar-metrics {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .why-actions-row {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .why-btn-cta {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 /* --------------------------------------------------------------------------
    4. SEÇÃO DOS SÓCIOS (#socios-scrolly) — INTEGRADA, SEM ESPAÇO EM BRANCO
    -------------------------------------------------------------------------- */

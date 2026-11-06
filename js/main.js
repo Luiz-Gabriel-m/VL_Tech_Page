@@ -22,6 +22,7 @@ import { initTechHero } from './tech-hero-3d.js?v=4.0';
 import { initArrowScrollytelling } from './arrow-scrollytelling.js?v=4.0';
 import { initDiferenciais } from './diferenciais-3d.js';
 import { initPartnersTech } from './partners-tech.js?v=4.0';
+import { initWhyChooseUs } from './why-choose-us.js?v=4.2';
 
 /**
  * Módulos essenciais — funcionam mesmo se o GSAP não carregar.
@@ -42,13 +43,14 @@ const CORE_MODULES = [
 const MOTION_MODULES = [
   ['loader', initLoader],
   ['techHero', initTechHero],
-  ['hero', initHero],
+  ['whyChooseUs', initWhyChooseUs],
   ['diferenciais', initDiferenciais],
   ['arrowScrollytelling', initArrowScrollytelling],
   ['tiltHat', initTiltHat],
   ['notebook3D', initNotebook3D],
   ['matrixCascade', initMatrixCascade],
   ['partnersTech', initPartnersTech],
+  ['hero', initHero],
   ['reveal', initReveal],
   ['scroll', initScroll],
 ];
