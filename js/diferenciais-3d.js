@@ -38,7 +38,7 @@ export function initDiferenciais() {
 
   const getScrollDistance = () => {
     if (!track) return 0;
-    return Math.max(0, track.scrollWidth - window.innerWidth + 80);
+    return Math.max(0, track.scrollWidth - window.innerWidth);
   };
 
   if (!prefersReducedMotion() && track) {
@@ -48,7 +48,7 @@ export function initDiferenciais() {
         pin: true,
         pinSpacing: true, // Garante que as seções adjacentes não sobreponham
         start: 'top top',
-        end: () => `+=${Math.round(getScrollDistance() + window.innerHeight * 0.85)}`,
+        end: () => `+=${getScrollDistance()}`,
         scrub: 1, // 60 FPS suave com inércia
         anticipatePin: 1,
         invalidateOnRefresh: true,
@@ -75,15 +75,12 @@ export function initDiferenciais() {
       },
     });
 
-    // Movimenta suavemente o trilho horizontal da esquerda para a direita
+    // Movimenta suavemente o trilho horizontal da esquerda para a direita de forma 1:1
     diferencialsTl.to(track, {
       x: () => -getScrollDistance(),
       ease: 'none',
       duration: 1,
     });
-
-    // Período de retenção no último card antes de retomar o scroll vertical da página
-    diferencialsTl.to({}, { duration: 0.2 });
 
     // Efeito de escadaria (staircase) escalonado conforme cada card entra no viewport
     cards.forEach((card, idx) => {

@@ -1,11 +1,13 @@
 /* ==========================================================================
    WHY CHOOSE US — Pinned Horizontal Scrollytelling Sequence
-   - GSAP 3 + ScrollTrigger pinned horizontal scroll (scrub: 1, pin: true).
-   - Strict Black & Red Aesthetic: pure black background, crisp white headers,
+   - GSAP 3 + ScrollTrigger pinned horizontal scroll (scrub: 1, pin: true, pinSpacing: true, anticipatePin: 1).
+   - Strict Black & Red Aesthetic: pure black background, crisp white typography,
      and vibrant neon red glows (#ff2a2a). Zero lime/cyan accents.
-   - Pinned scrollytelling container locks vertical page scrolling temporarily,
-     sliding smoothly horizontally to reveal all differential cards sequentially
-     from left to right until the final card is fully revealed.
+   - Pinned scrollytelling container locks vertical page scrolling immediately on entry.
+   - As the user scrolls down, the entire sequence of cards slides horizontally
+     seamlessly, remaining locked until every single card has completely traversed
+     the screen and been fully displayed.
+   - Dynamic width & end calculation: end: () => "+=" + (track.scrollWidth - window.innerWidth).
    - Smooth 60 FPS performance with GPU hardware acceleration.
    ========================================================================== */
 
@@ -32,10 +34,10 @@ export function initWhyChooseUs() {
   }
 
   // ---------------------------------------------------------------------------
-  // 1. CÁLCULO DINÂMICO DA DISTÂNCIA DE ROLAGEM HORIZONTAL
+  // 1. CÁLCULO DINÂMICO DA DISTÂNCIA DE ROLAGEM HORIZONTAL (LOCKED 1:1)
   // ---------------------------------------------------------------------------
   const getScrollDistance = () => {
-    // Distância total necessária para que o último card fique completamente visível
+    // Distância exata necessária para que todos os cards percorram a tela completamente
     return Math.max(0, track.scrollWidth - window.innerWidth);
   };
 
@@ -46,8 +48,9 @@ export function initWhyChooseUs() {
     scrollTrigger: {
       trigger: section,
       pin: true,
+      pinSpacing: true, // Garante travamento rígido e impede sobreposição com a próxima seção
       start: 'top top',
-      end: () => `+=${Math.round(getScrollDistance() + window.innerHeight * 0.85)}`,
+      end: () => `+=${getScrollDistance()}`, // Distância calculada dinamicamente com base no scrollWidth
       scrub: 1, // Suavização fluida de inércia a 60 FPS
       invalidateOnRefresh: true,
       anticipatePin: 1,
@@ -59,15 +62,12 @@ export function initWhyChooseUs() {
     },
   });
 
-  // Movimenta suavemente o trilho horizontal revelando cada diferencial da esquerda para a direita
+  // Movimenta suavemente o trilho horizontal de forma contínua até o último card
   horizontalTl.to(track, {
     x: () => -getScrollDistance(),
     ease: 'none',
     duration: 1,
   });
-
-  // Período de acomodação no último card (Pilar 04 com CTAs) antes de liberar o scroll vertical da página
-  horizontalTl.to({}, { duration: 0.18 });
 
   // ---------------------------------------------------------------------------
   // 3. PARALLAX SUTIL E REVEAL DAS MARCAS D'ÁGUA E PILARES INDIVIDUAIS
@@ -83,8 +83,8 @@ export function initWhyChooseUs() {
         scrollTrigger: {
           trigger: section,
           start: 'top top',
-          end: () => `+=${Math.round(getScrollDistance() + window.innerHeight * 0.85)}`,
-          scrub: 1.5,
+          end: () => `+=${getScrollDistance()}`,
+          scrub: 1.2,
         },
       });
     }
@@ -93,12 +93,12 @@ export function initWhyChooseUs() {
       // Efeito de entrada suave dos cards conforme entram no viewport
       gsap.fromTo(
         card,
-        { y: 35, opacity: 0.75, scale: 0.98 },
+        { y: 30, opacity: 0.8, scale: 0.98 },
         {
           y: 0,
           opacity: 1,
           scale: 1,
-          duration: 0.6,
+          duration: 0.5,
           ease: 'power2.out',
           scrollTrigger: {
             trigger: slide,
@@ -111,15 +111,24 @@ export function initWhyChooseUs() {
     }
   });
 
-  // Atualiza gatilhos ao redimensionar a tela
+  // Recálculo dinâmico garantido quando fontes personalizadas carregarem
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => {
+      ScrollTrigger.refresh();
+    });
+  }
+
+  // Atualiza gatilhos ao redimensionar ou carregar completamente a página
   const onResize = () => ScrollTrigger.refresh();
   window.addEventListener('resize', onResize);
+  window.addEventListener('load', onResize);
 
   return {
     timeline: horizontalTl,
     refresh: () => ScrollTrigger.refresh(),
     destroy: () => {
       window.removeEventListener('resize', onResize);
+      window.removeEventListener('load', onResize);
       horizontalTl.kill();
     },
   };

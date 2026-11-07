@@ -305,8 +305,10 @@
 .why-horizontal-section {
   position: relative !important;
   width: 100% !important;
+  min-height: 100vh !important;
   background-color: #0A0A0C !important;
   overflow: hidden !important;
+  clear: both !important;
   z-index: 6 !important;
 }
 
@@ -419,7 +421,7 @@
   height: 100%;
   width: max-content;
   align-items: center;
-  padding-right: clamp(6rem, 16vw, 24vw);
+  padding-right: clamp(14rem, 45vw, 65vw);
   will-change: transform;
   transform: translate3d(0, 0, 0);
 }
@@ -2404,7 +2406,7 @@
   align-items: center;
   gap: clamp(2rem, 3.5vw, 3.5rem);
   padding-left: clamp(2.5rem, 6vw, 6rem);
-  padding-right: clamp(6rem, 16vw, 24vw);
+  padding-right: clamp(14rem, 45vw, 65vw);
   will-change: transform;
   transform: translate3d(0, 0, 0);
 }
