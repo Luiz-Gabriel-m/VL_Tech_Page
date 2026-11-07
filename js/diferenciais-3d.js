@@ -41,11 +41,8 @@ export function initDiferenciais() {
   let diferencialsTl = null;
 
   const getScrollDistance = () => {
-    const intro = pinWrapper.querySelector('.horizontal-intro');
-    const introOffset = intro
-      ? intro.offsetWidth + (parseFloat(window.getComputedStyle(intro).marginRight) || 0)
-      : 0;
-    return Math.max(0, track.scrollWidth + introOffset - window.innerWidth + 80);
+    const startOffset = track.offsetLeft || 0;
+    return Math.max(0, startOffset + track.scrollWidth - window.innerWidth + 80);
   };
 
   if (!prefersReducedMotion()) {
@@ -53,11 +50,12 @@ export function initDiferenciais() {
       x: () => -getScrollDistance(),
       ease: 'none',
       scrollTrigger: {
-        trigger: container,
+        trigger: section,
         pin: pinWrapper,
         start: 'top top',
         end: () => `+=${getScrollDistance()}`,
         scrub: 1,
+        pinSpacing: true,
         anticipatePin: 1,
         invalidateOnRefresh: true,
       },

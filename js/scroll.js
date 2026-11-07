@@ -94,23 +94,20 @@ function setupHorizontalServicesScroll() {
   if (!container || !pinWrapper || !track) return;
 
   const getScrollDistance = () => {
-    // Distância total necessária para que todos os cards passem com margem confortável
-    const trackWidth = track.scrollWidth;
-    const windowWidth = window.innerWidth;
-    const intro = pinWrapper.querySelector('.horizontal-intro');
-    const introWidth = intro ? intro.offsetWidth + (parseFloat(window.getComputedStyle(intro).marginRight) || 0) : 0;
-    return Math.max(0, trackWidth + introWidth - windowWidth + 80);
+    const startOffset = track.offsetLeft || 0;
+    return Math.max(0, startOffset + track.scrollWidth - window.innerWidth + 80);
   };
 
   const horizontalTween = gsap.to(track, {
     x: () => -getScrollDistance(),
     ease: 'none',
     scrollTrigger: {
-      trigger: container,
+      trigger: section || container,
       pin: pinWrapper,
       start: 'top top',
       end: () => `+=${getScrollDistance()}`,
       scrub: 1,
+      pinSpacing: true,
       invalidateOnRefresh: true,
       anticipatePin: 1,
     },
