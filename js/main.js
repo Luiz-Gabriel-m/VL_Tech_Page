@@ -23,6 +23,7 @@ import { initArrowScrollytelling } from './arrow-scrollytelling.js?v=5.2';
 import { initDiferenciais } from './diferenciais-3d.js?v=5.2';
 import { initPartnersTech } from './partners-tech.js?v=5.2';
 import { initWhyChooseUs } from './why-choose-us.js?v=5.2';
+import { initResponsiveShowcase } from './responsive-showcase.js?v=5.2';
 
 /**
  * Módulos essenciais — funcionam mesmo se o GSAP não carregar.
@@ -49,6 +50,7 @@ const MOTION_MODULES = [
   ['notebook3D', initNotebook3D],
   ['tiltHat', initTiltHat],
   ['matrixCascade', initMatrixCascade],
+  ['responsiveShowcase', initResponsiveShowcase],
   ['partnersTech', initPartnersTech],
   ['hero', initHero],
   ['reveal', initReveal],
