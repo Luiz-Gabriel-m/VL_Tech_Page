@@ -1,13 +1,18 @@
 /* ==========================================================================
-   DIFERENCIAIS 3D — Interactive "Nano Banana" Style Feature Showcase
+   DIFERENCIAIS 3D — Pinned Horizontal Scrollytelling & Staircase Sequence
    Three.js WebGL + GSAP 3 ScrollTrigger for VL Tech Competitive Advantages:
    1. PERFORMANCE EXTREMA (Supersonic Speedometer / Aerodynamic Rocket)
    2. AUTOMAÇÃO INTELIGENTE (Quantum AI Core & Neural Gyroscope)
    3. DIREÇÃO CRIATIVA F1 (Aerodynamic F1 Winglet & Vortex Flow)
    4. ENTREGA ÁGIL & CONTÍNUA (Continuous CI/CD Möbius Pipeline)
+   - Strict Black & Red Palette (#0A0A0C / #ff2a2a)
+   - Pinned vertical scroll holding until the final card passes across viewport
    ========================================================================== */
 
 import { gsap, ScrollTrigger, isReady } from './core/gsap.js';
+
+const prefersReducedMotion = () =>
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 export function initDiferenciais() {
   const section = document.getElementById('galeria');
@@ -19,47 +24,95 @@ export function initDiferenciais() {
     return null;
   }
 
+  const track = section.querySelector('#diferenciaisTrack');
   const cards = section.querySelectorAll('.diferencial-card');
+  const progressFill = document.getElementById('diferenciaisProgressBarFill');
+  const counter = document.getElementById('diferenciaisCounter');
+
   if (!cards.length) return null;
 
   // ---------------------------------------------------------------------------
-  // 1. ANIMAÇÃO DE ENTRADA ESCALONADA (GSAP SCROLLTRIGGER)
+  // 1. TIMELINE DE SCROLLYTELLING PINNED (HORIZONTAL / STAIRCASE SEQUENCE)
   // ---------------------------------------------------------------------------
-  const header = section.querySelector('.section__header');
-  if (header) {
-    gsap.from(header.children, {
+  let diferencialsTl = null;
+
+  const getScrollDistance = () => {
+    if (!track) return 0;
+    return Math.max(0, track.scrollWidth - window.innerWidth + 80);
+  };
+
+  if (!prefersReducedMotion() && track) {
+    diferencialsTl = gsap.timeline({
       scrollTrigger: {
         trigger: section,
-        start: 'top 82%',
-        toggleActions: 'play none none none',
+        pin: true,
+        pinSpacing: true, // Garante que as seções adjacentes não sobreponham
+        start: 'top top',
+        end: () => `+=${Math.round(getScrollDistance() + window.innerHeight * 0.85)}`,
+        scrub: 1, // 60 FPS suave com inércia
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onUpdate: (self) => {
+          const p = self.progress;
+
+          // Atualiza a barra de progresso néon inferior
+          if (progressFill) {
+            progressFill.style.width = `${Math.min(100, Math.max(0, Math.round(p * 100)))}%`;
+          }
+
+          // Atualiza o contador de telemetria no HUD superior
+          if (counter) {
+            const step = Math.min(4, Math.max(1, Math.ceil(p * 4)));
+            const names = [
+              'PERFORMANCE EXTREMA',
+              'AUTOMAÇÃO INTELIGENTE',
+              'DIREÇÃO CRIATIVA F1',
+              'ENTREGA ÁGIL & CONTÍNUA',
+            ];
+            counter.textContent = `CARD 0${step} // ${names[step - 1]}`;
+          }
+        },
       },
-      y: 40,
-      opacity: 0,
-      duration: 0.9,
-      stagger: 0.12,
-      ease: 'power3.out',
+    });
+
+    // Movimenta suavemente o trilho horizontal da esquerda para a direita
+    diferencialsTl.to(track, {
+      x: () => -getScrollDistance(),
+      ease: 'none',
+      duration: 1,
+    });
+
+    // Período de retenção no último card antes de retomar o scroll vertical da página
+    diferencialsTl.to({}, { duration: 0.2 });
+
+    // Efeito de escadaria (staircase) escalonado conforme cada card entra no viewport
+    cards.forEach((card, idx) => {
+      const stepY = idx * 18;
+      gsap.fromTo(
+        card,
+        { y: 35 + stepY, opacity: 0.82 },
+        {
+          y: stepY,
+          opacity: 1,
+          duration: 0.55,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: card,
+            containerAnimation: diferencialsTl,
+            start: 'left 85%',
+            toggleActions: 'play reverse play reverse',
+          },
+        }
+      );
     });
   }
 
-  gsap.from(cards, {
-    scrollTrigger: {
-      trigger: section.querySelector('.diferenciais-grid') || section,
-      start: 'top 78%',
-      toggleActions: 'play none none none',
-    },
-    y: 55,
-    opacity: 0,
-    duration: 1.0,
-    stagger: 0.14,
-    ease: 'power3.out',
-  });
-
   // ---------------------------------------------------------------------------
-  // 2. CONFIGURAÇÃO DOS CENÁRIOS 3D POR CARD ("NANO BANANA" LIQUID METALLIC)
+  // 2. CONFIGURAÇÃO DOS CENÁRIOS 3D POR CARD (STRICT BLACK & NEON RED)
   // ---------------------------------------------------------------------------
   const instances = [];
 
-  // Materiais Compartilhados
+  // Materiais Compartilhados (Strict Black & Red Aesthetic)
   const chromeMat = new THREE.MeshStandardMaterial({
     color: 0xeeeeee,
     metalness: 0.96,
@@ -88,14 +141,6 @@ export function initDiferenciais() {
     roughness: 0.3,
   });
 
-  const neonLimeMat = new THREE.MeshStandardMaterial({
-    color: 0xd2ff00,
-    emissive: 0xd2ff00,
-    emissiveIntensity: 1.4,
-    metalness: 0.2,
-    roughness: 0.3,
-  });
-
   // Função para criar uma cena Three.js individual em um canvas
   function setupCard3D(card, type) {
     const canvas = card.querySelector('.diferencial-canvas');
@@ -108,7 +153,7 @@ export function initDiferenciais() {
       powerPreference: 'high-performance',
     });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setSize(180, 180);
+    renderer.setSize(160, 160);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.3;
 
@@ -184,10 +229,10 @@ export function initDiferenciais() {
       gyro2.rotation.x = Math.PI / 2;
       group.add(gyro2);
 
-      // Nós orbitais
+      // Nós orbitais (Strict Red Glow)
       for (let i = 0; i < 4; i++) {
         const nodeGeo = new THREE.SphereGeometry(0.1, 12, 12);
-        const node = new THREE.Mesh(nodeGeo, neonLimeMat);
+        const node = new THREE.Mesh(nodeGeo, neonRedGlowMat);
         const ang = (i * Math.PI * 2) / 4;
         node.position.set(Math.cos(ang) * 1.35, Math.sin(ang) * 1.35, 0);
         gyro1.add(node);
@@ -238,58 +283,25 @@ export function initDiferenciais() {
       const pulseGeo = new THREE.SphereGeometry(0.12, 12, 12);
       const pulse = new THREE.Mesh(pulseGeo, neonRedGlowMat);
       pulse.position.set(1.6, 0, 0);
-      ringOuter.add(pulse);
+      group.add(pulse);
     }
 
-    // -------------------------------------------------------------------------
-    // ESTADO DE INTERAÇÃO (HOVER PHYSICS & TILT)
-    // -------------------------------------------------------------------------
-    let isHovered = false;
+    // Interatividade com Mouse / Hover no Card
     let targetScale = 1.0;
     let currentScale = 1.0;
-    let rotSpeedX = 0.008;
-    let rotSpeedY = 0.012;
+    let rotSpeedY = 0.008;
+    let rotSpeedX = 0.003;
 
-    card.addEventListener('pointerenter', () => {
-      isHovered = true;
-      targetScale = 1.18;
-      rotSpeedY = 0.035;
-      gsap.to(redLight, { intensity: 7.0, duration: 0.35 });
+    card.addEventListener('mouseenter', () => {
+      targetScale = 1.15;
+      rotSpeedY = 0.024;
+      rotSpeedX = 0.012;
     });
 
-    card.addEventListener('pointerleave', () => {
-      isHovered = false;
+    card.addEventListener('mouseleave', () => {
       targetScale = 1.0;
-      rotSpeedY = 0.012;
-      gsap.to(redLight, { intensity: 4.0, duration: 0.35 });
-    });
-
-    // 3D Tilt sutil no Card ao mover o mouse
-    card.addEventListener('pointermove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-
-      gsap.to(card, {
-        rotationY: x * 10,
-        rotationX: -y * 10,
-        duration: 0.3,
-        ease: 'power2.out',
-        transformPerspective: 900,
-      });
-
-      // Leve parallax no objeto 3D
-      group.rotation.x = y * 0.8;
-      group.rotation.y = x * 1.2;
-    });
-
-    card.addEventListener('pointerleave', () => {
-      gsap.to(card, {
-        rotationY: 0,
-        rotationX: 0,
-        duration: 0.6,
-        ease: 'power3.out',
-      });
+      rotSpeedY = 0.008;
+      rotSpeedX = 0.003;
     });
 
     return {
@@ -347,10 +359,18 @@ export function initDiferenciais() {
 
   renderLoop();
 
+  // Resize handler
+  const onResize = () => ScrollTrigger.refresh();
+  window.addEventListener('resize', onResize);
+
   return {
+    timeline: diferencialsTl,
+    refresh: () => ScrollTrigger.refresh(),
     destroy: () => {
+      window.removeEventListener('resize', onResize);
       if (animId) cancelAnimationFrame(animId);
       instances.forEach((inst) => inst.destroy());
+      if (diferencialsTl) diferencialsTl.kill();
     },
   };
 }

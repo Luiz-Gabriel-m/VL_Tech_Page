@@ -788,8 +788,8 @@
   width: 100% !important;
   min-height: 100vh !important;
   background-color: #0A0A0C !important;
-  padding-top: clamp(2.5rem, 4.5vh, 4rem) !important;
-  padding-bottom: clamp(2.5rem, 4.5vh, 4rem) !important;
+  padding-top: clamp(1.2rem, 3vh, 2.5rem) !important;
+  padding-bottom: clamp(1.2rem, 3vh, 2.5rem) !important;
   border-top: 1px solid rgba(255, 30, 38, 0.16) !important;
   border-bottom: 1px solid rgba(255, 30, 38, 0.16) !important;
   overflow: hidden !important;
@@ -798,6 +798,7 @@
   display: flex !important;
   flex-direction: column !important;
   justify-content: center !important;
+  box-sizing: border-box !important;
 }
 
 /* Ambient Radial Glow & Cyber Grid */
@@ -852,7 +853,7 @@
 .founders-stage-header {
   text-align: center;
   max-width: 900px;
-  margin: 0 auto clamp(2rem, 4vw, 3.5rem) auto;
+  margin: 0 auto clamp(0.75rem, 1.8vh, 1.4rem) auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -864,16 +865,16 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 16px;
+  padding: 5px 14px;
   background: rgba(18, 18, 24, 0.85);
   border: 1px solid rgba(255, 30, 38, 0.35);
   border-radius: 999px;
   font-family: var(--font-mono, monospace);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.16em;
   color: var(--accent-red, #FF1E26);
-  margin-bottom: 1.25rem;
+  margin-bottom: clamp(0.5rem, 1vh, 0.85rem);
   box-shadow: 0 0 20px rgba(255, 30, 38, 0.2);
 }
 
@@ -888,23 +889,23 @@
 
 .founders-section__title {
   font-family: var(--font-monument, 'Monument Extended', sans-serif) !important;
-  font-size: clamp(1.8rem, 3.8vw, 3.2rem) !important;
+  font-size: clamp(1.6rem, 3.2vw, 2.7rem) !important;
   font-weight: 900 !important;
   line-height: 1.1 !important;
   letter-spacing: -0.02em !important;
   color: #FFFFFF !important;
   text-transform: uppercase;
-  margin: 0 0 0.85rem 0 !important;
+  margin: 0 0 0.5rem 0 !important;
   text-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
 }
 
 .founders-section__lead {
   font-family: var(--font-mona, 'Mona Sans', sans-serif);
-  font-size: clamp(0.92rem, 1.3vw, 1.1rem);
-  line-height: 1.6;
+  font-size: clamp(0.85rem, 1.15vw, 1rem);
+  line-height: 1.5;
   color: rgba(248, 248, 252, 0.65);
-  max-width: 62ch;
-  margin: 0 auto clamp(1.5rem, 3vw, 2.5rem) auto;
+  max-width: 60ch;
+  margin: 0 auto clamp(0.75rem, 1.5vh, 1.25rem) auto;
 }
 
 /* ==========================================================================
@@ -1064,7 +1065,7 @@
   position: relative;
   width: 100%;
   max-width: var(--container-max, 1440px);
-  margin: clamp(1rem, 2.5vh, 2rem) auto 0 auto;
+  margin: clamp(0.5rem, 1.2vh, 1rem) auto 0 auto;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
@@ -1095,7 +1096,7 @@
 .founder-profile-grid {
   display: grid;
   grid-template-columns: 1.25fr 0.85fr;
-  gap: clamp(2rem, 4vw, 4rem);
+  gap: clamp(1.5rem, 3vw, 3rem);
   align-items: center;
   width: 100%;
 }
@@ -1104,13 +1105,13 @@
 .founder-profile-grid .hero-typography-stack {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: clamp(0.75rem, 1.5vh, 1.15rem);
   width: 100%;
 }
 
 .hero-giant-name {
   font-family: var(--font-monument, 'Monument Extended', sans-serif);
-  font-size: clamp(2.2rem, 4.5vw, 4.6rem);
+  font-size: clamp(2rem, 3.8vw, 3.8rem);
   font-weight: 900;
   line-height: 1.05;
   letter-spacing: -0.03em;
@@ -1256,6 +1257,7 @@
 .hero__visual.portrait-container {
   position: relative;
   width: 100%;
+  max-height: clamp(240px, 32vh, 340px);
   aspect-ratio: 4 / 5;
   border-radius: 20px;
   overflow: hidden;
@@ -1295,11 +1297,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 1.75rem;
-  margin-top: 2rem;
+  padding-top: clamp(0.75rem, 1.5vh, 1.15rem);
+  margin-top: clamp(0.85rem, 1.8vh, 1.35rem);
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 0.85rem;
 }
 
 .founder-profile-pane .hero__meta-item {
@@ -2262,51 +2264,224 @@
   z-index: 1;
 }
 
-/* Cabeçalho da Seção */
-.diferenciais-header {
+/* ==========================================================================
+   3. DIFERENCIAIS VL TECH — PINNED HORIZONTAL SCROLL & STAIRCASE SEQUENCE
+   - Pinned scrollytelling container (#galeria)
+   - Cards slide horizontally across the screen in a refined staircase stagger
+   - High-end glassmorphism with neon red glowing accents (#ff2a2a)
+   - Seamless unpinning only after the final card has passed
+   ========================================================================== */
+.diferenciais-section {
+  position: relative !important;
+  width: 100% !important;
+  background-color: #0A0A0C !important;
+  overflow: hidden !important;
+  z-index: 7 !important;
+}
+
+.diferenciais-viewport {
   position: relative;
-  z-index: 2;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: flex-end;
+  padding-top: clamp(1.2rem, 2.5vh, 2.2rem);
+  padding-bottom: 0;
+  box-sizing: border-box;
+  z-index: 5;
+}
+
+/* Header Fixo / HUD Superior */
+.diferenciais-hud-header {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  padding-bottom: 0.5rem;
+}
+
+.diferenciais-hud-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: 2rem;
-  margin-bottom: clamp(3rem, 5vw, 4.5rem);
+  flex-wrap: wrap;
 }
 
-.diferenciais-header__left {
-  max-width: 600px;
+.diferenciais-hud-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
-.diferenciais-header__right {
-  max-width: 540px;
+.diferenciais-beacon {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #ff2a2a;
+  box-shadow: 0 0 10px #ff2a2a;
+  margin-bottom: 4px;
+  animation: pulseNeonRed 2s infinite ease-in-out;
 }
 
-.diferenciais-sublead {
-  font-size: 0.98rem;
-  line-height: 1.65;
-  color: rgba(248, 248, 252, 0.7);
-  margin-top: 0.5rem;
+.diferenciais-main-title {
+  font-family: var(--font-monument, 'Monument Extended', sans-serif);
+  font-size: clamp(1.8rem, 3.2vw, 2.8rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+  line-height: 1.05;
+  margin: 0;
+  text-transform: uppercase;
 }
 
-/* Grade dos 4 Cards */
-.diferenciais-grid {
+.diferenciais-hud-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.diferenciais-telemetry-tag {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.telemetry-label {
+  color: rgba(248, 248, 252, 0.45);
+}
+
+.diferenciais-step-indicator {
+  padding: 4px 10px;
+  background: rgba(255, 42, 42, 0.08);
+  border: 1px solid rgba(255, 42, 42, 0.35);
+  border-radius: 999px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #ff2a2a;
+  box-shadow: 0 0 12px rgba(255, 42, 42, 0.25);
+}
+
+.diferenciais-scroll-prompt {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  color: rgba(248, 248, 252, 0.4);
+}
+
+.prompt-arrow-red {
+  color: #ff2a2a;
+  animation: promptArrowNudge 1.8s infinite ease-in-out;
+}
+
+/* Trilho Horizontal com Efeito Staircase */
+.diferenciais-track-container {
   position: relative;
-  z-index: 2;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: clamp(1.5rem, 2.8vw, 2.8rem);
+  width: 100vw;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  z-index: 5;
 }
 
-/* Card Interativo Glassmorphic */
-.diferencial-card {
-  position: relative;
-  background: linear-gradient(135deg, rgba(22, 22, 30, 0.82) 0%, rgba(12, 12, 16, 0.94) 100%);
-  border: 1px solid rgba(255, 30, 38, 0.22);
+.diferenciais-track {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: clamp(2rem, 3.5vw, 3.5rem);
+  padding-left: clamp(2.5rem, 6vw, 6rem);
+  padding-right: clamp(6rem, 16vw, 24vw);
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Slide Introdutório da Seção */
+.diferencial-slide-intro {
+  flex-shrink: 0;
+  width: clamp(340px, 28vw, 420px);
+}
+
+.diferenciais-intro-box {
+  background: rgba(14, 14, 20, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 24px;
-  padding: clamp(2rem, 3.2vw, 2.8rem);
+  padding: clamp(2rem, 3vw, 2.6rem);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+}
+
+.diferenciais-kicker {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: #ff2a2a;
+}
+
+.diferenciais-intro-title {
+  font-family: var(--font-monument, 'Monument Extended', sans-serif);
+  font-size: clamp(1.6rem, 2.4vw, 2.2rem);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.diferenciais-intro-desc {
+  font-family: var(--font-mona, 'Mona Sans', sans-serif);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: rgba(248, 248, 252, 0.68);
+  margin: 0;
+}
+
+.diferenciais-status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(255, 42, 42, 0.08);
+  border: 1px solid rgba(255, 42, 42, 0.3);
+  border-radius: 999px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #FFFFFF;
+  width: fit-content;
+}
+
+/* Card Interativo Glassmorphic com Escadaria (Staircase) */
+.diferencial-card {
+  flex-shrink: 0;
+  position: relative;
+  width: clamp(340px, 28vw, 420px);
+  height: clamp(450px, 58vh, 530px);
+  background: linear-gradient(135deg, rgba(20, 20, 26, 0.92) 0%, rgba(12, 12, 16, 0.98) 100%);
+  border: 1px solid rgba(255, 30, 38, 0.22);
+  border-radius: 24px;
+  padding: clamp(1.8rem, 2.6vw, 2.4rem);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -2316,20 +2491,33 @@
   will-change: transform;
 }
 
+/* Escalonamento Staircase Vertical Suave */
+.diferencial-card--step1 {
+  transform: translateY(0);
+}
+.diferencial-card--step2 {
+  transform: translateY(22px);
+}
+.diferencial-card--step3 {
+  transform: translateY(44px);
+}
+.diferencial-card--step4 {
+  transform: translateY(66px);
+}
+
 .diferencial-card:hover {
-  border-color: rgba(255, 30, 38, 0.65);
-  box-shadow: 0 25px 65px rgba(0, 0, 0, 0.8), 0 0 35px rgba(255, 30, 38, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.15);
-  transform: translateY(-6px);
+  border-color: rgba(255, 42, 42, 0.7);
+  box-shadow: 0 25px 65px rgba(0, 0, 0, 0.95), 0 0 35px rgba(255, 42, 42, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
 /* Brilho Radial Interno no Card */
 .diferencial-card__glow {
   position: absolute;
-  top: -40%;
-  right: -30%;
-  width: 320px;
-  height: 320px;
-  background: radial-gradient(circle, rgba(255, 30, 38, 0.15) 0%, transparent 70%);
+  top: -35%;
+  right: -25%;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(255, 42, 42, 0.18) 0%, transparent 70%);
   filter: blur(50px);
   pointer-events: none;
   opacity: 0.5;
@@ -2346,7 +2534,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .diferencial-badge {
@@ -2361,7 +2549,7 @@
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.1em;
-  color: var(--accent-red, #FF1E26);
+  color: #ff2a2a;
   text-transform: uppercase;
 }
 
@@ -2369,15 +2557,15 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: var(--accent-red, #FF1E26);
-  box-shadow: 0 0 8px var(--accent-red, #FF1E26);
+  background-color: #ff2a2a;
+  box-shadow: 0 0 8px #ff2a2a;
 }
 
 .diferencial-index {
   font-family: var(--font-mono, monospace);
   font-size: 0.85rem;
   font-weight: 700;
-  color: rgba(248, 248, 252, 0.35);
+  color: rgba(248, 248, 252, 0.4);
   letter-spacing: 0.1em;
 }
 
@@ -2385,39 +2573,39 @@
 .diferencial-3d-stage {
   position: relative;
   width: 100%;
-  height: 200px;
+  height: 160px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0.5rem 0 1.25rem;
+  margin: 0.25rem 0 0.85rem;
   pointer-events: none;
 }
 
 .diferencial-canvas {
-  width: 180px;
-  height: 180px;
+  width: 160px;
+  height: 160px;
   filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 25px rgba(255, 30, 38, 0.35));
   transition: transform 0.3s ease;
 }
 
 /* Conteúdo e Tipografia do Card */
 .diferencial-card__body {
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.75rem;
 }
 
 .diferencial-title {
   font-family: var(--font-monument, 'Monument Extended', sans-serif);
-  font-size: clamp(1.2rem, 1.7vw, 1.55rem);
+  font-size: clamp(1.1rem, 1.5vw, 1.35rem);
   font-weight: 900;
   line-height: 1.15;
   color: #F8F8FC;
   letter-spacing: -0.01em;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
 }
 
 .diferencial-desc {
-  font-size: 0.94rem;
-  line-height: 1.65;
+  font-size: 0.88rem;
+  line-height: 1.55;
   color: rgba(248, 248, 252, 0.72);
   margin: 0;
 }
@@ -2434,7 +2622,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding-top: 1.2rem;
+  padding-top: 0.85rem;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -2445,9 +2633,9 @@
 
 .diferencial-metric .metric-val {
   font-family: var(--font-mono, monospace);
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 800;
-  color: var(--accent-red, #FF1E26);
+  color: #ff2a2a;
   letter-spacing: 0.02em;
 }
 
@@ -2460,22 +2648,51 @@
   text-transform: uppercase;
 }
 
+/* Barra de Progresso Horizontal Inferior */
+.diferenciais-progress-bar-wrap {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.06);
+  z-index: 20;
+}
+
+.diferenciais-progress-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #ff2a2a, #ff4747);
+  box-shadow: 0 0 16px rgba(255, 42, 42, 0.9);
+  transition: width 0.05s linear;
+}
+
 /* Responsividade de Diferenciais */
 @media (max-width: 1024px) {
-  .diferenciais-header {
+  .diferenciais-hud-container {
     flex-direction: column;
     align-items: flex-start;
-    gap: 1rem;
+    gap: 0.5rem;
+  }
+  .diferenciais-hud-right {
+    align-items: flex-start;
   }
 }
 
 @media (max-width: 768px) {
-  .diferenciais-grid {
-    grid-template-columns: 1fr;
-    gap: 1.8rem;
+  .diferencial-slide-intro,
+  .diferencial-card {
+    width: 86vw;
   }
-  .diferencial-3d-stage {
-    height: 170px;
+  .diferencial-card--step1,
+  .diferencial-card--step2,
+  .diferencial-card--step3,
+  .diferencial-card--step4 {
+    transform: translateY(0);
+  }
+  .diferenciais-track {
+    padding-left: 1.5rem;
+    padding-right: 2rem;
   }
 }
 

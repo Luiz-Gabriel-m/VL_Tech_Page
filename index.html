@@ -23,7 +23,7 @@
   <!-- Estilos -->
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/layout.css">
-  <link rel="stylesheet" href="styles.css?v=4.5">
+  <link rel="stylesheet" href="styles.css?v=4.6">
 
   <!-- Three.js WebGL Engine (Carregado antecipadamente para o Hero 3D) -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
@@ -419,167 +419,205 @@
       </div>
     </section>
 
-    <!-- ============================== 3. DIFERENCIAIS VL TECH ============================== -->
+    <!-- ============================== 3. DIFERENCIAIS VL TECH (PINNED HORIZONTAL SCROLL) ============================== -->
     <section class="section section--dark diferenciais-section" id="galeria" aria-labelledby="diferenciais-title">
       <!-- Iluminação e Grid de Fundo Cibernética -->
       <div class="diferenciais-ambient-glow" aria-hidden="true"></div>
       <div class="diferenciais-grid-overlay" aria-hidden="true"></div>
 
-      <div class="container">
-        <header class="section__header diferenciais-header">
-          <div class="diferenciais-header__left">
-            <span class="eyebrow text-red">02 — DIFERENCIAIS EXCLUSIVOS</span>
-            <h2 class="display section__title" id="diferenciais-title">DIFERENCIAIS VL TECH</h2>
-          </div>
-          <div class="diferenciais-header__right">
-            <p class="section__lead text-mono-sub">ENGENHARIA DE PRECISÃO // RESULTADOS EXPONENCIAIS</p>
-            <p class="diferenciais-sublead">
-              Eliminamos o desperdício técnico e os templates genéricos. Construímos ecossistemas digitais proprietários de alta conversão com foco em velocidade cirúrgica, automação e arquiteturas em nuvem resilientes.
-            </p>
+      <!-- Viewport Frame Pinned GSAP ScrollTrigger -->
+      <div class="diferenciais-viewport" id="diferenciaisViewport">
+
+        <!-- Top HUD Header Fixo -->
+        <header class="diferenciais-hud-header">
+          <div class="container diferenciais-hud-container">
+            <div class="diferenciais-hud-left">
+              <span class="diferenciais-beacon" aria-hidden="true"></span>
+              <span class="eyebrow text-red">02 — DIFERENCIAIS EXCLUSIVOS</span>
+              <h2 class="display diferenciais-main-title" id="diferenciais-title">DIFERENCIAIS VL TECH</h2>
+            </div>
+            <div class="diferenciais-hud-right">
+              <div class="diferenciais-telemetry-tag">
+                <span class="telemetry-label">PIPELINE // 60 FPS WEBGL</span>
+                <span class="diferenciais-step-indicator text-red" id="diferenciaisCounter">01 // PERFORMANCE EXTREMA</span>
+              </div>
+              <div class="diferenciais-scroll-prompt" aria-hidden="true">
+                <span class="prompt-arrow-red">➔</span>
+                <span class="prompt-text">DESLIZE HORIZONTALMENTE</span>
+              </div>
+            </div>
           </div>
         </header>
 
-        <div class="diferenciais-grid">
-          <!-- CARD 1: PERFORMANCE EXTREMA -->
-          <article class="diferencial-card" data-diferencial-type="performance">
-            <div class="diferencial-card__glow" aria-hidden="true"></div>
-            <div class="diferencial-card__header">
-              <span class="diferencial-badge">
-                <span class="badge-dot"></span>
-                <span>CORE WEB VITALS &lt; 800MS</span>
-              </span>
-              <span class="diferencial-index">01</span>
-            </div>
+        <!-- Trilho Horizontal Contínuo com Escalonamento / Staircase -->
+        <div class="diferenciais-track-container">
+          <div class="diferenciais-track" id="diferenciaisTrack">
 
-            <!-- Palco 3D do Ícone Interativo -->
-            <div class="diferencial-3d-stage">
-              <canvas class="diferencial-canvas" aria-label="Modelo 3D Foguete Supersônico de Alta Performance"></canvas>
-            </div>
-
-            <div class="diferencial-card__body">
-              <h3 class="display diferencial-title">PERFORMANCE EXTREMA</h3>
-              <p class="diferencial-desc">
-                Código limpo, sem <em>page builders</em>, focando em Core Web Vitals (&lt; 800ms LCP). Navegação instantânea que maximiza as taxas de conversão e eleva o SEO orgânico da sua empresa.
-              </p>
-            </div>
-
-            <div class="diferencial-card__footer">
-              <div class="diferencial-metric">
-                <span class="metric-val">&lt; 0.8s</span>
-                <span class="metric-lbl">TEMPO LCP</span>
+            <!-- INTRO / CONTEXTO ESTRATÉGICO -->
+            <article class="diferencial-slide-intro" id="diferenciaisSlideIntro">
+              <div class="diferenciais-intro-box">
+                <span class="diferenciais-kicker">[ ARQUITETURA PROPRIETÁRIA ]</span>
+                <h3 class="display diferenciais-intro-title">
+                  ENGENHARIA<br>DE ALTO IMPACTO
+                </h3>
+                <p class="diferenciais-intro-desc">
+                  Eliminamos o desperdício técnico e templates genéricos. Cada solução forja uma vantagem competitiva mensurável através de quatro pilares de excelência tecnológica.
+                </p>
+                <div class="diferenciais-status-chip">
+                  <span class="status-dot"></span>
+                  <span>4 PILARES INTEGRADOS</span>
+                </div>
               </div>
-              <div class="diferencial-metric">
-                <span class="metric-val">100/100</span>
-                <span class="metric-lbl">PAGESPEED</span>
+            </article>
+
+            <!-- CARD 1: PERFORMANCE EXTREMA -->
+            <article class="diferencial-card diferencial-card--staircase diferencial-card--step1" data-diferencial-type="performance" data-step-index="1">
+              <div class="diferencial-card__glow" aria-hidden="true"></div>
+              <div class="diferencial-card__header">
+                <span class="diferencial-badge">
+                  <span class="badge-dot"></span>
+                  <span>CORE WEB VITALS &lt; 800MS</span>
+                </span>
+                <span class="diferencial-index">01</span>
               </div>
-            </div>
-          </article>
 
-          <!-- CARD 2: AUTOMAÇÃO INTELIGENTE -->
-          <article class="diferencial-card" data-diferencial-type="automacao">
-            <div class="diferencial-card__glow" aria-hidden="true"></div>
-            <div class="diferencial-card__header">
-              <span class="diferencial-badge">
-                <span class="badge-dot"></span>
-                <span>WHATSAPP API &amp; AI 24/7</span>
-              </span>
-              <span class="diferencial-index">02</span>
-            </div>
-
-            <!-- Palco 3D do Ícone Interativo -->
-            <div class="diferencial-3d-stage">
-              <canvas class="diferencial-canvas" aria-label="Modelo 3D Núcleo Quântico de Automação Inteligente"></canvas>
-            </div>
-
-            <div class="diferencial-card__body">
-              <h3 class="display diferencial-title">AUTOMAÇÃO INTELIGENTE</h3>
-              <p class="diferencial-desc">
-                Chatbots e fluxos de IA personalizados 24/7 integrados ao WhatsApp API e CRM. Qualificação autônoma de leads, atendimento em tempo real e orquestração de processos ponta a ponta.
-              </p>
-            </div>
-
-            <div class="diferencial-card__footer">
-              <div class="diferencial-metric">
-                <span class="metric-val">24/7</span>
-                <span class="metric-lbl">DISPONIBILIDADE</span>
+              <!-- Palco 3D do Ícone Interativo -->
+              <div class="diferencial-3d-stage">
+                <canvas class="diferencial-canvas" aria-label="Modelo 3D Foguete Supersônico de Alta Performance"></canvas>
               </div>
-              <div class="diferencial-metric">
-                <span class="metric-val">0s</span>
-                <span class="metric-lbl">TEMPO RESPOSTA</span>
+
+              <div class="diferencial-card__body">
+                <h3 class="display diferencial-title">PERFORMANCE EXTREMA</h3>
+                <p class="diferencial-desc">
+                  Código limpo, sem <em>page builders</em>, focando em Core Web Vitals (&lt; 800ms LCP). Navegação instantânea que maximiza as taxas de conversão e eleva o SEO orgânico da sua empresa.
+                </p>
               </div>
-            </div>
-          </article>
 
-          <!-- CARD 3: DIREÇÃO CRIATIVA F1 -->
-          <article class="diferencial-card" data-diferencial-type="criativa">
-            <div class="diferencial-card__glow" aria-hidden="true"></div>
-            <div class="diferencial-card__header">
-              <span class="diferencial-badge">
-                <span class="badge-dot"></span>
-                <span>AERODINÂMICA F1 UI/UX</span>
-              </span>
-              <span class="diferencial-index">03</span>
-            </div>
-
-            <!-- Palco 3D do Ícone Interativo -->
-            <div class="diferencial-3d-stage">
-              <canvas class="diferencial-canvas" aria-label="Modelo 3D Asa Aerodinâmica Estilo F1"></canvas>
-            </div>
-
-            <div class="diferencial-card__body">
-              <h3 class="display diferencial-title">DIREÇÃO CRIATIVA F1</h3>
-              <p class="diferencial-desc">
-                UI/UX de alta conversão com estética visual inspirada na precisão da Fórmula 1. Micro-interações táteis, WebGL 3D imersivo e tipografia brutalista de alto padrão editorial.
-              </p>
-            </div>
-
-            <div class="diferencial-card__footer">
-              <div class="diferencial-metric">
-                <span class="metric-val">60 FPS</span>
-                <span class="metric-lbl">FLUIDEZ WEBGL</span>
+              <div class="diferencial-card__footer">
+                <div class="diferencial-metric">
+                  <span class="metric-val text-red">&lt; 0.8s</span>
+                  <span class="metric-lbl">TEMPO LCP</span>
+                </div>
+                <div class="diferencial-metric">
+                  <span class="metric-val text-red">100/100</span>
+                  <span class="metric-lbl">PAGESPEED</span>
+                </div>
               </div>
-              <div class="diferencial-metric">
-                <span class="metric-val">AWWWARDS</span>
-                <span class="metric-lbl">DESIGN LEVEL</span>
+            </article>
+
+            <!-- CARD 2: AUTOMAÇÃO INTELIGENTE -->
+            <article class="diferencial-card diferencial-card--staircase diferencial-card--step2" data-diferencial-type="automacao" data-step-index="2">
+              <div class="diferencial-card__glow" aria-hidden="true"></div>
+              <div class="diferencial-card__header">
+                <span class="diferencial-badge">
+                  <span class="badge-dot"></span>
+                  <span>WHATSAPP API &amp; AI 24/7</span>
+                </span>
+                <span class="diferencial-index">02</span>
               </div>
-            </div>
-          </article>
 
-          <!-- CARD 4: ENTREGA ÁGIL & CONTÍNUA -->
-          <article class="diferencial-card" data-diferencial-type="agil">
-            <div class="diferencial-card__glow" aria-hidden="true"></div>
-            <div class="diferencial-card__header">
-              <span class="diferencial-badge">
-                <span class="badge-dot"></span>
-                <span>VERCEL EDGE &amp; CI/CD</span>
-              </span>
-              <span class="diferencial-index">04</span>
-            </div>
-
-            <!-- Palco 3D do Ícone Interativo -->
-            <div class="diferencial-3d-stage">
-              <canvas class="diferencial-canvas" aria-label="Modelo 3D Pipeline de Entrega Contínua Möbius"></canvas>
-            </div>
-
-            <div class="diferencial-card__body">
-              <h3 class="display diferencial-title">ENTREGA ÁGIL &amp; CONTÍNUA</h3>
-              <p class="diferencial-desc">
-                Infraestrutura global na Vercel Edge e deploys automatizados com garantia de estabilidade. Sprints curtas, entregas funcionais semanais e zero tempo de inatividade em produção.
-              </p>
-            </div>
-
-            <div class="diferencial-card__footer">
-              <div class="diferencial-metric">
-                <span class="metric-val">99.9%</span>
-                <span class="metric-lbl">SLA GARANTIDO</span>
+              <!-- Palco 3D do Ícone Interativo -->
+              <div class="diferencial-3d-stage">
+                <canvas class="diferencial-canvas" aria-label="Modelo 3D Núcleo Quântico de Automação Inteligente"></canvas>
               </div>
-              <div class="diferencial-metric">
-                <span class="metric-val">EDGE</span>
-                <span class="metric-lbl">GLOBAL CDN</span>
+
+              <div class="diferencial-card__body">
+                <h3 class="display diferencial-title">AUTOMAÇÃO INTELIGENTE</h3>
+                <p class="diferencial-desc">
+                  Chatbots e fluxos de IA personalizados 24/7 integrados ao WhatsApp API e CRM. Qualificação autônoma de leads, atendimento em tempo real e orquestração de processos ponta a ponta.
+                </p>
               </div>
-            </div>
-          </article>
+
+              <div class="diferencial-card__footer">
+                <div class="diferencial-metric">
+                  <span class="metric-val text-red">24/7</span>
+                  <span class="metric-lbl">DISPONIBILIDADE</span>
+                </div>
+                <div class="diferencial-metric">
+                  <span class="metric-val text-red">0s</span>
+                  <span class="metric-lbl">TEMPO RESPOSTA</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- CARD 3: DIREÇÃO CRIATIVA F1 -->
+            <article class="diferencial-card diferencial-card--staircase diferencial-card--step3" data-diferencial-type="criativa" data-step-index="3">
+              <div class="diferencial-card__glow" aria-hidden="true"></div>
+              <div class="diferencial-card__header">
+                <span class="diferencial-badge">
+                  <span class="badge-dot"></span>
+                  <span>AERODINÂMICA F1 UI/UX</span>
+                </span>
+                <span class="diferencial-index">03</span>
+              </div>
+
+              <!-- Palco 3D do Ícone Interativo -->
+              <div class="diferencial-3d-stage">
+                <canvas class="diferencial-canvas" aria-label="Modelo 3D Asa Aerodinâmica Estilo F1"></canvas>
+              </div>
+
+              <div class="diferencial-card__body">
+                <h3 class="display diferencial-title">DIREÇÃO CRIATIVA F1</h3>
+                <p class="diferencial-desc">
+                  UI/UX de alta conversão com estética visual inspirada na precisão da Fórmula 1. Micro-interações táteis, WebGL 3D imersivo e tipografia brutalista de alto padrão editorial.
+                </p>
+              </div>
+
+              <div class="diferencial-card__footer">
+                <div class="diferencial-metric">
+                  <span class="metric-val text-red">60 FPS</span>
+                  <span class="metric-lbl">FLUIDEZ WEBGL</span>
+                </div>
+                <div class="diferencial-metric">
+                  <span class="metric-val text-red">AWWWARDS</span>
+                  <span class="metric-lbl">DESIGN LEVEL</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- CARD 4: ENTREGA ÁGIL & CONTÍNUA -->
+            <article class="diferencial-card diferencial-card--staircase diferencial-card--step4" data-diferencial-type="agil" data-step-index="4">
+              <div class="diferencial-card__glow" aria-hidden="true"></div>
+              <div class="diferencial-card__header">
+                <span class="diferencial-badge">
+                  <span class="badge-dot"></span>
+                  <span>VERCEL EDGE &amp; CI/CD</span>
+                </span>
+                <span class="diferencial-index">04</span>
+              </div>
+
+              <!-- Palco 3D do Ícone Interativo -->
+              <div class="diferencial-3d-stage">
+                <canvas class="diferencial-canvas" aria-label="Modelo 3D Pipeline de Entrega Contínua Möbius"></canvas>
+              </div>
+
+              <div class="diferencial-card__body">
+                <h3 class="display diferencial-title">ENTREGA ÁGIL &amp; CONTÍNUA</h3>
+                <p class="diferencial-desc">
+                  Infraestrutura global na Vercel Edge e deploys automatizados com garantia de estabilidade. Sprints curtas, entregas funcionais semanais e zero tempo de inatividade em produção.
+                </p>
+              </div>
+
+              <div class="diferencial-card__footer">
+                <div class="diferencial-metric">
+                  <span class="metric-val text-red">99.9%</span>
+                  <span class="metric-lbl">SLA GARANTIDO</span>
+                </div>
+                <div class="diferencial-metric">
+                  <span class="metric-val text-red">EDGE</span>
+                  <span class="metric-lbl">GLOBAL CDN</span>
+                </div>
+              </div>
+            </article>
+
+          </div>
         </div>
+
+        <!-- Barra de Progresso Horizontal Inferior -->
+        <div class="diferenciais-progress-bar-wrap" aria-hidden="true">
+          <div class="diferenciais-progress-bar-fill" id="diferenciaisProgressBarFill"></div>
+        </div>
+
       </div>
     </section>
 
@@ -1835,7 +1873,7 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 
   <!-- Aplicação (módulos ES) -->
-  <script type="module" src="js/main.js?v=4.5"></script>
+  <script type="module" src="js/main.js?v=4.6"></script>
 </body>
 
 </html>
