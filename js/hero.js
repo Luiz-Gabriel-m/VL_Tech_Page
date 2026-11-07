@@ -76,10 +76,13 @@ export function initHero() {
   setupPortraitTilt(victorPortraitStage, victorVisual);
   setupPortraitTilt(luizPortraitStage, luizVisual);
 
-  // Cores Neon VL Tech
-  const RED_COLOR = '#FF1E26';
-  const RED_GLOW = '0 0 15px rgba(255, 30, 38, 0.95), 0 0 35px rgba(255, 30, 38, 0.8), 0 0 75px rgba(255, 30, 38, 0.5)';
+  // Cores Neon VL Tech (#ff2a2a)
+  const RED_COLOR = '#ff2a2a';
+  const RED_GLOW = '0 0 15px rgba(255, 42, 42, 0.95), 0 0 35px rgba(255, 42, 42, 0.8), 0 0 75px rgba(255, 42, 42, 0.5)';
   const WHITE_SUBDUED = 'rgba(255, 255, 255, 0.35)';
+
+  const metaFounderName = document.getElementById('metaFounderName');
+  const metaFounderRole = document.getElementById('metaFounderRole');
 
   let activeFounder = 'victor';
 
@@ -108,6 +111,12 @@ export function initHero() {
         vlCharL.style.opacity = !isVictor ? '1' : '0.35';
       }
       if (bgVectorLetter) bgVectorLetter.textContent = isVictor ? 'V' : 'L';
+      if (metaFounderName) {
+        metaFounderName.textContent = isVictor ? 'Victor Whohlers · Co-founder' : 'Luiz Gabriel · Co-founder';
+      }
+      if (metaFounderRole) {
+        metaFounderRole.textContent = isVictor ? 'Especialista em Back-End & Cloud' : 'Especialista em Front-End & 3D';
+      }
     };
 
     setFounderReduced('victor');
@@ -124,7 +133,7 @@ export function initHero() {
   // ESTADO INICIAL DOS PALCOS
   // ---------------------------------------------------------------------------
   gsap.set(stageVictor, { autoAlpha: 1, y: 0, scale: 1, pointerEvents: 'auto' });
-  gsap.set(stageLuiz, { autoAlpha: 0, y: 20, scale: 0.98, pointerEvents: 'none' });
+  gsap.set(stageLuiz, { autoAlpha: 0, y: 25, scale: 0.98, pointerEvents: 'none' });
 
   if (vlCharV) {
     gsap.set(vlCharV, { color: RED_COLOR, opacity: 1, scale: 1.08, textShadow: RED_GLOW });
@@ -136,7 +145,6 @@ export function initHero() {
     bgVectorLetter.textContent = 'V';
   }
 
-  // ---------------------------------------------------------------------------
   // ---------------------------------------------------------------------------
   // TIMELINE DE SCROLLYTELLING PINNED (TRAVA NA TELA E TRANSIÇÃO FLUIDA)
   // ---------------------------------------------------------------------------
@@ -161,6 +169,13 @@ export function initHero() {
         if (stageLuiz) {
           stageLuiz.style.pointerEvents = newFounder === 'luiz' ? 'auto' : 'none';
           stageLuiz.classList.toggle('is-active', newFounder === 'luiz');
+        }
+
+        if (metaFounderName) {
+          metaFounderName.textContent = newFounder === 'victor' ? 'Victor Whohlers · Co-founder' : 'Luiz Gabriel · Co-founder';
+        }
+        if (metaFounderRole) {
+          metaFounderRole.textContent = newFounder === 'victor' ? 'Especialista em Back-End & Cloud' : 'Especialista em Front-End & 3D';
         }
 
         if (newFounder !== activeFounder) {
