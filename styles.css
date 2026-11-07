@@ -1228,9 +1228,9 @@
 }
 
 .btn--founder-direct-linkedin:hover {
-  border-color: #0A66C2;
+  border-color: rgba(255, 30, 38, 0.6);
   color: #FFFFFF !important;
-  box-shadow: 0 0 20px rgba(10, 102, 194, 0.4);
+  box-shadow: 0 0 20px rgba(255, 30, 38, 0.35);
 }
 
 /* Coluna de Retrato Limpo e Iluminado */
@@ -1557,7 +1557,7 @@
   font-family: var(--font-mono, monospace) !important;
   font-size: 0.65rem !important;
   letter-spacing: 0.06em !important;
-  color: #27C93F !important;
+  color: var(--accent-red, #FF1E26) !important;
   font-weight: 700 !important;
 }
 
@@ -1565,8 +1565,8 @@
   width: 6px !important;
   height: 6px !important;
   border-radius: 50% !important;
-  background-color: #27C93F !important;
-  box-shadow: 0 0 8px #27C93F !important;
+  background-color: var(--accent-red, #FF1E26) !important;
+  box-shadow: 0 0 8px var(--accent-red, #FF1E26) !important;
 }
 
 /* Títulos das Colunas */
@@ -2137,9 +2137,10 @@
 }
 
 .arrow-hurdle-item.is-dodged {
-  border-color: rgba(39, 201, 63, 0.45);
-  background: rgba(39, 201, 63, 0.08);
+  border-color: rgba(255, 30, 38, 0.5);
+  background: rgba(255, 30, 38, 0.1);
   color: #F8F8FC;
+  box-shadow: 0 0 15px rgba(255, 30, 38, 0.25);
 }
 
 .arrow-hurdle-status {
@@ -2150,7 +2151,8 @@
 }
 
 .arrow-hurdle-item.is-dodged .arrow-hurdle-status {
-  color: #27C93F;
+  color: var(--accent-red, #FF1E26);
+  text-shadow: 0 0 8px rgba(255, 30, 38, 0.6);
 }
 
 /* Ações Finais no Alvo */
@@ -2873,8 +2875,8 @@
   width: 3px;
   height: 3px;
   border-radius: 50%;
-  background: #00FF66;
-  box-shadow: 0 0 5px #00FF66;
+  background: var(--accent-red, #FF1E26);
+  box-shadow: 0 0 6px var(--accent-red, #FF1E26);
   margin-left: 6px;
   opacity: 0.85;
 }
@@ -3067,8 +3069,8 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #27C93F;
-  box-shadow: 0 0 8px #27C93F;
+  background: var(--accent-red, #FF1E26);
+  box-shadow: 0 0 8px var(--accent-red, #FF1E26);
   animation: pulse-core 1.4s infinite;
 }
 
@@ -3082,7 +3084,7 @@
 }
 
 .status-uptime {
-  color: #27C93F;
+  color: var(--accent-red, #FF1E26);
   font-weight: 600;
 }
 
@@ -3466,15 +3468,16 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: #27C93F;
-  box-shadow: 0 0 8px #27C93F;
+  background-color: var(--accent-red, #FF1E26);
+  box-shadow: 0 0 8px var(--accent-red, #FF1E26);
   display: inline-block;
   flex-shrink: 0;
+  animation: pulseNeonRed 2s infinite ease-in-out;
 }
 
 .telemetry-beacon--red {
   background-color: var(--accent-red, #FF1E26);
-  box-shadow: 0 0 8px var(--accent-red, #FF1E26);
+  box-shadow: 0 0 10px var(--accent-red, #FF1E26);
 }
 
 .tech-card-id {
@@ -3563,7 +3566,14 @@
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.06em;
-  color: #27C93F;
+  color: var(--accent-red, #FF1E26);
+  text-shadow: 0 0 10px rgba(255, 30, 38, 0.45);
+  transition: all 0.3s ease;
+}
+
+.tech-glass-card:hover .tech-metric {
+  color: #FFFFFF;
+  text-shadow: 0 0 14px rgba(255, 30, 38, 0.85);
 }
 
 /* Responsividade */

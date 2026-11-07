@@ -1621,7 +1621,7 @@ body.is-loading {
 .track-card--off .track-card__media {
   background:
     radial-gradient(100% 70% at 80% 10%, rgba(248, 248, 243, 0.18), transparent 60%),
-    linear-gradient(200deg, #4A4F3C 0%, var(--bg-olive) 60%, var(--bg-dark) 100%);
+    linear-gradient(200deg, #16161D 0%, var(--bg-olive) 60%, var(--bg-dark) 100%);
 }
 
 .track-card:hover .track-card__media {
@@ -3645,9 +3645,9 @@ body.is-loading {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background-color: #27C93F;
+  background-color: var(--accent-red);
   border: 2px solid #0A0A0C;
-  box-shadow: 0 0 8px #27C93F;
+  box-shadow: 0 0 8px var(--accent-red);
   animation: pulse-core 1.8s infinite;
 }
 
@@ -3678,7 +3678,7 @@ body.is-loading {
   font-size: 0.6rem;
   font-weight: 700;
   letter-spacing: 0.08em;
-  color: #27C93F;
+  color: var(--accent-red);
 }
 
 .founder-card__name {
@@ -3763,10 +3763,10 @@ body.is-loading {
 }
 
 .btn--founder-wa:hover {
-  border-color: #27C93F;
-  color: #27C93F;
-  background: rgba(39, 201, 63, 0.1);
-  box-shadow: 0 0 15px rgba(39, 201, 63, 0.3);
+  border-color: var(--accent-red);
+  color: #FFFFFF;
+  background: rgba(255, 30, 38, 0.15);
+  box-shadow: 0 0 15px rgba(255, 30, 38, 0.4);
 }
 
 /* ==========================================================================
@@ -3901,15 +3901,15 @@ body.is-loading {
   font-family: var(--font-mono);
   font-size: 0.6rem;
   letter-spacing: 0.06em;
-  color: #27C93F;
+  color: var(--accent-red);
 }
 
 .uptime-dot {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background-color: #27C93F;
-  box-shadow: 0 0 6px #27C93F;
+  background-color: var(--accent-red);
+  box-shadow: 0 0 6px var(--accent-red);
 }
 
 .footer-col__title {
@@ -4001,9 +4001,9 @@ body.is-loading {
 }
 
 .footer-btn--submit.btn--success {
-  background: #27C93F !important;
-  color: #0A0A0C !important;
-  box-shadow: 0 0 15px rgba(39, 201, 63, 0.5) !important;
+  background: var(--accent-red) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 0 15px rgba(255, 30, 38, 0.6) !important;
 }
 
 /* ==========================================================================
