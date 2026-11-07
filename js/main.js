@@ -11,18 +11,18 @@ import { initCustomCursor } from './cursor.js';
 import { initNavigation } from './navigation.js';
 import { initFounderSwitch } from './founder-switch.js';
 import { initFAQ } from './faq.js';
-import { initFooter } from './footer.js?v=4.9';
-import { initHero } from './hero.js?v=4.9';
+import { initFooter } from './footer.js?v=5.0';
+import { initHero } from './hero.js?v=5.0';
 import { initReveal } from './animations/reveal.js';
 import { initScroll } from './scroll.js';
-import { initNotebook3D } from './notebook-3d.js?v=4.9';
+import { initNotebook3D } from './notebook-3d.js?v=5.0';
 import { initTiltHat } from './animations/tilt-hat.js';
 import { initMatrixCascade } from './animations/matrix-cascade.js';
-import { initTechHero } from './tech-hero-3d.js?v=4.9';
-import { initArrowScrollytelling } from './arrow-scrollytelling.js?v=4.9';
-import { initDiferenciais } from './diferenciais-3d.js?v=4.9';
-import { initPartnersTech } from './partners-tech.js?v=4.9';
-import { initWhyChooseUs } from './why-choose-us.js?v=4.9';
+import { initTechHero } from './tech-hero-3d.js?v=5.0';
+import { initArrowScrollytelling } from './arrow-scrollytelling.js?v=5.0';
+import { initDiferenciais } from './diferenciais-3d.js?v=5.0';
+import { initPartnersTech } from './partners-tech.js?v=5.0';
+import { initWhyChooseUs } from './why-choose-us.js?v=5.0';
 
 /**
  * Módulos essenciais — funcionam mesmo se o GSAP não carregar.

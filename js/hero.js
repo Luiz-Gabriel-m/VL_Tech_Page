@@ -137,16 +137,17 @@ export function initHero() {
   }
 
   // ---------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
   // TIMELINE DE SCROLLYTELLING PINNED (TRAVA NA TELA E TRANSIÇÃO FLUIDA)
   // ---------------------------------------------------------------------------
   const scrollyTl = gsap.timeline({
     scrollTrigger: {
       trigger: section,
       start: 'top top',
-      end: '+=1200',
+      end: '+=1400',
       pin: true,
       pinSpacing: true, // Garante espaçamento automático sem sobreposição de seções
-      scrub: 1,         // Suavização fluida de 60 FPS
+      scrub: 0.8,       // Suavização ultra-responsiva de 60 FPS
       anticipatePin: 1,
       invalidateOnRefresh: true,
       onUpdate: (self) => {
@@ -187,40 +188,30 @@ export function initHero() {
   });
 
   // ---------------------------------------------------------------------------
-  // ETAPA 1 (0.0 -> 0.35): VITOR WHOHLERS ATIVO E LENDO
+  // ETAPA 1 (0.00 -> 0.32): VITOR WHOHLERS ATIVO, ESTÁVEL E NÍTIDO
   // ---------------------------------------------------------------------------
-  scrollyTl.to({}, { duration: 0.35 });
+  scrollyTl.to({}, { duration: 0.32 });
 
   // ---------------------------------------------------------------------------
-  // ETAPA 2 (0.35 -> 0.65): MORPHING FLUIDO DE VITOR PARA LUIZ GABRIEL
+  // ETAPA 2 (0.32 -> 0.46): SAÍDA LIMPA DE VITOR WHOHLERS
+  // Victor desaparece 100% ANTES de Luiz começar a entrar (Zero Overlap!)
   // ---------------------------------------------------------------------------
-  // 1. Saída suave de Victor Whohlers (autoAlpha gerencia opacity + visibility bidirecionalmente)
   scrollyTl.to(
     stageVictor,
     {
       autoAlpha: 0,
-      y: -20,
+      y: -25,
       scale: 0.98,
-      duration: 0.3,
-      ease: 'power2.inOut',
+      duration: 0.14,
+      ease: 'power2.in',
     },
-    0.35
+    0.32
   );
 
-  // 2. Entrada suave de Luiz Gabriel (autoAlpha gerencia opacity + visibility bidirecionalmente)
-  scrollyTl.to(
-    stageLuiz,
-    {
-      autoAlpha: 1,
-      y: 0,
-      scale: 1,
-      duration: 0.3,
-      ease: 'power2.inOut',
-    },
-    0.35
-  );
-
-  // 3. Transição das letras monumentais do Brandmark "VL"
+  // ---------------------------------------------------------------------------
+  // ETAPA 3 (0.44 -> 0.54): TRANSIÇÃO DO BRANDMARK "VL" & AMBIENTE
+  // Intervalo central onde ambos os palcos de texto estão ocultos.
+  // ---------------------------------------------------------------------------
   if (vlCharV && vlCharL) {
     // "V" transita de neon red para branco neutro
     scrollyTl.to(
@@ -230,13 +221,13 @@ export function initHero() {
         opacity: 0.35,
         scale: 1,
         textShadow: 'none',
-        duration: 0.3,
+        duration: 0.1,
         ease: 'power2.inOut',
       },
-      0.35
+      0.44
     );
 
-    // "L" transita de branco neutro para neon red pulsante
+    // "L" acende em neon red com brilho pulsante
     scrollyTl.to(
       vlCharL,
       {
@@ -244,32 +235,50 @@ export function initHero() {
         opacity: 1,
         scale: 1.08,
         textShadow: RED_GLOW,
-        duration: 0.3,
+        duration: 0.1,
         ease: 'power2.inOut',
       },
-      0.35
+      0.44
     );
   }
 
-  // 4. Transição das tags de texto embaixo das letras ("VITOR" e "LUIZ")
   const tagV = vlSymbolV ? vlSymbolV.querySelector('.vl-letter-tag') : null;
   const tagL = vlSymbolL ? vlSymbolL.querySelector('.vl-letter-tag') : null;
-
   if (tagV && tagL) {
-    scrollyTl.to(tagV, { color: 'rgba(248, 248, 252, 0.4)', duration: 0.25 }, 0.35);
-    scrollyTl.to(tagL, { color: '#FFFFFF', duration: 0.25 }, 0.4);
+    scrollyTl.to(tagV, { color: 'rgba(248, 248, 252, 0.4)', duration: 0.1 }, 0.44);
+    scrollyTl.to(tagL, { color: '#FFFFFF', duration: 0.1 }, 0.44);
   }
 
-  // 5. Morfismo da letra vetorial de fundo gigante ('V' -> 'L')
   if (bgVectorLetter) {
-    scrollyTl.to(bgVectorLetter, { opacity: 0, scale: 0.88, duration: 0.15, ease: 'power2.in' }, 0.35);
-    scrollyTl.to(bgVectorLetter, { opacity: 0.025, scale: 1, duration: 0.15, ease: 'power2.out' }, 0.5);
+    scrollyTl.to(bgVectorLetter, { opacity: 0, scale: 0.88, duration: 0.06, ease: 'power2.in' }, 0.44);
+    scrollyTl.to(bgVectorLetter, { opacity: 0.025, scale: 1, duration: 0.06, ease: 'power2.out' }, 0.50);
   }
 
   // ---------------------------------------------------------------------------
-  // ETAPA 3 (0.65 -> 1.00): LUIZ GABRIEL ATIVO E LENDO
+  // ETAPA 4 (0.54 -> 0.68): ENTRADA LIMPA DE LUIZ GABRIEL
+  // Inicia apenas em 0.54, após Victor estar 100% oculto!
   // ---------------------------------------------------------------------------
-  scrollyTl.to({}, { duration: 0.35 });
+  scrollyTl.fromTo(
+    stageLuiz,
+    {
+      autoAlpha: 0,
+      y: 25,
+      scale: 0.98,
+    },
+    {
+      autoAlpha: 1,
+      y: 0,
+      scale: 1,
+      duration: 0.14,
+      ease: 'power2.out',
+    },
+    0.54
+  );
+
+  // ---------------------------------------------------------------------------
+  // ETAPA 5 (0.68 -> 1.00): LUIZ GABRIEL ATIVO, ESTÁVEL E NÍTIDO
+  // ---------------------------------------------------------------------------
+  scrollyTl.to({}, { duration: 0.32 });
 
   // ---------------------------------------------------------------------------
   // INTERAÇÕES POR CLIQUE DIRETO NAS LETRAS "V" E "L"
