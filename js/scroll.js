@@ -87,6 +87,7 @@ function setupManifestoCards() {
  * - Microinterações individuais em cada card com containerAnimation
  */
 function setupHorizontalServicesScroll() {
+  const section = document.getElementById('loja');
   const container = document.querySelector('#services-scroll-container');
   const pinWrapper = document.querySelector('#services-pin-wrapper');
   const track = document.querySelector('#services-track');
@@ -114,11 +115,11 @@ function setupHorizontalServicesScroll() {
   });
 
   // Microinteração sutil de entrada/revelação em cada card horizontal
-  const cards = gsap.utils.toArray('.service-hcard');
+  const cards = track.querySelectorAll('.service-hcard');
   cards.forEach((card) => {
     gsap.fromTo(
       card,
-      { opacity: 0.82, scale: 0.96 },
+      { opacity: 0.85, scale: 0.96 },
       {
         opacity: 1,
         scale: 1,
@@ -126,7 +127,7 @@ function setupHorizontalServicesScroll() {
         scrollTrigger: {
           trigger: card,
           containerAnimation: horizontalTween,
-          start: 'left 94%',
+          start: 'left 95%',
           end: 'left 35%',
           scrub: true,
         },
