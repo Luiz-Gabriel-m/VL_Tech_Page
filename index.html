@@ -21,9 +21,9 @@
   <link href="https://fonts.cdnfonts.com/css/monument-extended" rel="stylesheet">
 
   <!-- Estilos -->
-  <link rel="stylesheet" href="css/variables.css?v=5.1">
-  <link rel="stylesheet" href="css/layout.css?v=5.1">
-  <link rel="stylesheet" href="styles.css?v=5.1">
+  <link rel="stylesheet" href="css/variables.css?v=5.2">
+  <link rel="stylesheet" href="css/layout.css?v=5.2">
+  <link rel="stylesheet" href="styles.css?v=5.2">
 
   <!-- Three.js WebGL Engine (Carregado antecipadamente para o Hero 3D) -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
@@ -122,10 +122,10 @@
                 class="menu-overlay__text">Início</span><span class="menu-overlay__index">01</span></a></li>
           <li class="menu-overlay__item"><a href="#mensagem" class="menu-overlay__link" id="menu-link-mensagem"><span
                 class="menu-overlay__text">Por que a VL Tech</span><span class="menu-overlay__index">02</span></a></li>
-          <li class="menu-overlay__item"><a href="#galeria" class="menu-overlay__link" id="menu-link-galeria"><span
-                class="menu-overlay__text">Diferenciais</span><span class="menu-overlay__index">03</span></a></li>
           <li class="menu-overlay__item"><a href="#tracks" class="menu-overlay__link" id="menu-link-tracks"><span
-                class="menu-overlay__text">A Flecha da Execução</span><span class="menu-overlay__index">04</span></a></li>
+                class="menu-overlay__text">A Flecha da Execução</span><span class="menu-overlay__index">03</span></a></li>
+          <li class="menu-overlay__item"><a href="#galeria" class="menu-overlay__link" id="menu-link-galeria"><span
+                class="menu-overlay__text">Diferenciais</span><span class="menu-overlay__index">04</span></a></li>
           <li class="menu-overlay__item"><a href="#capacetes" class="menu-overlay__link" id="menu-link-capacetes"><span
                 class="menu-overlay__text">Portfólio</span><span class="menu-overlay__index">05</span></a></li>
           <li class="menu-overlay__item"><a href="#loja" class="menu-overlay__link" id="menu-link-loja"><span
@@ -223,7 +223,7 @@
                 </div>
                 <div class="service-hcard__footer">
                   <span class="service-hcard__sla">Ultra Velocidade</span>
-                  <a href="#galeria" class="service-hcard__btn">Explorar Diferenciais ↗</a>
+                  <a href="#tracks" class="service-hcard__btn">A Flecha da Execução ↗</a>
                 </div>
               </article>
 
@@ -248,7 +248,7 @@
                 </div>
                 <div class="service-hcard__footer">
                   <span class="service-hcard__sla">Awwwards Level</span>
-                  <a href="#galeria" class="service-hcard__btn">Ver Tecnologias ↗</a>
+                  <a href="#tracks" class="service-hcard__btn">Ver Trajetória 3D ↗</a>
                 </div>
               </article>
 
@@ -315,250 +315,7 @@
       </div>
     </section>
 
-    <!-- ============================== 3. DIFERENCIAIS VL TECH (HORIZONTAL SCROLL) ============================== -->
-    <section class="section section--dark services-section diferenciais-section" id="galeria" aria-labelledby="diferenciais-title">
-      <div class="horizontal-scroll-container" id="diferenciais-scroll-container">
-        <div class="horizontal-pin-wrapper" id="diferenciais-pin-wrapper">
-          <div class="horizontal-content">
-            <!-- Header Introdutório Lateral Esquerdo (Fixo no Viewport) -->
-            <div class="horizontal-intro diferenciais-intro">
-              <span class="eyebrow text-red">02 — Diferenciais Exclusivos</span>
-              <h2 class="display horizontal-title" id="diferenciais-title">
-                Diferenciais<br><span class="text-red">VL Tech</span>
-              </h2>
-              <p class="horizontal-lead">
-                Eliminamos o desperdício técnico e templates genéricos. Cada solução forja uma vantagem competitiva mensurável através de oito pilares de excelência tecnológica.
-              </p>
-              <div class="horizontal-scroll-indicator">
-                <span class="scroll-arrow-line"></span>
-                <span class="scroll-arrow-text">Role para o lado →</span>
-              </div>
-            </div>
-
-            <!-- Track com Cards Alinhados Horizontalmente (8 Cards com WebGL Three.js) -->
-            <div class="horizontal-track diferenciais-track" id="diferenciaisTrack">
-              <!-- CARD 01: PERFORMANCE EXTREMA -->
-              <article class="service-hcard diferencial-card" data-diferencial-type="performance" data-step-index="1">
-                <div class="service-hcard__header">
-                  <span class="service-hcard__num">01</span>
-                  <span class="service-hcard__tag">Core Web Vitals &lt; 800ms</span>
-                </div>
-                <div class="diferencial-3d-stage">
-                  <canvas class="diferencial-canvas" aria-label="Modelo 3D Foguete Supersônico de Alta Performance"></canvas>
-                </div>
-                <div class="service-hcard__body">
-                  <h3 class="service-hcard__title">Performance Extrema</h3>
-                  <p class="service-hcard__category">Front-End Puro · LCP &lt; 0.8s</p>
-                  <p class="service-hcard__desc">
-                    Código limpo sem <em>page builders</em>. Navegação instantânea que maximiza as taxas de conversão e eleva o SEO orgânico da sua empresa.
-                  </p>
-                  <div class="service-hcard__stack">
-                    <span>&lt; 0.8s LCP</span>
-                    <span>100/100 PageSpeed</span>
-                    <span>Zero Bloat</span>
-                  </div>
-                </div>
-                <div class="service-hcard__footer">
-                  <span class="service-hcard__sla">Ultra Velocidade</span>
-                  <a href="#rodape" class="service-hcard__btn">Solicitar Proposta ↗</a>
-                </div>
-              </article>
-
-              <!-- CARD 02: AUTOMAÇÃO INTELIGENTE -->
-              <article class="service-hcard diferencial-card" data-diferencial-type="automacao" data-step-index="2">
-                <div class="service-hcard__header">
-                  <span class="service-hcard__num">02</span>
-                  <span class="service-hcard__tag">WhatsApp API &amp; AI 24/7</span>
-                </div>
-                <div class="diferencial-3d-stage">
-                  <canvas class="diferencial-canvas" aria-label="Modelo 3D Núcleo Quântico de Automação Inteligente"></canvas>
-                </div>
-                <div class="service-hcard__body">
-                  <h3 class="service-hcard__title">Automação Inteligente</h3>
-                  <p class="service-hcard__category">IA 24/7 · WhatsApp API · CRM</p>
-                  <p class="service-hcard__desc">
-                    Chatbots e fluxos de IA personalizados 24/7 integrados ao WhatsApp API e CRM. Qualificação autônoma de leads e resposta em tempo real.
-                  </p>
-                  <div class="service-hcard__stack">
-                    <span>24/7 Disponível</span>
-                    <span>0s Resposta</span>
-                    <span>OpenAI + CRM</span>
-                  </div>
-                </div>
-                <div class="service-hcard__footer">
-                  <span class="service-hcard__sla">Full Automação</span>
-                  <a href="#rodape" class="service-hcard__btn">Solicitar Proposta ↗</a>
-                </div>
-              </article>
-
-              <!-- CARD 03: DIREÇÃO CRIATIVA F1 -->
-              <article class="service-hcard diferencial-card" data-diferencial-type="criativa" data-step-index="3">
-                <div class="service-hcard__header">
-                  <span class="service-hcard__num">03</span>
-                  <span class="service-hcard__tag">Aerodinâmica F1 UI/UX</span>
-                </div>
-                <div class="diferencial-3d-stage">
-                  <canvas class="diferencial-canvas" aria-label="Modelo 3D Asa Aerodinâmica Estilo F1"></canvas>
-                </div>
-                <div class="service-hcard__body">
-                  <h3 class="service-hcard__title">Direção Criativa F1</h3>
-                  <p class="service-hcard__category">WebGL 3D · 60 FPS · Awwwards</p>
-                  <p class="service-hcard__desc">
-                    UI/UX de alta conversão inspirado na precisão da Fórmula 1. Micro-interações táteis, WebGL 3D imersivo e tipografia brutalista de alto padrão.
-                  </p>
-                  <div class="service-hcard__stack">
-                    <span>60 FPS WebGL</span>
-                    <span>Awwwards Design</span>
-                    <span>Three.js</span>
-                  </div>
-                </div>
-                <div class="service-hcard__footer">
-                  <span class="service-hcard__sla">High End Visual</span>
-                  <a href="#rodape" class="service-hcard__btn">Solicitar Proposta ↗</a>
-                </div>
-              </article>
-
-              <!-- CARD 04: ENTREGA ÁGIL & CONTÍNUA -->
-              <article class="service-hcard diferencial-card" data-diferencial-type="agil" data-step-index="4">
-                <div class="service-hcard__header">
-                  <span class="service-hcard__num">04</span>
-                  <span class="service-hcard__tag">Vercel Edge &amp; CI/CD</span>
-                </div>
-                <div class="diferencial-3d-stage">
-                  <canvas class="diferencial-canvas" aria-label="Modelo 3D Pipeline de Entrega Contínua Möbius"></canvas>
-                </div>
-                <div class="service-hcard__body">
-                  <h3 class="service-hcard__title">Entrega Ágil &amp; Contínua</h3>
-                  <p class="service-hcard__category">SLA 99.9% · Deploys Semanais</p>
-                  <p class="service-hcard__desc">
-                    Infraestrutura global na Vercel Edge e deploys automatizados. Sprints curtas, entregas funcionais semanais e zero tempo de inatividade.
-                  </p>
-                  <div class="service-hcard__stack">
-                    <span>99.9% SLA</span>
-                    <span>Edge Global CDN</span>
-                    <span>Zero Downtime</span>
-                  </div>
-                </div>
-                <div class="service-hcard__footer">
-                  <span class="service-hcard__sla">Sprints Semanais</span>
-                  <a href="#rodape" class="service-hcard__btn">Solicitar Proposta ↗</a>
-                </div>
-              </article>
-
-              <!-- CARD 05: ARQUITETURA DISTRIBUÍDA & CLOUD -->
-              <article class="service-hcard diferencial-card" data-diferencial-type="cloud" data-step-index="5">
-                <div class="service-hcard__header">
-                  <span class="service-hcard__num">05</span>
-                  <span class="service-hcard__tag">AWS &amp; GCP Hybrid Cloud</span>
-                </div>
-                <div class="diferencial-3d-stage">
-                  <canvas class="diferencial-canvas" aria-label="Modelo 3D Cluster Multidimensional de Microsserviços"></canvas>
-                </div>
-                <div class="service-hcard__body">
-                  <h3 class="service-hcard__title">Arquitetura Distribuída</h3>
-                  <p class="service-hcard__category">&lt; 15ms Latência · 100k+ Req/s</p>
-                  <p class="service-hcard__desc">
-                    Microsserviços desacoplados e resilientes para alta concorrência. Docker, Kubernetes e pipelines serverless com auto-scaling elástico.
-                  </p>
-                  <div class="service-hcard__stack">
-                    <span>&lt; 15ms Latência</span>
-                    <span>100k+ Req/s</span>
-                    <span>Kubernetes</span>
-                  </div>
-                </div>
-                <div class="service-hcard__footer">
-                  <span class="service-hcard__sla">Escala Massiva</span>
-                  <a href="#rodape" class="service-hcard__btn">Solicitar Proposta ↗</a>
-                </div>
-              </article>
-
-              <!-- CARD 06: TESTES & QA RESILIENTE -->
-              <article class="service-hcard diferencial-card" data-diferencial-type="qa" data-step-index="6">
-                <div class="service-hcard__header">
-                  <span class="service-hcard__num">06</span>
-                  <span class="service-hcard__tag">100% Coverage &amp; Automation</span>
-                </div>
-                <div class="diferencial-3d-stage">
-                  <canvas class="diferencial-canvas" aria-label="Modelo 3D Prisma Geométrico de Precisão e Testes"></canvas>
-                </div>
-                <div class="service-hcard__body">
-                  <h3 class="service-hcard__title">Testes &amp; QA Resiliente</h3>
-                  <p class="service-hcard__category">0 Bugs em Produção · 99.99% QA</p>
-                  <p class="service-hcard__desc">
-                    Bateria de testes automatizados E2E, integração contínua e stress testing antes de cada release. Zero regressões e integridade absoluta.
-                  </p>
-                  <div class="service-hcard__stack">
-                    <span>0 Bugs Prod</span>
-                    <span>99.99% QA</span>
-                    <span>Playwright &amp; Jest</span>
-                  </div>
-                </div>
-                <div class="service-hcard__footer">
-                  <span class="service-hcard__sla">Qualidade Militar</span>
-                  <a href="#rodape" class="service-hcard__btn">Solicitar Proposta ↗</a>
-                </div>
-              </article>
-
-              <!-- CARD 07: CYBERSECURITY OFENSIVA -->
-              <article class="service-hcard diferencial-card" data-diferencial-type="security" data-step-index="7">
-                <div class="service-hcard__header">
-                  <span class="service-hcard__num">07</span>
-                  <span class="service-hcard__tag">Hardening &amp; Military Cybersec</span>
-                </div>
-                <div class="diferencial-3d-stage">
-                  <canvas class="diferencial-canvas" aria-label="Modelo 3D Escudo Cibernético e Anéis de Defesa"></canvas>
-                </div>
-                <div class="service-hcard__body">
-                  <h3 class="service-hcard__title">Cybersecurity Ofensiva</h3>
-                  <p class="service-hcard__category">AES-256 · Zero Leaks · LGPD</p>
-                  <p class="service-hcard__desc">
-                    Blindagem completa contra ataques DDoS, injeções maliciosas e vazamento de dados sensíveis. Criptografia ponta a ponta e headers estritos.
-                  </p>
-                  <div class="service-hcard__stack">
-                    <span>AES-256 Cripto</span>
-                    <span>Zero Data Leaks</span>
-                    <span>Cloudflare DDoS</span>
-                  </div>
-                </div>
-                <div class="service-hcard__footer">
-                  <span class="service-hcard__sla">Defesa Ativa</span>
-                  <a href="#rodape" class="service-hcard__btn">Solicitar Proposta ↗</a>
-                </div>
-              </article>
-
-              <!-- CARD 08: SQUAD SÊNIOR DEDICADO -->
-              <article class="service-hcard diferencial-card" data-diferencial-type="squad" data-step-index="8">
-                <div class="service-hcard__header">
-                  <span class="service-hcard__num">08</span>
-                  <span class="service-hcard__tag">Direct Executive Access</span>
-                </div>
-                <div class="diferencial-3d-stage">
-                  <canvas class="diferencial-canvas" aria-label="Modelo 3D Núcleo Duplo de Liderança Técnica"></canvas>
-                </div>
-                <div class="service-hcard__body">
-                  <h3 class="service-hcard__title">Squad Sênior Dedicado</h3>
-                  <p class="service-hcard__category">100% Sênior · WhatsApp Direto</p>
-                  <p class="service-hcard__desc">
-                    Engenharia de elite liderada diretamente pelos sócios Luiz Gabriel e Vitor Whohlers. Sem intermediários comerciais e suporte prioritário.
-                  </p>
-                  <div class="service-hcard__stack">
-                    <span>100% Sênior Hands-on</span>
-                    <span>WhatsApp Fundadores</span>
-                    <span>Consultivo</span>
-                  </div>
-                </div>
-                <div class="service-hcard__footer">
-                  <span class="service-hcard__sla">Acesso Executivo</span>
-                  <a href="#rodape" class="service-hcard__btn">Solicitar Proposta ↗</a>
-                </div>
-              </article>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================== 4. THE ARROW OF EXECUTION // 3D SCROLLYTELLING ============================== -->
+    <!-- ============================== 3. THE ARROW OF EXECUTION // 3D SCROLLYTELLING ============================== -->
     <section class="section section--dark arrow-scrollytelling-section" id="tracks" aria-label="A Flecha da Execução — Scrollytelling 3D">
       <div class="arrow-scrolly-pin" id="arrowPinViewport">
         <!-- Canvas WebGL Three.js da Flecha e Alvo 3D -->
@@ -676,11 +433,254 @@
                 target="_blank" rel="noopener noreferrer" class="btn btn--neon">
                 INICIAR MEU PROJETO NO WHATSAPP <span class="btn__arrow" aria-hidden="true">→</span>
               </a>
-              <a href="#portfolio-experience" class="btn btn--outline">
-                EXPLORAR CASES REAIS <span class="btn__arrow" aria-hidden="true">↓</span>
+              <a href="#galeria" class="btn btn--outline">
+                EXPLORAR DIFERENCIAIS <span class="btn__arrow" aria-hidden="true">↓</span>
               </a>
             </div>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== 4. DIFERENCIAIS VL TECH (HORIZONTAL SCROLL) ============================== -->
+    <section class="section section--dark services-section diferenciais-section" id="galeria" aria-labelledby="diferenciais-title">
+      <div class="horizontal-scroll-container" id="diferenciais-scroll-container">
+        <div class="horizontal-pin-wrapper" id="diferenciais-pin-wrapper">
+          <div class="horizontal-content">
+            <!-- Header Introdutório Lateral Esquerdo (Fixo no Viewport) -->
+            <div class="horizontal-intro diferenciais-intro">
+              <span class="eyebrow text-red">02 — Diferenciais Exclusivos</span>
+              <h2 class="display horizontal-title" id="diferenciais-title">
+                Diferenciais<br><span class="text-red">VL Tech</span>
+              </h2>
+              <p class="horizontal-lead">
+                Eliminamos o desperdício técnico e templates genéricos. Cada solução forja uma vantagem competitiva mensurável através de oito pilares de excelência tecnológica.
+              </p>
+              <div class="horizontal-scroll-indicator">
+                <span class="scroll-arrow-line"></span>
+                <span class="scroll-arrow-text">Role para o lado →</span>
+              </div>
+            </div>
+
+            <!-- Track com Cards Alinhados Horizontalmente (8 Cards com WebGL Three.js) -->
+            <div class="horizontal-track diferenciais-track" id="diferenciaisTrack">
+              <!-- CARD 01: PERFORMANCE EXTREMA -->
+              <article class="service-hcard diferencial-card" data-diferencial-type="performance" data-step-index="1">
+                <div class="service-hcard__header">
+                  <span class="service-hcard__num">01</span>
+                  <span class="service-hcard__tag">Core Web Vitals &lt; 800ms</span>
+                </div>
+                <div class="diferencial-3d-stage">
+                  <canvas class="diferencial-canvas" aria-label="Modelo 3D Foguete Supersônico de Alta Performance"></canvas>
+                </div>
+                <div class="service-hcard__body">
+                  <h3 class="service-hcard__title">Performance Extrema</h3>
+                  <p class="service-hcard__category">Front-End Puro · LCP &lt; 0.8s</p>
+                  <p class="service-hcard__desc">
+                    Código limpo sem <em>page builders</em>. Navegação instantânea que maximiza as taxas de conversão e eleva o SEO orgânico da sua empresa.
+                  </p>
+                  <div class="service-hcard__stack">
+                    <span>&lt; 0.8s LCP</span>
+                    <span>100/100 PageSpeed</span>
+                    <span>Zero Bloat</span>
+                  </div>
+                </div>
+                <div class="service-hcard__footer">
+                  <span class="service-hcard__sla">Ultra Velocidade</span>
+                  <a href="#portfolio-experience" class="service-hcard__btn">Solicitar Proposta ↗</a>
+                </div>
+              </article>
+
+              <!-- CARD 02: AUTOMAÇÃO INTELIGENTE -->
+              <article class="service-hcard diferencial-card" data-diferencial-type="automacao" data-step-index="2">
+                <div class="service-hcard__header">
+                  <span class="service-hcard__num">02</span>
+                  <span class="service-hcard__tag">WhatsApp API &amp; AI 24/7</span>
+                </div>
+                <div class="diferencial-3d-stage">
+                  <canvas class="diferencial-canvas" aria-label="Modelo 3D Núcleo Quântico de Automação Inteligente"></canvas>
+                </div>
+                <div class="service-hcard__body">
+                  <h3 class="service-hcard__title">Automação Inteligente</h3>
+                  <p class="service-hcard__category">IA 24/7 · WhatsApp API · CRM</p>
+                  <p class="service-hcard__desc">
+                    Chatbots e fluxos de IA personalizados 24/7 integrados ao WhatsApp API e CRM. Qualificação autônoma de leads e resposta em tempo real.
+                  </p>
+                  <div class="service-hcard__stack">
+                    <span>24/7 Disponível</span>
+                    <span>0s Resposta</span>
+                    <span>OpenAI + CRM</span>
+                  </div>
+                </div>
+                <div class="service-hcard__footer">
+                  <span class="service-hcard__sla">Full Automação</span>
+                  <a href="#portfolio-experience" class="service-hcard__btn">Solicitar Proposta ↗</a>
+                </div>
+              </article>
+
+              <!-- CARD 03: DIREÇÃO CRIATIVA F1 -->
+              <article class="service-hcard diferencial-card" data-diferencial-type="criativa" data-step-index="3">
+                <div class="service-hcard__header">
+                  <span class="service-hcard__num">03</span>
+                  <span class="service-hcard__tag">Aerodinâmica F1 UI/UX</span>
+                </div>
+                <div class="diferencial-3d-stage">
+                  <canvas class="diferencial-canvas" aria-label="Modelo 3D Asa Aerodinâmica Estilo F1"></canvas>
+                </div>
+                <div class="service-hcard__body">
+                  <h3 class="service-hcard__title">Direção Criativa F1</h3>
+                  <p class="service-hcard__category">WebGL 3D · 60 FPS · Awwwards</p>
+                  <p class="service-hcard__desc">
+                    UI/UX de alta conversão inspirado na precisão da Fórmula 1. Micro-interações táteis, WebGL 3D imersivo e tipografia brutalista de alto padrão.
+                  </p>
+                  <div class="service-hcard__stack">
+                    <span>60 FPS WebGL</span>
+                    <span>Awwwards Design</span>
+                    <span>Three.js</span>
+                  </div>
+                </div>
+                <div class="service-hcard__footer">
+                  <span class="service-hcard__sla">High End Visual</span>
+                  <a href="#portfolio-experience" class="service-hcard__btn">Solicitar Proposta ↗</a>
+                </div>
+              </article>
+
+              <!-- CARD 04: ENTREGA ÁGIL & CONTÍNUA -->
+              <article class="service-hcard diferencial-card" data-diferencial-type="agil" data-step-index="4">
+                <div class="service-hcard__header">
+                  <span class="service-hcard__num">04</span>
+                  <span class="service-hcard__tag">Vercel Edge &amp; CI/CD</span>
+                </div>
+                <div class="diferencial-3d-stage">
+                  <canvas class="diferencial-canvas" aria-label="Modelo 3D Pipeline de Entrega Contínua Möbius"></canvas>
+                </div>
+                <div class="service-hcard__body">
+                  <h3 class="service-hcard__title">Entrega Ágil &amp; Contínua</h3>
+                  <p class="service-hcard__category">SLA 99.9% · Deploys Semanais</p>
+                  <p class="service-hcard__desc">
+                    Infraestrutura global na Vercel Edge e deploys automatizados. Sprints curtas, entregas funcionais semanais e zero tempo de inatividade.
+                  </p>
+                  <div class="service-hcard__stack">
+                    <span>99.9% SLA</span>
+                    <span>Edge Global CDN</span>
+                    <span>Zero Downtime</span>
+                  </div>
+                </div>
+                <div class="service-hcard__footer">
+                  <span class="service-hcard__sla">Sprints Semanais</span>
+                  <a href="#portfolio-experience" class="service-hcard__btn">Solicitar Proposta ↗</a>
+                </div>
+              </article>
+
+              <!-- CARD 05: ARQUITETURA DISTRIBUÍDA & CLOUD -->
+              <article class="service-hcard diferencial-card" data-diferencial-type="cloud" data-step-index="5">
+                <div class="service-hcard__header">
+                  <span class="service-hcard__num">05</span>
+                  <span class="service-hcard__tag">AWS &amp; GCP Hybrid Cloud</span>
+                </div>
+                <div class="diferencial-3d-stage">
+                  <canvas class="diferencial-canvas" aria-label="Modelo 3D Cluster Multidimensional de Microsserviços"></canvas>
+                </div>
+                <div class="service-hcard__body">
+                  <h3 class="service-hcard__title">Arquitetura Distribuída</h3>
+                  <p class="service-hcard__category">&lt; 15ms Latência · 100k+ Req/s</p>
+                  <p class="service-hcard__desc">
+                    Microsserviços desacoplados e resilientes para alta concorrência. Docker, Kubernetes e pipelines serverless com auto-scaling elástico.
+                  </p>
+                  <div class="service-hcard__stack">
+                    <span>&lt; 15ms Latência</span>
+                    <span>100k+ Req/s</span>
+                    <span>Kubernetes</span>
+                  </div>
+                </div>
+                <div class="service-hcard__footer">
+                  <span class="service-hcard__sla">Escala Massiva</span>
+                  <a href="#portfolio-experience" class="service-hcard__btn">Solicitar Proposta ↗</a>
+                </div>
+              </article>
+
+              <!-- CARD 06: TESTES & QA RESILIENTE -->
+              <article class="service-hcard diferencial-card" data-diferencial-type="qa" data-step-index="6">
+                <div class="service-hcard__header">
+                  <span class="service-hcard__num">06</span>
+                  <span class="service-hcard__tag">100% Coverage &amp; Automation</span>
+                </div>
+                <div class="diferencial-3d-stage">
+                  <canvas class="diferencial-canvas" aria-label="Modelo 3D Prisma Geométrico de Precisão e Testes"></canvas>
+                </div>
+                <div class="service-hcard__body">
+                  <h3 class="service-hcard__title">Testes &amp; QA Resiliente</h3>
+                  <p class="service-hcard__category">0 Bugs em Produção · 99.99% QA</p>
+                  <p class="service-hcard__desc">
+                    Bateria de testes automatizados E2E, integração contínua e stress testing antes de cada release. Zero regressões e integridade absoluta.
+                  </p>
+                  <div class="service-hcard__stack">
+                    <span>0 Bugs Prod</span>
+                    <span>99.99% QA</span>
+                    <span>Playwright &amp; Jest</span>
+                  </div>
+                </div>
+                <div class="service-hcard__footer">
+                  <span class="service-hcard__sla">Qualidade Militar</span>
+                  <a href="#portfolio-experience" class="service-hcard__btn">Solicitar Proposta ↗</a>
+                </div>
+              </article>
+
+              <!-- CARD 07: CYBERSECURITY OFENSIVA -->
+              <article class="service-hcard diferencial-card" data-diferencial-type="security" data-step-index="7">
+                <div class="service-hcard__header">
+                  <span class="service-hcard__num">07</span>
+                  <span class="service-hcard__tag">Hardening &amp; Military Cybersec</span>
+                </div>
+                <div class="diferencial-3d-stage">
+                  <canvas class="diferencial-canvas" aria-label="Modelo 3D Escudo Cibernético e Anéis de Defesa"></canvas>
+                </div>
+                <div class="service-hcard__body">
+                  <h3 class="service-hcard__title">Cybersecurity Ofensiva</h3>
+                  <p class="service-hcard__category">AES-256 · Zero Leaks · LGPD</p>
+                  <p class="service-hcard__desc">
+                    Blindagem completa contra ataques DDoS, injeções maliciosas e vazamento de dados sensíveis. Criptografia ponta a ponta e headers estritos.
+                  </p>
+                  <div class="service-hcard__stack">
+                    <span>AES-256 Cripto</span>
+                    <span>Zero Data Leaks</span>
+                    <span>Cloudflare DDoS</span>
+                  </div>
+                </div>
+                <div class="service-hcard__footer">
+                  <span class="service-hcard__sla">Defesa Ativa</span>
+                  <a href="#portfolio-experience" class="service-hcard__btn">Solicitar Proposta ↗</a>
+                </div>
+              </article>
+
+              <!-- CARD 08: SQUAD SÊNIOR DEDICADO -->
+              <article class="service-hcard diferencial-card" data-diferencial-type="squad" data-step-index="8">
+                <div class="service-hcard__header">
+                  <span class="service-hcard__num">08</span>
+                  <span class="service-hcard__tag">Direct Executive Access</span>
+                </div>
+                <div class="diferencial-3d-stage">
+                  <canvas class="diferencial-canvas" aria-label="Modelo 3D Núcleo Duplo de Liderança Técnica"></canvas>
+                </div>
+                <div class="service-hcard__body">
+                  <h3 class="service-hcard__title">Squad Sênior Dedicado</h3>
+                  <p class="service-hcard__category">100% Sênior · WhatsApp Direto</p>
+                  <p class="service-hcard__desc">
+                    Engenharia de elite liderada diretamente pelos sócios Luiz Gabriel e Vitor Whohlers. Sem intermediários comerciais e suporte prioritário.
+                  </p>
+                  <div class="service-hcard__stack">
+                    <span>100% Sênior Hands-on</span>
+                    <span>WhatsApp Fundadores</span>
+                    <span>Consultivo</span>
+                  </div>
+                </div>
+                <div class="service-hcard__footer">
+                  <span class="service-hcard__sla">Acesso Executivo</span>
+                  <a href="#portfolio-experience" class="service-hcard__btn">Solicitar Proposta ↗</a>
+                </div>
+              </article>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1810,7 +1810,7 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 
   <!-- Aplicação (módulos ES) -->
-  <script type="module" src="js/main.js?v=5.1"></script>
+  <script type="module" src="js/main.js?v=5.2"></script>
 </body>
 
 </html>

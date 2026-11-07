@@ -1889,14 +1889,6 @@
    Cards: Glassmorphism + 3D WebGL Metallic Chrome & Anodized Red
    ========================================================================== */
 
-.diferenciais-section {
-  position: relative;
-  background-color: #111112 !important;
-  color: #F8F8FC;
-  padding: clamp(5rem, 8vw, 8rem) 0 !important;
-  overflow: hidden;
-  z-index: 5;
-}
 
 /* Iluminação de Fundo & Grid */
 .diferenciais-ambient-glow {
@@ -1940,10 +1932,15 @@
   width: 100% !important;
   padding: 0 !important;
   margin: 0 !important;
-  background-color: #0A0A0C !important;
+  background-color: #111112 !important;
   overflow: visible !important;
   clear: both !important;
   z-index: 7 !important;
+}
+
+#diferenciais-scroll-container,
+#diferenciais-pin-wrapper {
+  background-color: #111112 !important;
 }
 
 .diferenciais-intro {
