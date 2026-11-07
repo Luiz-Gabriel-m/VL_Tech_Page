@@ -28,84 +28,55 @@ export function initDiferenciais() {
     return null;
   }
 
+  const container = section.querySelector('#diferenciais-scroll-container') || section;
+  const pinWrapper = section.querySelector('#diferenciais-pin-wrapper') || section;
   const track = section.querySelector('#diferenciaisTrack');
   const cards = section.querySelectorAll('.diferencial-card');
-  const progressFill = document.getElementById('diferenciaisProgressBarFill');
-  const counter = document.getElementById('diferenciaisCounter');
 
-  if (!cards.length) return null;
+  if (!cards.length || !track) return null;
 
   // ---------------------------------------------------------------------------
-  // 1. TIMELINE DE SCROLLYTELLING PINNED (HORIZONTAL / 8-CARD SEQUENCE)
+  // 1. TIMELINE DE SCROLLYTELLING PINNED (UNIFIED COM SOLUÇÕES & SERVIÇOS)
   // ---------------------------------------------------------------------------
   let diferencialsTl = null;
 
   const getScrollDistance = () => {
-    if (!track) return 0;
-    // Distância exata 1:1 para que o 8º card complete sua travessia e saia pela esquerda
-    return Math.max(0, track.scrollWidth - window.innerWidth);
+    const intro = pinWrapper.querySelector('.horizontal-intro');
+    const introOffset = intro
+      ? intro.offsetWidth + (parseFloat(window.getComputedStyle(intro).marginRight) || 0)
+      : 0;
+    return Math.max(0, track.scrollWidth + introOffset - window.innerWidth + 80);
   };
 
-  if (!prefersReducedMotion() && track) {
-    diferencialsTl = gsap.timeline({
+  if (!prefersReducedMotion()) {
+    diferencialsTl = gsap.to(track, {
+      x: () => -getScrollDistance(),
+      ease: 'none',
       scrollTrigger: {
-        trigger: section,
-        pin: true,
-        pinSpacing: true, // Garante que a próxima seção permaneça perfeitamente travada abaixo sem gaps
+        trigger: container,
+        pin: pinWrapper,
         start: 'top top',
         end: () => `+=${getScrollDistance()}`,
-        scrub: 1, // 60 FPS suave com inércia
+        scrub: 1,
         anticipatePin: 1,
         invalidateOnRefresh: true,
-        onUpdate: (self) => {
-          const p = self.progress;
-
-          // Atualiza a barra de progresso néon inferior
-          if (progressFill) {
-            progressFill.style.width = `${Math.min(100, Math.max(0, Math.round(p * 100)))}%`;
-          }
-
-          // Atualiza o contador de telemetria no HUD superior dinamicamente para os 8 cards
-          if (counter) {
-            const step = Math.min(8, Math.max(1, Math.ceil(p * 8)));
-            const names = [
-              'PERFORMANCE EXTREMA',
-              'AUTOMAÇÃO INTELIGENTE',
-              'DIREÇÃO CRIATIVA F1',
-              'ENTREGA ÁGIL & CONTÍNUA',
-              'ARQUITETURA DISTRIBUÍDA',
-              'TESTES & QA RESILIENTE',
-              'CYBERSECURITY OFENSIVA',
-              'SQUAD SÊNIOR DEDICADO',
-            ];
-            counter.textContent = `CARD 0${step} // ${names[step - 1]}`;
-          }
-        },
       },
     });
 
-    // Movimenta suavemente o trilho horizontal de forma contínua e precisa
-    diferencialsTl.to(track, {
-      x: () => -getScrollDistance(),
-      ease: 'none',
-      duration: 1,
-    });
-
-    // Efeito de entrada suave dos cards conforme entram no viewport
-    cards.forEach((card, idx) => {
+    cards.forEach((card) => {
       gsap.fromTo(
         card,
-        { y: 30, opacity: 0.8 },
+        { opacity: 0.82, scale: 0.96 },
         {
-          y: 0,
           opacity: 1,
-          duration: 0.5,
+          scale: 1,
           ease: 'power2.out',
           scrollTrigger: {
             trigger: card,
             containerAnimation: diferencialsTl,
-            start: 'left 85%',
-            toggleActions: 'play reverse play reverse',
+            start: 'left 95%',
+            end: 'left 35%',
+            scrub: true,
           },
         }
       );
