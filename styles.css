@@ -2278,6 +2278,9 @@
 .diferenciais-section {
   position: relative !important;
   width: 100% !important;
+  height: 100vh !important;
+  padding: 0 !important;
+  margin: 0 !important;
   background-color: #0A0A0C !important;
   overflow: hidden !important;
   z-index: 7 !important;
@@ -2406,7 +2409,7 @@
   align-items: center;
   gap: clamp(2rem, 3.5vw, 3.5rem);
   padding-left: clamp(2.5rem, 6vw, 6rem);
-  padding-right: clamp(14rem, 45vw, 65vw);
+  padding-right: 100vw;
   will-change: transform;
   transform: translate3d(0, 0, 0);
 }
@@ -2495,18 +2498,30 @@
   will-change: transform;
 }
 
-/* Escalonamento Staircase Vertical Suave */
+/* Escalonamento Staircase Vertical Harmonioso (8 Cards) */
 .diferencial-card--step1 {
   transform: translateY(0);
 }
 .diferencial-card--step2 {
-  transform: translateY(22px);
+  transform: translateY(14px);
 }
 .diferencial-card--step3 {
-  transform: translateY(44px);
+  transform: translateY(28px);
 }
 .diferencial-card--step4 {
-  transform: translateY(66px);
+  transform: translateY(14px);
+}
+.diferencial-card--step5 {
+  transform: translateY(0);
+}
+.diferencial-card--step6 {
+  transform: translateY(14px);
+}
+.diferencial-card--step7 {
+  transform: translateY(28px);
+}
+.diferencial-card--step8 {
+  transform: translateY(14px);
 }
 
 .diferencial-card:hover {
@@ -2691,12 +2706,16 @@
   .diferencial-card--step1,
   .diferencial-card--step2,
   .diferencial-card--step3,
-  .diferencial-card--step4 {
+  .diferencial-card--step4,
+  .diferencial-card--step5,
+  .diferencial-card--step6,
+  .diferencial-card--step7,
+  .diferencial-card--step8 {
     transform: translateY(0);
   }
   .diferenciais-track {
     padding-left: 1.5rem;
-    padding-right: 2rem;
+    padding-right: 100vw;
   }
 }
 

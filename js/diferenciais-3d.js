@@ -1,12 +1,16 @@
 /* ==========================================================================
-   DIFERENCIAIS 3D — Pinned Horizontal Scrollytelling & Staircase Sequence
-   Three.js WebGL + GSAP 3 ScrollTrigger for VL Tech Competitive Advantages:
+   DIFERENCIAIS 3D — Pinned Horizontal Scrollytelling & 8-Card Showcase
+   Three.js WebGL + GSAP 3 ScrollTrigger for VL Tech Elite Capabilities:
    1. PERFORMANCE EXTREMA (Supersonic Speedometer / Aerodynamic Rocket)
    2. AUTOMAÇÃO INTELIGENTE (Quantum AI Core & Neural Gyroscope)
    3. DIREÇÃO CRIATIVA F1 (Aerodynamic F1 Winglet & Vortex Flow)
    4. ENTREGA ÁGIL & CONTÍNUA (Continuous CI/CD Möbius Pipeline)
+   5. ARQUITETURA DISTRIBUÍDA (Multi-node Microservices Octahedron & Orbital Ring)
+   6. TESTES & QA RESILIENTE (Holographic Precision Prism & Scanning Laser Ring)
+   7. CYBERSECURITY OFENSIVA (Cybernetic Dodecahedron Shield & Defense Satellites)
+   8. SQUAD SÊNIOR DEDICADO (Dual-Helix Founder Pillars & Core Energy Bridge)
    - Strict Black & Red Palette (#0A0A0C / #ff2a2a)
-   - Pinned vertical scroll holding until the final card passes across viewport
+   - 1:1 Horizontal scroll lock releasing immediately after Card 08 exits viewport
    ========================================================================== */
 
 import { gsap, ScrollTrigger, isReady } from './core/gsap.js';
@@ -32,12 +36,13 @@ export function initDiferenciais() {
   if (!cards.length) return null;
 
   // ---------------------------------------------------------------------------
-  // 1. TIMELINE DE SCROLLYTELLING PINNED (HORIZONTAL / STAIRCASE SEQUENCE)
+  // 1. TIMELINE DE SCROLLYTELLING PINNED (HORIZONTAL / 8-CARD SEQUENCE)
   // ---------------------------------------------------------------------------
   let diferencialsTl = null;
 
   const getScrollDistance = () => {
     if (!track) return 0;
+    // Distância exata 1:1 para que o 8º card complete sua travessia e saia pela esquerda
     return Math.max(0, track.scrollWidth - window.innerWidth);
   };
 
@@ -46,7 +51,7 @@ export function initDiferenciais() {
       scrollTrigger: {
         trigger: section,
         pin: true,
-        pinSpacing: true, // Garante que as seções adjacentes não sobreponham
+        pinSpacing: true, // Garante que a próxima seção permaneça perfeitamente travada abaixo sem gaps
         start: 'top top',
         end: () => `+=${getScrollDistance()}`,
         scrub: 1, // 60 FPS suave com inércia
@@ -60,14 +65,18 @@ export function initDiferenciais() {
             progressFill.style.width = `${Math.min(100, Math.max(0, Math.round(p * 100)))}%`;
           }
 
-          // Atualiza o contador de telemetria no HUD superior
+          // Atualiza o contador de telemetria no HUD superior dinamicamente para os 8 cards
           if (counter) {
-            const step = Math.min(4, Math.max(1, Math.ceil(p * 4)));
+            const step = Math.min(8, Math.max(1, Math.ceil(p * 8)));
             const names = [
               'PERFORMANCE EXTREMA',
               'AUTOMAÇÃO INTELIGENTE',
               'DIREÇÃO CRIATIVA F1',
               'ENTREGA ÁGIL & CONTÍNUA',
+              'ARQUITETURA DISTRIBUÍDA',
+              'TESTES & QA RESILIENTE',
+              'CYBERSECURITY OFENSIVA',
+              'SQUAD SÊNIOR DEDICADO',
             ];
             counter.textContent = `CARD 0${step} // ${names[step - 1]}`;
           }
@@ -75,23 +84,22 @@ export function initDiferenciais() {
       },
     });
 
-    // Movimenta suavemente o trilho horizontal da esquerda para a direita de forma 1:1
+    // Movimenta suavemente o trilho horizontal de forma contínua e precisa
     diferencialsTl.to(track, {
       x: () => -getScrollDistance(),
       ease: 'none',
       duration: 1,
     });
 
-    // Efeito de escadaria (staircase) escalonado conforme cada card entra no viewport
+    // Efeito de entrada suave dos cards conforme entram no viewport
     cards.forEach((card, idx) => {
-      const stepY = idx * 18;
       gsap.fromTo(
         card,
-        { y: 35 + stepY, opacity: 0.82 },
+        { y: 30, opacity: 0.8 },
         {
-          y: stepY,
+          y: 0,
           opacity: 1,
-          duration: 0.55,
+          duration: 0.5,
           ease: 'power2.out',
           scrollTrigger: {
             trigger: card,
@@ -174,7 +182,7 @@ export function initDiferenciais() {
     scene.add(group);
 
     // -------------------------------------------------------------------------
-    // CRIAÇÃO DO OBJETO CONFORME O TIPO
+    // CRIAÇÃO DO OBJETO CONFORME O TIPO (8 MODELOS DISTINTOS)
     // -------------------------------------------------------------------------
     if (type === 'performance') {
       // 1. PERFORMANCE EXTREMA: Foguete Aerodinâmico / Turbina Supersônica
@@ -182,13 +190,11 @@ export function initDiferenciais() {
       const rocketBody = new THREE.Mesh(rocketBodyGeo, chromeMat);
       group.add(rocketBody);
 
-      // Anel de velocidade / telemetria
       const speedRingGeo = new THREE.TorusGeometry(1.25, 0.05, 12, 32);
       const speedRing = new THREE.Mesh(speedRingGeo, anodizedRedMat);
       speedRing.rotation.x = Math.PI / 2.5;
       group.add(speedRing);
 
-      // Aletas traseiras
       for (let i = 0; i < 3; i++) {
         const finGeo = new THREE.BoxGeometry(0.08, 0.7, 0.65);
         const fin = new THREE.Mesh(finGeo, anodizedRedMat);
@@ -198,7 +204,6 @@ export function initDiferenciais() {
         group.add(fin);
       }
 
-      // Propulsor Neon
       const nozzleGeo = new THREE.CylinderGeometry(0.35, 0.45, 0.35, 16);
       const nozzle = new THREE.Mesh(nozzleGeo, neonRedGlowMat);
       nozzle.position.y = -1.15;
@@ -216,7 +221,6 @@ export function initDiferenciais() {
       const innerGlow = new THREE.Mesh(innerGlowGeo, neonRedGlowMat);
       group.add(innerGlow);
 
-      // Anéis Giroscópicos
       const gyroGeo1 = new THREE.TorusGeometry(1.35, 0.045, 12, 36);
       const gyro1 = new THREE.Mesh(gyroGeo1, chromeMat);
       group.add(gyro1);
@@ -226,7 +230,6 @@ export function initDiferenciais() {
       gyro2.rotation.x = Math.PI / 2;
       group.add(gyro2);
 
-      // Nós orbitais (Strict Red Glow)
       for (let i = 0; i < 4; i++) {
         const nodeGeo = new THREE.SphereGeometry(0.1, 12, 12);
         const node = new THREE.Mesh(nodeGeo, neonRedGlowMat);
@@ -240,14 +243,12 @@ export function initDiferenciais() {
       const wingMain = new THREE.Mesh(wingMainGeo, darkCarbonMat);
       group.add(wingMain);
 
-      // Lâmina superior aerodinâmica
       const upperFlapGeo = new THREE.BoxGeometry(2.1, 0.08, 0.4);
       const upperFlap = new THREE.Mesh(upperFlapGeo, anodizedRedMat);
       upperFlap.position.set(0, 0.28, -0.15);
       upperFlap.rotation.x = Math.PI / 10;
       group.add(upperFlap);
 
-      // Endplates laterais (Aletas verticais com detalhe neon)
       const endplateGeo = new THREE.BoxGeometry(0.08, 0.75, 1.0);
       const endplateL = new THREE.Mesh(endplateGeo, chromeMat);
       endplateL.position.set(-1.18, 0.1, 0);
@@ -257,7 +258,6 @@ export function initDiferenciais() {
       endplateR.position.set(1.18, 0.1, 0);
       group.add(endplateR);
 
-      // Linha de fluxo aerodinâmico neon
       const flowGeo = new THREE.TorusGeometry(1.2, 0.03, 8, 32, Math.PI * 1.2);
       const flow = new THREE.Mesh(flowGeo, neonRedGlowMat);
       flow.rotation.x = Math.PI / 3;
@@ -281,6 +281,83 @@ export function initDiferenciais() {
       const pulse = new THREE.Mesh(pulseGeo, neonRedGlowMat);
       pulse.position.set(1.6, 0, 0);
       group.add(pulse);
+    } else if (type === 'cloud') {
+      // 5. ARQUITETURA DISTRIBUÍDA & CLOUD: Cluster Multidimensional de Microsserviços
+      const octGeo = new THREE.OctahedronGeometry(0.85, 0);
+      const oct = new THREE.Mesh(octGeo, anodizedRedMat);
+      group.add(oct);
+
+      const wireGeo = new THREE.WireframeGeometry(new THREE.BoxGeometry(1.5, 1.5, 1.5));
+      const wireframe = new THREE.LineSegments(
+        wireGeo,
+        new THREE.LineBasicMaterial({ color: 0xff1e26, transparent: true, opacity: 0.65 })
+      );
+      group.add(wireframe);
+
+      const ringGeo = new THREE.TorusGeometry(1.5, 0.035, 12, 36);
+      const ring = new THREE.Mesh(ringGeo, chromeMat);
+      ring.rotation.x = Math.PI / 3;
+      group.add(ring);
+
+      for (let i = 0; i < 3; i++) {
+        const satNode = new THREE.Mesh(new THREE.SphereGeometry(0.1, 10, 10), neonRedGlowMat);
+        const ang = (i * Math.PI * 2) / 3;
+        satNode.position.set(Math.cos(ang) * 1.5, Math.sin(ang) * 1.5, 0);
+        ring.add(satNode);
+      }
+    } else if (type === 'qa') {
+      // 6. ENGENHARIA DE TESTES & QA: Prisma Geométrico de Precisão e Validação
+      const coneGeo = new THREE.ConeGeometry(0.95, 1.9, 6);
+      const cone = new THREE.Mesh(coneGeo, chromeMat);
+      cone.rotation.x = Math.PI;
+      group.add(cone);
+
+      const scanRingGeo = new THREE.TorusGeometry(1.25, 0.04, 12, 32);
+      const scanRing = new THREE.Mesh(scanRingGeo, neonRedGlowMat);
+      scanRing.rotation.x = Math.PI / 2;
+      group.add(scanRing);
+
+      const shieldGeo = new THREE.IcosahedronGeometry(0.48, 0);
+      const shield = new THREE.Mesh(shieldGeo, anodizedRedMat);
+      shield.position.y = -0.15;
+      group.add(shield);
+    } else if (type === 'security') {
+      // 7. CYBERSECURITY OFENSIVA: Escudo Cibernético & Anéis de Defesa
+      const dodefGeo = new THREE.DodecahedronGeometry(0.82, 0);
+      const dodef = new THREE.Mesh(dodefGeo, darkCarbonMat);
+      group.add(dodef);
+
+      const secRing1 = new THREE.Mesh(new THREE.TorusGeometry(1.35, 0.04, 12, 36), anodizedRedMat);
+      secRing1.rotation.y = Math.PI / 4;
+      group.add(secRing1);
+
+      const secRing2 = new THREE.Mesh(new THREE.TorusGeometry(1.6, 0.035, 12, 36), chromeMat);
+      secRing2.rotation.x = Math.PI / 2;
+      group.add(secRing2);
+
+      for (let i = 0; i < 3; i++) {
+        const sat = new THREE.Mesh(new THREE.SphereGeometry(0.1, 8, 8), neonRedGlowMat);
+        const angle = (i * Math.PI * 2) / 3;
+        sat.position.set(Math.cos(angle) * 1.6, 0, Math.sin(angle) * 1.6);
+        secRing2.add(sat);
+      }
+    } else if (type === 'squad') {
+      // 8. SQUAD SÊNIOR DEDICADO: Núcleo Duplo de Liderança Técnica
+      const colL = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 1.8, 16), chromeMat);
+      colL.position.x = -0.65;
+      group.add(colL);
+
+      const colV = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 1.8, 16), darkCarbonMat);
+      colV.position.x = 0.65;
+      group.add(colV);
+
+      const bridgeGeo = new THREE.TorusGeometry(1.15, 0.045, 12, 36);
+      const bridge = new THREE.Mesh(bridgeGeo, anodizedRedMat);
+      bridge.rotation.x = Math.PI / 3;
+      group.add(bridge);
+
+      const coreCenter = new THREE.Mesh(new THREE.SphereGeometry(0.38, 16, 16), neonRedGlowMat);
+      group.add(coreCenter);
     }
 
     // Interatividade com Mouse / Hover no Card
@@ -323,7 +400,7 @@ export function initDiferenciais() {
     };
   }
 
-  // Inicializar cada um dos 4 cards
+  // Inicializar cada um dos 8 cards
   cards.forEach((card) => {
     const type = card.dataset.diferencialType;
     const inst = setupCard3D(card, type);
@@ -356,15 +433,24 @@ export function initDiferenciais() {
 
   renderLoop();
 
+  // Recálculo dinâmico garantido quando fontes personalizadas carregarem
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => {
+      ScrollTrigger.refresh();
+    });
+  }
+
   // Resize handler
   const onResize = () => ScrollTrigger.refresh();
   window.addEventListener('resize', onResize);
+  window.addEventListener('load', onResize);
 
   return {
     timeline: diferencialsTl,
     refresh: () => ScrollTrigger.refresh(),
     destroy: () => {
       window.removeEventListener('resize', onResize);
+      window.removeEventListener('load', onResize);
       if (animId) cancelAnimationFrame(animId);
       instances.forEach((inst) => inst.destroy());
       if (diferencialsTl) diferencialsTl.kill();
