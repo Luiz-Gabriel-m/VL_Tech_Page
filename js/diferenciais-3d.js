@@ -13,10 +13,8 @@
    - 1:1 Horizontal scroll lock releasing immediately after Card 08 exits viewport
    ========================================================================== */
 
-import { gsap, ScrollTrigger, isReady } from './core/gsap.js';
-
-const prefersReducedMotion = () =>
-  window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+import { ScrollTrigger } from './core/gsap.js';
+import { createHorizontalScroll } from './core/horizontal-scroll.js';
 
 export function initDiferenciais() {
   const section = document.getElementById('galeria');
@@ -28,58 +26,24 @@ export function initDiferenciais() {
     return null;
   }
 
-  const container = section.querySelector('#diferenciais-scroll-container') || section;
-  const pinWrapper = section.querySelector('#diferenciais-pin-wrapper') || section;
+  const container = section.querySelector('#diferenciais-scroll-container');
+  const pinWrapper = section.querySelector('#diferenciais-pin-wrapper');
   const track = section.querySelector('#diferenciaisTrack');
   const cards = section.querySelectorAll('.diferencial-card');
 
   if (!cards.length || !track) return null;
 
   // ---------------------------------------------------------------------------
-  // 1. TIMELINE DE SCROLLYTELLING PINNED (UNIFIED COM SOLUÇÕES & SERVIÇOS)
+  // 1. SCROLL HORIZONTAL PINADO (MOTOR UNIFICADO COM SOLUÇÕES & SERVIÇOS)
+  // Trava estrita: libera a próxima seção somente após o Card 08 + hold.
   // ---------------------------------------------------------------------------
-  let diferencialsTl = null;
-
-  const getScrollDistance = () => {
-    const startOffset = track.offsetLeft || 0;
-    return Math.max(0, startOffset + track.scrollWidth - window.innerWidth + 80);
-  };
-
-  if (!prefersReducedMotion()) {
-    diferencialsTl = gsap.to(track, {
-      x: () => -getScrollDistance(),
-      ease: 'none',
-      scrollTrigger: {
-        trigger: section,
-        pin: pinWrapper,
-        start: 'top top',
-        end: () => `+=${getScrollDistance()}`,
-        scrub: 1,
-        pinSpacing: true,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-      },
-    });
-
-    cards.forEach((card) => {
-      gsap.fromTo(
-        card,
-        { opacity: 0.82, scale: 0.96 },
-        {
-          opacity: 1,
-          scale: 1,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: card,
-            containerAnimation: diferencialsTl,
-            start: 'left 95%',
-            end: 'left 35%',
-            scrub: true,
-          },
-        }
-      );
-    });
-  }
+  const horizontal = createHorizontalScroll({
+    id: 'diferenciais',
+    container,
+    pinWrapper,
+    track,
+    cards,
+  });
 
   // ---------------------------------------------------------------------------
   // 2. CONFIGURAÇÃO DOS CENÁRIOS 3D POR CARD (STRICT BLACK & NEON RED)
@@ -402,27 +366,15 @@ export function initDiferenciais() {
 
   renderLoop();
 
-  // Recálculo dinâmico garantido quando fontes personalizadas carregarem
-  if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(() => {
-      ScrollTrigger.refresh();
-    });
-  }
-
-  // Resize handler
-  const onResize = () => ScrollTrigger.refresh();
-  window.addEventListener('resize', onResize);
-  window.addEventListener('load', onResize);
-
+  // Obs.: refresh em resize/load/fonts é centralizado em main.js
+  // (ScrollTrigger já recalcula automaticamente no resize).
   return {
-    timeline: diferencialsTl,
+    timeline: horizontal?.tween ?? null,
     refresh: () => ScrollTrigger.refresh(),
     destroy: () => {
-      window.removeEventListener('resize', onResize);
-      window.removeEventListener('load', onResize);
       if (animId) cancelAnimationFrame(animId);
       instances.forEach((inst) => inst.destroy());
-      if (diferencialsTl) diferencialsTl.kill();
+      horizontal?.kill();
     },
   };
 }

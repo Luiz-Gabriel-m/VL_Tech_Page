@@ -6,6 +6,7 @@
    ========================================================================== */
 
 import { gsap, mm, MOTION_OK, isReady } from './core/gsap.js';
+import { createHorizontalScroll } from './core/horizontal-scroll.js';
 
 /**
  * Revelação fluida e efeito de parallax na Galeria / Manifesto
@@ -79,60 +80,25 @@ function setupManifestoCards() {
 
 /**
  * Seção de Serviços Interativa com Rolagem Horizontal Pinned (Awwwards Style)
- * - Container principal com altura estendida (#services-scroll-container)
- * - Pin: true para fixar o container (#services-pin-wrapper) durante a rolagem vertical
- * - Tween com x: () => -(trackWidth - window.innerWidth + offset)
- * - scrub: 1 para interpolação física suave
- * - invalidateOnRefresh: true para recalcular dinamicamente no redimensionamento da janela
- * - Microinterações individuais em cada card com containerAnimation
+ * - Motor unificado em core/horizontal-scroll.js (idêntico a #mensagem e #galeria)
+ * - Pin no #services-pin-wrapper; gatilho no #services-scroll-container (nunca pinado)
+ * - x: () => -(track.offsetLeft + track.offsetWidth - viewport) · scrub: 1
+ * - invalidateOnRefresh: recalcula dinamicamente no resize
+ *
+ * Exportado separadamente para que main.js o inicialize NA ORDEM DO DOM
+ * (antes de #parceiros e #socios-scrolly). Criar este pin depois dos gatilhos
+ * abaixo dele era a causa do pin prematuro da seção de Sócios.
  */
-function setupHorizontalServicesScroll() {
-  const section = document.getElementById('loja');
+export function initServicesScroll() {
   const container = document.querySelector('#services-scroll-container');
-  const pinWrapper = document.querySelector('#services-pin-wrapper');
-  const track = document.querySelector('#services-track');
+  if (!container) return null;
 
-  if (!container || !pinWrapper || !track) return;
-
-  const getScrollDistance = () => {
-    const startOffset = track.offsetLeft || 0;
-    return Math.max(0, startOffset + track.scrollWidth - window.innerWidth + 80);
-  };
-
-  const horizontalTween = gsap.to(track, {
-    x: () => -getScrollDistance(),
-    ease: 'none',
-    scrollTrigger: {
-      trigger: section || container,
-      pin: pinWrapper,
-      start: 'top top',
-      end: () => `+=${getScrollDistance()}`,
-      scrub: 1,
-      pinSpacing: true,
-      invalidateOnRefresh: true,
-      anticipatePin: 1,
-    },
-  });
-
-  // Microinteração sutil de entrada/revelação em cada card horizontal
-  const cards = track.querySelectorAll('.service-hcard');
-  cards.forEach((card) => {
-    gsap.fromTo(
-      card,
-      { opacity: 0.85, scale: 0.96 },
-      {
-        opacity: 1,
-        scale: 1,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: card,
-          containerAnimation: horizontalTween,
-          start: 'left 95%',
-          end: 'left 35%',
-          scrub: true,
-        },
-      }
-    );
+  return createHorizontalScroll({
+    id: 'services',
+    container,
+    pinWrapper: document.querySelector('#services-pin-wrapper'),
+    track: document.querySelector('#services-track'),
+    cards: document.querySelectorAll('#services-track .service-hcard'),
   });
 }
 
@@ -247,7 +213,6 @@ export function initScroll() {
     setupGalleryScroll();
     setupManifestoCards();
     setupPortfolioFanScroll();
-    setupHorizontalServicesScroll();
   });
 }
 
