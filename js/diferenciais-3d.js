@@ -79,6 +79,307 @@ export function initDiferenciais() {
     roughness: 0.3,
   });
 
+  // -------------------------------------------------------------------------
+  // HELPER: GERAÇÃO DE TEXTURAS DINÂMICAS 2K PARA A GALERIA CILÍNDRICA 3D
+  // Estética VL Tech: Carbon Dark #0E0E13, Neon Red #ff2a2a, Tipografia Monument
+  // -------------------------------------------------------------------------
+  function createCylinderPanelTexture(item) {
+    const canvas = document.createElement('canvas');
+    canvas.width = 512;
+    canvas.height = 680;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return null;
+
+    // Fundo Carbon Dark com gradiente sutil
+    const bgGrad = ctx.createLinearGradient(0, 0, 0, 680);
+    bgGrad.addColorStop(0, '#16161E');
+    bgGrad.addColorStop(1, '#0C0C10');
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0, 0, 512, 680);
+
+    // Grid cibernético sutil
+    ctx.strokeStyle = 'rgba(255, 42, 42, 0.08)';
+    ctx.lineWidth = 1;
+    for (let x = 0; x < 512; x += 32) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, 680);
+      ctx.stroke();
+    }
+    for (let y = 0; y < 680; y += 32) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(512, y);
+      ctx.stroke();
+    }
+
+    // Moldura externa
+    ctx.strokeStyle = 'rgba(255, 42, 42, 0.35)';
+    ctx.lineWidth = 4;
+    ctx.strokeRect(12, 12, 488, 656);
+
+    // Cantoneiras futuristas neon red
+    ctx.strokeStyle = '#ff2a2a';
+    ctx.lineWidth = 6;
+    const cl = 28;
+    // Top-Left
+    ctx.beginPath();
+    ctx.moveTo(12, 12 + cl); ctx.lineTo(12, 12); ctx.lineTo(12 + cl, 12);
+    ctx.stroke();
+    // Top-Right
+    ctx.beginPath();
+    ctx.moveTo(500 - cl, 12); ctx.lineTo(500, 12); ctx.lineTo(500, 12 + cl);
+    ctx.stroke();
+    // Bottom-Left
+    ctx.beginPath();
+    ctx.moveTo(12, 668 - cl); ctx.lineTo(12, 668); ctx.lineTo(12 + cl, 668);
+    ctx.stroke();
+    // Bottom-Right
+    ctx.beginPath();
+    ctx.moveTo(500 - cl, 668); ctx.lineTo(500, 668); ctx.lineTo(500, 668 - cl);
+    ctx.stroke();
+
+    // Header Glow Bar
+    const barGrad = ctx.createLinearGradient(36, 40, 472, 40);
+    barGrad.addColorStop(0, '#ff2a2a');
+    barGrad.addColorStop(1, '#aa0a12');
+    ctx.fillStyle = barGrad;
+    ctx.fillRect(36, 40, 80, 4);
+
+    // Numeração 01...08
+    ctx.font = '900 60px "Cabinet Grotesk", "Monument Extended", sans-serif';
+    ctx.fillStyle = '#ff2a2a';
+    ctx.fillText(item.idx, 36, 120);
+
+    // Badge "● VL TECH 3D"
+    ctx.font = '700 18px monospace';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+    ctx.fillText('● VL TECH 3D', 340, 105);
+
+    // Linha divisória
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(36, 150);
+    ctx.lineTo(476, 150);
+    ctx.stroke();
+
+    // Título Principal
+    ctx.font = '900 36px "Cabinet Grotesk", "Monument Extended", sans-serif';
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillText(item.title, 36, 230);
+
+    // Subtítulo
+    ctx.font = '600 18px monospace';
+    ctx.fillStyle = '#8E8E93';
+    ctx.fillText(item.sub, 36, 275);
+
+    // Metric Box Pill
+    ctx.fillStyle = 'rgba(255, 42, 42, 0.12)';
+    ctx.strokeStyle = 'rgba(255, 42, 42, 0.5)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.roundRect(36, 330, 440, 70, 12);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.font = '700 20px monospace';
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillText(item.metric, 56, 374);
+
+    // Mini visualizer bar no rodapé
+    for (let b = 0; b < 12; b++) {
+      const bh = 15 + Math.sin(b * 0.8 + parseInt(item.idx)) * 25 + 25;
+      ctx.fillStyle = b % 3 === 0 ? '#ff2a2a' : 'rgba(255, 255, 255, 0.25)';
+      ctx.fillRect(36 + b * 36, 620 - bh, 24, bh);
+    }
+
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    return tex;
+  }
+
+  // -------------------------------------------------------------------------
+  // CENTERPIECE: GALERIA CILÍNDRICA 3D THREE.JS (INTERATIVA 360° & SCROLL SYNC)
+  // -------------------------------------------------------------------------
+  function setupCylinderGallery3D(card) {
+    const stage = card.querySelector('#diferencialCylinderStage') || card.querySelector('.diferencial-cylinder-stage');
+    const canvas = card.querySelector('#diferenciaisCylinderCanvas') || card.querySelector('.diferenciais-cylinder-canvas');
+    if (!stage || !canvas) return null;
+
+    const renderer = new THREE.WebGLRenderer({
+      canvas,
+      antialias: true,
+      alpha: true,
+      powerPreference: 'high-performance',
+    });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.35;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(46, stage.clientWidth / stage.clientHeight, 0.1, 100);
+    camera.position.set(0, 0.2, 7.6);
+
+    // Iluminação Futurista de Estúdio
+    const amb = new THREE.AmbientLight(0xffffff, 0.95);
+    scene.add(amb);
+
+    const dirLight = new THREE.DirectionalLight(0xffffff, 2.4);
+    dirLight.position.set(4, 6, 4);
+    scene.add(dirLight);
+
+    const redLightTop = new THREE.PointLight(0xff1e26, 4.8, 16);
+    redLightTop.position.set(0, 3.5, 2.5);
+    scene.add(redLightTop);
+
+    const redLightBottom = new THREE.PointLight(0xff1e26, 3.2, 12);
+    redLightBottom.position.set(0, -3.5, 2);
+    scene.add(redLightBottom);
+
+    const cylinderGroup = new THREE.Group();
+    scene.add(cylinderGroup);
+
+    // Anéis Orbitais Neon Red
+    const radius = 3.25;
+    const ringGeo = new THREE.TorusGeometry(radius, 0.035, 12, 64);
+    const ringMat = new THREE.MeshBasicMaterial({
+      color: 0xff1e26,
+      transparent: true,
+      opacity: 0.45,
+    });
+    const topRing = new THREE.Mesh(ringGeo, ringMat);
+    topRing.rotation.x = Math.PI / 2;
+    topRing.position.y = 1.35;
+    cylinderGroup.add(topRing);
+
+    const bottomRing = topRing.clone();
+    bottomRing.position.y = -1.35;
+    cylinderGroup.add(bottomRing);
+
+    // Dados dos 8 Painéis da Galeria Cilíndrica
+    const panelsData = [
+      { idx: '01', title: 'PERFORMANCE', sub: 'FRONT-END PURO · CORE WEB VITALS', metric: '< 0.8s LCP · 100/100 SPEED' },
+      { idx: '02', title: 'AUTOMAÇÃO IA', sub: 'NEURAL CHAT & CRM REALTIME', metric: '24/7 ONLINE · ZERO LATÊNCIA' },
+      { idx: '03', title: 'DIREÇÃO F1', sub: 'AERODINÂMICA UI/UX · THREE.JS', metric: '60 FPS 3D · AWWWARDS' },
+      { idx: '04', title: 'ENTREGA ÁGIL', sub: 'VERCEL EDGE & PIPELINE MÖBIUS', metric: 'DEPLOYS SEMANAIS · ZERO DOWNTIME' },
+      { idx: '05', title: 'DISTRIBUÍDO', sub: 'MULTI-CLOUD & KUBERNETES', metric: '100K+ REQ/S · < 15ms LATÊNCIA' },
+      { idx: '06', title: 'TESTES & QA', sub: 'RESILIÊNCIA & TESTES E2E', metric: '0 BUGS EM PROD · 99.99% QA' },
+      { idx: '07', title: 'CYBERSECURITY', sub: 'MILITARY HARDENING & LGPD', metric: 'AES-256 · ZERO DATA LEAKS' },
+      { idx: '08', title: 'SQUAD SÊNIOR', sub: 'ACESSO DIRETO AOS FUNDADORES', metric: '100% SÊNIOR · WHATSAPP DIRETO' },
+    ];
+
+    const cardHeight = 2.45;
+    const cardAngleWidth = 1.7 / radius;
+    const cardGeo = new THREE.CylinderGeometry(
+      radius,
+      radius,
+      cardHeight,
+      16,
+      1,
+      true,
+      -cardAngleWidth / 2,
+      cardAngleWidth
+    );
+
+    panelsData.forEach((item, index) => {
+      const angle = (index / panelsData.length) * Math.PI * 2;
+      const texture = createCylinderPanelTexture(item);
+
+      const mat = new THREE.MeshStandardMaterial({
+        map: texture,
+        side: THREE.DoubleSide,
+        roughness: 0.28,
+        metalness: 0.5,
+      });
+
+      const mesh = new THREE.Mesh(cardGeo, mat);
+      mesh.rotation.y = angle;
+
+      const borderGeo = new THREE.EdgesGeometry(cardGeo);
+      const borderMat = new THREE.LineBasicMaterial({
+        color: 0xff1e26,
+        transparent: true,
+        opacity: 0.65,
+      });
+      const border = new THREE.LineSegments(borderGeo, borderMat);
+      mesh.add(border);
+
+      cylinderGroup.add(mesh);
+    });
+
+    // Estado da Interação (Drag + Scroll Sync)
+    let rotTarget = 0;
+    let rotCurrent = 0;
+    let isDragging = false;
+    let startX = 0;
+    let startRot = 0;
+
+    const onPointerDown = (e) => {
+      isDragging = true;
+      startX = e.clientX;
+      startRot = rotTarget;
+      stage.setPointerCapture(e.pointerId);
+    };
+
+    const onPointerMove = (e) => {
+      if (!isDragging) return;
+      const deltaX = e.clientX - startX;
+      rotTarget = startRot + deltaX * 0.0055;
+    };
+
+    const onPointerUp = (e) => {
+      isDragging = false;
+      try {
+        stage.releasePointerCapture(e.pointerId);
+      } catch {}
+    };
+
+    stage.addEventListener('pointerdown', onPointerDown);
+    stage.addEventListener('pointermove', onPointerMove);
+    stage.addEventListener('pointerup', onPointerUp);
+    stage.addEventListener('pointercancel', onPointerUp);
+
+    function resize() {
+      const w = stage.clientWidth;
+      const h = stage.clientHeight;
+      if (w && h) {
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+        renderer.setSize(w, h, false);
+      }
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    return {
+      update: () => {
+        // 1. Rotação contínua quando ocioso
+        if (!isDragging) {
+          rotTarget -= 0.0016;
+        }
+
+        // 2. Sincronização estrita com o Scroll Horizontal do GSAP
+        const st = ScrollTrigger.getById('diferenciais-horizontal');
+        const scrollOffset = st ? st.progress * Math.PI * 3.5 : 0;
+
+        // 3. Lerp na rotação
+        rotCurrent += (rotTarget - rotCurrent) * 0.085;
+        cylinderGroup.rotation.y = rotCurrent + scrollOffset;
+
+        renderer.render(scene, camera);
+      },
+      destroy: () => {
+        stage.removeEventListener('pointerdown', onPointerDown);
+        stage.removeEventListener('pointermove', onPointerMove);
+        stage.removeEventListener('pointerup', onPointerUp);
+        stage.removeEventListener('pointercancel', onPointerUp);
+        window.removeEventListener('resize', resize);
+        renderer.dispose();
+      },
+    };
+  }
+
   // Função para criar uma cena Three.js individual em um canvas
   function setupCard3D(card, type) {
     const canvas = card.querySelector('.diferencial-canvas');
@@ -333,11 +634,16 @@ export function initDiferenciais() {
     };
   }
 
-  // Inicializar cada um dos 8 cards
+  // Inicializar cada um dos cards (Centerpiece Galeria Cilíndrica 3D + 8 Pilares)
   cards.forEach((card) => {
     const type = card.dataset.diferencialType;
-    const inst = setupCard3D(card, type);
-    if (inst) instances.push(inst);
+    if (type === 'cylinder-gallery') {
+      const inst = setupCylinderGallery3D(card);
+      if (inst) instances.push(inst);
+    } else {
+      const inst = setupCard3D(card, type);
+      if (inst) instances.push(inst);
+    }
   });
 
   // ---------------------------------------------------------------------------

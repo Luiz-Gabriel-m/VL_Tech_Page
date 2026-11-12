@@ -21,9 +21,9 @@
   <link href="https://fonts.cdnfonts.com/css/monument-extended" rel="stylesheet">
 
   <!-- Estilos -->
-  <link rel="stylesheet" href="css/variables.css?v=5.7">
-  <link rel="stylesheet" href="css/layout.css?v=5.7">
-  <link rel="stylesheet" href="styles.css?v=5.7">
+  <link rel="stylesheet" href="css/variables.css?v=5.8">
+  <link rel="stylesheet" href="css/layout.css?v=5.8">
+  <link rel="stylesheet" href="styles.css?v=5.8">
 
   <!-- Three.js WebGL Engine (Carregado antecipadamente para o Hero 3D) -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
@@ -464,8 +464,49 @@
               </div>
             </div>
 
-            <!-- Track com Cards Alinhados Horizontalmente (8 Cards com WebGL Three.js) -->
+            <!-- Track com Cards Alinhados Horizontalmente (Galeria 3D Cilíndrica + 8 Pilares de Excelência) -->
             <div class="horizontal-track diferenciais-track" id="diferenciaisTrack">
+              <!-- CENTERPIECE: GALERIA 3D CILÍNDRICA WEBGL THREE.JS -->
+              <article class="service-hcard diferencial-card diferencial-cylinder-card" data-diferencial-type="cylinder-gallery" data-step-index="0">
+                <div class="service-hcard__header">
+                  <span class="service-hcard__num">3D</span>
+                  <span class="service-hcard__tag">Galeria Cilíndrica 360°</span>
+                </div>
+                
+                <div class="diferencial-cylinder-stage" id="diferencialCylinderStage">
+                  <canvas id="diferenciaisCylinderCanvas" class="diferenciais-cylinder-canvas" aria-label="Galeria 3D Cilíndrica Interativa Three.js"></canvas>
+                  
+                  <div class="cylinder-stage-overlay">
+                    <span class="cylinder-hud-badge">
+                      <span class="status-dot status-dot--pulse" aria-hidden="true"></span>
+                      <span>WebGL 360° Interativo</span>
+                    </span>
+                    <span class="cylinder-hud-hint">
+                      <span>Arraste ou role para orbitar</span>
+                      <span class="text-red">↔</span>
+                    </span>
+                  </div>
+                </div>
+
+                <div class="service-hcard__body">
+                  <h3 class="service-hcard__title">Engenharia Visual 3D</h3>
+                  <p class="service-hcard__category">Three.js · Curvatura Cilíndrica · 60 FPS</p>
+                  <p class="service-hcard__desc">
+                    Arquitetura tridimensional imersiva em tempo real. Cada painel do cilindro projeta os pilares de software de alto padrão e aceleração da VL Tech.
+                  </p>
+                  <div class="service-hcard__stack">
+                    <span>Three.js Cylinder</span>
+                    <span>Scroll Lock Sync</span>
+                    <span>Shader Lighting</span>
+                  </div>
+                </div>
+
+                <div class="service-hcard__footer">
+                  <span class="service-hcard__sla">Experiência 3D</span>
+                  <a href="#portfolio-experience" class="service-hcard__btn">Explorar Projetos ↗</a>
+                </div>
+              </article>
+
               <!-- CARD 01: PERFORMANCE EXTREMA -->
               <article class="service-hcard diferencial-card" data-diferencial-type="performance" data-step-index="1">
                 <div class="service-hcard__header">
@@ -2021,7 +2062,7 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 
   <!-- Aplicação (módulos ES) -->
-  <script type="module" src="js/main.js?v=5.7"></script>
+  <script type="module" src="js/main.js?v=5.8"></script>
 </body>
 
 </html>

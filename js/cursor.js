@@ -82,7 +82,7 @@ export function initCustomCursor() {
   });
 
   // Detecção delegada de elementos interativos para expansão do cursor
-  const INTERACTIVE_SELECTOR = 'a, button, input, textarea, select, [role="button"], .fan-card, .brand-showcase-card, .brand-card__cta, .service-hcard, .faq-trigger, .scrolly-step, .menu-toggle, .founder-toggle-btn, .portfolio-card-3d, .partner-badge';
+  const INTERACTIVE_SELECTOR = 'a, button, input, textarea, select, [role="button"], .fan-card, .brand-showcase-card, .brand-card__cta, .service-hcard, .diferencial-cylinder-stage, .faq-trigger, .scrolly-step, .menu-toggle, .founder-toggle-btn, .portfolio-card-3d, .partner-badge';
 
   document.addEventListener('mouseover', (e) => {
     const target = e.target.closest(INTERACTIVE_SELECTOR);
