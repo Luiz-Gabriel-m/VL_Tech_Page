@@ -3850,10 +3850,13 @@ html {
 }
 
 
+
 /* ==========================================================================
-   PORTFOLIO BRAND SHOWCASE (#capacetes)
-   Layout: Editorial Grid de 6 Colunas (3 Cards Superior + 2 Cards Centralizados Inferior)
-   Foco exclusivo em Identidades Visuais, Tipografia Minimalista e Logotipos Oficiais
+   PORTFOLIO & TECH-HARDWARE SHOWCASE RAIL VITRINE (#capacetes)
+   - Heavy industrial powder-coated mounting rail with red laser guide line
+   - Suspended hanging hardware server blades with brush/swing physics
+   - Real-time telemetry badges, status LEDs, and specification modal dialog
+   - Strict VL Tech Aesthetic: #0A0A0C / #111112 / #ff2a2a
    ========================================================================== */
 .portfolio-fan-section {
   position: relative !important;
@@ -3867,150 +3870,170 @@ html {
   z-index: 5 !important;
 }
 
-/* CONTAINER EDITORIAL DO SHOWCASE */
-.portfolio-showcase-container {
+/* CONTAINER DA VITRINE DE HARDWARE */
+.tech-hardware-container {
   position: relative !important;
   z-index: 3 !important;
   width: 100% !important;
-  max-width: 1360px !important;
+  max-width: 1400px !important;
   margin-inline: auto !important;
   padding-inline: clamp(1.25rem, 3.5vw, 2.5rem) !important;
 }
 
-/* GRID DE 6 COLUNAS: 3 CARDS EM CIMA (span 2), 2 CARDS CENTRALIZADOS EMBAIXO (col 2-3, col 4-5) */
-.portfolio-brands-grid {
-  display: grid !important;
-  grid-template-columns: repeat(6, 1fr) !important;
-  gap: clamp(1.25rem, 2vw, 1.85rem) !important;
-  width: 100% !important;
-  margin-block: clamp(2rem, 3.5vw, 3.5rem) !important;
-}
-
-/* Posicionamento Matemático dos 5 Cards */
-.brand-showcase-card:nth-child(1) {
-  grid-column: span 2 !important;
-}
-
-.brand-showcase-card:nth-child(2) {
-  grid-column: span 2 !important;
-}
-
-.brand-showcase-card:nth-child(3) {
-  grid-column: span 2 !important;
-}
-
-.brand-showcase-card:nth-child(4) {
-  grid-column: 2 / span 2 !important;
-}
-
-.brand-showcase-card:nth-child(5) {
-  grid-column: 4 / span 2 !important;
-}
-
-/* O CARD EDITORIAL DE MARCA */
-.brand-showcase-card {
-  position: relative !important;
-  display: flex !important;
-  flex-direction: column !important;
-  border-radius: 24px !important;
-  background: rgba(18, 18, 22, 0.76) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  backdrop-filter: blur(24px) !important;
-  -webkit-backdrop-filter: blur(24px) !important;
-  padding: clamp(1.35rem, 2vw, 1.85rem) !important;
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
-  transition: transform 0.45s cubic-bezier(0.2, 0.9, 0.3, 1),
-              border-color 0.4s ease,
-              box-shadow 0.45s ease !important;
-  will-change: transform, box-shadow !important;
-  overflow: hidden !important;
-}
-
-.brand-showcase-card:hover {
-  transform: translateY(-6px) !important;
-  border-color: rgba(255, 42, 42, 0.42) !important;
-  box-shadow: 0 28px 55px rgba(0, 0, 0, 0.85),
-              0 0 30px rgba(255, 42, 42, 0.18),
-              inset 0 1px 0 rgba(255, 42, 42, 0.35) !important;
-}
-
-/* ESTRUTURA INTERNA */
-.brand-card__inner {
-  position: relative !important;
-  display: flex !important;
-  flex-direction: column !important;
-  height: 100% !important;
-  z-index: 2 !important;
-}
-
-/* GLOW RADIAL AMBIENTE NO TOPO DO CARD */
-.brand-card__ambient-glow {
-  position: absolute !important;
-  top: -30px !important;
-  left: 10% !important;
-  right: 10% !important;
-  height: 150px !important;
-  background: radial-gradient(ellipse at 50% 0%, rgba(255, 42, 42, 0.14) 0%, transparent 70%) !important;
-  pointer-events: none !important;
-  opacity: 0.55 !important;
-  transition: opacity 0.4s ease !important;
-  z-index: 1 !important;
-}
-
-.brand-showcase-card:hover .brand-card__ambient-glow {
-  opacity: 1 !important;
-}
-
-/* HEADER DO CARD (01...05 À ESQUERDA, ● NO AR À DIREITA) */
-.brand-card__header {
+/* BARRA DE METADADOS & PROGRESSO DO TRILHO */
+.tech-rail-meta-bar {
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
+  margin-bottom: 1.5rem !important;
   width: 100% !important;
-  margin-bottom: 0.6rem !important;
 }
 
-.brand-card__meta-left {
+.tech-rail-meta-left {
   display: flex !important;
   align-items: center !important;
   gap: 0.65rem !important;
 }
 
-.brand-card__index {
-  font-family: var(--font-display, 'Cabinet Grotesk', sans-serif) !important;
-  font-size: 1.15rem !important;
-  font-weight: 800 !important;
+.tech-rail-status-text {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
   color: #ff2a2a !important;
-  letter-spacing: 0.04em !important;
-  text-shadow: 0 0 14px rgba(255, 42, 42, 0.45) !important;
-  line-height: 1 !important;
 }
 
-/* Badge de categoria oculto no header para manter fidelidade estrita à referência (Image 1) */
-.brand-card__category-badge {
+.tech-rail-meta-right {
+  display: flex !important;
+  align-items: center !important;
+  gap: 1.25rem !important;
+}
+
+.tech-rail-hint {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 0.7rem !important;
+  color: #8E8E93 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+}
+
+.tech-rail-progress-track {
+  width: 130px !important;
+  height: 4px !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-radius: 9999px !important;
+  overflow: hidden !important;
+}
+
+.tech-rail-progress-bar {
+  height: 100% !important;
+  background: #ff2a2a !important;
+  box-shadow: 0 0 10px #ff2a2a !important;
+  border-radius: 9999px !important;
+  width: 20% !important;
+  transition: width 0.15s ease !important;
+}
+
+/* TRILHO ESTRUTURAL INDUSTRIAL SUSPENSO */
+.tech-hardware-rail-mount {
+  position: relative !important;
+  width: 100% !important;
+}
+
+.tech-hardware-rail-bar {
+  position: relative !important;
+  width: 100% !important;
+  height: 26px !important;
+  border-radius: 8px !important;
+  background: linear-gradient(180deg, #24242e 0%, #121218 50%, #1e1e26 100%) !important;
+  border: 1.5px solid #333342 !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding-inline: 1.5rem !important;
+  overflow: hidden !important;
+}
+
+.tech-rail-laser-guide {
+  position: absolute !important;
+  inset-x: 0 !important;
+  bottom: 0 !important;
+  height: 2px !important;
+  background: linear-gradient(90deg, transparent 0%, #ff2a2a 20%, #ff5555 50%, #ff2a2a 80%, transparent 100%) !important;
+  box-shadow: 0 0 14px #ff2a2a !important;
+}
+
+.tech-rail-bracket {
+  position: absolute !important;
+  top: -8px !important;
+  width: 34px !important;
+  height: 14px !important;
+  background: #1c1c24 !important;
+  border: 1px solid #444455 !important;
+  border-radius: 4px 4px 0 0 !important;
+}
+
+.tech-rail-bracket--left { left: 15% !important; }
+.tech-rail-bracket--mid { left: 50% !important; transform: translateX(-50%) !important; }
+.tech-rail-bracket--right { right: 15% !important; }
+
+/* ESTEIRA HORIZONTAL DE MÓDULOS SUSPENSOS */
+.tech-hardware-rail-track {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: clamp(1.5rem, 2.8vw, 3rem) !important;
+  width: 100% !important;
+  overflow-x: auto !important;
+  padding-top: 1.25rem !important;
+  padding-bottom: 2.75rem !important;
+  scroll-behavior: smooth !important;
+  cursor: grab !important;
+  user-select: none !important;
+  -webkit-overflow-scrolling: touch !important;
+  scrollbar-width: none !important;
+}
+
+.tech-hardware-rail-track::-webkit-scrollbar {
   display: none !important;
 }
 
-/* BADGE STATUS ● NO AR */
-.brand-card__status {
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 0.45rem !important;
-  padding: 0.3rem 0.75rem !important;
-  border-radius: 9999px !important;
-  background: rgba(255, 255, 255, 0.035) !important;
-  border: 1px solid rgba(255, 255, 255, 0.09) !important;
-  font-family: var(--font-mono, monospace) !important;
-  font-size: 0.66rem !important;
-  font-weight: 700 !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.08em !important;
-  color: #E2E2E8 !important;
-  line-height: 1 !important;
+.tech-hardware-rail-track.is-dragging {
+  cursor: grabbing !important;
 }
 
-.brand-card__status .status-dot {
-  display: inline-block !important;
+/* O MÓDULO DE HARDWARE SUSPENSO */
+.hardware-blade-unit {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  flex-shrink: 0 !important;
+  cursor: pointer !important;
+  transform-origin: top center !important;
+}
+
+/* GANCHO DE SUSPENSÃO E CABO DE AÇO */
+.hardware-hanger {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+
+.hardware-rail-clamp {
+  width: 32px !important;
+  height: 16px !important;
+  background: linear-gradient(180deg, #444455 0%, #1e1e26 100%) !important;
+  border: 1px solid #555566 !important;
+  border-radius: 4px 4px 0 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7) !important;
+}
+
+.clamp-led {
   width: 6px !important;
   height: 6px !important;
   border-radius: 50% !important;
@@ -4018,185 +4041,576 @@ html {
   box-shadow: 0 0 8px #ff2a2a !important;
 }
 
-.brand-card__status .status-dot--pulse {
-  animation: brandStatusPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite !important;
+.hardware-hanging-cable {
+  width: 3px !important;
+  height: 32px !important;
+  background: linear-gradient(180deg, #777788 0%, #2a2a35 100%) !important;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.8) !important;
+  transform-origin: top center !important;
 }
 
-@keyframes brandStatusPulse {
-  0%, 100% {
-    opacity: 1;
-    transform: scale(1);
-    box-shadow: 0 0 8px #ff2a2a;
-  }
-  50% {
-    opacity: 0.35;
-    transform: scale(0.85);
-    box-shadow: 0 0 3px #ff2a2a;
-  }
-}
-
-/* PALCO CENTRAL DO LOGOTIPO */
-.brand-card__logo-stage {
+.hardware-chassis-mount {
+  width: 44px !important;
+  height: 12px !important;
+  background: #1a1a24 !important;
+  border: 1px solid #3d3d4e !important;
+  border-radius: 4px !important;
   display: flex !important;
   align-items: center !important;
-  justify-content: center !important;
-  width: 100% !important;
-  min-height: 130px !important;
-  max-height: 140px !important;
-  margin-block: 0.65rem 1.25rem !important;
-  padding: 1.2rem !important;
-  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.03) 0%, transparent 75%) !important;
-  border-radius: 16px !important;
-  box-sizing: border-box !important;
+  justify-content: space-around !important;
+  padding-inline: 4px !important;
 }
 
-.brand-card__logo-img {
-  max-width: 100% !important;
-  height: auto !important;
-  object-fit: contain !important;
-  filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.75)) !important;
-  transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1),
-              filter 0.4s ease !important;
-  user-select: none !important;
-}
-
-.brand-showcase-card:hover .brand-card__logo-img {
-  transform: scale(1.05) !important;
-  filter: drop-shadow(0 8px 24px rgba(255, 42, 42, 0.28)) !important;
-}
-
-/* DIMENSIONAMENTO ESPECÍFICO DE CADA MARCA */
-.brand-card__logo-img--zildo {
-  max-height: 65px !important;
-  max-width: 155px !important;
-}
-
-.brand-card__logo-img--g4 {
-  max-height: 85px !important;
-  max-width: 135px !important;
-}
-
-.brand-card__logo-img--maciel {
-  max-height: 85px !important;
-  max-width: 135px !important;
+.mount-screw {
+  width: 4px !important;
+  height: 4px !important;
   border-radius: 50% !important;
+  background: #888899 !important;
 }
 
-.brand-card__logo-img--marinho {
-  max-height: 52px !important;
-  max-width: 210px !important;
-}
-
-.brand-card__logo-img--ribeiro {
-  max-height: 72px !important;
-  max-width: 145px !important;
-}
-
-/* CORPO DO CARD COM TIPOGRAFIA DE PRECISÃO */
-.brand-card__body {
+/* CHASSI DO SERVIDOR / NÓ DE ALTA DENSIDADE */
+.hardware-chassis {
+  position: relative !important;
+  width: clamp(285px, 24vw, 335px) !important;
+  height: clamp(480px, 60vh, 520px) !important;
+  border-radius: 24px !important;
+  background: linear-gradient(175deg, rgba(26, 26, 36, 0.96) 0%, rgba(14, 14, 20, 0.98) 100%) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  padding: clamp(1.4rem, 2vw, 1.85rem) !important;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
   display: flex !important;
   flex-direction: column !important;
-  flex-grow: 1 !important;
-  margin-bottom: 1.35rem !important;
+  justify-content: space-between !important;
+  overflow: hidden !important;
+  transform-origin: top center !important;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease !important;
 }
 
-.brand-card__name {
+.hardware-blade-unit:hover .hardware-chassis {
+  border-color: rgba(255, 42, 42, 0.6) !important;
+  box-shadow: 0 30px 75px rgba(0, 0, 0, 0.95),
+              0 0 35px rgba(255, 42, 42, 0.3),
+              inset 0 1px 0 rgba(255, 42, 42, 0.4) !important;
+}
+
+.hardware-ambient-glow {
+  position: absolute !important;
+  inset-x: 0 !important;
+  top: 0 !important;
+  height: 140px !important;
+  background: radial-gradient(ellipse at 50% 0%, rgba(255, 42, 42, 0.22) 0%, transparent 70%) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: opacity 0.4s ease !important;
+}
+
+.hardware-blade-unit:hover .hardware-ambient-glow {
+  opacity: 1 !important;
+}
+
+/* CABEÇALHO DO CHASSI */
+.hardware-chassis__header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  margin-bottom: 0.65rem !important;
+}
+
+.hardware-badge {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 0.72rem !important;
+  color: #ff2a2a !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+}
+
+.hardware-status {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.4rem !important;
+  padding: 0.25rem 0.65rem !important;
+  border-radius: 9999px !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 0.65rem !important;
+  font-weight: 700 !important;
+  color: #E0E0E6 !important;
+  text-transform: uppercase !important;
+}
+
+.hardware-title {
   font-family: var(--font-display, 'Cabinet Grotesk', sans-serif) !important;
   font-size: clamp(1.22rem, 1.4vw, 1.48rem) !important;
   font-weight: 800 !important;
   text-transform: uppercase !important;
-  letter-spacing: 0.04em !important;
   color: #FFFFFF !important;
+  letter-spacing: 0.04em !important;
   margin: 0 0 0.35rem 0 !important;
-  line-height: 1.2 !important;
+  line-height: 1.15 !important;
 }
 
-.brand-card__role {
+.hardware-role {
   font-family: var(--font-mono, monospace) !important;
   font-size: 0.72rem !important;
   font-weight: 600 !important;
   text-transform: uppercase !important;
   letter-spacing: 0.08em !important;
   color: #8E8E93 !important;
-  margin: 0 0 0.95rem 0 !important;
+  margin: 0 !important;
   line-height: 1.35 !important;
 }
 
-.brand-card__tags {
+/* PAINEL DE GRELHAS & TELEMETRIA MINIATURIZADA */
+.hardware-grille-panel {
+  padding: 0.85rem 1rem !important;
+  border-radius: 14px !important;
+  background: rgba(8, 8, 12, 0.78) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  margin-block: auto 0.75rem !important;
   display: flex !important;
-  flex-wrap: wrap !important;
-  gap: 0.45rem !important;
+  flex-direction: column !important;
+  gap: 0.65rem !important;
 }
 
-.brand-tag {
-  display: inline-flex !important;
-  align-items: center !important;
+.hardware-led-slots {
+  display: flex !important;
+  justify-content: space-between !important;
+  gap: 3px !important;
+}
+
+.hardware-led-slots .slot {
+  width: 3px !important;
+  height: 18px !important;
+  border-radius: 2px !important;
+  background: #2a2a35 !important;
+}
+
+.hardware-led-slots .slot--active {
+  background: #ff2a2a !important;
+  box-shadow: 0 0 6px #ff2a2a !important;
+}
+
+.hardware-mini-telemetry {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 0.5rem !important;
+  padding-top: 0.5rem !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+}
+
+.telemetry-cell {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+}
+
+.cell-label {
   font-family: var(--font-mono, monospace) !important;
-  font-size: 0.65rem !important;
-  font-weight: 600 !important;
+  font-size: 0.6rem !important;
+  color: #6E6E73 !important;
   text-transform: uppercase !important;
   letter-spacing: 0.06em !important;
-  color: #A0A0AB !important;
-  background: rgba(255, 255, 255, 0.04) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  border-radius: 6px !important;
-  padding: 0.32rem 0.65rem !important;
-  transition: border-color 0.25s ease, color 0.25s ease, background 0.25s ease !important;
-  line-height: 1 !important;
 }
 
-.brand-showcase-card:hover .brand-tag {
-  border-color: rgba(255, 42, 42, 0.28) !important;
-  color: #F4F4F8 !important;
-  background: rgba(255, 42, 42, 0.05) !important;
+.cell-val {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  color: #FFFFFF !important;
 }
 
-/* BOTÃO DE AÇÃO "VISITAR SITE ↗" (EXATO À REFERÊNCIA: TEXTO À ESQUERDA, SETA VERMELHA À DIREITA) */
-.brand-card__footer {
-  margin-top: auto !important;
-  width: 100% !important;
-}
-
-.brand-card__cta {
+/* RODAPÉ DO CHASSI */
+.hardware-chassis__footer {
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
-  width: 100% !important;
-  padding: 0.78rem 1.25rem !important;
-  border-radius: 12px !important;
-  background: rgba(255, 255, 255, 0.035) !important;
-  border: 1px solid rgba(255, 255, 255, 0.09) !important;
+  padding-top: 0.85rem !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  margin-top: auto !important;
+}
+
+.hardware-form-factor {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 0.68rem !important;
+  color: #7E7E88 !important;
+  text-transform: uppercase !important;
+}
+
+.hardware-inspect-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.45rem !important;
+  padding: 0.55rem 1rem !important;
+  border-radius: 10px !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
   color: #FFFFFF !important;
   font-family: var(--font-mono, monospace) !important;
-  font-size: 0.74rem !important;
+  font-size: 0.72rem !important;
   font-weight: 700 !important;
+  letter-spacing: 0.08em !important;
   text-transform: uppercase !important;
-  letter-spacing: 0.1em !important;
-  text-decoration: none !important;
-  box-sizing: border-box !important;
-  transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1) !important;
+  cursor: pointer !important;
+  transition: all 0.25s ease !important;
 }
 
-.brand-card__cta .btn__arrow {
-  color: #ff2a2a !important;
-  font-size: 0.88rem !important;
-  font-weight: 700 !important;
-  transition: transform 0.25s ease, color 0.25s ease !important;
-}
-
-.brand-card__cta:hover {
-  background: linear-gradient(135deg, rgba(255, 42, 42, 0.16) 0%, rgba(255, 42, 42, 0.05) 100%) !important;
+.hardware-blade-unit:hover .hardware-inspect-btn {
+  background: linear-gradient(135deg, rgba(255, 42, 42, 0.2) 0%, rgba(255, 42, 42, 0.06) 100%) !important;
   border-color: #ff2a2a !important;
-  box-shadow: 0 0 22px rgba(255, 42, 42, 0.34) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 0 16px rgba(255, 42, 42, 0.35) !important;
+}
+
+.hardware-inspect-btn .btn__arrow {
+  color: #ff2a2a !important;
+  font-size: 0.82rem !important;
+  transition: transform 0.25s ease !important;
+}
+
+.hardware-blade-unit:hover .hardware-inspect-btn .btn__arrow {
+  transform: translate(3px, -3px) !important;
+}
+
+/* ==========================================================================
+   MODAL DIALOG DE ESPECIFICAÇÕES TÉCNICAS E TELEMETRIA (#techHardwareModal)
+   ========================================================================== */
+.tech-modal {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 9999 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 1.5rem !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: opacity 0.3s ease !important;
+}
+
+.tech-modal.is-open {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+.tech-modal__backdrop {
+  position: absolute !important;
+  inset: 0 !important;
+  background: rgba(0, 0, 0, 0.88) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+}
+
+.tech-modal__window {
+  position: relative !important;
+  z-index: 2 !important;
+  width: 100% !important;
+  max-width: 820px !important;
+  background: #111116 !important;
+  border: 1.5px solid rgba(255, 42, 42, 0.45) !important;
+  border-radius: 28px !important;
+  padding: clamp(1.5rem, 3vw, 2.5rem) !important;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.95), 0 0 45px rgba(255, 42, 42, 0.25) !important;
+  max-height: 90vh !important;
+  overflow-y: auto !important;
   color: #FFFFFF !important;
 }
 
-.brand-card__cta:hover .btn__arrow {
-  transform: translate(3px, -3px) !important;
-  color: #ff5555 !important;
+.tech-modal__header {
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  padding-bottom: 1.25rem !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09) !important;
 }
 
-/* RODAPÉ DO SHOWCASE E PILLS DE ACESSO RÁPIDO */
+.tech-modal__tags {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.65rem !important;
+  margin-bottom: 0.45rem !important;
+}
+
+.tech-modal__code-badge {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  color: #ff2a2a !important;
+  background: rgba(255, 42, 42, 0.12) !important;
+  border: 1px solid rgba(255, 42, 42, 0.35) !important;
+  padding: 0.25rem 0.65rem !important;
+  border-radius: 6px !important;
+}
+
+.tech-modal__status-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.4rem !important;
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 0.68rem !important;
+  font-weight: 700 !important;
+  color: #E2E2E8 !important;
+}
+
+.tech-modal__title {
+  font-size: clamp(1.5rem, 2.2vw, 2.2rem) !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  color: #FFFFFF !important;
+  margin: 0.35rem 0 0.2rem 0 !important;
+  line-height: 1.15 !important;
+}
+
+.tech-modal__role {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 0.78rem !important;
+  color: #8E8E93 !important;
+  text-transform: uppercase !important;
+}
+
+.tech-modal__close-btn {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 12px !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: #A0A0AB !important;
+  cursor: pointer !important;
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 1rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.2s ease !important;
+}
+
+.tech-modal__close-btn:hover {
+  border-color: #ff2a2a !important;
+  color: #FFFFFF !important;
+  background: rgba(255, 42, 42, 0.15) !important;
+}
+
+.tech-modal__tabs {
+  display: flex !important;
+  gap: 0.65rem !important;
+  margin-block: 1.25rem !important;
+}
+
+.tech-modal__tab {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  padding: 0.6rem 1.15rem !important;
+  border-radius: 10px !important;
+  cursor: pointer !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #8E8E93 !important;
+  transition: all 0.2s ease !important;
+}
+
+.tech-modal__tab.is-active {
+  background: #ff2a2a !important;
+  border-color: #ff2a2a !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 0 16px rgba(255, 42, 42, 0.45) !important;
+}
+
+.tech-modal__desc {
+  font-size: 0.92rem !important;
+  line-height: 1.6 !important;
+  color: #D0D0D8 !important;
+  margin-bottom: 1.25rem !important;
+}
+
+.tech-modal__telemetry-box {
+  background: rgba(8, 8, 12, 0.9) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 18px !important;
+  padding: 1.25rem !important;
+  margin-bottom: 1.25rem !important;
+}
+
+.telemetry-box__header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 0.7rem !important;
+  color: #8E8E93 !important;
+  text-transform: uppercase !important;
+  margin-bottom: 1rem !important;
+}
+
+.telemetry-box__grid {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 0.85rem !important;
+}
+
+.telemetry-gauge {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  border-radius: 12px !important;
+  padding: 0.75rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+}
+
+.gauge-label {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 0.62rem !important;
+  color: #7E7E88 !important;
+  text-transform: uppercase !important;
+}
+
+.gauge-val {
+  font-family: var(--font-display, 'Cabinet Grotesk', sans-serif) !important;
+  font-size: 1.25rem !important;
+  font-weight: 800 !important;
+  color: #FFFFFF !important;
+}
+
+.gauge-bar {
+  width: 100% !important;
+  height: 5px !important;
+  border-radius: 9999px !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  overflow: hidden !important;
+  margin-top: 4px !important;
+}
+
+.gauge-fill {
+  height: 100% !important;
+  border-radius: 9999px !important;
+}
+
+.gauge-fill.bg-red { background: #ff2a2a !important; box-shadow: 0 0 8px #ff2a2a !important; }
+.gauge-fill.bg-green { background: #10b981 !important; box-shadow: 0 0 8px #10b981 !important; }
+
+.tech-modal__specs-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 0.75rem !important;
+}
+
+.spec-card {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  border-radius: 12px !important;
+  padding: 0.75rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 3px !important;
+}
+
+.spec-card--wide {
+  grid-column: span 2 !important;
+}
+
+.spec-label {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 0.62rem !important;
+  color: #7E7E88 !important;
+  text-transform: uppercase !important;
+}
+
+.spec-val {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 0.82rem !important;
+  font-weight: 700 !important;
+  color: #FFFFFF !important;
+}
+
+.tech-modal__arch-box {
+  background: rgba(8, 8, 12, 0.9) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 18px !important;
+  padding: 1.25rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.arch-box__title {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 0.72rem !important;
+  color: #ff2a2a !important;
+  text-transform: uppercase !important;
+  margin: 0 0 0.85rem 0 !important;
+  letter-spacing: 0.08em !important;
+}
+
+.arch-box__list {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.65rem !important;
+}
+
+.tech-modal__feat-item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.65rem !important;
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 0.76rem !important;
+  color: #D0D0D8 !important;
+}
+
+.feat-star {
+  font-size: 0.75rem !important;
+}
+
+.tech-modal__sla-box {
+  background: rgba(255, 42, 42, 0.08) !important;
+  border: 1px solid rgba(255, 42, 42, 0.3) !important;
+  border-radius: 14px !important;
+  padding: 1rem !important;
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 0.74rem !important;
+  color: #E0E0E6 !important;
+  line-height: 1.5 !important;
+}
+
+.sla-badge {
+  font-weight: 700 !important;
+  color: #ff2a2a !important;
+  display: block !important;
+  margin-bottom: 0.35rem !important;
+}
+
+.tech-modal__footer {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding-top: 1.25rem !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  margin-top: 1.5rem !important;
+}
+
+.tech-modal__footer-caption {
+  font-family: var(--font-mono, monospace) !important;
+  font-size: 0.72rem !important;
+  color: #7E7E88 !important;
+}
+
+.tech-modal__actions {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+}
+
+.tech-modal__body.is-hidden {
+  display: none !important;
+}
+
+/* RODAPÉ DO SHOWCASE E PILLS */
 .portfolio-fan-footer {
   text-align: center !important;
   margin-top: clamp(1.5rem, 3.5vw, 3rem) !important;
@@ -4247,39 +4661,25 @@ html {
 }
 
 /* RESPONSIVIDADE EDITORIAL */
-@media (max-width: 1080px) {
-  .portfolio-brands-grid {
+@media (max-width: 820px) {
+  .telemetry-box__grid {
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 1.25rem !important;
   }
-
-  .brand-showcase-card:nth-child(1),
-  .brand-showcase-card:nth-child(2),
-  .brand-showcase-card:nth-child(3),
-  .brand-showcase-card:nth-child(4) {
-    grid-column: span 1 !important;
+  .tech-modal__specs-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
   }
-
-  .brand-showcase-card:nth-child(5) {
-    grid-column: 1 / -1 !important;
-    max-width: 500px !important;
-    justify-self: center !important;
+  .spec-card--wide {
+    grid-column: span 2 !important;
+  }
+  .tech-modal__footer {
+    flex-direction: column !important;
+    gap: 1rem !important;
+  }
+  .tech-modal__actions {
     width: 100% !important;
   }
-}
-
-@media (max-width: 680px) {
-  .portfolio-brands-grid {
-    grid-template-columns: 1fr !important;
-    gap: 1.25rem !important;
-  }
-
-  .brand-showcase-card:nth-child(1),
-  .brand-showcase-card:nth-child(2),
-  .brand-showcase-card:nth-child(3),
-  .brand-showcase-card:nth-child(4),
-  .brand-showcase-card:nth-child(5) {
-    grid-column: auto !important;
-    max-width: 100% !important;
+  .tech-modal__actions .btn {
+    width: 100% !important;
+    text-align: center !important;
   }
 }
