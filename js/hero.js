@@ -60,7 +60,10 @@ function setupPortraitTilt(stage, visual) {
 }
 
 export function initHero() {
-  const section = document.getElementById('socios-scrolly');
+  const section =
+    document.querySelector('.founders-showcase-section') ||
+    document.getElementById('socios-scrolly') ||
+    document.getElementById('founders');
   if (!section) return null;
 
   const panes = {
@@ -167,31 +170,34 @@ export function initHero() {
       tl.to({}, { duration: 1 }, 0);
     }
 
-    // Saída de Victor (0.34 → 0.48)
-    tl.to(victorText, { y: -28, autoAlpha: 0, duration: 0.1, stagger: 0.008 }, 0.34);
+    // Transição lateral suave entre os dois sócios:
+    // 1. Saída lateral de Victor Whohlers para a esquerda (0.34 → 0.48)
+    tl.to(victorText, { x: -45, autoAlpha: 0, duration: 0.11, stagger: 0.008, ease: 'power2.in' }, 0.34);
     if (victorPortrait) {
-      tl.to(victorPortrait, { y: -24, scale: 0.97, autoAlpha: 0, duration: 0.12 }, 0.36);
+      tl.to(victorPortrait, { x: -35, scale: 0.95, autoAlpha: 0, duration: 0.13, ease: 'power2.in' }, 0.35);
     }
     tl.set(panes.victor, { autoAlpha: 0 }, 0.48);
 
-    // Entrada de Luiz (0.52 → 0.66) — só começa após Victor 100% oculto
+    // 2. Intervalo central (0.48 → 0.52): O brandmark "V" apaga e "L" acende em neon red #ff2a2a
+
+    // 3. Entrada lateral de Luiz Gabriel vindo da direita (0.52 → 0.66)
     tl.set(panes.luiz, { autoAlpha: 1 }, 0.52);
     tl.fromTo(
       luizText,
-      { y: 28, autoAlpha: 0 },
-      { y: 0, autoAlpha: 1, duration: 0.1, stagger: 0.008, ease: 'power2.out', immediateRender: false },
+      { x: 45, autoAlpha: 0 },
+      { x: 0, autoAlpha: 1, duration: 0.11, stagger: 0.008, ease: 'power2.out', immediateRender: false },
       0.52
     );
     if (luizPortrait) {
       tl.fromTo(
         luizPortrait,
-        { y: 24, scale: 0.97, autoAlpha: 0 },
-        { y: 0, scale: 1, autoAlpha: 1, duration: 0.12, ease: 'power2.out', immediateRender: false },
+        { x: 35, scale: 0.95, autoAlpha: 0 },
+        { x: 0, scale: 1, autoAlpha: 1, duration: 0.13, ease: 'power2.out', immediateRender: false },
         0.52
       );
     }
     if (luizPhoto) {
-      tl.fromTo(luizPhoto, { scale: 1.08 }, { scale: 1, duration: 0.2, ease: 'power2.out', immediateRender: false }, 0.52);
+      tl.fromTo(luizPhoto, { scale: 1.06 }, { scale: 1, duration: 0.22, ease: 'power2.out', immediateRender: false }, 0.52);
     }
 
     return () => {

@@ -9,14 +9,14 @@
 import { createHorizontalScroll } from './core/horizontal-scroll.js';
 
 export function initWhyChooseUs() {
-  const section = document.getElementById('mensagem');
+  const section = document.querySelector('.why-horizontal-section') || document.getElementById('mensagem');
   if (!section) return null;
 
   return createHorizontalScroll({
     id: 'why',
-    container: section.querySelector('#why-scroll-container'),
-    pinWrapper: section.querySelector('#why-pin-wrapper'),
-    track: section.querySelector('#whyTrack'),
+    container: section.querySelector('#why-scroll-container') || section.querySelector('.horizontal-scroll-container'),
+    pinWrapper: section.querySelector('#why-pin-wrapper') || section.querySelector('.horizontal-pin-wrapper'),
+    track: section.querySelector('#whyTrack') || section.querySelector('.why-track'),
     cards: section.querySelectorAll('.why-card'),
   });
 }

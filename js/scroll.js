@@ -90,15 +90,28 @@ function setupManifestoCards() {
  * abaixo dele era a causa do pin prematuro da seção de Sócios.
  */
 export function initServicesScroll() {
-  const container = document.querySelector('#services-scroll-container');
+  const section =
+    document.querySelector('.shop-section.helmets-section') ||
+    document.querySelector('.services-section.shop-section') ||
+    document.getElementById('loja');
+  const container =
+    section?.querySelector('#services-scroll-container') ||
+    section?.querySelector('.horizontal-scroll-container') ||
+    document.querySelector('#services-scroll-container');
   if (!container) return null;
 
   return createHorizontalScroll({
     id: 'services',
     container,
-    pinWrapper: document.querySelector('#services-pin-wrapper'),
-    track: document.querySelector('#services-track'),
-    cards: document.querySelectorAll('#services-track .service-hcard'),
+    pinWrapper:
+      section?.querySelector('#services-pin-wrapper') ||
+      section?.querySelector('.horizontal-pin-wrapper') ||
+      document.querySelector('#services-pin-wrapper'),
+    track:
+      section?.querySelector('#services-track') ||
+      section?.querySelector('.horizontal-track') ||
+      document.querySelector('#services-track'),
+    cards: (section || document).querySelectorAll('#services-track .service-hcard, .shop-section .service-hcard'),
   });
 }
 

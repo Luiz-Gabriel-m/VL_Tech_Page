@@ -451,9 +451,11 @@ html {
 
 .horizontal-track {
   display: flex !important;
+  width: max-content !important;
+  flex-shrink: 0 !important;
   align-items: center !important;
   gap: clamp(1.8rem, 2.5vw, 3.2rem) !important;
-  padding-right: clamp(3rem, 8vw, 12rem) !important;
+  padding-right: clamp(4rem, 10vw, 14rem) !important;
   will-change: transform !important;
   z-index: 1 !important;
 }
@@ -626,7 +628,8 @@ html {
    2. POR QUE ESCOLHER A VL TECH — UNIFIED HORIZONTAL SCROLL
    Layout & Scrollytelling identical to Soluções & Serviços (#loja)
    ========================================================================== */
-.why-horizontal-section {
+.why-horizontal-section,
+.shop-section.helmets-section {
   position: relative !important;
   width: 100% !important;
   padding: 0 !important;
@@ -643,9 +646,11 @@ html {
 
 .why-track {
   display: flex !important;
+  width: max-content !important;
+  flex-shrink: 0 !important;
   align-items: center !important;
   gap: clamp(1.8rem, 2.5vw, 3.2rem) !important;
-  padding-right: clamp(3rem, 8vw, 12rem) !important;
+  padding-right: clamp(4rem, 10vw, 14rem) !important;
   will-change: transform !important;
 }
 
@@ -2171,9 +2176,11 @@ html {
 
 .diferenciais-track {
   display: flex !important;
+  width: max-content !important;
+  flex-shrink: 0 !important;
   align-items: center !important;
   gap: clamp(1.8rem, 2.5vw, 3.2rem) !important;
-  padding-right: clamp(3rem, 8vw, 12rem) !important;
+  padding-right: clamp(4rem, 10vw, 14rem) !important;
   will-change: transform !important;
   z-index: 1 !important;
 }

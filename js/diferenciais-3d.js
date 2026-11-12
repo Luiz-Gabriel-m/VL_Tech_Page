@@ -17,7 +17,7 @@ import { ScrollTrigger } from './core/gsap.js';
 import { createHorizontalScroll } from './core/horizontal-scroll.js';
 
 export function initDiferenciais() {
-  const section = document.getElementById('galeria');
+  const section = document.querySelector('.diferenciais-section') || document.getElementById('galeria');
   if (!section) return null;
 
   const THREE = window.THREE;
@@ -26,9 +26,9 @@ export function initDiferenciais() {
     return null;
   }
 
-  const container = section.querySelector('#diferenciais-scroll-container');
-  const pinWrapper = section.querySelector('#diferenciais-pin-wrapper');
-  const track = section.querySelector('#diferenciaisTrack');
+  const container = section.querySelector('#diferenciais-scroll-container') || section.querySelector('.horizontal-scroll-container');
+  const pinWrapper = section.querySelector('#diferenciais-pin-wrapper') || section.querySelector('.horizontal-pin-wrapper');
+  const track = section.querySelector('#diferenciaisTrack') || section.querySelector('.diferenciais-track');
   const cards = section.querySelectorAll('.diferencial-card');
 
   if (!cards.length || !track) return null;

@@ -1,17 +1,17 @@
 /* ==========================================================================
-   CORE — Motor unificado de rolagem horizontal pinada
-   Usado por: #mensagem (Por Que Escolher), #galeria (Diferenciais) e
-   #loja (Soluções & Serviços) — comportamento 1:1 idêntico nas três seções.
+   CORE — Motor unificado de rolagem horizontal pinada (GSAP 3 + ScrollTrigger)
+   Usado nas seções:
+   1. .why-horizontal-section (#mensagem)
+   2. .diferenciais-section (#galeria)
+   3. .shop-section.helmets-section (#loja)
 
-   Arquitetura (2 ScrollTriggers sincronizados sobre o MESMO container):
-   1. PIN    → fixa o .horizontal-pin-wrapper por (distância + "hold").
-   2. TRACK  → tween linear do track (scrub: 1) que termina ANTES do pin
-               liberar. O "hold" absorve o atraso do scrub, garantindo que o
-               último card esteja 100% visível antes de a página continuar
-               (sem unpin prematuro, sem tela preta).
-
-   A distância é medida com offsetLeft/offsetWidth (ignoram transforms) e
-   recalculada a cada refresh (invalidateOnRefresh) → resize-safe.
+   Regra de Trava Estrita (Strict Scroll-Lock Rule):
+   - O scroll vertical é completamente bloqueado (pin: pinWrapper) assim que
+     o topo do container atinge o topo da janela ('top top').
+   - O usuário progride lateralmente por todos os cards da seção (scrub: 1).
+   - O pin só é liberado APÓS o último card ter sido 100% revelado e apreciado
+     (graças ao hold integrado no final da timeline única do GSAP).
+   - Zero espaços em branco, zero saltos e zero desfixação prematura.
    ========================================================================== */
 
 import { gsap, ScrollTrigger } from './gsap.js';
@@ -21,12 +21,12 @@ const prefersReducedMotion = () =>
 
 /**
  * @param {Object}   opts
- * @param {string}   opts.id          Prefixo dos ids do ScrollTrigger (debug).
+ * @param {string}   opts.id          Identificador único do ScrollTrigger (debug/profiling).
  * @param {Element}  opts.container   .horizontal-scroll-container (gatilho estável, nunca pinado).
- * @param {Element}  opts.pinWrapper  .horizontal-pin-wrapper (elemento fixado).
+ * @param {Element}  opts.pinWrapper  .horizontal-pin-wrapper (elemento fixado no viewport).
  * @param {Element}  opts.track       .horizontal-track (elemento transladado em X).
- * @param {Element[]} [opts.cards]    Cards para a microinteração de entrada.
- * @param {number}   [opts.holdRatio] Fração do viewport mantida pinada após o fim do track.
+ * @param {Element[]} [opts.cards]    Cards para microinteração de entrada/revelação.
+ * @param {number}   [opts.holdRatio] Fração da altura da janela mantida após o último card (padrão 0.25).
  */
 export function createHorizontalScroll({
   id = 'horizontal',
@@ -34,7 +34,7 @@ export function createHorizontalScroll({
   pinWrapper,
   track,
   cards = [],
-  holdRatio = 0.22,
+  holdRatio = 0.25,
 } = {}) {
   if (!container || !pinWrapper || !track) return null;
 
@@ -43,55 +43,65 @@ export function createHorizontalScroll({
     return null;
   }
 
-  // Largura útil do viewport pinado (exclui a barra de rolagem vertical)
-  const getViewportWidth = () => pinWrapper.clientWidth || document.documentElement.clientWidth;
+  // Largura útil da janela de visualização pinada
+  const getViewportWidth = () => pinWrapper.clientWidth || window.innerWidth;
 
-  // Distância exata: borda direita do track (incl. padding-right) → borda direita do viewport
-  const getDistance = () =>
-    Math.max(0, Math.ceil(track.offsetLeft + track.offsetWidth - getViewportWidth()));
+  // Distância exata da translação lateral:
+  // (Início do track + Largura total de todos os cards + gap + padding-right) - Largura do viewport
+  const getDistance = () => {
+    const viewportWidth = getViewportWidth();
+    const trackWidth = Math.max(track.scrollWidth, track.offsetWidth);
+    const startOffset = track.offsetLeft || 0;
+    return Math.max(0, Math.ceil(startOffset + trackWidth - viewportWidth));
+  };
 
-  // Folga pinada após o último card (absorve o "catch-up" do scrub: 1)
+  // Folga de retenção final que absorve a inércia do scrub: 1
+  // Garante que o último card fique perfeitamente parado na tela antes de unpin
   const getHold = () => Math.round(window.innerHeight * holdRatio);
 
-  // 1. PIN — trava estrita: só libera após distância + hold
-  const pin = ScrollTrigger.create({
-    id: `${id}-pin`,
-    trigger: container,
-    start: 'top top',
-    end: () => `+=${getDistance() + getHold()}`,
-    pin: pinWrapper,
-    pinSpacing: true,
-    anticipatePin: 1,
-    invalidateOnRefresh: true,
-  });
-
-  // 2. TRACK — tween linear (requisito do containerAnimation)
-  const tween = gsap.to(track, {
-    x: () => -getDistance(),
-    ease: 'none',
+  // Timeline unificada com ScrollTrigger — Uma única instância para PIN e SCRUB
+  const tl = gsap.timeline({
     scrollTrigger: {
-      id: `${id}-track`,
+      id: `${id}-horizontal`,
       trigger: container,
+      pin: pinWrapper,
       start: 'top top',
-      end: () => `+=${getDistance()}`,
+      end: () => `+=${getDistance() + getHold()}`,
       scrub: 1,
+      pinSpacing: true,
+      anticipatePin: 1,
       invalidateOnRefresh: true,
     },
   });
 
-  // 3. Microinteração de entrada — apenas opacidade (não disputa o transform do :hover)
+  // Animação linear do percurso horizontal
+  const trackTween = tl.to(
+    track,
+    {
+      x: () => -getDistance(),
+      ease: 'none',
+      duration: 1,
+    },
+    0
+  );
+
+  // Trava estrita de leitura do último card (hold)
+  tl.to({}, { duration: holdRatio }, 1);
+
+  // Microinterações de entrada suave de cada card com containerAnimation
   const cardTweens = Array.from(cards).map((card) =>
     gsap.fromTo(
       card,
-      { opacity: 0.4 },
+      { opacity: 0.35, scale: 0.96 },
       {
         opacity: 1,
-        ease: 'none',
+        scale: 1,
+        ease: 'power2.out',
         scrollTrigger: {
           trigger: card,
-          containerAnimation: tween,
-          start: 'left 100%',
-          end: 'left 62%',
+          containerAnimation: trackTween,
+          start: 'left 98%',
+          end: 'left 60%',
           scrub: true,
         },
       }
@@ -99,19 +109,17 @@ export function createHorizontalScroll({
   );
 
   return {
-    pin,
-    tween,
+    timeline: tl,
+    tween: trackTween,
     getDistance,
     kill() {
       cardTweens.forEach((t) => {
         t.scrollTrigger?.kill();
         t.kill();
       });
-      tween.scrollTrigger?.kill();
-      tween.kill();
-      pin.kill();
-      gsap.set([track, ...cards], { clearProps: 'transform,opacity' });
+      tl.scrollTrigger?.kill();
+      tl.kill();
+      gsap.set([track, ...cards], { clearProps: 'transform,opacity,scale' });
     },
   };
 }
-
