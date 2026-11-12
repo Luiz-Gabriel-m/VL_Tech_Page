@@ -21,9 +21,9 @@
   <link href="https://fonts.cdnfonts.com/css/monument-extended" rel="stylesheet">
 
   <!-- Estilos -->
-  <link rel="stylesheet" href="css/variables.css?v=5.6">
-  <link rel="stylesheet" href="css/layout.css?v=5.6">
-  <link rel="stylesheet" href="styles.css?v=5.6">
+  <link rel="stylesheet" href="css/variables.css?v=5.7">
+  <link rel="stylesheet" href="css/layout.css?v=5.7">
+  <link rel="stylesheet" href="styles.css?v=5.7">
 
   <!-- Three.js WebGL Engine (Carregado antecipadamente para o Hero 3D) -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
@@ -795,8 +795,8 @@
       </div>
     </section>
 
-    <!-- ============================== 5. HALL OF FAME / PORTFÓLIO DE PROJETOS (LEQUE 3D) ============================== -->
-    <section class="section section--dark portfolio-fan-section" id="capacetes" aria-labelledby="portfolio-title">
+    <!-- ============================== 5. HALL OF FAME / PORTFÓLIO DE MARCAS & CLIENTES ============================== -->
+    <section class="section section--dark portfolio-fan-section portfolio-showcase-section" id="capacetes" aria-labelledby="portfolio-title">
       <!-- Canvas de Cascata de Matriz (Binário 0 e 1) com Convergência Tipográfica -->
       <div class="matrix-cascade-wrapper" id="matrixCascadeWrapper" aria-hidden="true">
         <canvas class="matrix-cascade-canvas" id="matrixCascadeCanvas"></canvas>
@@ -807,155 +807,205 @@
           <div class="portfolio-fan-glyph" aria-hidden="true">✦</div>
           <span class="eyebrow text-red">04 — HALL OF FAME</span>
           <h2 class="display portfolio-fan-title" id="portfolio-title">
-            <span class="portfolio-fan-title__main" id="matrixTargetMain">NOSSOS PROJETOS</span>
-            <span class="portfolio-fan-title__sub text-red" id="matrixTargetSub">WEB PORTFOLIO</span>
+            <span class="portfolio-fan-title__main" id="matrixTargetMain">MARCAS &amp; PROJETOS</span>
+            <span class="portfolio-fan-title__sub text-red" id="matrixTargetSub">CLIENT PORTFOLIO</span>
           </h2>
           <p class="portfolio-fan-lead">
-            Cases reais desenvolvidos e acelerados com a engenharia de alta performance da VL Tech.
+            Cases reais desenvolvidos e acelerados com a engenharia de software e alta performance da VL Tech.
           </p>
         </header>
       </div>
 
-      <!-- PALCO DO CARROSSEL EM LEQUE 3D (ARCO COM PERSPECTIVA) -->
-      <div class="portfolio-fan-stage">
-        <div class="portfolio-fan-container" id="portfolioFanContainer">
+      <!-- SHOWCASE EDITORIAL EXCLUSIVO DE LOGOS E IDENTIDADES DE MARCA -->
+      <div class="container portfolio-showcase-container">
+        <div class="portfolio-brands-grid" id="portfolioBrandsGrid">
 
-          <!-- CARD -2: ZILDO OLIVEIRA -->
-          <article class="fan-card fan-card--left-outer" data-index="0" data-fan-rot="-14" data-fan-y="38"
-            data-fan-x="-40" data-fan-scale="0.92">
-            <div class="fan-card__inner">
-              <img src="assets/images/portfolio/zildo-oliveira.jpg" alt="Zildo Oliveira — Portal de Campanha"
-                class="fan-card__img" loading="lazy">
-              <div class="fan-card__overlay"></div>
-              <div class="fan-card__glow-border" aria-hidden="true"></div>
-
-              <div class="fan-card__top">
-                <span class="fan-card__badge">Governo &amp; Gestão</span>
-                <span class="fan-card__status"><span class="status-dot"></span> No Ar</span>
+          <!-- BRAND 01: ZILDO OLIVEIRA -->
+          <article class="brand-showcase-card" data-brand="zildo">
+            <div class="brand-card__inner">
+              <div class="brand-card__ambient-glow" aria-hidden="true"></div>
+              
+              <div class="brand-card__header">
+                <span class="brand-card__index">01</span>
+                <span class="brand-card__status">
+                  <span class="status-dot status-dot--pulse" aria-hidden="true"></span>
+                  <span>No Ar</span>
+                </span>
               </div>
 
-              <div class="fan-card__bottom">
-                <span class="fan-card__num">01</span>
-                <h3 class="display fan-card__title">Zildo Oliveira</h3>
-                <p class="fan-card__category">Portal Oficial &amp; Campanha Pública</p>
-                <div class="fan-card__actions">
-                  <a href="https://project-zil-zildo.vercel.app/" target="_blank" rel="noopener noreferrer"
-                    class="fan-card__btn">
-                    Visitar Site <span class="btn__arrow" aria-hidden="true">↗</span>
-                  </a>
+              <!-- Brand Logo Spotlight -->
+              <div class="brand-card__logo-stage">
+                <img src="assets/images/portfolio/logos/zildo-logo.png" alt="Logotipo Oficial Zildo Oliveira" class="brand-card__logo-img brand-card__logo-img--zildo" width="160" height="80" loading="lazy">
+              </div>
+
+              <!-- Brand Typography & Metadata -->
+              <div class="brand-card__body">
+                <h3 class="brand-card__name">Zildo Oliveira</h3>
+                <p class="brand-card__role">Portal Oficial &amp; Gestão Pública</p>
+                <div class="brand-card__tags">
+                  <span class="brand-tag">Liderança Política</span>
+                  <span class="brand-tag">Alta Disponibilidade</span>
                 </div>
+              </div>
+
+              <!-- Action Link -->
+              <div class="brand-card__footer">
+                <a href="https://project-zil-zildo.vercel.app/" target="_blank" rel="noopener noreferrer" class="brand-card__cta" aria-label="Visitar site oficial Zildo Oliveira">
+                  <span>Visitar Site</span>
+                  <span class="btn__arrow" aria-hidden="true">↗</span>
+                </a>
               </div>
             </div>
           </article>
 
-          <!-- CARD -1: G4 BENEFICIADORA DE BATATAS -->
-          <article class="fan-card fan-card--left-inner" data-index="1" data-fan-rot="-7" data-fan-y="14"
-            data-fan-x="-20" data-fan-scale="0.97">
-            <div class="fan-card__inner">
-              <img src="assets/images/portfolio/g4-batatas.jpg" alt="G4 Beneficiadora de Batatas — Website Corporativo"
-                class="fan-card__img" loading="lazy">
-              <div class="fan-card__overlay"></div>
-              <div class="fan-card__glow-border" aria-hidden="true"></div>
-
-              <div class="fan-card__top">
-                <span class="fan-card__badge">Agronegócio &amp; B2B</span>
-                <span class="fan-card__status"><span class="status-dot"></span> No Ar</span>
+          <!-- BRAND 02: G4 BENEFICIADORA -->
+          <article class="brand-showcase-card" data-brand="g4">
+            <div class="brand-card__inner">
+              <div class="brand-card__ambient-glow" aria-hidden="true"></div>
+              
+              <div class="brand-card__header">
+                <span class="brand-card__index">02</span>
+                <span class="brand-card__status">
+                  <span class="status-dot status-dot--pulse" aria-hidden="true"></span>
+                  <span>No Ar</span>
+                </span>
               </div>
 
-              <div class="fan-card__bottom">
-                <span class="fan-card__num">02</span>
-                <h3 class="display fan-card__title">G4 Beneficiadora</h3>
-                <p class="fan-card__category">Website Corporativo &amp; Indústria</p>
-                <div class="fan-card__actions">
-                  <a href="https://project-zil-g4-batatas.vercel.app/" target="_blank" rel="noopener noreferrer"
-                    class="fan-card__btn">
-                    Visitar Site <span class="btn__arrow" aria-hidden="true">↗</span>
-                  </a>
+              <!-- Brand Logo Spotlight -->
+              <div class="brand-card__logo-stage">
+                <img src="assets/images/portfolio/logos/g4-logo.png" alt="Logotipo Oficial G4 Beneficiadora de Batatas" class="brand-card__logo-img brand-card__logo-img--g4" width="140" height="140" loading="lazy">
+              </div>
+
+              <!-- Brand Typography & Metadata -->
+              <div class="brand-card__body">
+                <h3 class="brand-card__name">G4 Beneficiadora</h3>
+                <p class="brand-card__role">Agronegócio, Indústria &amp; B2B</p>
+                <div class="brand-card__tags">
+                  <span class="brand-tag">Agroindústria</span>
+                  <span class="brand-tag">Portal Corporativo</span>
                 </div>
+              </div>
+
+              <!-- Action Link -->
+              <div class="brand-card__footer">
+                <a href="https://project-zil-g4-batatas.vercel.app/" target="_blank" rel="noopener noreferrer" class="brand-card__cta" aria-label="Visitar site corporativo G4 Beneficiadora">
+                  <span>Visitar Site</span>
+                  <span class="btn__arrow" aria-hidden="true">↗</span>
+                </a>
               </div>
             </div>
           </article>
 
-          <!-- CARD 0: MACIEL FIT STUDIO (DESTAQUE CENTRAL) -->
-          <article class="fan-card fan-card--center" data-index="2" data-fan-rot="0" data-fan-y="-12" data-fan-x="0"
-            data-fan-scale="1.06">
-            <div class="fan-card__inner">
-              <img src="assets/images/portfolio/maciel-fit.jpg" alt="Maciel Fit Studio — Plataforma Fitness"
-                class="fan-card__img" loading="lazy">
-              <div class="fan-card__overlay"></div>
-              <div class="fan-card__glow-border" aria-hidden="true"></div>
-
-              <div class="fan-card__top">
-                <span class="fan-card__badge fan-card__badge--featured">Saúde &amp; Fitness</span>
-                <span class="fan-card__status"><span class="status-dot"></span> No Ar</span>
+          <!-- BRAND 03: MACIEL FIT STUDIO -->
+          <article class="brand-showcase-card brand-showcase-card--featured" data-brand="maciel">
+            <div class="brand-card__inner">
+              <div class="brand-card__ambient-glow" aria-hidden="true"></div>
+              
+              <div class="brand-card__header">
+                <span class="brand-card__index">03</span>
+                <span class="brand-card__status">
+                  <span class="status-dot status-dot--pulse" aria-hidden="true"></span>
+                  <span>No Ar</span>
+                </span>
               </div>
 
-              <div class="fan-card__bottom">
-                <span class="fan-card__num">03</span>
-                <h3 class="display fan-card__title">Maciel Fit Studio</h3>
-                <p class="fan-card__category">Landing Page &amp; Conversão Fitness</p>
-                <div class="fan-card__actions">
-                  <a href="https://macielfit-studio-eta.vercel.app/" target="_blank" rel="noopener noreferrer"
-                    class="fan-card__btn">
-                    Visitar Site <span class="btn__arrow" aria-hidden="true">↗</span>
-                  </a>
+              <!-- Brand Logo Spotlight -->
+              <div class="brand-card__logo-stage">
+                <img src="assets/images/portfolio/logos/maciel-logo.png" alt="Logotipo Oficial Maciel Fit Studio" class="brand-card__logo-img brand-card__logo-img--maciel" width="150" height="150" loading="lazy">
+              </div>
+
+              <!-- Brand Typography & Metadata -->
+              <div class="brand-card__body">
+                <h3 class="brand-card__name">Maciel Fit Studio</h3>
+                <p class="brand-card__role">Plataforma Fitness &amp; Conversão</p>
+                <div class="brand-card__tags">
+                  <span class="brand-tag brand-tag--featured">Studio Fitness</span>
+                  <span class="brand-tag">Funil de Matrículas</span>
                 </div>
+              </div>
+
+              <!-- Action Link -->
+              <div class="brand-card__footer">
+                <a href="https://macielfit-studio-eta.vercel.app/" target="_blank" rel="noopener noreferrer" class="brand-card__cta" aria-label="Visitar site Maciel Fit Studio">
+                  <span>Visitar Site</span>
+                  <span class="btn__arrow" aria-hidden="true">↗</span>
+                </a>
               </div>
             </div>
           </article>
 
-          <!-- CARD +1: MARINHO ODONTO -->
-          <article class="fan-card fan-card--right-inner" data-index="3" data-fan-rot="7" data-fan-y="14"
-            data-fan-x="20" data-fan-scale="0.97">
-            <div class="fan-card__inner">
-              <img src="assets/images/portfolio/marinho-odonto.jpg" alt="Marinho Odonto — Clínica e Estética Dental"
-                class="fan-card__img" loading="lazy">
-              <div class="fan-card__overlay"></div>
-              <div class="fan-card__glow-border" aria-hidden="true"></div>
-
-              <div class="fan-card__top">
-                <span class="fan-card__badge">Odonto &amp; Estética</span>
-                <span class="fan-card__status"><span class="status-dot"></span> No Ar</span>
+          <!-- BRAND 04: MARINHO ODONTO -->
+          <article class="brand-showcase-card" data-brand="marinho">
+            <div class="brand-card__inner">
+              <div class="brand-card__ambient-glow" aria-hidden="true"></div>
+              
+              <div class="brand-card__header">
+                <span class="brand-card__index">04</span>
+                <span class="brand-card__status">
+                  <span class="status-dot status-dot--pulse" aria-hidden="true"></span>
+                  <span>No Ar</span>
+                </span>
               </div>
 
-              <div class="fan-card__bottom">
-                <span class="fan-card__num">04</span>
-                <h3 class="display fan-card__title">Marinho Odonto</h3>
-                <p class="fan-card__category">Clínica &amp; Estética do Sorriso</p>
-                <div class="fan-card__actions">
-                  <a href="https://marinhoodonto.vercel.app/" target="_blank" rel="noopener noreferrer"
-                    class="fan-card__btn">
-                    Visitar Site <span class="btn__arrow" aria-hidden="true">↗</span>
-                  </a>
+              <!-- Brand Logo Spotlight -->
+              <div class="brand-card__logo-stage">
+                <img src="assets/images/portfolio/logos/marinho-logo.svg" alt="Logotipo Oficial Marinho Odonto" class="brand-card__logo-img brand-card__logo-img--marinho" width="220" height="60" loading="lazy">
+              </div>
+
+              <!-- Brand Typography & Metadata -->
+              <div class="brand-card__body">
+                <h3 class="brand-card__name">Marinho Odonto</h3>
+                <p class="brand-card__role">Clínica &amp; Odontologia Estética 3D</p>
+                <div class="brand-card__tags">
+                  <span class="brand-tag">Odontologia Digital</span>
+                  <span class="brand-tag">3D Interativo</span>
                 </div>
+              </div>
+
+              <!-- Action Link -->
+              <div class="brand-card__footer">
+                <a href="https://marinhoodonto.vercel.app/" target="_blank" rel="noopener noreferrer" class="brand-card__cta" aria-label="Visitar clínica Marinho Odonto">
+                  <span>Visitar Site</span>
+                  <span class="btn__arrow" aria-hidden="true">↗</span>
+                </a>
               </div>
             </div>
           </article>
 
-          <!-- CARD +2: RIBEIRO TEAM -->
-          <article class="fan-card fan-card--right-outer" data-index="4" data-fan-rot="14" data-fan-y="38"
-            data-fan-x="40" data-fan-scale="0.92">
-            <div class="fan-card__inner">
-              <img src="assets/images/portfolio/ribeiro-team.jpg" alt="Ribeiro Team — Artes Marciais & Alta Performance"
-                class="fan-card__img" loading="lazy">
-              <div class="fan-card__overlay"></div>
-              <div class="fan-card__glow-border" aria-hidden="true"></div>
-
-              <div class="fan-card__top">
-                <span class="fan-card__badge">Lutas &amp; Performance</span>
-                <span class="fan-card__status"><span class="status-dot"></span> No Ar</span>
+          <!-- BRAND 05: RIBEIRO TEAM -->
+          <article class="brand-showcase-card" data-brand="ribeiro">
+            <div class="brand-card__inner">
+              <div class="brand-card__ambient-glow" aria-hidden="true"></div>
+              
+              <div class="brand-card__header">
+                <span class="brand-card__index">05</span>
+                <span class="brand-card__status">
+                  <span class="status-dot status-dot--pulse" aria-hidden="true"></span>
+                  <span>No Ar</span>
+                </span>
               </div>
 
-              <div class="fan-card__bottom">
-                <span class="fan-card__num">05</span>
-                <h3 class="display fan-card__title">Ribeiro Team</h3>
-                <p class="fan-card__category">Centro de Treinamento &amp; Lutas</p>
-                <div class="fan-card__actions">
-                  <a href="https://ribeiro-team.vercel.app/" target="_blank" rel="noopener noreferrer"
-                    class="fan-card__btn">
-                    Visitar Site <span class="btn__arrow" aria-hidden="true">↗</span>
-                  </a>
+              <!-- Brand Logo Spotlight -->
+              <div class="brand-card__logo-stage">
+                <img src="assets/images/portfolio/logos/ribeiro-logo.png" alt="Logotipo Oficial Ribeiro Team" class="brand-card__logo-img brand-card__logo-img--ribeiro" width="160" height="110" loading="lazy">
+              </div>
+
+              <!-- Brand Typography & Metadata -->
+              <div class="brand-card__body">
+                <h3 class="brand-card__name">Ribeiro Team</h3>
+                <p class="brand-card__role">Centro de Lutas &amp; Alta Performance</p>
+                <div class="brand-card__tags">
+                  <span class="brand-tag">Artes Marciais</span>
+                  <span class="brand-tag">Alta Performance</span>
                 </div>
+              </div>
+
+              <!-- Action Link -->
+              <div class="brand-card__footer">
+                <a href="https://ribeiro-team.vercel.app/" target="_blank" rel="noopener noreferrer" class="brand-card__cta" aria-label="Visitar centro de lutas Ribeiro Team">
+                  <span>Visitar Site</span>
+                  <span class="btn__arrow" aria-hidden="true">↗</span>
+                </a>
               </div>
             </div>
           </article>
@@ -963,21 +1013,21 @@
         </div>
       </div>
 
-      <!-- RODAPÉ EDITORIAL CENTRALIZADO DO LEQUE -->
+      <!-- RODAPÉ EDITORIAL CENTRALIZADO COM PILLS -->
       <div class="container">
         <footer class="portfolio-fan-footer">
           <p class="portfolio-fan-caption">Projetos reais hospedados na Vercel e acelerados pela VL Tech</p>
           <div class="portfolio-fan-pills">
-            <a href="https://macielfit-studio-eta.vercel.app/" target="_blank" rel="noopener noreferrer"
-              class="fan-pill">MACIEL FIT</a>
-            <a href="https://project-zil-g4-batatas.vercel.app/" target="_blank" rel="noopener noreferrer"
-              class="fan-pill">G4 BATATAS</a>
-            <a href="https://marinhoodonto.vercel.app/" target="_blank" rel="noopener noreferrer"
-              class="fan-pill">MARINHO ODONTO</a>
-            <a href="https://ribeiro-team.vercel.app/" target="_blank" rel="noopener noreferrer"
-              class="fan-pill">RIBEIRO TEAM</a>
             <a href="https://project-zil-zildo.vercel.app/" target="_blank" rel="noopener noreferrer"
-              class="fan-pill">ZILDO OLIVEIRA</a>
+              class="fan-pill">ZILDO OLIVEIRA ↗</a>
+            <a href="https://project-zil-g4-batatas.vercel.app/" target="_blank" rel="noopener noreferrer"
+              class="fan-pill">G4 BENEFICIADORA ↗</a>
+            <a href="https://macielfit-studio-eta.vercel.app/" target="_blank" rel="noopener noreferrer"
+              class="fan-pill">MACIEL FIT STUDIO ↗</a>
+            <a href="https://marinhoodonto.vercel.app/" target="_blank" rel="noopener noreferrer"
+              class="fan-pill">MARINHO ODONTO ↗</a>
+            <a href="https://ribeiro-team.vercel.app/" target="_blank" rel="noopener noreferrer"
+              class="fan-pill">RIBEIRO TEAM ↗</a>
           </div>
         </footer>
       </div>
@@ -1946,7 +1996,7 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 
   <!-- Aplicação (módulos ES) -->
-  <script type="module" src="js/main.js?v=5.6"></script>
+  <script type="module" src="js/main.js?v=5.7"></script>
 </body>
 
 </html>

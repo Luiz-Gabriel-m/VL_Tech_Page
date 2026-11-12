@@ -116,29 +116,29 @@ export function initServicesScroll() {
 }
 
 /**
- * Animação de entrada e abertura em leque 3D para o Hall of Fame / Portfólio (Lando Norris Style)
- * - Ao entrar na viewport, os cartões sobem a partir do centro e abrem em leque suave
+ * Configura animação fluida de revelação dos cards de marcas e cases de clientes
+ * - Revelação escalonada (stagger) dos cards de marcas e logotipos ao entrar no viewport
  * - ScrollTrigger orquestra a transição com interpolação física fluida
  */
 function setupPortfolioFanScroll() {
-  const section = document.querySelector('.portfolio-fan-section, #capacetes');
-  const container = document.querySelector('#portfolioFanContainer');
-  if (!section || !container) return;
+  const section = document.querySelector('.portfolio-showcase-section, .portfolio-fan-section, #capacetes');
+  const container = document.querySelector('#portfolioBrandsGrid, #portfolioFanContainer');
+  if (!section) return;
 
   const headerElements = section.querySelectorAll('.portfolio-fan-glyph, .portfolio-fan-title, .portfolio-fan-lead');
-  const cards = gsap.utils.toArray('.fan-card');
+  const cards = gsap.utils.toArray('.brand-showcase-card, .fan-card');
   const footer = section.querySelector('.portfolio-fan-footer');
 
-  // 1. Revelação imediata do header editorial (sem espaço em branco)
+  // 1. Revelação fluida do header editorial
   if (headerElements.length) {
     gsap.set(headerElements, { autoAlpha: 1 });
     gsap.from(headerElements, {
       scrollTrigger: {
         trigger: section,
-        start: 'top 98%',
+        start: 'top 85%',
       },
       autoAlpha: 0,
-      y: 20,
+      y: 25,
       stagger: 0.08,
       duration: 0.8,
       ease: 'power3.out',
@@ -146,61 +146,24 @@ function setupPortfolioFanScroll() {
     });
   }
 
-  // 2. Abertura monumental em leque 3D com GSAP imediata
+  // 2. Revelação monumental e escalonada dos cards de marcas
   if (cards.length) {
-    const fanConfig = cards.map((card) => ({
-      rot: parseFloat(card.dataset.fanRot) || 0,
-      y: parseFloat(card.dataset.fanY) || 0,
-      x: parseFloat(card.dataset.fanX) || 0,
-      scale: parseFloat(card.dataset.fanScale) || 1,
-    }));
-
-    if (window.innerWidth > 820) {
-      gsap.set(cards, {
-        autoAlpha: 1,
-        y: 40,
-        x: 0,
-        rotation: 0,
-        scale: 0.94,
-        transformOrigin: '50% 120%',
-      });
-
-      gsap.to(cards, {
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 98%',
-        },
-        autoAlpha: 1,
-        y: (i) => fanConfig[i].y,
-        x: (i) => fanConfig[i].x,
-        rotation: (i) => fanConfig[i].rot,
-        scale: (i) => fanConfig[i].scale,
-        duration: 0.9,
-        stagger: 0.05,
-        ease: 'power3.out',
-        onComplete: () => {
-          cards.forEach((card) => {
-            gsap.set(card, { clearProps: 'transform' });
-          });
-        },
-      });
-    } else {
-      gsap.from(cards, {
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 98%',
-        },
-        autoAlpha: 0,
-        y: 25,
-        stagger: 0.08,
-        duration: 0.7,
-        ease: 'power2.out',
-        clearProps: 'transform,opacity,visibility',
-      });
-    }
+    gsap.from(cards, {
+      scrollTrigger: {
+        trigger: container || cards[0],
+        start: 'top 85%',
+      },
+      autoAlpha: 0,
+      y: 45,
+      scale: 0.96,
+      stagger: 0.1,
+      duration: 0.85,
+      ease: 'power3.out',
+      clearProps: 'transform,opacity,visibility',
+    });
   }
 
-  // 3. Rodapé do leque
+  // 3. Rodapé com pills de acesso rápido
   if (footer) {
     gsap.from(footer, {
       scrollTrigger: {
@@ -209,8 +172,9 @@ function setupPortfolioFanScroll() {
       },
       autoAlpha: 0,
       y: 20,
-      duration: 0.9,
+      duration: 0.8,
       ease: 'power2.out',
+      clearProps: 'transform,opacity,visibility',
     });
   }
 }
