@@ -122,11 +122,10 @@ export function initServicesScroll() {
  */
 function setupPortfolioFanScroll() {
   const section = document.querySelector('.portfolio-fan-section, #capacetes');
-  const container = document.querySelector('#portfolioFanContainer');
-  if (!section || !container) return;
+  if (!section) return;
 
   const headerElements = section.querySelectorAll('.portfolio-fan-glyph, .portfolio-fan-title, .portfolio-fan-lead');
-  const cards = gsap.utils.toArray('.fan-card');
+  const cards = gsap.utils.toArray('.brand-showcase-card, .fan-card');
   const footer = section.querySelector('.portfolio-fan-footer');
 
   // 1. Revelação imediata do header editorial
@@ -146,61 +145,24 @@ function setupPortfolioFanScroll() {
     });
   }
 
-  // 2. Abertura monumental em leque 3D com GSAP
+  // 2. Animação suave e sofisticada dos cards de marcas e logotipos
   if (cards.length) {
-    const fanConfig = cards.map((card) => ({
-      rot: parseFloat(card.dataset.fanRot) || 0,
-      y: parseFloat(card.dataset.fanY) || 0,
-      x: parseFloat(card.dataset.fanX) || 0,
-      scale: parseFloat(card.dataset.fanScale) || 1,
-    }));
-
-    if (window.innerWidth > 820) {
-      gsap.set(cards, {
-        autoAlpha: 1,
-        y: 40,
-        x: 0,
-        rotation: 0,
-        scale: 0.94,
-        transformOrigin: '50% 120%',
-      });
-
-      gsap.to(cards, {
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 85%',
-        },
-        autoAlpha: 1,
-        y: (i) => fanConfig[i].y,
-        x: (i) => fanConfig[i].x,
-        rotation: (i) => fanConfig[i].rot,
-        scale: (i) => fanConfig[i].scale,
-        duration: 0.9,
-        stagger: 0.05,
-        ease: 'power3.out',
-        onComplete: () => {
-          cards.forEach((card) => {
-            gsap.set(card, { clearProps: 'transform' });
-          });
-        },
-      });
-    } else {
-      gsap.from(cards, {
-        scrollTrigger: {
-          trigger: section,
-          start: 'top 88%',
-        },
-        autoAlpha: 0,
-        y: 25,
-        stagger: 0.08,
-        duration: 0.7,
-        ease: 'power2.out',
-        clearProps: 'transform,opacity,visibility',
-      });
-    }
+    gsap.from(cards, {
+      scrollTrigger: {
+        trigger: cards[0],
+        start: 'top 90%',
+      },
+      autoAlpha: 0,
+      y: 35,
+      scale: 0.96,
+      stagger: 0.1,
+      duration: 0.8,
+      ease: 'power3.out',
+      clearProps: 'transform,opacity,visibility',
+    });
   }
 
-  // 3. Rodapé do leque
+  // 3. Rodapé do showcase
   if (footer) {
     gsap.from(footer, {
       scrollTrigger: {
