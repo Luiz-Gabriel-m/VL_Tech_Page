@@ -21,9 +21,9 @@
   <link href="https://fonts.cdnfonts.com/css/monument-extended" rel="stylesheet">
 
   <!-- Estilos -->
-  <link rel="stylesheet" href="css/variables.css?v=5.8">
-  <link rel="stylesheet" href="css/layout.css?v=5.8">
-  <link rel="stylesheet" href="styles.css?v=5.8">
+  <link rel="stylesheet" href="css/variables.css?v=6.0">
+  <link rel="stylesheet" href="css/layout.css?v=6.0">
+  <link rel="stylesheet" href="styles.css?v=6.0">
 
   <!-- Three.js WebGL Engine (Carregado antecipadamente para o Hero 3D) -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
@@ -1794,166 +1794,246 @@
       </div>
     </section>
 
-    <!-- ============================== 7.5. CONECTE-SE DIRETAMENTE COM OS SÓCIOS ============================== -->
-    <!-- Desktop: seção pinada (scrub) com transição Victor → Luiz. Mobile/reduced-motion: perfis empilhados. -->
-    <section class="section section--dark founders-showcase-section" id="socios-scrolly" aria-labelledby="foundersTitle" data-active-founder="victor">
+    <!-- ============================== 7.5. CONECTE-SE COM OS SÓCIOS // 3D ID ACCESS BADGE ============================== -->
+    <section class="section section--dark founders-showcase-section founders-badge-section" id="socios-scrolly" aria-labelledby="badgeSectionTitle" data-active-founder="luiz">
       <!-- Iluminação e Grid Tecnológica de Fundo -->
       <div class="founders-ambient-glow" aria-hidden="true"></div>
       <div class="founders-grid-overlay" aria-hidden="true"></div>
-      <div class="bg-vector-letter" id="bgVectorLetter" aria-hidden="true">V</div>
 
-      <div class="founders-pin-viewport">
-        <!-- Barra Superior: Título · Brandmark "VL" · Contador -->
-        <header class="founders-top-bar">
-          <div class="founders-heading">
-            <span class="founders-eyebrow-pill">
+      <div class="container badge-section-container">
+        <!-- Top Bar: Eyebrow + Title + Co-Founder Switcher Tabs -->
+        <header class="badge-section-header">
+          <div class="badge-header-left">
+            <span class="badge-eyebrow">
               <span class="status-dot status-dot--pulse" aria-hidden="true"></span>
-              <span>Conecte-se com os sócios</span>
+              <span>LIDERANÇA &amp; ENGENHARIA PROPRIETÁRIA</span>
             </span>
-            <h2 class="founders-title" id="foundersTitle">Liderança <span class="text-red">Direta</span></h2>
+            <h2 class="display badge-section-title" id="badgeSectionTitle">
+              Co-Founders <span class="text-red">3D Access</span>
+            </h2>
           </div>
 
-          <!-- Brandmark Interativo "VL": a inicial do sócio ativo acende em neon #ff2a2a -->
-          <div class="vl-brandmark-center" id="vlMonumentLogo" role="tablist" aria-label="Selecionar co-founder">
-            <button type="button" class="vl-brandmark-letter vl-letter--v is-active" id="vlSymbolV" role="tab"
-              aria-selected="true" aria-controls="stageVictor" data-founder="victor">
-              <span class="vl-char" id="vlCharV" aria-hidden="true">V</span>
-              <span class="vl-letter-tag">Victor</span>
+          <!-- Quick Toggle Buttons (Luiz / Victor) -->
+          <div class="badge-switcher-nav" role="tablist" aria-label="Alternar Co-founder">
+            <button type="button" class="badge-nav-btn is-active" id="badgeNavLuiz" role="tab" aria-selected="true" aria-controls="badge3dStage">
+              <span class="nav-btn__initial">L</span>
+              <span class="nav-btn__info">
+                <span class="nav-btn__name">Luiz Gabriel</span>
+                <span class="nav-btn__role">Front-end &amp; WebGL</span>
+              </span>
             </button>
-
-            <span class="vl-brandmark-sep" aria-hidden="true"></span>
-
-            <button type="button" class="vl-brandmark-letter vl-letter--l" id="vlSymbolL" role="tab"
-              aria-selected="false" aria-controls="stageLuiz" data-founder="luiz" tabindex="-1">
-              <span class="vl-char" id="vlCharL" aria-hidden="true">L</span>
-              <span class="vl-letter-tag">Luiz</span>
+            <button type="button" class="badge-nav-btn" id="badgeNavVictor" role="tab" aria-selected="false" aria-controls="badge3dStage">
+              <span class="nav-btn__initial">V</span>
+              <span class="nav-btn__info">
+                <span class="nav-btn__name">Victor Whohlers</span>
+                <span class="nav-btn__role">Back-end &amp; Cloud</span>
+              </span>
             </button>
-          </div>
-
-          <div class="founders-counter" aria-hidden="true">
-            <span class="founders-counter__current" id="foundersCounter">01</span>
-            <span class="founders-counter__sep">/</span>
-            <span class="founders-counter__total">02</span>
           </div>
         </header>
 
-        <!-- Palco dos Sócios: no desktop os painéis se sobrepõem (grid 1/1) e trocam sem overlap -->
-        <div class="founders-profiles-stage" id="foundersProfilesStage">
+        <!-- Main Stage: Left Info Panel + Center 3D Suspended Badge Stage + Right Telemetry HUD Panel -->
+        <div class="badge-stage-layout">
 
-          <!-- ================= VICTOR WHOHLERS · BACK-END & CLOUD ================= -->
-          <article class="founder-profile-pane founder-profile-pane--victor is-active" id="stageVictor" role="tabpanel" aria-labelledby="vlSymbolV" data-founder="victor">
-            <div class="founder-typography-stack">
-              <span class="founder-index"><span class="text-red">01</span> — Co-founder</span>
-
-              <h3 class="founder-hero-name" id="victorGiantName">
-                <span class="founder-name-line"><span class="founder-initial" id="victorInitial">V</span>ictor</span>
-                <span class="founder-name-line founder-name-line--outline">Whohlers</span>
-              </h3>
-
-              <p class="founder-role">Back-End, Cloud &amp; Lógica de Sistemas</p>
-
-              <p class="founder-bio">
-                Arquiteta a espinha dorsal das operações: APIs distribuídas, bancos de dados escaláveis e
-                infraestrutura cloud de alto volume — robustez invisível que mantém o seu negócio no ar.
-              </p>
-
-              <ul class="founder-pillars" aria-label="Pilares de Victor Whohlers">
-                <li><span class="text-red">V</span>irtualização</li>
-                <li><span class="text-red">V</span>olumes de Dados</li>
-                <li><span class="text-red">V</span>isão Sistêmica</li>
-              </ul>
-
-              <div class="founder-action-btns">
-                <a href="https://wa.me/5511999999999?text=Ol%C3%A1%20Victor%20Whohlers%2C%20gostaria%20de%20conversar%20sobre%20arquitetura%20cloud%20com%20a%20VL%20Tech"
-                  target="_blank" rel="noopener noreferrer" class="btn--founder-wa" id="scrolly-wa-victor"
-                  aria-label="Falar com Victor Whohlers no WhatsApp">
-                  <svg class="btn__icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91A9.85 9.85 0 0 0 12.04 2Zm0 18.15h-.01a8.23 8.23 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23a8.2 8.2 0 0 1 8.23 8.24c0 4.54-3.7 8.23-8.23 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.43-.06-.13-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.29Z"/></svg>
-                  <span>Conversar no WhatsApp</span>
-                </a>
-                <a href="https://www.linkedin.com/in/victor-whohlers/" target="_blank" rel="noopener noreferrer"
-                  class="btn--founder-linkedin" id="scrolly-linkedin-victor" aria-label="LinkedIn de Victor Whohlers">
-                  <svg class="btn__icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg>
-                  <span>LinkedIn</span>
-                </a>
-              </div>
+          <!-- LEFT PANEL: Dynamic Active Founder Profile (updates live on flip) -->
+          <div class="badge-info-panel badge-info-panel--left" id="badgeDynamicProfile">
+            <div class="badge-info__meta">
+              <span class="badge-founder-index" id="founderMetaIndex"><span class="text-red">01</span> / 02</span>
+              <span class="badge-security-clearance" id="founderMetaClearance">LEVEL 05 // SYSTEM ROOT</span>
             </div>
 
-            <figure class="founder-portrait-column" id="victorPortraitStage">
-              <div class="founder-portrait-aura" aria-hidden="true"></div>
-              <div class="founder-portrait-box" id="victor-visual">
-                <img src="assets/images/victor.jpg" alt="Retrato do Co-founder Victor Whohlers" class="founder-photo" width="800" height="1000" loading="lazy" decoding="async">
-                <span class="founder-photo-watermark" aria-hidden="true">V</span>
-              </div>
-              <figcaption class="founder-portrait-caption">
-                <span class="founder-portrait-caption__name">Victor Whohlers</span>
-                <span class="founder-portrait-caption__tag">Back-End Lead</span>
-              </figcaption>
-            </figure>
-          </article>
+            <h3 class="badge-founder-name" id="founderMetaName">
+              <span class="name-first">LUIZ</span>
+              <span class="name-last">GABRIEL</span>
+            </h3>
+            <p class="badge-founder-role" id="founderMetaRole">Especialista em Front-end, Arquitetura Web &amp; Automações</p>
 
-          <!-- ================= LUIZ GABRIEL · FRONT-END & 3D ================= -->
-          <article class="founder-profile-pane founder-profile-pane--luiz" id="stageLuiz" role="tabpanel" aria-labelledby="vlSymbolL" data-founder="luiz">
-            <div class="founder-typography-stack">
-              <span class="founder-index"><span class="text-red">02</span> — Co-founder</span>
+            <p class="badge-founder-bio" id="founderMetaBio">
+              Transforma arquitetura em experiência: interfaces WebGL de alta performance, design systems escaláveis e automações inteligentes com foco em conversão e retenção.
+            </p>
 
-              <h3 class="founder-hero-name" id="heroGiantName">
-                <span class="founder-name-line"><span class="founder-initial" id="partnerInitial">L</span><span id="partnerRemainingName">uiz</span></span>
-                <span class="founder-name-line founder-name-line--outline">Gabriel</span>
-              </h3>
-
-              <p class="founder-role" id="heroGiantOutline">Front-End, Arquitetura Web &amp; Automações</p>
-
-              <p class="founder-bio">
-                Transforma arquitetura em experiência: interfaces de alta performance, design systems escaláveis,
-                WebGL imersivo e automações inteligentes que convertem visitantes em clientes.
-              </p>
-
-              <ul class="founder-pillars" aria-label="Pilares de Luiz Gabriel">
-                <li><span class="text-red">L</span>ayout</li>
-                <li><span class="text-red">L</span>ógica</li>
-                <li><span class="text-red">L</span>iderança Técnica</li>
+            <!-- Tech Stack Pillars -->
+            <div class="badge-pillars-box">
+              <span class="pillars-label">CORE CAPABILITIES &amp; STACK</span>
+              <ul class="badge-pillars-list" id="founderMetaStack">
+                <li class="pillar-tag">WebGL / Three.js</li>
+                <li class="pillar-tag">GSAP 3 Animation</li>
+                <li class="pillar-tag">Next.js &amp; Tailwind</li>
+                <li class="pillar-tag">Design Systems</li>
+                <li class="pillar-tag">Automações n8n/AI</li>
               </ul>
-
-              <div class="founder-action-btns">
-                <a href="https://wa.me/5511999999999?text=Ol%C3%A1%20Luiz%20Gabriel%2C%20gostaria%20de%20conversar%20sobre%20um%20projeto%20com%20a%20VL%20Tech"
-                  target="_blank" rel="noopener noreferrer" class="btn--founder-wa" id="scrolly-wa-luiz"
-                  aria-label="Falar com Luiz Gabriel no WhatsApp">
-                  <svg class="btn__icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91A9.85 9.85 0 0 0 12.04 2Zm0 18.15h-.01a8.23 8.23 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23a8.2 8.2 0 0 1 8.23 8.24c0 4.54-3.7 8.23-8.23 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.43-.06-.13-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.29Z"/></svg>
-                  <span>Conversar no WhatsApp</span>
-                </a>
-                <a href="https://www.linkedin.com/in/luiz-gabriel-moraes/" target="_blank" rel="noopener noreferrer"
-                  class="btn--founder-linkedin" id="scrolly-linkedin-luiz" aria-label="LinkedIn de Luiz Gabriel">
-                  <svg class="btn__icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg>
-                  <span>LinkedIn</span>
-                </a>
-              </div>
             </div>
 
-            <figure class="founder-portrait-column" id="luizPortraitStage">
-              <div class="founder-portrait-aura" aria-hidden="true"></div>
-              <div class="founder-portrait-box" id="luiz-visual">
-                <img id="founderImage" src="assets/images/luiz.jpg" alt="Retrato do Co-founder Luiz Gabriel" class="founder-photo" width="800" height="1000" loading="lazy" decoding="async">
-                <span class="founder-photo-watermark" id="portraitWatermark" aria-hidden="true">L</span>
-              </div>
-              <figcaption class="founder-portrait-caption">
-                <span class="founder-portrait-caption__name">Luiz Gabriel</span>
-                <span class="founder-portrait-caption__tag">Front-End Lead</span>
-              </figcaption>
-            </figure>
-          </article>
-        </div>
-
-        <!-- Rodapé do palco: progresso da transição V → L + CTA para o rodapé -->
-        <footer class="founder-bottom-meta">
-          <div class="founders-progress" aria-hidden="true">
-            <span class="founders-progress__label">Victor</span>
-            <span class="founders-progress__track"><span class="founders-progress__fill" id="foundersProgressFill"></span></span>
-            <span class="founders-progress__label">Luiz</span>
+            <!-- Direct Contact CTAs -->
+            <div class="badge-action-btns">
+              <a href="https://wa.me/5511999999999?text=Ol%C3%A1%20Luiz%20Gabriel%2C%20gostaria%20de%20conversar%20sobre%20um%20projeto%20com%20a%20VL%20Tech"
+                 target="_blank" rel="noopener noreferrer" class="btn--badge-wa" id="badgeFounderWaBtn" aria-label="Conversar no WhatsApp">
+                <svg class="btn__icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91A9.85 9.85 0 0 0 12.04 2Zm0 18.15h-.01a8.23 8.23 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23a8.2 8.2 0 0 1 8.23 8.24c0 4.54-3.7 8.23-8.23 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.17.04-.31-.02-.43-.06-.13-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.29Z"/></svg>
+                <span id="badgeWaBtnText">Falar com Luiz no WhatsApp</span>
+              </a>
+              <a href="https://www.linkedin.com/in/luiz-gabriel-moraes/"
+                 target="_blank" rel="noopener noreferrer" class="btn--badge-linkedin" id="badgeFounderLinkedinBtn" aria-label="LinkedIn">
+                <svg class="btn__icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg>
+                <span id="badgeLinkedinBtnText">LinkedIn</span>
+              </a>
+            </div>
           </div>
-          <a href="#rodape" class="meta-scroll-link" id="hero-scroll">
-            Iniciar projeto <span aria-hidden="true">↓</span>
-          </a>
-        </footer>
+
+          <!-- CENTER: 3D SUSPENDED ID BADGE STAGE -->
+          <div class="badge-stage-center" id="badge3dStage">
+            <!-- Hanging Lanyard / Cord Suspension Assembly -->
+            <div class="badge-lanyard-assembly" id="badgeLanyardAssembly" aria-hidden="true">
+              <div class="lanyard-anchor-ring"></div>
+              <div class="lanyard-strap" id="badgeLanyardStrap">
+                <div class="lanyard-strap__text">
+                  <span>VL TECH // EXECUTIVE ID // CORE ARCHITECT // VL TECH // EXECUTIVE ID //</span>
+                </div>
+              </div>
+              <div class="lanyard-metal-clip">
+                <div class="clip-swivel"></div>
+                <div class="clip-clasp"></div>
+              </div>
+            </div>
+
+            <!-- 3D Transform Container -->
+            <div class="badge-3d-wrapper" id="badge3dWrapper">
+              <div class="badge-card-3d" id="badgeCard3d" tabindex="0" role="region" aria-label="Crachá 3D dos Co-founders. Pressione Enter para girar ou arraste com o mouse.">
+                <!-- Especular / Sheen dinâmico -->
+                <div class="badge-specular-glare" id="badgeSpecularGlare" aria-hidden="true"></div>
+
+                <!-- ================= FRONT FACE: LUIZ GABRIEL ================= -->
+                <div class="badge-face badge-face--front" id="badgeFaceFront">
+                  <div class="badge-slot-punch" aria-hidden="true"></div>
+                  
+                  <div class="badge-card-header">
+                    <div class="badge-brand-logo">
+                      <span class="badge-vl-monogram">VL</span>
+                      <span class="badge-vl-sub">TECH ARCHITECT</span>
+                    </div>
+                    <div class="badge-chip-sim" aria-hidden="true">
+                      <div class="chip-pads"></div>
+                    </div>
+                    <span class="badge-tag-pill">ALL ACCESS</span>
+                  </div>
+
+                  <div class="badge-photo-wrapper">
+                    <img src="assets/images/luiz.jpg" alt="Retrato de Luiz Gabriel - Co-founder VL Tech" class="badge-photo" width="400" height="480" loading="eager">
+                    <div class="badge-photo-overlay" aria-hidden="true"></div>
+                    <div class="badge-corner-target top-left" aria-hidden="true"></div>
+                    <div class="badge-corner-target bottom-right" aria-hidden="true"></div>
+                  </div>
+
+                  <div class="badge-identity">
+                    <div class="badge-id-num">ID: VL-ENG-01 · LEVEL 05</div>
+                    <h4 class="badge-name">LUIZ GABRIEL</h4>
+                    <p class="badge-title">Front-end &amp; WebGL Architect</p>
+                  </div>
+
+                  <div class="badge-barcode-bar">
+                    <div class="barcode-lines" aria-hidden="true"></div>
+                    <div class="badge-serial">AUTH // 0492-8812-7740-L</div>
+                  </div>
+                </div>
+
+                <!-- ================= BACK FACE: VICTOR WHOHLERS ================= -->
+                <div class="badge-face badge-face--back" id="badgeFaceBack">
+                  <div class="badge-slot-punch" aria-hidden="true"></div>
+
+                  <div class="badge-card-header">
+                    <div class="badge-brand-logo">
+                      <span class="badge-vl-monogram">VL</span>
+                      <span class="badge-vl-sub">TECH ARCHITECT</span>
+                    </div>
+                    <div class="badge-magnetic-stripe" aria-hidden="true"></div>
+                    <span class="badge-tag-pill badge-tag-pill--red">SYS ROOT</span>
+                  </div>
+
+                  <div class="badge-photo-wrapper">
+                    <img src="assets/images/victor.jpg" alt="Retrato de Victor Whohlers - Co-founder VL Tech" class="badge-photo" width="400" height="480" loading="eager">
+                    <div class="badge-photo-overlay" aria-hidden="true"></div>
+                    <div class="badge-corner-target top-left" aria-hidden="true"></div>
+                    <div class="badge-corner-target bottom-right" aria-hidden="true"></div>
+                  </div>
+
+                  <div class="badge-identity">
+                    <div class="badge-id-num">ID: VL-ENG-02 · LEVEL 05</div>
+                    <h4 class="badge-name">VICTOR WHOHLERS</h4>
+                    <p class="badge-title">Back-end &amp; Cloud Lead</p>
+                  </div>
+
+                  <div class="badge-barcode-bar">
+                    <div class="barcode-lines" aria-hidden="true"></div>
+                    <div class="badge-serial">AUTH // 0492-8812-7741-V</div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Interação de Giro & Instrução -->
+            <div class="badge-flip-control">
+              <button type="button" class="badge-flip-action-btn" id="badgeFlipActionBtn" aria-label="Girar crachá em 3D">
+                <svg class="flip-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+                  <path fill="currentColor" d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0 0 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/>
+                </svg>
+                <span id="badgeFlipBtnLabel">GIRAR PARA VICTOR (VERSO)</span>
+              </button>
+              <span class="badge-drag-hint">Arraste para girar em 3D livre</span>
+            </div>
+          </div>
+
+          <!-- RIGHT PANEL: Executive Security Clearance & Telemetry HUD -->
+          <div class="badge-info-panel badge-info-panel--right">
+            <div class="hud-box">
+              <div class="hud-box__header">
+                <span class="hud-label">SISTEMA DE ACESSO // CRIPTOGRAFIA</span>
+                <span class="hud-ping"><span class="status-dot status-dot--pulse"></span> AES-256</span>
+              </div>
+
+              <div class="hud-telemetry-grid">
+                <div class="hud-card">
+                  <span class="hud-card__key">CLEARANCE</span>
+                  <span class="hud-card__val text-red">LEVEL 05 ROOT</span>
+                </div>
+                <div class="hud-card">
+                  <span class="hud-card__key">ORIGEM DC</span>
+                  <span class="hud-card__val">SAO-DC-01</span>
+                </div>
+                <div class="hud-card">
+                  <span class="hud-card__key">CANAL CRIPTOGRAFADO</span>
+                  <span class="hud-card__val">UWB // NFC 8.2</span>
+                </div>
+                <div class="hud-card">
+                  <span class="hud-card__key">DISPONIBILIDADE</span>
+                  <span class="hud-card__val text-green">99.99% SLA</span>
+                </div>
+              </div>
+
+              <!-- Security Guarantee Card -->
+              <div class="hud-security-card">
+                <div class="security-card__title">
+                  <span class="shield-icon">🛡️</span>
+                  <span>Contato Direto com os Sócios</span>
+                </div>
+                <p class="security-card__desc">
+                  Sem intermediários ou atendentes genéricos. Na VL Tech, você lida diretamente com os arquitetos e sócios-fundadores responsáveis por todo o código e infraestrutura.
+                </p>
+              </div>
+
+              <!-- Real-time Rotation Indicator Bar -->
+              <div class="hud-rotation-indicator">
+                <div class="indicator-header">
+                  <span>ÂNGULO 3D DA CREDENCIAL</span>
+                  <span class="text-red font-mono" id="badgeAngleDisplay">0° (LUIZ)</span>
+                </div>
+                <div class="indicator-track">
+                  <div class="indicator-fill" id="badgeAngleFill"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
       </div>
     </section>
 
@@ -2194,7 +2274,7 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 
   <!-- Aplicação (módulos ES) -->
-  <script type="module" src="js/main.js?v=5.8"></script>
+  <script type="module" src="js/main.js?v=6.0"></script>
 </body>
 
 </html>

@@ -17,20 +17,21 @@ import { initCustomCursor } from './cursor.js';
 import { initNavigation } from './navigation.js';
 import { initFounderSwitch } from './founder-switch.js';
 import { initFAQ } from './faq.js';
-import { initFooter } from './footer.js?v=5.9';
-import { initHero } from './hero.js?v=5.9';
+import { initFooter } from './footer.js?v=6.0';
+import { initHero } from './hero.js?v=6.0';
 import { initReveal } from './animations/reveal.js';
-import { initScroll, initServicesScroll } from './scroll.js?v=5.9';
-import { initNotebook3D } from './notebook-3d.js?v=5.9';
+import { initScroll, initServicesScroll } from './scroll.js?v=6.0';
+import { initNotebook3D } from './notebook-3d.js?v=6.0';
 import { initTiltHat } from './animations/tilt-hat.js';
 import { initMatrixCascade } from './animations/matrix-cascade.js';
-import { initTechHero } from './tech-hero-3d.js?v=5.9';
-import { initArrowScrollytelling } from './arrow-scrollytelling.js?v=5.9';
-import { initDiferenciais } from './diferenciais-3d.js?v=5.9';
-import { initPartnersTech } from './partners-tech.js?v=5.9';
-import { initWhyChooseUs } from './why-choose-us.js?v=5.9';
-import { initResponsiveShowcase } from './responsive-showcase.js?v=5.9';
-import { initTechHardwareRail } from './tech-hardware-rail.js?v=5.9';
+import { initTechHero } from './tech-hero-3d.js?v=6.0';
+import { initArrowScrollytelling } from './arrow-scrollytelling.js?v=6.0';
+import { initDiferenciais } from './diferenciais-3d.js?v=6.0';
+import { initPartnersTech } from './partners-tech.js?v=6.0';
+import { initWhyChooseUs } from './why-choose-us.js?v=6.0';
+import { initResponsiveShowcase } from './responsive-showcase.js?v=6.0';
+import { initTechHardwareRail } from './tech-hardware-rail.js?v=6.0';
+import { initBadge3D } from './badge-3d.js?v=6.0';
 
 /**
  * Módulos essenciais — funcionam mesmo se o GSAP não carregar.
@@ -61,7 +62,7 @@ const MOTION_MODULES = [
   ['responsiveShowcase', initResponsiveShowcase], // #responsividade
   ['servicesScroll', initServicesScroll],         // #loja                · PIN horizontal
   ['partnersTech', initPartnersTech],             // #parceiros
-  ['founders', initHero],                         // #socios-scrolly      · PIN (Victor → Luiz)
+  ['badge3D', initBadge3D],                       // #socios-scrolly      · Crachá 3D Co-Founders
   ['reveal', initReveal],                         // gatilhos genéricos (sem pin)
   ['scroll', initScroll],                         // galeria / manifesto / leque (sem pin)
 ];

@@ -82,7 +82,7 @@ export function initCustomCursor() {
   });
 
   // Detecção delegada de elementos interativos para expansão do cursor
-  const INTERACTIVE_SELECTOR = 'a, button, input, textarea, select, [role="button"], .fan-card, .brand-showcase-card, .brand-card__cta, .service-hcard, .diferencial-cylinder-stage, .faq-trigger, .scrolly-step, .menu-toggle, .founder-toggle-btn, .portfolio-card-3d, .partner-badge, .hardware-blade-unit, .hardware-inspect-btn, .tech-modal__close-btn, .tech-modal__tab, .tech-rail-action-btn';
+  const INTERACTIVE_SELECTOR = 'a, button, input, textarea, select, [role="button"], .fan-card, .brand-showcase-card, .brand-card__cta, .service-hcard, .diferencial-cylinder-stage, .faq-trigger, .scrolly-step, .menu-toggle, .founder-toggle-btn, .portfolio-card-3d, .partner-badge, .hardware-blade-unit, .hardware-inspect-btn, .tech-modal__close-btn, .tech-modal__tab, .tech-rail-action-btn, .badge-card-3d, .badge-nav-btn, .badge-flip-action-btn, .btn--badge-wa, .btn--badge-linkedin';
 
   document.addEventListener('mouseover', (e) => {
     const target = e.target.closest(INTERACTIVE_SELECTOR);
