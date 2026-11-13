@@ -2,7 +2,7 @@
    3D ID BADGE (CRACHÁ) — CO-FOUNDERS SHOWCASE
    Luiz Gabriel (Frente / 0°) ⇄ Victor Whohlers (Verso / 180°)
    
-   - Rotação 3D com física realista, arrasto (drag/throw), inércia e amortecimento
+   - Rotação 3D com física realista, GSAP 3 easing, arrasto (drag/throw) e inércia
    - Tilt 3D com acompanhamento do cursor e reflexo especular dinâmico
    - Oscilação física do cordão / lanyard suspenso
    - Sincronização em tempo real com painéis HUD de telemetria e botões de contato
@@ -103,6 +103,7 @@ export function initBadge3D() {
   let lastDragX = 0;
   let dragVelocity = 0;
   let currentFace = 'front'; // 'front' | 'back'
+  let flipTween = null;
 
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -136,7 +137,7 @@ export function initBadge3D() {
     // Transição suave no painel esquerdo
     if (metaNameFirst && metaNameLast) {
       gsap.to(['#badgeDynamicProfile'], {
-        opacity: 0.4,
+        opacity: 0.45,
         y: 6,
         duration: 0.15,
         ease: 'power2.in',
@@ -197,7 +198,7 @@ export function initBadge3D() {
     }
 
     // Aplica matriz 3D ao crachá
-    card.style.transform = `rotateX(${currentTiltX}deg) rotateY(${currentRotationY + currentTiltY}deg)`;
+    card.style.transform = `rotateX(${currentTiltX.toFixed(2)}deg) rotateY(${(currentRotationY + currentTiltY).toFixed(2)}deg)`;
 
     // Aplica deformação sutil ao cordão suspenso
     if (lanyardStrap) {
@@ -216,21 +217,21 @@ export function initBadge3D() {
   // 3. Loop de Física & Amortecimento
   let rafId;
   function updatePhysics() {
-    if (!isDragging) {
-      // Amortece velocidade de inércia ou aproxima do target
+    if (!isDragging && !flipTween) {
       if (Math.abs(dragVelocity) > 0.05) {
         currentRotationY += dragVelocity;
         dragVelocity *= 0.92; // fricção
         targetRotationY = currentRotationY;
-      } else {
-        // Interpolação suave em direção ao target
+        applyTransforms();
+      } else if (Math.abs(targetRotationY - currentRotationY) > 0.01) {
         currentRotationY += (targetRotationY - currentRotationY) * 0.12;
+        applyTransforms();
       }
-    } else {
+    } else if (isDragging) {
       currentRotationY = targetRotationY;
+      applyTransforms();
     }
 
-    applyTransforms();
     rafId = requestAnimationFrame(updatePhysics);
   }
 
@@ -238,12 +239,16 @@ export function initBadge3D() {
 
   // 4. Interação de Arrasto (Mouse & Touch Drag)
   function onPointerDown(e) {
-    // Evita conflito se clicar em botões internos
     if (e.target.closest('a, button')) return;
+
+    if (flipTween) {
+      flipTween.kill();
+      flipTween = null;
+    }
 
     isDragging = true;
     dragStartX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
-    dragStartRot = targetRotationY;
+    dragStartRot = currentRotationY;
     lastDragX = dragStartX;
     dragVelocity = 0;
     card.classList.add('is-dragging');
@@ -272,17 +277,32 @@ export function initBadge3D() {
     window.removeEventListener('pointerup', onPointerUp);
     window.removeEventListener('pointercancel', onPointerUp);
 
-    // Se a inércia for baixa, faz snap automático para a face mais próxima (0° ou 180°)
-    if (Math.abs(dragVelocity) < 0.8) {
-      let mod = ((targetRotationY % 360) + 360) % 360;
+    // Snap automático com GSAP para a face mais próxima (0° ou 180°)
+    if (Math.abs(dragVelocity) < 1.2) {
+      let mod = ((currentRotationY % 360) + 360) % 360;
       let snapTarget;
       if (mod > 90 && mod < 270) {
         snapTarget = 180;
       } else {
         snapTarget = mod >= 270 ? 360 : 0;
       }
-      const fullRotations = Math.floor(targetRotationY / 360) * 360;
-      targetRotationY = fullRotations + snapTarget;
+      const fullRotations = Math.floor(currentRotationY / 360) * 360;
+      const finalSnap = fullRotations + snapTarget;
+
+      const rotObj = { r: currentRotationY };
+      flipTween = gsap.to(rotObj, {
+        r: finalSnap,
+        duration: 0.6,
+        ease: 'power3.out',
+        onUpdate: () => {
+          currentRotationY = rotObj.r;
+          targetRotationY = currentRotationY;
+          applyTransforms();
+        },
+        onComplete: () => {
+          flipTween = null;
+        }
+      });
     }
   }
 
@@ -297,6 +317,7 @@ export function initBadge3D() {
 
       currentTiltY = relX * 18; // Max 18 graus tilt Y
       currentTiltX = -relY * 16; // Max 16 graus tilt X
+      applyTransforms();
     });
 
     stage.addEventListener('mouseleave', () => {
@@ -308,13 +329,14 @@ export function initBadge3D() {
         onUpdate: function () {
           currentTiltX = this.targets()[0].tiltX;
           currentTiltY = this.targets()[0].tiltY;
+          applyTransforms();
         },
       });
     });
   }
 
-  // 6. Botão de Giro 3D Rápido (Click to Flip)
-  function flipToFace(face) {
+  // 6. Botão de Giro 3D Rápido (Click to Flip com GSAP 3)
+  function flipToFace(face, immediate = false) {
     try { playIgnite(); } catch (_) {}
 
     const fullRotations = Math.floor(currentRotationY / 360) * 360;
@@ -327,8 +349,34 @@ export function initBadge3D() {
       targetOffset = 180;
     }
 
-    targetRotationY = fullRotations + targetOffset;
+    const finalTarget = fullRotations + targetOffset;
+    targetRotationY = finalTarget;
     dragVelocity = 0;
+
+    if (flipTween) {
+      flipTween.kill();
+      flipTween = null;
+    }
+
+    if (immediate || prefersReduced) {
+      currentRotationY = finalTarget;
+      applyTransforms();
+      return;
+    }
+
+    const rotObj = { r: currentRotationY };
+    flipTween = gsap.to(rotObj, {
+      r: finalTarget,
+      duration: 0.85,
+      ease: 'power3.out',
+      onUpdate: () => {
+        currentRotationY = rotObj.r;
+        applyTransforms();
+      },
+      onComplete: () => {
+        flipTween = null;
+      }
+    });
   }
 
   function toggleFlip() {
@@ -339,8 +387,15 @@ export function initBadge3D() {
 
   flipActionBtn?.addEventListener('click', toggleFlip);
 
-  navLuiz?.addEventListener('click', () => flipToFace('front'));
-  navVictor?.addEventListener('click', () => flipToFace('back'));
+  navLuiz?.addEventListener('click', (e) => {
+    e.preventDefault();
+    flipToFace('front');
+  });
+
+  navVictor?.addEventListener('click', (e) => {
+    e.preventDefault();
+    flipToFace('back');
+  });
 
   // Clique simples no próprio crachá também gira
   card.addEventListener('click', (e) => {
@@ -358,11 +413,12 @@ export function initBadge3D() {
   });
 
   // Inicialização com Luiz Gabriel (0°)
-  updateActiveFounderInfo('front');
+  applyTransforms();
 
   return {
     destroy: () => {
       cancelAnimationFrame(rafId);
+      if (flipTween) flipTween.kill();
       card.removeEventListener('pointerdown', onPointerDown);
     },
     flip: toggleFlip,

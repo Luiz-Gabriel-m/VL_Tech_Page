@@ -64,6 +64,9 @@ const MOTION_MODULES = [
 
 /** Instâncias retornadas pelos módulos (ex.: app.navigation.close()) */
 export const app = {};
+if (typeof window !== 'undefined') {
+  window.app = app;
+}
 
 function initModules(modules) {
   modules.forEach(([name, init]) => {
