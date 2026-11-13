@@ -17,21 +17,19 @@ import { initCustomCursor } from './cursor.js';
 import { initNavigation } from './navigation.js';
 import { initFounderSwitch } from './founder-switch.js';
 import { initFAQ } from './faq.js';
-import { initFooter } from './footer.js?v=6.0';
-import { initHero } from './hero.js?v=6.0';
+import { initFooter } from './footer.js?v=6.1';
+import { initHero } from './hero.js?v=6.1';
 import { initReveal } from './animations/reveal.js';
-import { initScroll, initServicesScroll } from './scroll.js?v=6.0';
-import { initNotebook3D } from './notebook-3d.js?v=6.0';
+import { initScroll } from './scroll.js?v=6.1';
+import { initNotebook3D } from './notebook-3d.js?v=6.1';
 import { initTiltHat } from './animations/tilt-hat.js';
 import { initMatrixCascade } from './animations/matrix-cascade.js';
-import { initTechHero } from './tech-hero-3d.js?v=6.0';
-import { initArrowScrollytelling } from './arrow-scrollytelling.js?v=6.0';
-import { initDiferenciais } from './diferenciais-3d.js?v=6.0';
-import { initPartnersTech } from './partners-tech.js?v=6.0';
-import { initWhyChooseUs } from './why-choose-us.js?v=6.0';
-import { initResponsiveShowcase } from './responsive-showcase.js?v=6.0';
-import { initTechHardwareRail } from './tech-hardware-rail.js?v=6.0';
-import { initBadge3D } from './badge-3d.js?v=6.0';
+import { initTechHero } from './tech-hero-3d.js?v=6.1';
+import { initArrowScrollytelling } from './arrow-scrollytelling.js?v=6.1';
+import { initPartnersTech } from './partners-tech.js?v=6.1';
+import { initResponsiveShowcase } from './responsive-showcase.js?v=6.1';
+import { initPortfolioBrands } from './portfolio-brands.js?v=6.1';
+import { initBadge3D } from './badge-3d.js?v=6.1';
 
 /**
  * Módulos essenciais — funcionam mesmo se o GSAP não carregar.
@@ -52,15 +50,12 @@ const CORE_MODULES = [
 const MOTION_MODULES = [
   ['loader', initLoader],                         // #preloader
   ['techHero', initTechHero],                     // #hero
-  ['whyChooseUs', initWhyChooseUs],               // #mensagem            · PIN horizontal
   ['tiltHat', initTiltHat],                       // #tracks (gatilho simples)
   ['arrowScrollytelling', initArrowScrollytelling], // #tracks            · PIN
-  ['diferenciais', initDiferenciais],             // #galeria             · PIN horizontal
   ['notebook3D', initNotebook3D],                 // #portfolio-experience · PIN
   ['matrixCascade', initMatrixCascade],           // #capacetes
-  ['techHardwareRail', initTechHardwareRail],     // #capacetes (trilho interativo de hardware)
+  ['portfolioBrands', initPortfolioBrands],       // #capacetes (Showcase de Marcas & Logos)
   ['responsiveShowcase', initResponsiveShowcase], // #responsividade
-  ['servicesScroll', initServicesScroll],         // #loja                · PIN horizontal
   ['partnersTech', initPartnersTech],             // #parceiros
   ['badge3D', initBadge3D],                       // #socios-scrolly      · Crachá 3D Co-Founders
   ['reveal', initReveal],                         // gatilhos genéricos (sem pin)

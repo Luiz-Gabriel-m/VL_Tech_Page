@@ -21,9 +21,9 @@
   <link href="https://fonts.cdnfonts.com/css/monument-extended" rel="stylesheet">
 
   <!-- Estilos -->
-  <link rel="stylesheet" href="css/variables.css?v=6.0">
-  <link rel="stylesheet" href="css/layout.css?v=6.0">
-  <link rel="stylesheet" href="styles.css?v=6.0">
+  <link rel="stylesheet" href="css/variables.css?v=6.1">
+  <link rel="stylesheet" href="css/layout.css?v=6.1">
+  <link rel="stylesheet" href="styles.css?v=6.1">
 
   <!-- Three.js WebGL Engine (Carregado antecipadamente para o Hero 3D) -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
@@ -83,8 +83,8 @@
         </a>
 
         <!-- Botão Serviços -->
-        <a href="#loja" class="nav__quick-cta nav__services-btn" id="nav-cta-loja" aria-label="Ir para Serviços">
-          <span>SERVIÇOS</span>
+        <a href="#capacetes" class="nav__quick-cta nav__services-btn" id="nav-cta-loja" aria-label="Ir para Serviços">
+          <span>HARDWARE</span>
           <span class="btn__arrow" aria-hidden="true">→</span>
         </a>
       </div>
@@ -120,24 +120,21 @@
         <ul class="menu-overlay__list">
           <li class="menu-overlay__item"><a href="#hero" class="menu-overlay__link" id="menu-link-hero"><span
                 class="menu-overlay__text">Início</span><span class="menu-overlay__index">01</span></a></li>
-          <li class="menu-overlay__item"><a href="#mensagem" class="menu-overlay__link" id="menu-link-mensagem"><span
-                class="menu-overlay__text">Por que a VL Tech</span><span class="menu-overlay__index">02</span></a></li>
-          <li class="menu-overlay__item"><a href="#tracks" class="menu-overlay__link" id="menu-link-tracks"><span
-                class="menu-overlay__text">A Flecha da Execução</span><span class="menu-overlay__index">03</span></a></li>
-          <li class="menu-overlay__item"><a href="#galeria" class="menu-overlay__link" id="menu-link-galeria"><span
-                class="menu-overlay__text">Diferenciais</span><span class="menu-overlay__index">04</span></a></li>
-          <li class="menu-overlay__item"><a href="#capacetes" class="menu-overlay__link" id="menu-link-capacetes"><span
-                class="menu-overlay__text">Portfólio</span><span class="menu-overlay__index">05</span></a></li>
+          
+          <li class="menu-overlay__item"><a href="#tracks" class="menu-overlay__link" id="menu-link-tracks"><span class="menu-overlay__text">A Flecha da Execução</span><span class="menu-overlay__index">02</span></a></li>
+          
+          <li class="menu-overlay__item"><a href="#portfolio-experience" class="menu-overlay__link" id="menu-link-notebook"><span class="menu-overlay__text">Dispositivos 3D</span><span class="menu-overlay__index">03</span></a></li>
+          <li class="menu-overlay__item"><a href="#capacetes" class="menu-overlay__link" id="menu-link-capacetes"><span class="menu-overlay__text">Hardware &amp; Vitrine</span><span class="menu-overlay__index">04</span></a></li>
           <li class="menu-overlay__item"><a href="#responsividade" class="menu-overlay__link" id="menu-link-responsividade"><span
-                class="menu-overlay__text">Responsividade Total</span><span class="menu-overlay__index">06</span></a></li>
-          <li class="menu-overlay__item"><a href="#loja" class="menu-overlay__link" id="menu-link-loja"><span
+                class="menu-overlay__text">Responsividade Total</span><span class="menu-overlay__index">05</span></a></li>
+          <li class="menu-overlay__item"><a href="#capacetes" class="menu-overlay__link" id="menu-link-loja"><span
                 class="menu-overlay__text">Serviços</span><span class="menu-overlay__index">07</span></a></li>
           <li class="menu-overlay__item"><a href="#parceiros" class="menu-overlay__link" id="menu-link-parceiros"><span
-                class="menu-overlay__text">Parceiros</span><span class="menu-overlay__index">08</span></a></li>
+                class="menu-overlay__text">Parceiros</span><span class="menu-overlay__index">06</span></a></li>
           <li class="menu-overlay__item"><a href="#socios-scrolly" class="menu-overlay__link" id="menu-link-socios"><span
-                class="menu-overlay__text">Sócios (Liderança)</span><span class="menu-overlay__index">09</span></a></li>
+                class="menu-overlay__text">Sócios (Liderança)</span><span class="menu-overlay__index">07</span></a></li>
           <li class="menu-overlay__item"><a href="#rodape" class="menu-overlay__link" id="menu-link-contato"><span
-                class="menu-overlay__text">Contato</span><span class="menu-overlay__index">10</span></a></li>
+                class="menu-overlay__text">Contato</span><span class="menu-overlay__index">08</span></a></li>
         </ul>
       </nav>
 
@@ -182,141 +179,6 @@
         </p>
       </div>
     </section>
-    <!-- ============================== 2. POR QUE ESCOLHER A VL TECH (HORIZONTAL SCROLL) ============================== -->
-    <section class="section section--dark services-section why-horizontal-section" id="mensagem" aria-labelledby="why-section-title">
-      <div class="horizontal-scroll-container" id="why-scroll-container">
-        <div class="horizontal-pin-wrapper" id="why-pin-wrapper">
-          <div class="horizontal-content">
-            <!-- Header Introdutório Lateral Esquerdo (Fixo no Viewport) -->
-            <div class="horizontal-intro why-intro">
-              <span class="eyebrow text-red">01 — Núcleo Estratégico</span>
-              <h2 class="display horizontal-title" id="why-section-title">
-                Por Que<br>Escolher<br><span class="text-red">A VL Tech?</span>
-              </h2>
-              <p class="horizontal-lead">
-                Eliminamos a mediocridade das agências comuns. Não vendemos sites genéricos; forjamos ecossistemas digitais de alta precisão que multiplicam autoridade, velocidade e conversão.
-              </p>
-              <div class="horizontal-scroll-indicator">
-                <span class="scroll-arrow-line"></span>
-                <span class="scroll-arrow-text">Role para o lado →</span>
-              </div>
-            </div>
-
-            <!-- Track com Cards Alinhados Horizontalmente -->
-            <div class="horizontal-track why-track" id="whyTrack">
-              <!-- Card 01: Performance Cirúrgica & Código Puro -->
-              <article class="service-hcard why-card">
-                <div class="service-hcard__header">
-                  <span class="service-hcard__num">01</span>
-                  <span class="service-hcard__tag">Core Web Vitals &lt; 800ms</span>
-                </div>
-                <div class="service-hcard__body">
-                  <h3 class="service-hcard__title">Performance Cirúrgica &amp; Código Puro</h3>
-                  <p class="service-hcard__category">Front-End Avançado · Lighthouse 100/100</p>
-                  <p class="service-hcard__desc">
-                    Descartamos CMS inchados, plugins vulneráveis e temas genéricos. Cada linha de código é forjada artesanalmente para atingir 100/100 no Google Lighthouse, garantindo ranqueamento e velocidade instantânea.
-                  </p>
-                  <div class="service-hcard__stack">
-                    <span>&lt; 0.8s LCP</span>
-                    <span>100% Proprietário</span>
-                    <span>Zero Bloat</span>
-                    <span>SEO Máximo</span>
-                  </div>
-                </div>
-                <div class="service-hcard__footer">
-                  <span class="service-hcard__sla">Ultra Velocidade</span>
-                  <a href="#tracks" class="service-hcard__btn">A Flecha da Execução ↗</a>
-                </div>
-              </article>
-
-              <!-- Card 02: Interfaces 3D WebGL & Hiperimersão -->
-              <article class="service-hcard why-card">
-                <div class="service-hcard__header">
-                  <span class="service-hcard__num">02</span>
-                  <span class="service-hcard__tag">GPU Accelerated // 60 FPS</span>
-                </div>
-                <div class="service-hcard__body">
-                  <h3 class="service-hcard__title">Interfaces 3D WebGL &amp; Hiperimersão</h3>
-                  <p class="service-hcard__category">Visual Engineering · Three.js · GSAP</p>
-                  <p class="service-hcard__desc">
-                    Fundimos WebGL de alta fidelidade, Three.js e animações aceleradas por GPU com transições fluidas. Transformamos visitantes em clientes encantados através de narrativa sensorial de padrão Awwwards.
-                  </p>
-                  <div class="service-hcard__stack">
-                    <span>60 FPS Locked</span>
-                    <span>3.8x Retenção</span>
-                    <span>WebGL 2.0</span>
-                    <span>Shaders GLSL</span>
-                  </div>
-                </div>
-                <div class="service-hcard__footer">
-                  <span class="service-hcard__sla">Awwwards Level</span>
-                  <a href="#tracks" class="service-hcard__btn">Ver Trajetória 3D ↗</a>
-                </div>
-              </article>
-
-              <!-- Card 03: Cloud Resiliente & Alta Concorrência -->
-              <article class="service-hcard why-card">
-                <div class="service-hcard__header">
-                  <span class="service-hcard__num">03</span>
-                  <span class="service-hcard__tag">99.99% Uptime Corporativo</span>
-                </div>
-                <div class="service-hcard__body">
-                  <h3 class="service-hcard__title">Cloud Resiliente &amp; Alta Concorrência</h3>
-                  <p class="service-hcard__category">Microsserviços · AWS &amp; GCP · Edge</p>
-                  <p class="service-hcard__desc">
-                    Infraestrutura corporativa com orquestração de microsserviços, cache em borda global e resiliência militar. Sua operação suporta picos massivos de tráfego com latência próxima de zero.
-                  </p>
-                  <div class="service-hcard__stack">
-                    <span>SLA 99.99%</span>
-                    <span>&lt; 15ms Latency</span>
-                    <span>Auto-Scale</span>
-                    <span>Multi-Region</span>
-                  </div>
-                </div>
-                <div class="service-hcard__footer">
-                  <span class="service-hcard__sla">Alta Disponibilidade</span>
-                  <a href="#socios-scrolly" class="service-hcard__btn">Falar com Fundadores ↗</a>
-                </div>
-              </article>
-
-              <!-- Card 04: Acesso Direto aos Sócios Fundadores -->
-              <article class="service-hcard why-card">
-                <div class="service-hcard__header">
-                  <span class="service-hcard__num">04</span>
-                  <span class="service-hcard__tag">Direct Executive Access</span>
-                </div>
-                <div class="service-hcard__body">
-                  <h3 class="service-hcard__title">Acesso Direto aos Sócios Fundadores</h3>
-                  <p class="service-hcard__category">Liderança Técnica · Zero Intermediários</p>
-                  <p class="service-hcard__desc">
-                    Zero intermediários ou gerentes de conta comerciais. Você alinha estratégia e engenharia diretamente com Luiz Gabriel (Front-end &amp; 3D) e Victor Whohlers (Back-end &amp; Cloud), do primeiro protótipo ao deploy.
-                  </p>
-                  <div class="service-hcard__stack">
-                    <span>0 Intermediários</span>
-                    <span>100% Atenção Sênior</span>
-                    <span>WhatsApp Direto</span>
-                    <span>Hands-On</span>
-                  </div>
-                </div>
-                <div class="service-hcard__footer">
-                  <span class="service-hcard__sla">Atendimento Executivo</span>
-                  <a href="#socios-scrolly" class="service-hcard__btn">Conectar com Sócios ↗</a>
-                </div>
-              </article>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Elementos semânticos de compatibilidade retroativa para scripts de perfil -->
-      <div class="visually-hidden" aria-hidden="true">
-        <span id="aboutFounderName">Luiz Gabriel &amp; Victor Whohlers</span>
-        <span id="aboutFounderRole">Analistas de Sistemas &amp; Co-founders · VL Tech</span>
-        <span id="aboutQuote">Cada linha de código é um diálogo entre precisão cirúrgica e arquitetura escalável.</span>
-        <span id="aboutDesc">Construímos sistemas com foco obsessivo em performance extrema, design de classe mundial e soluções proprietárias.</span>
-      </div>
-    </section>
-
     <!-- ============================== 3. THE ARROW OF EXECUTION // 3D SCROLLYTELLING ============================== -->
     <section class="section section--dark arrow-scrollytelling-section" id="tracks" aria-label="A Flecha da Execução — Scrollytelling 3D">
       <div class="arrow-scrolly-pin" id="arrowPinViewport">
@@ -435,295 +297,11 @@
                 target="_blank" rel="noopener noreferrer" class="btn btn--neon">
                 INICIAR MEU PROJETO NO WHATSAPP <span class="btn__arrow" aria-hidden="true">→</span>
               </a>
-              <a href="#galeria" class="btn btn--outline">
+              <a href="#portfolio-experience" class="btn btn--outline">
                 EXPLORAR DIFERENCIAIS <span class="btn__arrow" aria-hidden="true">↓</span>
               </a>
             </div>
           </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================== 4. DIFERENCIAIS VL TECH (HORIZONTAL SCROLL) ============================== -->
-    <section class="section section--dark services-section diferenciais-section" id="galeria" aria-labelledby="diferenciais-title">
-      <div class="horizontal-scroll-container" id="diferenciais-scroll-container">
-        <div class="horizontal-pin-wrapper" id="diferenciais-pin-wrapper">
-          <div class="horizontal-content">
-            <!-- Header Introdutório Lateral Esquerdo (Fixo no Viewport) -->
-            <div class="horizontal-intro diferenciais-intro">
-              <span class="eyebrow text-red">02 — Diferenciais Exclusivos</span>
-              <h2 class="display horizontal-title" id="diferenciais-title">
-                Diferenciais<br><span class="text-red">VL Tech</span>
-              </h2>
-              <p class="horizontal-lead">
-                Eliminamos o desperdício técnico e templates genéricos. Cada solução forja uma vantagem competitiva mensurável através de oito pilares de excelência tecnológica.
-              </p>
-              <div class="horizontal-scroll-indicator">
-                <span class="scroll-arrow-line"></span>
-                <span class="scroll-arrow-text">Role para o lado →</span>
-              </div>
-            </div>
-
-            <!-- Track com Cards Alinhados Horizontalmente (Galeria 3D Cilíndrica + 8 Pilares de Excelência) -->
-            <div class="horizontal-track diferenciais-track" id="diferenciaisTrack">
-              <!-- CENTERPIECE: GALERIA 3D CILÍNDRICA WEBGL THREE.JS -->
-              <article class="service-hcard diferencial-card diferencial-cylinder-card" data-diferencial-type="cylinder-gallery" data-step-index="0">
-                <div class="service-hcard__header">
-                  <span class="service-hcard__num">3D</span>
-                  <span class="service-hcard__tag">Galeria Cilíndrica 360°</span>
-                </div>
-                
-                <div class="diferencial-cylinder-stage" id="diferencialCylinderStage">
-                  <canvas id="diferenciaisCylinderCanvas" class="diferenciais-cylinder-canvas" aria-label="Galeria 3D Cilíndrica Interativa Three.js"></canvas>
-                  
-                  <div class="cylinder-stage-overlay">
-                    <span class="cylinder-hud-badge">
-                      <span class="status-dot status-dot--pulse" aria-hidden="true"></span>
-                      <span>WebGL 360° Interativo</span>
-                    </span>
-                    <span class="cylinder-hud-hint">
-                      <span>Arraste ou role para orbitar</span>
-                      <span class="text-red">↔</span>
-                    </span>
-                  </div>
-                </div>
-
-                <div class="service-hcard__body">
-                  <h3 class="service-hcard__title">Engenharia Visual 3D</h3>
-                  <p class="service-hcard__category">Three.js · Curvatura Cilíndrica · 60 FPS</p>
-                  <p class="service-hcard__desc">
-                    Arquitetura tridimensional imersiva em tempo real. Cada painel do cilindro projeta os pilares de software de alto padrão e aceleração da VL Tech.
-                  </p>
-                  <div class="service-hcard__stack">
-                    <span>Three.js Cylinder</span>
-                    <span>Scroll Lock Sync</span>
-                    <span>Shader Lighting</span>
-                  </div>
-                </div>
-
-                <div class="service-hcard__footer">
-                  <span class="service-hcard__sla">Experiência 3D</span>
-                  <a href="#portfolio-experience" class="service-hcard__btn">Explorar Projetos ↗</a>
-                </div>
-              </article>
-
-              <!-- CARD 01: PERFORMANCE EXTREMA -->
-              <article class="service-hcard diferencial-card" data-diferencial-type="performance" data-step-index="1">
-                <div class="service-hcard__header">
-                  <span class="service-hcard__num">01</span>
-                  <span class="service-hcard__tag">Core Web Vitals &lt; 800ms</span>
-                </div>
-                <div class="diferencial-3d-stage">
-                  <canvas class="diferencial-canvas" aria-label="Modelo 3D Foguete Supersônico de Alta Performance"></canvas>
-                </div>
-                <div class="service-hcard__body">
-                  <h3 class="service-hcard__title">Performance Extrema</h3>
-                  <p class="service-hcard__category">Front-End Puro · LCP &lt; 0.8s</p>
-                  <p class="service-hcard__desc">
-                    Código limpo sem <em>page builders</em>. Navegação instantânea que maximiza as taxas de conversão e eleva o SEO orgânico da sua empresa.
-                  </p>
-                  <div class="service-hcard__stack">
-                    <span>&lt; 0.8s LCP</span>
-                    <span>100/100 PageSpeed</span>
-                    <span>Zero Bloat</span>
-                  </div>
-                </div>
-                <div class="service-hcard__footer">
-                  <span class="service-hcard__sla">Ultra Velocidade</span>
-                  <a href="#portfolio-experience" class="service-hcard__btn">Solicitar Proposta ↗</a>
-                </div>
-              </article>
-
-              <!-- CARD 02: AUTOMAÇÃO INTELIGENTE -->
-              <article class="service-hcard diferencial-card" data-diferencial-type="automacao" data-step-index="2">
-                <div class="service-hcard__header">
-                  <span class="service-hcard__num">02</span>
-                  <span class="service-hcard__tag">WhatsApp API &amp; AI 24/7</span>
-                </div>
-                <div class="diferencial-3d-stage">
-                  <canvas class="diferencial-canvas" aria-label="Modelo 3D Núcleo Quântico de Automação Inteligente"></canvas>
-                </div>
-                <div class="service-hcard__body">
-                  <h3 class="service-hcard__title">Automação Inteligente</h3>
-                  <p class="service-hcard__category">IA 24/7 · WhatsApp API · CRM</p>
-                  <p class="service-hcard__desc">
-                    Chatbots e fluxos de IA personalizados 24/7 integrados ao WhatsApp API e CRM. Qualificação autônoma de leads e resposta em tempo real.
-                  </p>
-                  <div class="service-hcard__stack">
-                    <span>24/7 Disponível</span>
-                    <span>0s Resposta</span>
-                    <span>OpenAI + CRM</span>
-                  </div>
-                </div>
-                <div class="service-hcard__footer">
-                  <span class="service-hcard__sla">Full Automação</span>
-                  <a href="#portfolio-experience" class="service-hcard__btn">Solicitar Proposta ↗</a>
-                </div>
-              </article>
-
-              <!-- CARD 03: DIREÇÃO CRIATIVA F1 -->
-              <article class="service-hcard diferencial-card" data-diferencial-type="criativa" data-step-index="3">
-                <div class="service-hcard__header">
-                  <span class="service-hcard__num">03</span>
-                  <span class="service-hcard__tag">Aerodinâmica F1 UI/UX</span>
-                </div>
-                <div class="diferencial-3d-stage">
-                  <canvas class="diferencial-canvas" aria-label="Modelo 3D Asa Aerodinâmica Estilo F1"></canvas>
-                </div>
-                <div class="service-hcard__body">
-                  <h3 class="service-hcard__title">Direção Criativa F1</h3>
-                  <p class="service-hcard__category">WebGL 3D · 60 FPS · Awwwards</p>
-                  <p class="service-hcard__desc">
-                    UI/UX de alta conversão inspirado na precisão da Fórmula 1. Micro-interações táteis, WebGL 3D imersivo e tipografia brutalista de alto padrão.
-                  </p>
-                  <div class="service-hcard__stack">
-                    <span>60 FPS WebGL</span>
-                    <span>Awwwards Design</span>
-                    <span>Three.js</span>
-                  </div>
-                </div>
-                <div class="service-hcard__footer">
-                  <span class="service-hcard__sla">High End Visual</span>
-                  <a href="#portfolio-experience" class="service-hcard__btn">Solicitar Proposta ↗</a>
-                </div>
-              </article>
-
-              <!-- CARD 04: ENTREGA ÁGIL & CONTÍNUA -->
-              <article class="service-hcard diferencial-card" data-diferencial-type="agil" data-step-index="4">
-                <div class="service-hcard__header">
-                  <span class="service-hcard__num">04</span>
-                  <span class="service-hcard__tag">Vercel Edge &amp; CI/CD</span>
-                </div>
-                <div class="diferencial-3d-stage">
-                  <canvas class="diferencial-canvas" aria-label="Modelo 3D Pipeline de Entrega Contínua Möbius"></canvas>
-                </div>
-                <div class="service-hcard__body">
-                  <h3 class="service-hcard__title">Entrega Ágil &amp; Contínua</h3>
-                  <p class="service-hcard__category">SLA 99.9% · Deploys Semanais</p>
-                  <p class="service-hcard__desc">
-                    Infraestrutura global na Vercel Edge e deploys automatizados. Sprints curtas, entregas funcionais semanais e zero tempo de inatividade.
-                  </p>
-                  <div class="service-hcard__stack">
-                    <span>99.9% SLA</span>
-                    <span>Edge Global CDN</span>
-                    <span>Zero Downtime</span>
-                  </div>
-                </div>
-                <div class="service-hcard__footer">
-                  <span class="service-hcard__sla">Sprints Semanais</span>
-                  <a href="#portfolio-experience" class="service-hcard__btn">Solicitar Proposta ↗</a>
-                </div>
-              </article>
-
-              <!-- CARD 05: ARQUITETURA DISTRIBUÍDA & CLOUD -->
-              <article class="service-hcard diferencial-card" data-diferencial-type="cloud" data-step-index="5">
-                <div class="service-hcard__header">
-                  <span class="service-hcard__num">05</span>
-                  <span class="service-hcard__tag">AWS &amp; GCP Hybrid Cloud</span>
-                </div>
-                <div class="diferencial-3d-stage">
-                  <canvas class="diferencial-canvas" aria-label="Modelo 3D Cluster Multidimensional de Microsserviços"></canvas>
-                </div>
-                <div class="service-hcard__body">
-                  <h3 class="service-hcard__title">Arquitetura Distribuída</h3>
-                  <p class="service-hcard__category">&lt; 15ms Latência · 100k+ Req/s</p>
-                  <p class="service-hcard__desc">
-                    Microsserviços desacoplados e resilientes para alta concorrência. Docker, Kubernetes e pipelines serverless com auto-scaling elástico.
-                  </p>
-                  <div class="service-hcard__stack">
-                    <span>&lt; 15ms Latência</span>
-                    <span>100k+ Req/s</span>
-                    <span>Kubernetes</span>
-                  </div>
-                </div>
-                <div class="service-hcard__footer">
-                  <span class="service-hcard__sla">Escala Massiva</span>
-                  <a href="#portfolio-experience" class="service-hcard__btn">Solicitar Proposta ↗</a>
-                </div>
-              </article>
-
-              <!-- CARD 06: TESTES & QA RESILIENTE -->
-              <article class="service-hcard diferencial-card" data-diferencial-type="qa" data-step-index="6">
-                <div class="service-hcard__header">
-                  <span class="service-hcard__num">06</span>
-                  <span class="service-hcard__tag">100% Coverage &amp; Automation</span>
-                </div>
-                <div class="diferencial-3d-stage">
-                  <canvas class="diferencial-canvas" aria-label="Modelo 3D Prisma Geométrico de Precisão e Testes"></canvas>
-                </div>
-                <div class="service-hcard__body">
-                  <h3 class="service-hcard__title">Testes &amp; QA Resiliente</h3>
-                  <p class="service-hcard__category">0 Bugs em Produção · 99.99% QA</p>
-                  <p class="service-hcard__desc">
-                    Bateria de testes automatizados E2E, integração contínua e stress testing antes de cada release. Zero regressões e integridade absoluta.
-                  </p>
-                  <div class="service-hcard__stack">
-                    <span>0 Bugs Prod</span>
-                    <span>99.99% QA</span>
-                    <span>Playwright &amp; Jest</span>
-                  </div>
-                </div>
-                <div class="service-hcard__footer">
-                  <span class="service-hcard__sla">Qualidade Militar</span>
-                  <a href="#portfolio-experience" class="service-hcard__btn">Solicitar Proposta ↗</a>
-                </div>
-              </article>
-
-              <!-- CARD 07: CYBERSECURITY OFENSIVA -->
-              <article class="service-hcard diferencial-card" data-diferencial-type="security" data-step-index="7">
-                <div class="service-hcard__header">
-                  <span class="service-hcard__num">07</span>
-                  <span class="service-hcard__tag">Hardening &amp; Military Cybersec</span>
-                </div>
-                <div class="diferencial-3d-stage">
-                  <canvas class="diferencial-canvas" aria-label="Modelo 3D Escudo Cibernético e Anéis de Defesa"></canvas>
-                </div>
-                <div class="service-hcard__body">
-                  <h3 class="service-hcard__title">Cybersecurity Ofensiva</h3>
-                  <p class="service-hcard__category">AES-256 · Zero Leaks · LGPD</p>
-                  <p class="service-hcard__desc">
-                    Blindagem completa contra ataques DDoS, injeções maliciosas e vazamento de dados sensíveis. Criptografia ponta a ponta e headers estritos.
-                  </p>
-                  <div class="service-hcard__stack">
-                    <span>AES-256 Cripto</span>
-                    <span>Zero Data Leaks</span>
-                    <span>Cloudflare DDoS</span>
-                  </div>
-                </div>
-                <div class="service-hcard__footer">
-                  <span class="service-hcard__sla">Defesa Ativa</span>
-                  <a href="#portfolio-experience" class="service-hcard__btn">Solicitar Proposta ↗</a>
-                </div>
-              </article>
-
-              <!-- CARD 08: SQUAD SÊNIOR DEDICADO -->
-              <article class="service-hcard diferencial-card" data-diferencial-type="squad" data-step-index="8">
-                <div class="service-hcard__header">
-                  <span class="service-hcard__num">08</span>
-                  <span class="service-hcard__tag">Direct Executive Access</span>
-                </div>
-                <div class="diferencial-3d-stage">
-                  <canvas class="diferencial-canvas" aria-label="Modelo 3D Núcleo Duplo de Liderança Técnica"></canvas>
-                </div>
-                <div class="service-hcard__body">
-                  <h3 class="service-hcard__title">Squad Sênior Dedicado</h3>
-                  <p class="service-hcard__category">100% Sênior · WhatsApp Direto</p>
-                  <p class="service-hcard__desc">
-                    Engenharia de elite liderada diretamente pelos sócios Luiz Gabriel e Vitor Whohlers. Sem intermediários comerciais e suporte prioritário.
-                  </p>
-                  <div class="service-hcard__stack">
-                    <span>100% Sênior Hands-on</span>
-                    <span>WhatsApp Fundadores</span>
-                    <span>Consultivo</span>
-                  </div>
-                </div>
-                <div class="service-hcard__footer">
-                  <span class="service-hcard__sla">Acesso Executivo</span>
-                  <a href="#portfolio-experience" class="service-hcard__btn">Solicitar Proposta ↗</a>
-                </div>
-              </article>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -846,389 +424,257 @@
       <div class="container portfolio-header-container">
         <header class="portfolio-fan-header" id="portfolioFanHeader">
           <div class="portfolio-fan-glyph" aria-hidden="true">✦</div>
-          <span class="eyebrow text-red">04 — INFRAESTRUTURA &amp; HARDWARE VITRINE</span>
+          <span class="eyebrow text-red">04 — HALL OF FAME</span>
           <h2 class="display portfolio-fan-title" id="portfolio-title">
-            <span class="portfolio-fan-title__main" id="matrixTargetMain">HARDWARE DE ALTA PERFORMANCE</span>
-            <span class="portfolio-fan-title__sub text-red" id="matrixTargetSub">VL TECH INFRASTRUCTURE RAIL</span>
+            <span class="portfolio-fan-title__main" id="matrixTargetMain">MARCAS &amp; PROJETOS</span>
+            <span class="portfolio-fan-title__sub text-red" id="matrixTargetSub">CLIENT PORTFOLIO</span>
           </h2>
           <p class="portfolio-fan-lead">
-            Nós de borda, aceleradores quânticos de tensores e blades de altíssima densidade. Passe o cursor pelos módulos suspensos no trilho e inspecione as especificações militares.
+            Cases reais desenvolvidos e acelerados com a engenharia de software e alta performance da VL Tech.
           </p>
         </header>
       </div>
 
-      <!-- VITRINE DE HARDWARE SUSPENSO INTERATIVO (TECH-HARDWARE RAIL) -->
-      <div class="container tech-hardware-container">
-        <!-- Barra de Status do Trilho & Progresso -->
-        <div class="tech-rail-meta-bar">
-          <div class="tech-rail-meta-left">
-            <span class="status-dot status-dot--pulse" aria-hidden="true"></span>
-            <span class="tech-rail-status-text">VL-TECH // HARDWARE SUSPENSION RAIL v5.8</span>
-          </div>
-          <div class="tech-rail-meta-right">
-            <span class="tech-rail-hint">Arraste para deslizar no trilho ↔</span>
-            <div class="tech-rail-progress-track">
-              <div class="tech-rail-progress-bar" id="techHardwareProgressBar"></div>
+      <!-- SHOWCASE EDITORIAL EXCLUSIVO DE LOGOS E IDENTIDADES DE MARCA -->
+      <div class="container portfolio-showcase-container">
+        <div class="portfolio-brands-grid" id="portfolioBrandsGrid">
+
+          <!-- BRAND 01: ZILDO OLIVEIRA -->
+          <article class="brand-showcase-card" data-brand="zildo">
+            <div class="brand-card__inner">
+              <div class="brand-card__ambient-glow" aria-hidden="true"></div>
+              
+              <div class="brand-card__header">
+                <div class="brand-card__meta-left">
+                  <span class="brand-card__index">01</span>
+                  <span class="brand-card__category-badge">Governo &amp; Gestão</span>
+                </div>
+                <span class="brand-card__status">
+                  <span class="status-dot status-dot--pulse" aria-hidden="true"></span>
+                  <span>No Ar</span>
+                </span>
+              </div>
+
+              <!-- Brand Logo Spotlight -->
+              <div class="brand-card__logo-stage">
+                <img src="assets/images/portfolio/logos/zildo-logo.png" alt="Logotipo Oficial Zildo Oliveira"
+                  class="brand-card__logo-img brand-card__logo-img--zildo" width="160" height="80" loading="eager" decoding="async">
+              </div>
+
+              <!-- Brand Typography & Metadata -->
+              <div class="brand-card__body">
+                <h3 class="brand-card__name">Zildo Oliveira</h3>
+                <p class="brand-card__role">Portal Oficial &amp; Gestão Pública</p>
+                <div class="brand-card__tags">
+                  <span class="brand-tag">Liderança Política</span>
+                  <span class="brand-tag">Alta Disponibilidade</span>
+                </div>
+              </div>
+
+              <!-- Action Button Solid Red -->
+              <div class="brand-card__footer">
+                <a href="https://project-zil-zildo.vercel.app/" target="_blank" rel="noopener noreferrer"
+                  class="brand-card__cta" aria-label="Visitar site oficial Zildo Oliveira">
+                  <span>Visitar Site</span>
+                  <span class="btn__arrow" aria-hidden="true">↗</span>
+                </a>
+              </div>
             </div>
-          </div>
-        </div>
+          </article>
 
-        <!-- Trilho Estrutural Suspenso Industrial (Heavy Powder-Coated Metal Rail) -->
-        <div class="tech-hardware-rail-mount">
-          <div class="tech-hardware-rail-bar">
-            <div class="tech-rail-laser-guide" aria-hidden="true"></div>
-            <div class="tech-rail-bracket tech-rail-bracket--left" aria-hidden="true"></div>
-            <div class="tech-rail-bracket tech-rail-bracket--mid" aria-hidden="true"></div>
-            <div class="tech-rail-bracket tech-rail-bracket--right" aria-hidden="true"></div>
-          </div>
-
-          <!-- Esteira Horizontal de Módulos de Servidores Suspensos -->
-          <div class="tech-hardware-rail-track" id="techHardwareRailTrack">
-            
-            <!-- BLADE 01: VL-EDGE NODE X1 -->
-            <article class="hardware-blade-unit" data-hardware-id="edge-node-x1">
-              <div class="hardware-hanger">
-                <div class="hardware-rail-clamp">
-                  <span class="clamp-led"></span>
+          <!-- BRAND 02: G4 BENEFICIADORA -->
+          <article class="brand-showcase-card" data-brand="g4">
+            <div class="brand-card__inner">
+              <div class="brand-card__ambient-glow" aria-hidden="true"></div>
+              
+              <div class="brand-card__header">
+                <div class="brand-card__meta-left">
+                  <span class="brand-card__index">02</span>
+                  <span class="brand-card__category-badge">Agronegócio &amp; B2B</span>
                 </div>
-                <div class="hardware-hanging-cable"></div>
-                <div class="hardware-chassis-mount">
-                  <span class="mount-screw"></span>
-                  <span class="mount-screw"></span>
+                <span class="brand-card__status">
+                  <span class="status-dot status-dot--pulse" aria-hidden="true"></span>
+                  <span>No Ar</span>
+                </span>
+              </div>
+
+              <!-- Brand Logo Spotlight -->
+              <div class="brand-card__logo-stage">
+                <img src="assets/images/portfolio/logos/g4-logo.png" alt="Logotipo Oficial G4 Beneficiadora de Batatas"
+                  class="brand-card__logo-img brand-card__logo-img--g4" width="140" height="140" loading="eager" decoding="async">
+              </div>
+
+              <!-- Brand Typography & Metadata -->
+              <div class="brand-card__body">
+                <h3 class="brand-card__name">G4 Beneficiadora</h3>
+                <p class="brand-card__role">Agronegócio, Indústria &amp; B2B</p>
+                <div class="brand-card__tags">
+                  <span class="brand-tag">Agroindústria</span>
+                  <span class="brand-tag">Portal Corporativo</span>
                 </div>
               </div>
 
-              <div class="hardware-chassis">
-                <div class="hardware-ambient-glow" aria-hidden="true"></div>
-                <div class="hardware-chassis__top">
-                  <div class="hardware-chassis__header">
-                    <span class="hardware-badge">01 · Low Latency</span>
-                    <span class="hardware-status"><span class="status-dot status-dot--pulse"></span> Online</span>
-                  </div>
-                  <h3 class="hardware-title">VL-Edge Node X1</h3>
-                  <p class="hardware-role">Edge Computing Server Blade</p>
-                </div>
+              <!-- Action Button Solid Red -->
+              <div class="brand-card__footer">
+                <a href="https://project-zil-g4-batatas.vercel.app/" target="_blank" rel="noopener noreferrer"
+                  class="brand-card__cta" aria-label="Visitar site corporativo G4 Beneficiadora">
+                  <span>Visitar Site</span>
+                  <span class="btn__arrow" aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </div>
+          </article>
 
-                <div class="hardware-grille-panel">
-                  <div class="hardware-led-slots">
-                    <span class="slot slot--active"></span>
-                    <span class="slot"></span>
-                    <span class="slot slot--active"></span>
-                    <span class="slot"></span>
-                    <span class="slot slot--active"></span>
-                    <span class="slot"></span>
-                    <span class="slot slot--active"></span>
-                  </div>
-                  <div class="hardware-mini-telemetry">
-                    <div class="telemetry-cell">
-                      <span class="cell-label">LATÊNCIA</span>
-                      <span class="cell-val">0.4ms</span>
-                    </div>
-                    <div class="telemetry-cell">
-                      <span class="cell-label">THROUGHPUT</span>
-                      <span class="cell-val text-red">200 Gbps</span>
-                    </div>
-                    <div class="telemetry-cell">
-                      <span class="cell-label">COMPUTE</span>
-                      <span class="cell-val">128-Core</span>
-                    </div>
-                    <div class="telemetry-cell">
-                      <span class="cell-label">MEMORY</span>
-                      <span class="cell-val">256GB</span>
-                    </div>
-                  </div>
+          <!-- BRAND 03: MACIEL FIT STUDIO -->
+          <article class="brand-showcase-card brand-showcase-card--featured" data-brand="maciel">
+            <div class="brand-card__inner">
+              <div class="brand-card__ambient-glow" aria-hidden="true"></div>
+              
+              <div class="brand-card__header">
+                <div class="brand-card__meta-left">
+                  <span class="brand-card__index">03</span>
+                  <span class="brand-card__category-badge brand-card__category-badge--featured">Saúde &amp; Fitness</span>
                 </div>
+                <span class="brand-card__status">
+                  <span class="status-dot status-dot--pulse" aria-hidden="true"></span>
+                  <span>No Ar</span>
+                </span>
+              </div>
 
-                <div class="hardware-chassis__footer">
-                  <span class="hardware-form-factor">1U Modular</span>
-                  <button type="button" class="hardware-inspect-btn" aria-label="Inspecionar especificações do VL-Edge Node X1">
-                    <span>INSPECIONAR</span>
-                    <span class="btn__arrow">↗</span>
-                  </button>
-                </div>
+              <!-- Brand Logo Spotlight -->
+              <div class="brand-card__logo-stage">
+                <img src="assets/images/portfolio/logos/maciel-logo.png" alt="Logotipo Oficial Maciel Fit Studio"
+                  class="brand-card__logo-img brand-card__logo-img--maciel" width="150" height="150" loading="eager" decoding="async">
               </div>
-            </article>
 
-            <!-- BLADE 02: NEURAL QUANTUM CORE -->
-            <article class="hardware-blade-unit" data-hardware-id="neural-quantum-core">
-              <div class="hardware-hanger">
-                <div class="hardware-rail-clamp"><span class="clamp-led"></span></div>
-                <div class="hardware-hanging-cable"></div>
-                <div class="hardware-chassis-mount"><span class="mount-screw"></span><span class="mount-screw"></span></div>
-              </div>
-              <div class="hardware-chassis">
-                <div class="hardware-ambient-glow" aria-hidden="true"></div>
-                <div class="hardware-chassis__top">
-                  <div class="hardware-chassis__header">
-                    <span class="hardware-badge">02 · Tensor AI</span>
-                    <span class="hardware-status"><span class="status-dot status-dot--pulse"></span> Active</span>
-                  </div>
-                  <h3 class="hardware-title">Neural Quantum Core</h3>
-                  <p class="hardware-role">Inferência Neural &amp; LLMs 24/7</p>
-                </div>
-                <div class="hardware-grille-panel">
-                  <div class="hardware-led-slots">
-                    <span class="slot slot--active"></span><span class="slot slot--active"></span><span class="slot"></span>
-                    <span class="slot slot--active"></span><span class="slot"></span><span class="slot slot--active"></span><span class="slot"></span>
-                  </div>
-                  <div class="hardware-mini-telemetry">
-                    <div class="telemetry-cell"><span class="cell-label">LATÊNCIA</span><span class="cell-val">1.2ms</span></div>
-                    <div class="telemetry-cell"><span class="cell-label">THROUGHPUT</span><span class="cell-val text-red">1.8 PFLOPS</span></div>
-                    <div class="telemetry-cell"><span class="cell-label">COMPUTE</span><span class="cell-val">96 Cores</span></div>
-                    <div class="telemetry-cell"><span class="cell-label">HBM3E</span><span class="cell-val">1.2 TB/s</span></div>
-                  </div>
-                </div>
-                <div class="hardware-chassis__footer">
-                  <span class="hardware-form-factor">2U Neural Bay</span>
-                  <button type="button" class="hardware-inspect-btn" aria-label="Inspecionar especificações do Neural Quantum Core">
-                    <span>INSPECIONAR</span>
-                    <span class="btn__arrow">↗</span>
-                  </button>
+              <!-- Brand Typography & Metadata -->
+              <div class="brand-card__body">
+                <h3 class="brand-card__name">Maciel Fit Studio</h3>
+                <p class="brand-card__role">Plataforma Fitness &amp; Conversão</p>
+                <div class="brand-card__tags">
+                  <span class="brand-tag brand-tag--featured">Studio Fitness</span>
+                  <span class="brand-tag">Funil de Matrículas</span>
                 </div>
               </div>
-            </article>
 
-            <!-- BLADE 03: CLOUD MATRIX BLADE -->
-            <article class="hardware-blade-unit" data-hardware-id="cloud-matrix-blade">
-              <div class="hardware-hanger">
-                <div class="hardware-rail-clamp"><span class="clamp-led"></span></div>
-                <div class="hardware-hanging-cable"></div>
-                <div class="hardware-chassis-mount"><span class="mount-screw"></span><span class="mount-screw"></span></div>
+              <!-- Action Button Solid Red -->
+              <div class="brand-card__footer">
+                <a href="https://macielfit-studio-eta.vercel.app/" target="_blank" rel="noopener noreferrer"
+                  class="brand-card__cta" aria-label="Visitar site Maciel Fit Studio">
+                  <span>Visitar Site</span>
+                  <span class="btn__arrow" aria-hidden="true">↗</span>
+                </a>
               </div>
-              <div class="hardware-chassis">
-                <div class="hardware-ambient-glow" aria-hidden="true"></div>
-                <div class="hardware-chassis__top">
-                  <div class="hardware-chassis__header">
-                    <span class="hardware-badge">03 · Microservices</span>
-                    <span class="hardware-status"><span class="status-dot status-dot--pulse"></span> High Load</span>
-                  </div>
-                  <h3 class="hardware-title">Cloud Matrix Blade</h3>
-                  <p class="hardware-role">Cluster Distribuído de Alta Concorrência</p>
-                </div>
-                <div class="hardware-grille-panel">
-                  <div class="hardware-led-slots">
-                    <span class="slot"></span><span class="slot slot--active"></span><span class="slot slot--active"></span>
-                    <span class="slot"></span><span class="slot slot--active"></span><span class="slot slot--active"></span><span class="slot"></span>
-                  </div>
-                  <div class="hardware-mini-telemetry">
-                    <div class="telemetry-cell"><span class="cell-label">LATÊNCIA</span><span class="cell-val">0.8ms</span></div>
-                    <div class="telemetry-cell"><span class="cell-label">THROUGHPUT</span><span class="cell-val text-red">2.4M Req/s</span></div>
-                    <div class="telemetry-cell"><span class="cell-label">COMPUTE</span><span class="cell-val">64-Core</span></div>
-                    <div class="telemetry-cell"><span class="cell-label">MEMORY</span><span class="cell-val">512GB</span></div>
-                  </div>
-                </div>
-                <div class="hardware-chassis__footer">
-                  <span class="hardware-form-factor">1U Dense Hub</span>
-                  <button type="button" class="hardware-inspect-btn" aria-label="Inspecionar especificações do Cloud Matrix Blade">
-                    <span>INSPECIONAR</span>
-                    <span class="btn__arrow">↗</span>
-                  </button>
-                </div>
-              </div>
-            </article>
+            </div>
+          </article>
 
-            <!-- BLADE 04: NEURAL AI ACCELERATOR -->
-            <article class="hardware-blade-unit" data-hardware-id="neural-ai-accelerator">
-              <div class="hardware-hanger">
-                <div class="hardware-rail-clamp"><span class="clamp-led"></span></div>
-                <div class="hardware-hanging-cable"></div>
-                <div class="hardware-chassis-mount"><span class="mount-screw"></span><span class="mount-screw"></span></div>
+          <!-- BRAND 04: MARINHO ODONTO -->
+          <article class="brand-showcase-card" data-brand="marinho">
+            <div class="brand-card__inner">
+              <div class="brand-card__ambient-glow" aria-hidden="true"></div>
+              
+              <div class="brand-card__header">
+                <div class="brand-card__meta-left">
+                  <span class="brand-card__index">04</span>
+                  <span class="brand-card__category-badge">Odonto &amp; Estética</span>
+                </div>
+                <span class="brand-card__status">
+                  <span class="status-dot status-dot--pulse" aria-hidden="true"></span>
+                  <span>No Ar</span>
+                </span>
               </div>
-              <div class="hardware-chassis">
-                <div class="hardware-ambient-glow" aria-hidden="true"></div>
-                <div class="hardware-chassis__top">
-                  <div class="hardware-chassis__header">
-                    <span class="hardware-badge">04 · Visual Deep Learning</span>
-                    <span class="hardware-status"><span class="status-dot status-dot--pulse"></span> Active</span>
-                  </div>
-                  <h3 class="hardware-title">Neural AI Accelerator</h3>
-                  <p class="hardware-role">Processamento Visual &amp; WebGL 3D</p>
-                </div>
-                <div class="hardware-grille-panel">
-                  <div class="hardware-led-slots">
-                    <span class="slot slot--active"></span><span class="slot"></span><span class="slot slot--active"></span>
-                    <span class="slot slot--active"></span><span class="slot"></span><span class="slot"></span><span class="slot slot--active"></span>
-                  </div>
-                  <div class="hardware-mini-telemetry">
-                    <div class="telemetry-cell"><span class="cell-label">LATÊNCIA</span><span class="cell-val">2.1ms</span></div>
-                    <div class="telemetry-cell"><span class="cell-label">THROUGHPUT</span><span class="cell-val text-red">840 TFLOPS</span></div>
-                    <div class="telemetry-cell"><span class="cell-label">COMPUTE</span><span class="cell-val">48 SMs</span></div>
-                    <div class="telemetry-cell"><span class="cell-label">GDDR6X</span><span class="cell-val">48GB</span></div>
-                  </div>
-                </div>
-                <div class="hardware-chassis__footer">
-                  <span class="hardware-form-factor">PCIe Gen5</span>
-                  <button type="button" class="hardware-inspect-btn" aria-label="Inspecionar especificações do Neural AI Accelerator">
-                    <span>INSPECIONAR</span>
-                    <span class="btn__arrow">↗</span>
-                  </button>
-                </div>
-              </div>
-            </article>
 
-            <!-- BLADE 05: ENCRYPTED STORAGE ARRAY -->
-            <article class="hardware-blade-unit" data-hardware-id="encrypted-storage-array">
-              <div class="hardware-hanger">
-                <div class="hardware-rail-clamp"><span class="clamp-led"></span></div>
-                <div class="hardware-hanging-cable"></div>
-                <div class="hardware-chassis-mount"><span class="mount-screw"></span><span class="mount-screw"></span></div>
+              <!-- Brand Logo Spotlight -->
+              <div class="brand-card__logo-stage">
+                <img src="assets/images/portfolio/logos/marinho-logo.svg" alt="Logotipo Oficial Marinho Odonto"
+                  class="brand-card__logo-img brand-card__logo-img--marinho" width="220" height="60" loading="eager" decoding="async">
               </div>
-              <div class="hardware-chassis">
-                <div class="hardware-ambient-glow" aria-hidden="true"></div>
-                <div class="hardware-chassis__top">
-                  <div class="hardware-chassis__header">
-                    <span class="hardware-badge">05 · Security Vault</span>
-                    <span class="hardware-status"><span class="status-dot status-dot--pulse"></span> Secure</span>
-                  </div>
-                  <h3 class="hardware-title">Encrypted Storage Array</h3>
-                  <p class="hardware-role">Armazenamento Criptografado Militar</p>
-                </div>
-                <div class="hardware-grille-panel">
-                  <div class="hardware-led-slots">
-                    <span class="slot slot--active"></span><span class="slot slot--active"></span><span class="slot slot--active"></span>
-                    <span class="slot"></span><span class="slot slot--active"></span><span class="slot slot--active"></span><span class="slot slot--active"></span>
-                  </div>
-                  <div class="hardware-mini-telemetry">
-                    <div class="telemetry-cell"><span class="cell-label">LATÊNCIA</span><span class="cell-val">0.02ms</span></div>
-                    <div class="telemetry-cell"><span class="cell-label">READ SPEED</span><span class="cell-val text-red">14.5 GB/s</span></div>
-                    <div class="telemetry-cell"><span class="cell-label">COMPUTE</span><span class="cell-val">ASIC Crypto</span></div>
-                    <div class="telemetry-cell"><span class="cell-label">CAPACITY</span><span class="cell-val">32TB RAID10</span></div>
-                  </div>
-                </div>
-                <div class="hardware-chassis__footer">
-                  <span class="hardware-form-factor">1U Hot-Swap</span>
-                  <button type="button" class="hardware-inspect-btn" aria-label="Inspecionar especificações do Encrypted Storage Array">
-                    <span>INSPECIONAR</span>
-                    <span class="btn__arrow">↗</span>
-                  </button>
-                </div>
-              </div>
-            </article>
 
-          </div>
+              <!-- Brand Typography & Metadata -->
+              <div class="brand-card__body">
+                <h3 class="brand-card__name">Marinho Odonto</h3>
+                <p class="brand-card__role">Clínica &amp; Odontologia Estética 3D</p>
+                <div class="brand-card__tags">
+                  <span class="brand-tag">Odontologia Digital</span>
+                  <span class="brand-tag">3D Interativo</span>
+                </div>
+              </div>
+
+              <!-- Action Button Solid Red -->
+              <div class="brand-card__footer">
+                <a href="https://marinhoodonto.vercel.app/" target="_blank" rel="noopener noreferrer"
+                  class="brand-card__cta" aria-label="Visitar clínica Marinho Odonto">
+                  <span>Visitar Site</span>
+                  <span class="btn__arrow" aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- BRAND 05: RIBEIRO TEAM -->
+          <article class="brand-showcase-card" data-brand="ribeiro">
+            <div class="brand-card__inner">
+              <div class="brand-card__ambient-glow" aria-hidden="true"></div>
+              
+              <div class="brand-card__header">
+                <div class="brand-card__meta-left">
+                  <span class="brand-card__index">05</span>
+                  <span class="brand-card__category-badge">Lutas &amp; Performance</span>
+                </div>
+                <span class="brand-card__status">
+                  <span class="status-dot status-dot--pulse" aria-hidden="true"></span>
+                  <span>No Ar</span>
+                </span>
+              </div>
+
+              <!-- Brand Logo Spotlight -->
+              <div class="brand-card__logo-stage">
+                <img src="assets/images/portfolio/logos/ribeiro-logo.png" alt="Logotipo Oficial Ribeiro Team"
+                  class="brand-card__logo-img brand-card__logo-img--ribeiro" width="160" height="110" loading="eager" decoding="async">
+              </div>
+
+              <!-- Brand Typography & Metadata -->
+              <div class="brand-card__body">
+                <h3 class="brand-card__name">Ribeiro Team</h3>
+                <p class="brand-card__role">Centro de Treinamento &amp; Lutas</p>
+                <div class="brand-card__tags">
+                  <span class="brand-tag">Artes Marciais</span>
+                  <span class="brand-tag">Alta Performance</span>
+                </div>
+              </div>
+
+              <!-- Action Button Solid Red -->
+              <div class="brand-card__footer">
+                <a href="https://ribeiro-team.vercel.app/" target="_blank" rel="noopener noreferrer"
+                  class="brand-card__cta" aria-label="Visitar centro de lutas Ribeiro Team">
+                  <span>Visitar Site</span>
+                  <span class="btn__arrow" aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </div>
+          </article>
+
         </div>
       </div>
 
       <!-- RODAPÉ EDITORIAL CENTRALIZADO COM PILLS -->
       <div class="container">
         <footer class="portfolio-fan-footer">
-          <p class="portfolio-fan-caption">Infraestrutura proprietária acelerada e operada pela engenharia VL Tech</p>
+          <p class="portfolio-fan-caption">Projetos reais hospedados na Vercel e acelerados pela VL Tech</p>
           <div class="portfolio-fan-pills">
-            <span class="fan-pill">VL-EDGE NODE X1 · 0.4MS</span>
-            <span class="fan-pill">NEURAL QUANTUM CORE · 1.8 PFLOPS</span>
-            <span class="fan-pill">CLOUD MATRIX BLADE · 2.4M REQ/S</span>
-            <span class="fan-pill">NEURAL AI ACCELERATOR · 840 TFLOPS</span>
-            <span class="fan-pill">ENCRYPTED STORAGE ARRAY · AES-256</span>
+            <a href="https://project-zil-zildo.vercel.app/" target="_blank" rel="noopener noreferrer"
+              class="fan-pill">ZILDO OLIVEIRA ↗</a>
+            <a href="https://project-zil-g4-batatas.vercel.app/" target="_blank" rel="noopener noreferrer"
+              class="fan-pill">G4 BENEFICIADORA ↗</a>
+            <a href="https://macielfit-studio-eta.vercel.app/" target="_blank" rel="noopener noreferrer"
+              class="fan-pill">MACIEL FIT STUDIO ↗</a>
+            <a href="https://marinhoodonto.vercel.app/" target="_blank" rel="noopener noreferrer"
+              class="fan-pill">MARINHO ODONTO ↗</a>
+            <a href="https://ribeiro-team.vercel.app/" target="_blank" rel="noopener noreferrer"
+              class="fan-pill">RIBEIRO TEAM ↗</a>
           </div>
         </footer>
       </div>
-    </section>
-
-    <!-- MODAL DE ESPECIFICAÇÕES TÉCNICAS E TELEMETRIA DO HARDWARE (ACCESSIBLE DIALOG) -->
-    <div class="tech-modal" id="techHardwareModal" role="dialog" aria-modal="true" aria-hidden="true">
-      <div class="tech-modal__backdrop" aria-hidden="true"></div>
-      <div class="tech-modal__window">
-        <!-- Modal Header -->
-        <div class="tech-modal__header">
-          <div class="tech-modal__header-left">
-            <div class="tech-modal__tags">
-              <span class="tech-modal__code-badge" id="modalCode">VL-EN-X1</span>
-              <span class="tech-modal__status-badge"><span class="status-dot status-dot--pulse"></span> <span id="modalStatus">ONLINE</span></span>
-            </div>
-            <h3 class="display tech-modal__title" id="modalTitle">VL-Edge Node X1</h3>
-            <p class="tech-modal__role" id="modalRole">Edge Computing Server Blade · 1U Micro-Blade Modular</p>
-          </div>
-          <button type="button" class="tech-modal__close-btn" id="techModalCloseBtn" aria-label="Fechar especificações">✕</button>
-        </div>
-
-        <!-- Tab Buttons -->
-        <div class="tech-modal__tabs">
-          <button type="button" class="tech-modal__tab is-active" id="techModalTabFront">Painel Frontal &amp; Telemetria</button>
-          <button type="button" class="tech-modal__tab" id="techModalTabInternal">Arquitetura de Silício &amp; PCB</button>
-        </div>
-
-        <!-- Tab Content: Front & Telemetry -->
-        <div class="tech-modal__body" id="techModalBodyFront">
-          <p class="tech-modal__desc" id="modalDescription"></p>
-
-          <!-- Live Telemetry Gauges -->
-          <div class="tech-modal__telemetry-box">
-            <div class="telemetry-box__header">
-              <span>Telemetria em Tempo Real (Live Telemetry Engine)</span>
-              <span class="text-red">60 FPS // ACES FILMIC</span>
-            </div>
-            <div class="telemetry-box__grid">
-              <div class="telemetry-gauge">
-                <span class="gauge-label">CARGA DA CPU/NPU</span>
-                <span class="gauge-val" id="modalLoadVal">42%</span>
-                <div class="gauge-bar"><div class="gauge-fill bg-red" id="modalLoadBar"></div></div>
-              </div>
-              <div class="telemetry-gauge">
-                <span class="gauge-label">TEMP. OPERACIONAL</span>
-                <span class="gauge-val" id="modalTempVal">48°C</span>
-                <div class="gauge-bar"><div class="gauge-fill bg-green" id="modalTempBar"></div></div>
-              </div>
-              <div class="telemetry-gauge">
-                <span class="gauge-label">EFICIÊNCIA TÉRMICA</span>
-                <span class="gauge-val" id="modalEffVal">98%</span>
-                <div class="gauge-bar"><div class="gauge-fill bg-red" id="modalEffBar"></div></div>
-              </div>
-              <div class="telemetry-gauge">
-                <span class="gauge-label">BANDWIDTH ATUAL</span>
-                <span class="gauge-val" id="modalBwVal">184 Gbps</span>
-                <div class="gauge-bar"><div class="gauge-fill bg-red" id="modalBwBar"></div></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Spec Breakdown Table -->
-          <div class="tech-modal__specs-grid">
-            <div class="spec-card">
-              <span class="spec-label">LATÊNCIA P99</span>
-              <span class="spec-val" id="modalLatency">0.4ms</span>
-            </div>
-            <div class="spec-card">
-              <span class="spec-label">THROUGHPUT</span>
-              <span class="spec-val text-red" id="modalThroughput">200 Gbps</span>
-            </div>
-            <div class="spec-card">
-              <span class="spec-label">CONSUMO ENERGÉTICO</span>
-              <span class="spec-val" id="modalPower">185W Ultra-Efficient</span>
-            </div>
-            <div class="spec-card">
-              <span class="spec-label">PROCESSADOR</span>
-              <span class="spec-val" id="modalCompute">128-Core ARM Neoverse</span>
-            </div>
-            <div class="spec-card spec-card--wide">
-              <span class="spec-label">MEMÓRIA &amp; BUS</span>
-              <span class="spec-val" id="modalMemory">256GB ECC DDR5-5600</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Tab Content: Internal Architecture -->
-        <div class="tech-modal__body is-hidden" id="techModalBodyInternal">
-          <div class="tech-modal__arch-box">
-            <h4 class="arch-box__title">Arquitetura de Segurança &amp; Engenharia de Silício</h4>
-            <ul class="arch-box__list" id="modalFeaturesList"></ul>
-          </div>
-          <div class="tech-modal__sla-box">
-            <span class="sla-badge">GARANTIA DE NÍVEL DE SERVIÇO (SLA):</span>
-            <p>Cada servidor conta com replicação geográfica multi-região na Vercel Edge e AWS, garantindo 99.999% de disponibilidade sob stress testing contínuo e failover automatizado.</p>
-          </div>
-        </div>
-
-        <!-- Modal Footer Actions -->
-        <div class="tech-modal__footer">
-          <span class="tech-modal__footer-caption">Hardware dedicado disponível para alocação no seu projeto</span>
-          <div class="tech-modal__actions">
-            <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn--primary" id="modalCtaBtn">
-              SOLICITAR ALOCAÇÃO NO WHATSAPP <span class="btn__arrow">↗</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
     </section>
 
     <!-- ============================== 5.5 RESPONSIVIDADE TOTAL // NOTEBOOK & MOBILE ============================== -->
@@ -1408,204 +854,11 @@
 
         <!-- CTA Direto -->
         <div class="responsive-cta-wrap text-center">
-          <a href="#loja" class="btn btn--outline">
+          <a href="#capacetes" class="btn btn--outline">
             EXPLORAR TODAS AS SOLUÇÕES <span class="btn__arrow" aria-hidden="true">↓</span>
           </a>
         </div>
 
-      </div>
-    </section>
-
-    <!-- ============================== 6. SERVIÇOS & SOLUÇÕES (HORIZONTAL SCROLL) ============================== -->
-    <section class="section section--dark services-section shop-section helmets-section" id="loja"
-      aria-labelledby="loja-title">
-      <!-- Container com altura estendida para a rolagem vertical de leitura (350vh) -->
-      <div class="horizontal-scroll-container" id="services-scroll-container">
-        <!-- Pin wrapper fixado pelo ScrollTrigger -->
-        <div class="horizontal-pin-wrapper" id="services-pin-wrapper">
-          <div class="horizontal-content">
-            <!-- Header introdutório lateral -->
-            <div class="horizontal-intro">
-              <span class="eyebrow text-red">05 — Portfólio de Engenharia</span>
-              <h2 class="display horizontal-title" id="loja-title">
-                Soluções &amp;<br><span class="text-red">Serviços</span>
-              </h2>
-              <p class="horizontal-lead">
-                Da concepção da arquitetura à escala massiva em produção. Explore nossas frentes de desenvolvimento de
-                software, automação inteligente e liderança técnica.
-              </p>
-              <div class="horizontal-scroll-indicator">
-                <span class="scroll-arrow-line"></span>
-                <span class="scroll-arrow-text">Role para o lado →</span>
-              </div>
-            </div>
-
-            <!-- Track com cards alinhados horizontalmente -->
-            <div class="horizontal-track" id="services-track">
-              <!-- Card 01: Web Apps & Interfaces 3D -->
-              <article class="service-hcard">
-                <div class="service-hcard__header">
-                  <span class="service-hcard__num">01</span>
-                  <span class="service-hcard__tag">High Performance</span>
-                </div>
-                <div class="service-hcard__body">
-                  <h3 class="service-hcard__title">Web Apps &amp; Interfaces 3D</h3>
-                  <p class="service-hcard__category">Front-End Avançado · WebGL · GSAP</p>
-                  <p class="service-hcard__desc">
-                    Aplicações web modernas, landing pages com renderização 3D interativa, animações fluidas em GSAP e
-                    foco obsessivo em velocidade, estética e Core Web Vitals.
-                  </p>
-                  <div class="service-hcard__stack">
-                    <span>React</span>
-                    <span>Three.js</span>
-                    <span>GSAP</span>
-                    <span>WebGL</span>
-                    <span>TypeScript</span>
-                  </div>
-                </div>
-                <div class="service-hcard__footer">
-                  <span class="service-hcard__sla">Awwwards Quality</span>
-                  <a href="#rodape" class="service-hcard__btn">Solicitar Proposta ↗</a>
-                </div>
-              </article>
-
-              <!-- Card 02: Arquitetura Backend & APIs -->
-              <article class="service-hcard">
-                <div class="service-hcard__header">
-                  <span class="service-hcard__num">02</span>
-                  <span class="service-hcard__tag">Escala Extrema</span>
-                </div>
-                <div class="service-hcard__body">
-                  <h3 class="service-hcard__title">Backend &amp; APIs de Alta Carga</h3>
-                  <p class="service-hcard__category">Microsserviços · Cloud · Concorrência</p>
-                  <p class="service-hcard__desc">
-                    Arquiteturas distribuídas preparadas para suportar picos de milhões de requisições, com baixa
-                    latência, alta disponibilidade e bancos de dados otimizados.
-                  </p>
-                  <div class="service-hcard__stack">
-                    <span>Node.js</span>
-                    <span>Go</span>
-                    <span>PostgreSQL</span>
-                    <span>Redis</span>
-                    <span>Docker</span>
-                  </div>
-                </div>
-                <div class="service-hcard__footer">
-                  <span class="service-hcard__sla">SLA 99.99%</span>
-                  <a href="#rodape" class="service-hcard__btn">Solicitar Proposta ↗</a>
-                </div>
-              </article>
-
-              <!-- Card 03: Automação Inteligente & IA -->
-              <article class="service-hcard">
-                <div class="service-hcard__header">
-                  <span class="service-hcard__num">03</span>
-                  <span class="service-hcard__tag">IA &amp; Conversão</span>
-                </div>
-                <div class="service-hcard__body">
-                  <h3 class="service-hcard__title">Automação Inteligente &amp; Redes</h3>
-                  <p class="service-hcard__category">Robôs de Atendimento · WhatsApp &amp; Instagram</p>
-                  <p class="service-hcard__desc">
-                    Agentes de IA humanizados e fluxos automatizados de atendimento 24/7 para captação, triagem de
-                    leads, vendas e integração com CRMs e ERPs corporativos.
-                  </p>
-                  <div class="service-hcard__stack">
-                    <span>OpenAI</span>
-                    <span>LangChain</span>
-                    <span>Meta APIs</span>
-                    <span>Webhooks</span>
-                    <span>Python</span>
-                  </div>
-                </div>
-                <div class="service-hcard__footer">
-                  <span class="service-hcard__sla">Atendimento 24/7</span>
-                  <a href="#rodape" class="service-hcard__btn">Solicitar Proposta ↗</a>
-                </div>
-              </article>
-
-              <!-- Card 04: Sistemas Corporativos & SaaS -->
-              <article class="service-hcard">
-                <div class="service-hcard__header">
-                  <span class="service-hcard__num">04</span>
-                  <span class="service-hcard__tag">Sob Medida</span>
-                </div>
-                <div class="service-hcard__body">
-                  <h3 class="service-hcard__title">Sistemas Corporativos &amp; SaaS</h3>
-                  <p class="service-hcard__category">Software House · Plataformas Digitais</p>
-                  <p class="service-hcard__desc">
-                    Desenvolvimento integral de sistemas sob medida para a operação da sua empresa: painéis
-                    administrativos, relatórios analíticos e faturamento recorrente.
-                  </p>
-                  <div class="service-hcard__stack">
-                    <span>Next.js</span>
-                    <span>NestJS</span>
-                    <span>GraphQL</span>
-                    <span>Stripe</span>
-                    <span>AWS</span>
-                  </div>
-                </div>
-                <div class="service-hcard__footer">
-                  <span class="service-hcard__sla">Código Proprietário</span>
-                  <a href="#rodape" class="service-hcard__btn">Solicitar Proposta ↗</a>
-                </div>
-              </article>
-
-              <!-- Card 05: Engenharia Reversa & Auditoria -->
-              <article class="service-hcard">
-                <div class="service-hcard__header">
-                  <span class="service-hcard__num">05</span>
-                  <span class="service-hcard__tag">Auditoria &amp; Segurança</span>
-                </div>
-                <div class="service-hcard__body">
-                  <h3 class="service-hcard__title">Engenharia Reversa &amp; Auditoria</h3>
-                  <p class="service-hcard__category">Diagnóstico Técnico · Refatoração</p>
-                  <p class="service-hcard__desc">
-                    Auditoria de código, testes de estresse, identificação de gargalos de desempenho e modernização de
-                    softwares legados sem interromper a operação comercial.
-                  </p>
-                  <div class="service-hcard__stack">
-                    <span>Profiling</span>
-                    <span>Segurança</span>
-                    <span>Refactoring</span>
-                    <span>OAuth</span>
-                    <span>LGPD</span>
-                  </div>
-                </div>
-                <div class="service-hcard__footer">
-                  <span class="service-hcard__sla">Diagnóstico Rápido</span>
-                  <a href="#rodape" class="service-hcard__btn">Solicitar Proposta ↗</a>
-                </div>
-              </article>
-
-              <!-- Card 06: Squad Dedicado & CTO as a Service -->
-              <article class="service-hcard">
-                <div class="service-hcard__header">
-                  <span class="service-hcard__num">06</span>
-                  <span class="service-hcard__tag">Liderança Técnica</span>
-                </div>
-                <div class="service-hcard__body">
-                  <h3 class="service-hcard__title">Squad Dedicado &amp; Liderança</h3>
-                  <p class="service-hcard__category">Alocação Ágil · Luiz Gabriel &amp; Victor Whohlers</p>
-                  <p class="service-hcard__desc">
-                    Analistas de sistemas seniores liderados diretamente pelos fundadores da VL Tech para assumir
-                    demandas complexas e acelerar os lançamentos do seu negócio.
-                  </p>
-                  <div class="service-hcard__stack">
-                    <span>DevOps</span>
-                    <span>CI/CD</span>
-                    <span>Code Review</span>
-                    <span>Scrum</span>
-                    <span>Consultoria</span>
-                  </div>
-                </div>
-                <div class="service-hcard__footer">
-                  <span class="service-hcard__sla">Sprints Semanais</span>
-                  <a href="#rodape" class="service-hcard__btn">Solicitar Proposta ↗</a>
-                </div>
-              </article>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -2197,7 +1450,7 @@
           </p>
           <ul class="footer-nav-clean-list">
             <li><a href="#hero" class="footer-nav-item">Início</a></li>
-            <li><a href="#galeria" class="footer-nav-item">Diferenciais</a></li>
+            <li><a href="#tracks" class="footer-nav-item">A Flecha da Execução</a></li>
             <li><a href="#capacetes" class="footer-nav-item">Cases de Produção</a></li>
             <li><a href="#socios-scrolly" class="footer-nav-item">Sócios &amp; Liderança</a></li>
             <li><a href="#faq" class="footer-nav-item">Perguntas Frequentes</a></li>
@@ -2274,7 +1527,7 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 
   <!-- Aplicação (módulos ES) -->
-  <script type="module" src="js/main.js?v=6.0"></script>
+  <script type="module" src="js/main.js?v=6.1"></script>
 </body>
 
 </html>
