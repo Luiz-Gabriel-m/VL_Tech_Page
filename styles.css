@@ -660,46 +660,86 @@ html {
 
 
 /* --------------------------------------------------------------------------
-   4. SEÇÃO DOS SÓCIOS (#socios-scrolly) — 3D ID BADGE (CRACHÁ) SHOWCASE
+   4. SEÇÃO DOS SÓCIOS (#socios-scrolly) — 3D PENDULUM ID BADGE SHOWCASE
    Luiz Gabriel (Frente / 0°) ⇄ Victor Whohlers (Verso / 180°)
-   Suspended 3D Badge with Lanyard, Real-time Tilt & Physics Drag
-   Dark theme: #111112 | Neon Red: #ff2a2a | Glassmorphism & Cyber Monospace
+   Suspended 3D Pendulum Badge with Lanyard, Physics Inertia & Drag-to-Throw
+   Dark theme: #111112 | Neon Red: #ff2a2a | High-End Minimalist Cyber Stage
    -------------------------------------------------------------------------- */
 .founders-badge-section {
   position: relative !important;
   width: 100% !important;
   min-height: 100vh !important;
-  background-color: #0c0c0e !important;
+  background-color: #0b0b0e !important;
   overflow: hidden !important;
   clear: both !important;
   z-index: 10 !important;
   display: flex !important;
   flex-direction: column !important;
   justify-content: center !important;
+  align-items: center !important;
   box-sizing: border-box !important;
   border-top: 1px solid rgba(255, 42, 42, 0.16) !important;
   border-bottom: 1px solid rgba(255, 42, 42, 0.16) !important;
-  padding: clamp(4rem, 6vw, 6rem) 0 !important;
+  padding: clamp(4rem, 6vw, 6.5rem) 0 !important;
+}
+
+/* Fundo Iluminado & Grade Cibernética Sutil */
+.founders-ambient-glow {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(900px, 90vw);
+  height: 550px;
+  background: radial-gradient(circle at center, rgba(255, 42, 42, 0.12) 0%, rgba(255, 42, 42, 0.03) 45%, transparent 75%);
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.founders-grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+  background-size: 48px 48px;
+  background-position: center center;
+  pointer-events: none;
+  z-index: 1;
+  mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+  -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
 }
 
 .badge-section-container {
   width: 100%;
-  max-width: 1400px;
+  max-width: 1240px;
   margin: 0 auto;
   padding: 0 clamp(1.25rem, 3vw, 2.5rem);
   position: relative;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* Header Editorial */
+/* Header Editorial Centralizado */
 .badge-section-header {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 2rem;
-  margin-bottom: clamp(2.5rem, 4vw, 3.5rem);
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+  margin-bottom: clamp(2rem, 3.5vw, 3rem);
+  width: 100%;
+  max-width: 800px;
+}
+
+.badge-header-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
 }
 
 .badge-eyebrow {
@@ -707,20 +747,28 @@ html {
   align-items: center;
   gap: 0.6rem;
   font-family: var(--font-mono, monospace);
-  font-size: 0.75rem;
-  letter-spacing: 0.18em;
+  font-size: 0.76rem;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 0.5rem;
+  color: rgba(255, 255, 255, 0.65);
 }
 
 .badge-section-title {
-  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
   font-weight: 800;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.035em;
   color: #ffffff;
   margin: 0;
   line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.badge-section-lead {
+  font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+  color: rgba(255, 255, 255, 0.6);
+  max-width: 620px;
+  line-height: 1.6;
+  margin: 0;
 }
 
 /* Switcher Nav Tabs */
@@ -739,7 +787,7 @@ html {
   gap: 0.85rem;
   background: transparent;
   border: 1px solid transparent;
-  padding: 0.65rem 1.15rem;
+  padding: 0.65rem 1.25rem;
   border-radius: 10px;
   color: #ffffff;
   cursor: pointer;
@@ -798,223 +846,85 @@ html {
   letter-spacing: 0.05em;
 }
 
-/* 3-Column Layout */
-.badge-stage-layout {
-  display: grid;
-  grid-template-columns: minmax(320px, 380px) minmax(360px, 480px) minmax(300px, 360px);
-  gap: clamp(1.5rem, 3vw, 3rem);
-  align-items: center;
-  justify-content: center;
+/* ==========================================================================
+   PALCO DO PÊNDULO 3D (ULTRA-CLEAN MINIMALIST STAGE)
+   ========================================================================== */
+.badge-pendulum-stage {
   position: relative;
-}
-
-/* Left Panel: Active Founder Dynamic Profile */
-.badge-info-panel--left {
-  background: rgba(18, 18, 22, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 20px;
-  padding: 2.25rem;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
-
-.badge-info__meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.25rem;
-}
-
-.badge-founder-index {
-  font-family: var(--font-mono, monospace);
-  font-size: 0.82rem;
-  color: rgba(255, 255, 255, 0.6);
-  letter-spacing: 0.1em;
-}
-
-.badge-security-clearance {
-  font-family: var(--font-mono, monospace);
-  font-size: 0.68rem;
-  color: #ff2a2a;
-  background: rgba(255, 42, 42, 0.1);
-  border: 1px solid rgba(255, 42, 42, 0.3);
-  padding: 0.25rem 0.6rem;
-  border-radius: 4px;
-  letter-spacing: 0.08em;
-}
-
-.badge-founder-name {
-  font-size: clamp(2rem, 2.5vw, 2.8rem);
-  font-weight: 900;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
-  margin: 0 0 0.5rem 0;
-  display: flex;
-  flex-direction: column;
-  color: #ffffff;
-}
-
-.badge-founder-name .name-last {
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.85);
-  text-stroke: 1px rgba(255, 255, 255, 0.85);
-}
-
-.badge-founder-role {
-  font-size: 0.98rem;
-  font-weight: 600;
-  color: #ff2a2a;
-  margin-bottom: 1.25rem;
-  line-height: 1.3;
-}
-
-.badge-founder-bio {
-  font-size: 0.92rem;
-  line-height: 1.65;
-  color: rgba(255, 255, 255, 0.75);
-  margin-bottom: 1.75rem;
-}
-
-.badge-pillars-box {
-  margin-bottom: 2rem;
-  padding-top: 1.25rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.pillars-label {
-  display: block;
-  font-family: var(--font-mono, monospace);
-  font-size: 0.68rem;
-  color: rgba(255, 255, 255, 0.45);
-  letter-spacing: 0.12em;
-  margin-bottom: 0.75rem;
-}
-
-.badge-pillars-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.pillar-tag {
-  font-family: var(--font-mono, monospace);
-  font-size: 0.72rem;
-  padding: 0.35rem 0.75rem;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 6px;
-  color: rgba(255, 255, 255, 0.9);
-  transition: border-color 0.2s, background 0.2s;
-}
-
-.pillar-tag:hover {
-  background: rgba(255, 42, 42, 0.1);
-  border-color: rgba(255, 42, 42, 0.4);
-  color: #ffffff;
-}
-
-.badge-action-btns {
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-}
-
-.btn--badge-wa {
-  background: #ff2a2a;
-  color: #ffffff;
-  font-weight: 700;
-  font-size: 0.92rem;
-  padding: 0.95rem 1.4rem;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.65rem;
-  text-decoration: none;
-  box-shadow: 0 4px 20px rgba(255, 42, 42, 0.35);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.btn--badge-wa:hover {
-  background: #e61919;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(255, 42, 42, 0.6);
-  color: #ffffff;
-}
-
-.btn--badge-linkedin {
-  background: rgba(255, 255, 255, 0.04);
-  color: #ffffff;
-  font-weight: 600;
-  font-size: 0.88rem;
-  padding: 0.85rem 1.4rem;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.65rem;
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-
-.btn--badge-linkedin:hover {
-  background: rgba(255, 255, 255, 0.09);
-  border-color: rgba(255, 255, 255, 0.3);
-  color: #ffffff;
-  transform: translateY(-1px);
-}
-
-/* Center: 3D Badge Suspended Assembly */
-.badge-stage-center {
+  width: 100%;
+  min-height: 720px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  perspective: 1600px;
+  -webkit-perspective: 1600px;
+  padding-top: 10px;
+}
+
+/* O Rig que oscila como um pêndulo físico (pivot no topo) */
+.badge-pendulum-rig {
   position: relative;
-  min-height: 590px;
-  perspective: 1400px;
-  -webkit-perspective: 1400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform-origin: top center;
+  will-change: transform;
+  user-select: none;
+  touch-action: none;
+}
+
+/* Fixador Metálico no Teto (Ceiling Bracket & Ring) */
+.badge-ceiling-mount {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 8;
+  pointer-events: none;
+}
+
+.ceiling-mount__bracket {
+  width: 64px;
+  height: 8px;
+  background: linear-gradient(180deg, #44444c, #1f1f24);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8), 0 0 10px rgba(255, 42, 42, 0.2);
+}
+
+.ceiling-mount__ring {
+  width: 24px;
+  height: 20px;
+  border: 3.5px solid #888894;
+  border-radius: 50%;
+  margin-top: -3px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.8), 0 2px 8px rgba(0,0,0,0.6);
+  background: transparent;
 }
 
 /* Lanyard Suspended Assembly */
 .badge-lanyard-assembly {
-  position: absolute;
-  top: -65px;
-  z-index: 5;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   pointer-events: none;
-}
-
-.lanyard-anchor-ring {
-  width: 50px;
-  height: 12px;
-  border-radius: 6px;
-  background: linear-gradient(180deg, #333338, #18181c);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+  z-index: 6;
+  margin-top: -4px;
 }
 
 .lanyard-strap {
-  width: 38px;
-  height: 110px;
-  background: #151518;
+  width: 36px;
+  height: 130px;
+  background: #141418;
   border-left: 2px solid #ff2a2a;
   border-right: 2px solid #ff2a2a;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8), inset 0 0 10px rgba(0,0,0,0.7);
   overflow: hidden;
   position: relative;
   transform-origin: top center;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.1s ease-out;
 }
 
 .lanyard-strap__text {
@@ -1023,8 +933,8 @@ html {
   font-family: var(--font-mono, monospace);
   font-size: 8px;
   font-weight: 800;
-  color: rgba(255, 255, 255, 0.65);
-  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.2em;
   white-space: nowrap;
   animation: strapTicker 15s linear infinite;
   display: flex;
@@ -1037,34 +947,45 @@ html {
 }
 
 .lanyard-metal-clip {
-  width: 28px;
-  height: 32px;
+  width: 26px;
+  height: 30px;
   margin-top: -2px;
-  background: linear-gradient(135deg, #888890, #383840 50%, #707078);
+  background: linear-gradient(135deg, #888894, #2a2a30 50%, #70707c);
   border-radius: 4px;
   border: 1px solid rgba(255, 255, 255, 0.35);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.9);
   position: relative;
-  z-index: 6;
+  z-index: 7;
+}
+
+.clip-swivel {
+  width: 14px;
+  height: 6px;
+  background: #202026;
+  border-radius: 3px;
+  margin: 3px auto 0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .clip-clasp {
-  width: 9px;
-  height: 20px;
-  border: 2px solid #b0b0b8;
+  width: 8px;
+  height: 18px;
+  border: 2px solid #a8a8b2;
   border-radius: 4px;
   position: absolute;
-  bottom: -12px;
+  bottom: -11px;
   left: 50%;
   transform: translateX(-50%);
   background: rgba(0, 0, 0, 0.3);
 }
 
-/* 3D Transform Container */
+/* ==========================================================================
+   CRACHÁ 3D (3D TRANSFORM CONTAINER & FACES)
+   ========================================================================== */
 .badge-3d-wrapper {
-  margin-top: 55px;
-  width: 310px;
-  height: 480px;
+  margin-top: 14px;
+  width: 320px;
+  height: 505px;
   position: relative;
   transform-style: preserve-3d;
   cursor: grab;
@@ -1097,7 +1018,7 @@ html {
   transition: background 0.1s ease-out;
 }
 
-/* Badge Card Faces */
+/* Badge Card Faces (Frente & Verso) */
 .badge-face {
   position: absolute;
   inset: 0;
@@ -1107,13 +1028,17 @@ html {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   overflow: hidden;
-  padding: 1.4rem;
+  padding: 1.25rem 1.35rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background: linear-gradient(150deg, #1a1a20 0%, #0e0e12 100%);
+  background: linear-gradient(155deg, #18181f 0%, #0d0d12 100%);
   border: 1px solid rgba(255, 255, 255, 0.16);
-  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.9), 0 0 35px rgba(255, 42, 42, 0.18), inset 0 0 0 1px rgba(255, 42, 42, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  box-shadow: 
+    0 30px 60px rgba(0, 0, 0, 0.9), 
+    0 0 35px rgba(255, 42, 42, 0.18), 
+    inset 0 0 0 1px rgba(255, 42, 42, 0.15), 
+    inset 0 1px 0 rgba(255, 255, 255, 0.32);
 }
 
 .badge-face--front {
@@ -1126,20 +1051,21 @@ html {
 
 /* Top Slot Punch */
 .badge-slot-punch {
-  width: 46px;
+  width: 48px;
   height: 9px;
   border-radius: 5px;
-  background: #08080a;
+  background: #060608;
   border: 1.5px solid rgba(255, 255, 255, 0.22);
-  margin: -0.4rem auto 0.6rem;
+  margin: -0.3rem auto 0.5rem;
   box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.95);
 }
 
+/* Header interno da credencial */
 .badge-card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.5rem;
 }
 
 .badge-brand-logo {
@@ -1150,17 +1076,17 @@ html {
 
 .badge-vl-monogram {
   font-family: var(--font-monument, sans-serif);
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 900;
   color: #ff2a2a;
   letter-spacing: -0.05em;
-  text-shadow: 0 0 12px rgba(255, 42, 42, 0.85);
+  text-shadow: 0 0 14px rgba(255, 42, 42, 0.9);
 }
 
 .badge-vl-sub {
   font-family: var(--font-mono, monospace);
   font-size: 0.58rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.65);
   letter-spacing: 0.1em;
 }
 
@@ -1182,7 +1108,7 @@ html {
 }
 
 .badge-magnetic-stripe {
-  width: 75px;
+  width: 80px;
   height: 18px;
   background: #060608;
   border: 1px solid #222228;
@@ -1202,30 +1128,52 @@ html {
   letter-spacing: 0.08em;
 }
 
+.badge-tag-pill--red {
+  background: rgba(255, 42, 42, 0.25);
+  box-shadow: 0 0 10px rgba(255, 42, 42, 0.35);
+}
+
 /* Portrait photo within the badge */
 .badge-photo-wrapper {
   width: 100%;
-  height: 215px;
+  height: 205px;
   border-radius: 12px;
   overflow: hidden;
   position: relative;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: #050507;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: #060608;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
 }
 
 .badge-photo {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top center;
-  filter: contrast(1.08) brightness(0.96);
+  object-position: center top;
+  filter: contrast(1.12) brightness(0.98);
 }
 
 .badge-photo-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 65%, rgba(14, 14, 18, 0.85) 100%);
+  background: linear-gradient(180deg, transparent 60%, rgba(13, 13, 18, 0.85) 100%);
   pointer-events: none;
+}
+
+.badge-photo-tag {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.58rem;
+  font-weight: 700;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 2px 6px;
+  border-radius: 3px;
+  letter-spacing: 0.06em;
+  backdrop-filter: blur(4px);
 }
 
 .badge-corner-target {
@@ -1235,7 +1183,7 @@ html {
   border-color: #ff2a2a;
   border-style: solid;
   pointer-events: none;
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
 .badge-corner-target.top-left {
@@ -1252,222 +1200,211 @@ html {
 
 /* Identity Typography */
 .badge-identity {
-  margin-top: 0.65rem;
+  margin-top: 0.5rem;
   text-align: left;
 }
 
 .badge-id-num {
   font-family: var(--font-mono, monospace);
-  font-size: 0.62rem;
+  font-size: 0.6rem;
   color: rgba(255, 255, 255, 0.5);
   letter-spacing: 0.12em;
 }
 
 .badge-name {
-  font-size: 1.35rem;
+  font-size: 1.32rem;
   font-weight: 900;
   color: #ffffff;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
   margin: 0.2rem 0 0.15rem 0;
 }
 
 .badge-title {
-  font-size: 0.76rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: #ff2a2a;
   line-height: 1.25;
+  margin: 0 0 0.45rem 0;
 }
 
-/* Barcode */
-.badge-barcode-bar {
+/* Integrated Tech Stack Pills on Badge */
+.badge-tech-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.b-pill {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.62rem;
+  padding: 2px 7px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: 0.04em;
+}
+
+/* Barcode & Footer CTA Bar on Badge */
+.badge-footer-bar {
   margin-top: 0.4rem;
   border-top: 1px dashed rgba(255, 255, 255, 0.12);
   padding-top: 0.45rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 0.5rem;
+}
+
+.badge-barcode-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .barcode-lines {
-  height: 18px;
-  width: 110px;
+  height: 16px;
+  width: 90px;
   background: repeating-linear-gradient(90deg, #ffffff 0, #ffffff 2px, transparent 2px, transparent 4px, #ffffff 4px, #ffffff 6px, transparent 6px, transparent 8px);
   opacity: 0.75;
 }
 
 .badge-serial {
   font-family: var(--font-mono, monospace);
-  font-size: 0.58rem;
-  color: rgba(255, 255, 255, 0.5);
-  letter-spacing: 0.08em;
+  font-size: 0.55rem;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 0.06em;
 }
 
-/* Flip Interaction Button & Hint */
-.badge-flip-control {
-  margin-top: 1.5rem;
+.badge-direct-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #ff2a2a;
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.38rem 0.75rem;
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(255, 42, 42, 0.38);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.badge-direct-cta:hover {
+  background: #e61919;
+  transform: translateY(-1px) scale(1.02);
+  box-shadow: 0 6px 20px rgba(255, 42, 42, 0.6);
+  color: #ffffff;
+}
+
+.cta-arrow {
+  transition: transform 0.2s ease;
+}
+
+.badge-direct-cta:hover .cta-arrow {
+  transform: translate(1px, -1px);
+}
+
+/* ==========================================================================
+   BARRA DE CONTROLE INFERIOR (MINIMALIST FLIP & PHYSICS HUD)
+   ========================================================================== */
+.badge-bottom-hud {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.45rem;
+  gap: 0.85rem;
+  margin-top: 1.8rem;
+  position: relative;
+  z-index: 9;
 }
 
 .badge-flip-action-btn {
-  background: rgba(255, 42, 42, 0.12);
-  border: 1px solid rgba(255, 42, 42, 0.45);
-  color: #ffffff;
-  font-family: var(--font-mono, monospace);
-  font-size: 0.74rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  padding: 0.6rem 1.4rem;
-  border-radius: 100px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.65rem;
+  background: rgba(255, 42, 42, 0.12);
+  color: #ffffff;
+  border: 1px solid rgba(255, 42, 42, 0.38);
+  padding: 0.75rem 1.6rem;
+  border-radius: 30px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 0 20px rgba(255, 42, 42, 0.2);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 42, 42, 0.18);
 }
 
 .badge-flip-action-btn:hover {
   background: #ff2a2a;
-  transform: translateY(-1px);
-  box-shadow: 0 0 30px rgba(255, 42, 42, 0.5);
+  border-color: #ff2a2a;
+  box-shadow: 0 8px 30px rgba(255, 42, 42, 0.5);
+  transform: translateY(-2px);
 }
 
 .badge-flip-action-btn .flip-icon {
-  transition: transform 0.4s ease;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .badge-flip-action-btn:hover .flip-icon {
   transform: rotate(180deg);
 }
 
-.badge-drag-hint {
-  font-family: var(--font-mono, monospace);
-  font-size: 0.68rem;
-  color: rgba(255, 255, 255, 0.45);
-  letter-spacing: 0.05em;
-}
-
-/* Right Panel: Executive Security Clearance & Telemetry HUD */
-.badge-info-panel--right .hud-box {
-  background: rgba(18, 18, 22, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 20px;
-  padding: 2.25rem;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.hud-box__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding-bottom: 0.85rem;
-}
-
-.hud-label {
-  font-family: var(--font-mono, monospace);
-  font-size: 0.72rem;
-  color: rgba(255, 255, 255, 0.65);
-  letter-spacing: 0.12em;
-}
-
-.hud-ping {
+.badge-physics-hint {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.6rem;
   font-family: var(--font-mono, monospace);
-  font-size: 0.7rem;
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.55);
+  letter-spacing: 0.12em;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 0.4rem 0.95rem;
+  border-radius: 20px;
+}
+
+.hint-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ff2a2a;
+}
+
+.hint-angle {
   color: #ff2a2a;
   font-weight: 700;
 }
 
-.hud-telemetry-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.85rem;
-}
-
-.hud-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  padding: 0.85rem;
-  border-radius: 10px;
-}
-
-.hud-card__key {
-  display: block;
-  font-family: var(--font-mono, monospace);
-  font-size: 0.65rem;
-  color: rgba(255, 255, 255, 0.45);
-  letter-spacing: 0.06em;
-}
-
-.hud-card__val {
-  display: block;
-  font-family: var(--font-mono, monospace);
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin-top: 0.3rem;
-}
-
-.hud-security-card {
-  background: rgba(255, 42, 42, 0.05);
-  border: 1px solid rgba(255, 42, 42, 0.22);
-  padding: 1.15rem;
-  border-radius: 12px;
-}
-
-.security-card__title {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.92rem;
-  font-weight: 700;
-  color: #ffffff;
-}
-
-.security-card__desc {
-  font-size: 0.82rem;
-  line-height: 1.55;
-  color: rgba(255, 255, 255, 0.7);
-  margin-top: 0.5rem;
-}
-
-.hud-rotation-indicator {
-  margin-top: 0.25rem;
-}
-
-.indicator-header {
-  display: flex;
-  justify-content: space-between;
-  font-family: var(--font-mono, monospace);
-  font-size: 0.7rem;
-  color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 0.45rem;
-}
-
-.indicator-track {
-  height: 4px;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.indicator-fill {
-  height: 100%;
-  width: 0%;
-  background: #ff2a2a;
-  box-shadow: 0 0 8px rgba(255, 42, 42, 0.8);
-  transition: width 0.08s linear;
+/* ==========================================================================
+   RESPONSIVIDADE DA SEÇÃO DOS SÓCIOS
+   ========================================================================== */
+@media (max-width: 640px) {
+  .badge-section-header {
+    margin-bottom: 1.5rem;
+  }
+  .badge-switcher-nav {
+    width: 100%;
+    justify-content: center;
+  }
+  .badge-nav-btn {
+    padding: 0.5rem 0.85rem;
+  }
+  .badge-pendulum-stage {
+    min-height: 640px;
+  }
+  .badge-3d-wrapper {
+    width: 290px;
+    height: 480px;
+  }
+  .badge-photo-wrapper {
+    height: 185px;
+  }
+  .badge-name {
+    font-size: 1.2rem;
+  }
 }
 
 /* Responsividade Mobile & Tablet */

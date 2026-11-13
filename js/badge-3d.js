@@ -1,12 +1,13 @@
 /* ==========================================================================
    3D ID BADGE (CRACHÁ) — CO-FOUNDERS SHOWCASE
+   Ultra-Clean Minimalist Layout with Realistic 3D Pendulum Physics
    Luiz Gabriel (Frente / 0°) ⇄ Victor Whohlers (Verso / 180°)
    
-   - Rotação 3D com física realista, GSAP 3 easing, arrasto (drag/throw) e inércia
+   - Pêndulo Físico com gravidade, inércia, arrasto e arremesso (drag-to-throw)
+   - Rotação 3D axial com GSAP 3 easing suave
    - Tilt 3D com acompanhamento do cursor e reflexo especular dinâmico
-   - Oscilação física do cordão / lanyard suspenso
-   - Sincronização em tempo real com painéis HUD de telemetria e botões de contato
-   - Compatível com GSAP 3, acessibilidade (teclado/leitor de tela) e touch mobile
+   - Flexão física do cordão / lanyard suspenso
+   - 100% responsivo, acessível por teclado e touch mobile
    ========================================================================== */
 
 import { gsap } from './core/gsap.js';
@@ -15,47 +16,23 @@ import { playIgnite } from './sound.js';
 const FOUNDERS_DATA = {
   front: {
     key: 'luiz',
-    index: '01 / 02',
-    nameFirst: 'LUIZ',
-    nameLast: 'GABRIEL',
+    name: 'LUIZ GABRIEL',
     role: 'Especialista em Front-end, Arquitetura Web & Automações',
-    bio: 'Transforma arquitetura em experiência: interfaces WebGL de alta performance, design systems escaláveis e automações inteligentes com foco em conversão e retenção.',
-    clearance: 'LEVEL 05 // SYSTEM ROOT',
     idCode: 'VL-ENG-01 · SAO-HQ',
-    stack: [
-      'WebGL / Three.js',
-      'GSAP 3 Animation',
-      'Next.js & Tailwind',
-      'Design Systems',
-      'Automações n8n/AI'
-    ],
-    waUrl: 'https://wa.me/5511999999999?text=Ol%C3%A1%20Luiz%20Gabriel%2C%20gostaria%20de%20conversar%20sobre%20um%20projeto%20com%20a%20VL%20Tech',
-    waText: 'Falar com Luiz no WhatsApp',
-    linkedinUrl: 'https://www.linkedin.com/in/luiz-gabriel-moraes/',
-    targetAngle: 0,
-    flipBtnLabel: 'GIRAR PARA VICTOR (VERSO)'
+    serial: 'AUTH // 0492-8812-7740-L',
+    angleLabel: '0° (LUIZ)',
+    flipBtnLabel: 'GIRAR PARA VICTOR (VERSO)',
+    targetAngle: 0
   },
   back: {
     key: 'victor',
-    index: '02 / 02',
-    nameFirst: 'VICTOR',
-    nameLast: 'WHOHLERS',
+    name: 'VICTOR WHOHLERS',
     role: 'Especialista em Back-end, Cloud & Lógica de Sistemas',
-    bio: 'Arquiteta a espinha dorsal das operações: APIs distribuídas, microsserviços de alto volume, bancos de dados escaláveis e infraestrutura cloud de máxima disponibilidade.',
-    clearance: 'LEVEL 05 // SYSTEM ROOT',
     idCode: 'VL-ENG-02 · SAO-HQ',
-    stack: [
-      'Cloud AWS / GCP',
-      'Docker & Kubernetes',
-      'APIs Distribuídas',
-      'PostgreSQL & Redis',
-      'Segurança & Criptografia'
-    ],
-    waUrl: 'https://wa.me/5511999999999?text=Ol%C3%A1%20Victor%20Whohlers%2C%20gostaria%20de%20conversar%20sobre%20arquitetura%20cloud%20com%20a%20VL%20Tech',
-    waText: 'Falar com Victor no WhatsApp',
-    linkedinUrl: 'https://www.linkedin.com/in/victor-whohlers/',
-    targetAngle: 180,
-    flipBtnLabel: 'GIRAR PARA LUIZ (FRENTE)'
+    serial: 'AUTH // 0492-8812-7741-V',
+    angleLabel: '180° (VICTOR)',
+    flipBtnLabel: 'GIRAR PARA LUIZ (FRENTE)',
+    targetAngle: 180
   }
 };
 
@@ -64,6 +41,7 @@ export function initBadge3D() {
   if (!section) return null;
 
   const stage = section.querySelector('#badge3dStage');
+  const rig = section.querySelector('#badgePendulumRig');
   const card = section.querySelector('#badgeCard3d');
   const faceFront = section.querySelector('#badgeFaceFront');
   const faceBack = section.querySelector('#badgeFaceBack');
@@ -71,51 +49,49 @@ export function initBadge3D() {
   const specular = section.querySelector('#badgeSpecularGlare');
   const flipActionBtn = section.querySelector('#badgeFlipActionBtn');
   const flipBtnLabel = section.querySelector('#badgeFlipBtnLabel');
+  const angleDisplay = section.querySelector('#badgeAngleDisplay');
   const navLuiz = section.querySelector('#badgeNavLuiz');
   const navVictor = section.querySelector('#badgeNavVictor');
 
-  // Elementos do painel esquerdo
-  const metaIndex = section.querySelector('#founderMetaIndex');
-  const metaClearance = section.querySelector('#founderMetaClearance');
-  const metaNameFirst = section.querySelector('#founderMetaName .name-first');
-  const metaNameLast = section.querySelector('#founderMetaName .name-last');
-  const metaRole = section.querySelector('#founderMetaRole');
-  const metaBio = section.querySelector('#founderMetaBio');
-  const metaStack = section.querySelector('#founderMetaStack');
-  const waBtn = section.querySelector('#badgeFounderWaBtn');
-  const waBtnText = section.querySelector('#badgeWaBtnText');
-  const linkedinBtn = section.querySelector('#badgeFounderLinkedinBtn');
-
-  // Elementos do painel direito
-  const angleDisplay = section.querySelector('#badgeAngleDisplay');
-  const angleFill = section.querySelector('#badgeAngleFill');
-
-  if (!card) return null;
-
-  // Estado da rotação e física
-  let currentRotationY = 0;
-  let targetRotationY = 0;
-  let currentTiltX = 0;
-  let currentTiltY = 0;
-  let isDragging = false;
-  let dragStartX = 0;
-  let dragStartRot = 0;
-  let lastDragX = 0;
-  let dragVelocity = 0;
-  let currentFace = 'front'; // 'front' | 'back'
-  let flipTween = null;
+  if (!card || !rig) return null;
 
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // 1. Atualização do DOM dos dados do co-founder ativo
-  function updateActiveFounderInfo(face) {
-    if (currentFace === face && metaNameFirst?.textContent === FOUNDERS_DATA[face].nameFirst) return;
+  // Estado da física do Pêndulo (Swing ao redor do topo)
+  let swingAngleZ = 0;
+  let swingVelocityZ = 0;
+  let cardWobbleZ = 0;
+  const gravity = 0.16;
+  const damping = 0.982;
+
+  // Estado da rotação axial (Frente 0° ⇄ Verso 180°)
+  let currentRotationY = 0;
+  let targetRotationY = 0;
+  let flipTween = null;
+  let currentFace = 'front';
+
+  // Estado de perspectiva / tilt do mouse
+  let currentTiltX = 0;
+  let currentTiltY = 0;
+
+  // Estado do arrasto (Drag-to-Throw)
+  let isDragging = false;
+  let dragStartX = 0;
+  let dragStartY = 0;
+  let lastClientX = 0;
+  let lastClientY = 0;
+  let throwVelocityX = 0;
+  let throwVelocityY = 0;
+  let dragStartTime = 0;
+
+  // 1. Atualização dos indicadores de face (Luiz / Victor)
+  function updateFaceState(face) {
+    if (currentFace === face) return;
     currentFace = face;
     const data = FOUNDERS_DATA[face];
 
     section.dataset.activeFounder = data.key;
 
-    // Atualiza botões de topo
     if (navLuiz && navVictor) {
       if (face === 'front') {
         navLuiz.classList.add('is-active');
@@ -133,124 +109,106 @@ export function initBadge3D() {
     if (flipBtnLabel) {
       flipBtnLabel.textContent = data.flipBtnLabel;
     }
-
-    // Transição suave no painel esquerdo
-    if (metaNameFirst && metaNameLast) {
-      gsap.to(['#badgeDynamicProfile'], {
-        opacity: 0.45,
-        y: 6,
-        duration: 0.15,
-        ease: 'power2.in',
-        onComplete: () => {
-          if (metaIndex) metaIndex.innerHTML = `<span class="text-red">${data.index.split(' / ')[0]}</span> / ${data.index.split(' / ')[1]}`;
-          if (metaClearance) metaClearance.textContent = data.clearance;
-          metaNameFirst.textContent = data.nameFirst;
-          metaNameLast.textContent = data.nameLast;
-          if (metaRole) metaRole.textContent = data.role;
-          if (metaBio) metaBio.textContent = data.bio;
-
-          if (metaStack) {
-            metaStack.innerHTML = data.stack
-              .map((tag) => `<li class="pillar-tag">${tag}</li>`)
-              .join('');
-          }
-
-          if (waBtn) {
-            waBtn.href = data.waUrl;
-            if (waBtnText) waBtnText.textContent = data.waText;
-          }
-          if (linkedinBtn) {
-            linkedinBtn.href = data.linkedinUrl;
-          }
-
-          gsap.to(['#badgeDynamicProfile'], {
-            opacity: 1,
-            y: 0,
-            duration: 0.25,
-            ease: 'power2.out',
-          });
-        },
-      });
-    }
   }
 
-  // 2. Renderização da Rotação 3D & Especular
+  // 2. Aplicação das matrizes de transformação 3D
   function applyTransforms() {
-    // Normaliza ângulo para exibição no HUD (0° a 360°)
+    // Normalização do ângulo para telemetria
     let normalized = Math.round(((currentRotationY % 360) + 360) % 360);
     const facingFront = normalized <= 90 || normalized >= 270;
     const activeFace = facingFront ? 'front' : 'back';
-
-    updateActiveFounderInfo(activeFace);
+    updateFaceState(activeFace);
 
     if (angleDisplay) {
       const label = facingFront ? 'LUIZ' : 'VICTOR';
       angleDisplay.textContent = `${normalized}° (${label})`;
     }
-    if (angleFill) {
-      angleFill.style.width = `${(normalized / 360) * 100}%`;
-    }
 
-    // Garante alternância visual nítida e sem bleed entre faces
+    // Visibilidade das faces para evitar bleed no 3D
     if (faceFront && faceBack) {
       faceFront.style.visibility = facingFront ? 'visible' : 'hidden';
       faceBack.style.visibility = facingFront ? 'hidden' : 'visible';
     }
 
-    // Aplica matriz 3D ao crachá
-    card.style.transform = `rotateX(${currentTiltX.toFixed(2)}deg) rotateY(${(currentRotationY + currentTiltY).toFixed(2)}deg)`;
+    // 1. Aplica o balanço do pêndulo no Rig (pivot no topo)
+    // O leve deslocamento em Y simula a elevação física do arco do pêndulo
+    const swingRad = (swingAngleZ * Math.PI) / 180;
+    const arcLiftY = (1 - Math.cos(swingRad)) * -22;
+    rig.style.transform = `translateY(${arcLiftY.toFixed(2)}px) rotateZ(${swingAngleZ.toFixed(2)}deg)`;
 
-    // Aplica deformação sutil ao cordão suspenso
+    // 2. Flexão física do cordão suspenso (lanyard strap)
     if (lanyardStrap) {
-      const strapBend = (currentTiltY * 0.4) + Math.sin((currentRotationY * Math.PI) / 180) * 6;
-      lanyardStrap.style.transform = `skewX(${strapBend.toFixed(2)}deg)`;
+      const strapSkew = -(swingAngleZ * 0.35);
+      lanyardStrap.style.transform = `skewX(${strapSkew.toFixed(2)}deg)`;
     }
 
-    // Atualiza reflexo especular na superfície plástica
+    // 3. Matriz 3D no próprio crachá (oscilação secundária + rotação axial + tilt)
+    const totalTiltX = currentTiltX;
+    const totalRotationY = currentRotationY + currentTiltY;
+    const totalWobbleZ = cardWobbleZ;
+
+    card.style.transform = `rotateX(${totalTiltX.toFixed(2)}deg) rotateY(${totalRotationY.toFixed(2)}deg) rotateZ(${totalWobbleZ.toFixed(2)}deg)`;
+
+    // 4. Reflexo especular dinâmico na superfície acrílica
     if (specular) {
-      const sheenX = 50 + currentTiltY * 2.5;
-      const sheenY = 50 - currentTiltX * 2.5;
-      specular.style.background = `radial-gradient(circle at ${sheenX}% ${sheenY}%, rgba(255, 255, 255, 0.25) 0%, rgba(255, 42, 42, 0.08) 35%, transparent 70%)`;
+      const sheenX = 50 + (currentTiltY * 2.2) + (swingAngleZ * 1.2);
+      const sheenY = 50 - (currentTiltX * 2.2);
+      specular.style.background = `radial-gradient(circle at ${sheenX.toFixed(1)}% ${sheenY.toFixed(1)}%, rgba(255, 255, 255, 0.28) 0%, rgba(255, 42, 42, 0.08) 35%, transparent 70%)`;
     }
   }
 
-  // 3. Loop de Física & Amortecimento
+  // 3. Simulação Física do Pêndulo em Tempo Real (RequestAnimationFrame)
   let rafId;
-  function updatePhysics() {
-    if (!isDragging && !flipTween) {
-      if (Math.abs(dragVelocity) > 0.05) {
-        currentRotationY += dragVelocity;
-        dragVelocity *= 0.92; // fricção
-        targetRotationY = currentRotationY;
-        applyTransforms();
-      } else if (Math.abs(targetRotationY - currentRotationY) > 0.01) {
-        currentRotationY += (targetRotationY - currentRotationY) * 0.12;
-        applyTransforms();
+  let lastTime = performance.now();
+
+  function updatePhysics(time) {
+    const dt = Math.min((time - lastTime) / 16.67, 2.5); // delta normalizado a 60fps
+    lastTime = time;
+
+    if (!isDragging) {
+      // Força restauradora da gravidade no pêndulo: F = -g * sin(theta)
+      const swingRad = (swingAngleZ * Math.PI) / 180;
+      const restoringForce = -Math.sin(swingRad) * gravity * dt;
+
+      // Amortecimento aerodinâmico
+      swingVelocityZ = (swingVelocityZ + restoringForce) * Math.pow(damping, dt);
+      swingAngleZ += swingVelocityZ * dt;
+
+      // Oscilação suave e orgânica de ar no estado de repouso (respiração do ambiente)
+      if (Math.abs(swingAngleZ) < 0.25 && Math.abs(swingVelocityZ) < 0.05) {
+        const ambientDraft = Math.sin(time * 0.0018) * 1.4;
+        swingAngleZ += (ambientDraft - swingAngleZ) * 0.04 * dt;
       }
-    } else if (isDragging) {
-      currentRotationY = targetRotationY;
-      applyTransforms();
+
+      // Wobble secundário da presilha / cartão
+      cardWobbleZ += (swingAngleZ * 0.38 - cardWobbleZ) * 0.14 * dt;
+    } else {
+      // Durante o arrasto, wobble acompanha suavemente
+      cardWobbleZ += (swingAngleZ * 0.45 - cardWobbleZ) * 0.22 * dt;
     }
 
+    applyTransforms();
     rafId = requestAnimationFrame(updatePhysics);
   }
 
   rafId = requestAnimationFrame(updatePhysics);
 
-  // 4. Interação de Arrasto (Mouse & Touch Drag)
+  // 4. Interação Física de Arrasto & Arremesso (Drag-to-Throw & Flick)
   function onPointerDown(e) {
     if (e.target.closest('a, button')) return;
 
-    if (flipTween) {
-      flipTween.kill();
-      flipTween = null;
-    }
-
     isDragging = true;
-    dragStartX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
-    dragStartRot = currentRotationY;
-    lastDragX = dragStartX;
-    dragVelocity = 0;
+    const clientX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+    const clientY = e.clientY || (e.touches && e.touches[0].clientY) || 0;
+
+    dragStartX = clientX;
+    dragStartY = clientY;
+    lastClientX = clientX;
+    lastClientY = clientY;
+    throwVelocityX = 0;
+    throwVelocityY = 0;
+    dragStartTime = performance.now();
+
     card.classList.add('is-dragging');
 
     window.addEventListener('pointermove', onPointerMove, { passive: false });
@@ -261,11 +219,23 @@ export function initBadge3D() {
   function onPointerMove(e) {
     if (!isDragging) return;
     const clientX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
-    const deltaX = clientX - dragStartX;
-    dragVelocity = (clientX - lastDragX) * 0.8;
-    lastDragX = clientX;
+    const clientY = e.clientY || (e.touches && e.touches[0].clientY) || 0;
 
-    targetRotationY = dragStartRot + deltaX * 0.65;
+    const deltaX = clientX - dragStartX;
+    const deltaY = clientY - dragStartY;
+
+    // Calcula velocidade instantânea do arremesso
+    throwVelocityX = (clientX - lastClientX);
+    throwVelocityY = (clientY - lastClientY);
+    lastClientX = clientX;
+    lastClientY = clientY;
+
+    // Converte o deslocamento horizontal em ângulo do pêndulo (clamp em 48°)
+    swingAngleZ = Math.max(-48, Math.min(48, deltaX * 0.16));
+    
+    // Pequena inclinação 3D no cartão durante o arrasto
+    currentTiltX = Math.max(-18, Math.min(18, -deltaY * 0.1));
+    currentTiltY = Math.max(-20, Math.min(20, deltaX * 0.12));
   }
 
   function onPointerUp() {
@@ -277,50 +247,39 @@ export function initBadge3D() {
     window.removeEventListener('pointerup', onPointerUp);
     window.removeEventListener('pointercancel', onPointerUp);
 
-    // Snap automático com GSAP para a face mais próxima (0° ou 180°)
-    if (Math.abs(dragVelocity) < 1.2) {
-      let mod = ((currentRotationY % 360) + 360) % 360;
-      let snapTarget;
-      if (mod > 90 && mod < 270) {
-        snapTarget = 180;
-      } else {
-        snapTarget = mod >= 270 ? 360 : 0;
-      }
-      const fullRotations = Math.floor(currentRotationY / 360) * 360;
-      const finalSnap = fullRotations + snapTarget;
+    // Injeta impulso do arremesso (throw velocity) no pêndulo
+    const flickVelocity = Math.max(-15, Math.min(15, throwVelocityX * 0.35));
+    swingVelocityZ += flickVelocity;
 
-      const rotObj = { r: currentRotationY };
-      flipTween = gsap.to(rotObj, {
-        r: finalSnap,
-        duration: 0.6,
-        ease: 'power3.out',
-        onUpdate: () => {
-          currentRotationY = rotObj.r;
-          targetRotationY = currentRotationY;
-          applyTransforms();
-        },
-        onComplete: () => {
-          flipTween = null;
-        }
-      });
-    }
+    // Retorna o tilt do cartão suavemente para o neutro com GSAP
+    gsap.to({ tiltX: currentTiltX, tiltY: currentTiltY }, {
+      tiltX: 0,
+      tiltY: 0,
+      duration: 0.7,
+      ease: 'power2.out',
+      onUpdate: function () {
+        currentTiltX = this.targets()[0].tiltX;
+        currentTiltY = this.targets()[0].tiltY;
+      }
+    });
   }
 
   card.addEventListener('pointerdown', onPointerDown);
 
-  // 5. Tilt 3D com Parallax do Mouse no Palco
+  // 5. Parallax do Mouse no Palco (Efeito de inclinação 3D quando o mouse passeia)
   if (stage && !prefersReduced && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
     stage.addEventListener('mousemove', (e) => {
+      if (isDragging) return;
       const rect = stage.getBoundingClientRect();
       const relX = (e.clientX - rect.left) / rect.width - 0.5; // -0.5 a 0.5
       const relY = (e.clientY - rect.top) / rect.height - 0.5;
 
-      currentTiltY = relX * 18; // Max 18 graus tilt Y
-      currentTiltX = -relY * 16; // Max 16 graus tilt X
-      applyTransforms();
+      currentTiltY = relX * 16; // Max 16 graus tilt Y
+      currentTiltX = -relY * 14; // Max 14 graus tilt X
     });
 
     stage.addEventListener('mouseleave', () => {
+      if (isDragging) return;
       gsap.to({ tiltX: currentTiltX, tiltY: currentTiltY }, {
         tiltX: 0,
         tiltY: 0,
@@ -329,13 +288,12 @@ export function initBadge3D() {
         onUpdate: function () {
           currentTiltX = this.targets()[0].tiltX;
           currentTiltY = this.targets()[0].tiltY;
-          applyTransforms();
         },
       });
     });
   }
 
-  // 6. Botão de Giro 3D Rápido (Click to Flip com GSAP 3)
+  // 6. Giro 3D Suave (Flip Front / Back com GSAP 3)
   function flipToFace(face, immediate = false) {
     try { playIgnite(); } catch (_) {}
 
@@ -351,12 +309,14 @@ export function initBadge3D() {
 
     const finalTarget = fullRotations + targetOffset;
     targetRotationY = finalTarget;
-    dragVelocity = 0;
 
     if (flipTween) {
       flipTween.kill();
       flipTween = null;
     }
+
+    // Leve impulso físico no pêndulo causado pelo torque do giro 3D
+    swingVelocityZ += (face === 'back' ? -2.0 : 2.0);
 
     if (immediate || prefersReduced) {
       currentRotationY = finalTarget;
@@ -397,14 +357,15 @@ export function initBadge3D() {
     flipToFace('back');
   });
 
-  // Clique simples no próprio crachá também gira
+  // Clique rápido no crachá também gira (se não foi um arrasto)
   card.addEventListener('click', (e) => {
-    if (Math.abs(lastDragX - dragStartX) < 5) {
+    if (e.target.closest('a, button')) return;
+    if (Math.abs(lastClientX - dragStartX) < 8 && Math.abs(lastClientY - dragStartY) < 8) {
       toggleFlip();
     }
   });
 
-  // Acessibilidade via teclado (Enter ou Barra de Espaço)
+  // Acessibilidade via teclado
   card.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
@@ -412,7 +373,7 @@ export function initBadge3D() {
     }
   });
 
-  // Inicialização com Luiz Gabriel (0°)
+  // Inicialização no ângulo 0° (Luiz)
   applyTransforms();
 
   return {
@@ -423,5 +384,6 @@ export function initBadge3D() {
     },
     flip: toggleFlip,
     setFace: flipToFace,
+    nudge: (impulse = 5) => { swingVelocityZ += impulse; }
   };
 }
