@@ -280,40 +280,6 @@ export function initTechHero() {
 
   window.addEventListener('resize', onResize, { passive: true });
 
-  // ---------------------------------------------------------------------------
-  // 9. Entrada Cinemática dos Elementos da Hero pós-Preloader (Da Esquerda)
-  // ---------------------------------------------------------------------------
-  function triggerHeroIntro() {
-    if (!window.gsap) return;
-    const gsap = window.gsap;
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-
-    tl.fromTo(
-      '.tech-hero__eyebrow',
-      { autoAlpha: 0, x: -30 },
-      { autoAlpha: 1, x: 0, duration: 0.8, delay: 0.1 }
-    )
-      .fromTo(
-        '.tech-hero__title',
-        { autoAlpha: 0, x: -45, filter: 'blur(8px)' },
-        { autoAlpha: 1, x: 0, filter: 'blur(0px)', duration: 1.0 },
-        '-=0.5'
-      )
-      .fromTo(
-        '.tech-hero__lead',
-        { autoAlpha: 0, x: -25 },
-        { autoAlpha: 1, x: 0, duration: 0.8 },
-        '-=0.6'
-      );
-  }
-
-  if (window.__loaderComplete) {
-    triggerHeroIntro();
-  } else {
-    document.addEventListener('loader:complete', triggerHeroIntro, { once: true });
-    window.addEventListener('loader:complete', triggerHeroIntro, { once: true });
-  }
-
   return {
     destroy: () => {
       if (animationFrameId) cancelAnimationFrame(animationFrameId);

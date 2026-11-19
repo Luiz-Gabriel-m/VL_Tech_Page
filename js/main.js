@@ -17,19 +17,15 @@ import { initCustomCursor } from './cursor.js';
 import { initNavigation } from './navigation.js';
 import { initFounderSwitch } from './founder-switch.js';
 import { initFAQ } from './faq.js';
-import { initFooter } from './footer.js?v=6.1';
-import { initHero } from './hero.js?v=6.1';
+import { initFooter } from './footer.js?v=6.6';
 import { initReveal } from './animations/reveal.js';
 import { initScroll } from './scroll.js?v=6.1';
-import { initNotebook3D } from './notebook-3d.js?v=6.1';
 import { initTiltHat } from './animations/tilt-hat.js';
-import { initMatrixCascade } from './animations/matrix-cascade.js';
-import { initTechHero } from './tech-hero-3d.js?v=6.1';
-import { initArrowScrollytelling } from './arrow-scrollytelling.js?v=6.1';
-import { initPartnersTech } from './partners-tech.js?v=6.1';
-import { initResponsiveShowcase } from './responsive-showcase.js?v=6.1';
-import { initPortfolioBrands } from './portfolio-brands.js?v=6.1';
-import { initBadge3D } from './badge-3d.js?v=6.1';
+import { initTechHero } from './tech-hero-3d.js?v=7.2';
+import { initHeroStickerHeadline } from './hero-sticker-headline.js?v=7.2';
+import { initPartnersTech } from './partners-tech.js?v=7.4';
+import { initResponsiveShowcase } from './responsive-showcase.js?v=7.3';
+import { initBadge3D } from './badge-3d.js?v=6.3';
 
 /**
  * Módulos essenciais — funcionam mesmo se o GSAP não carregar.
@@ -48,18 +44,15 @@ const CORE_MODULES = [
  * ORDEM = ORDEM DO DOM (comentário à direita indica a seção / se há pin).
  */
 const MOTION_MODULES = [
-  ['loader', initLoader],                         // #preloader
-  ['techHero', initTechHero],                     // #hero
-  ['tiltHat', initTiltHat],                       // #tracks (gatilho simples)
-  ['arrowScrollytelling', initArrowScrollytelling], // #tracks            · PIN
-  ['notebook3D', initNotebook3D],                 // #portfolio-experience · PIN
-  ['matrixCascade', initMatrixCascade],           // #capacetes
-  ['portfolioBrands', initPortfolioBrands],       // #capacetes (Showcase de Marcas & Logos)
-  ['responsiveShowcase', initResponsiveShowcase], // #responsividade
+  ['loader', initLoader],                               // #preloader
+  ['techHero', initTechHero],                           // #hero (WebGL 3D background)
+  ['heroStickerHeadline', initHeroStickerHeadline],     // #hero (StickerSwapHeadline)
+  ['tiltHat', initTiltHat],                             // gatilho tilt-hat (se presente)
+  ['responsiveShowcase', initResponsiveShowcase], // #responsividade · PIN
   ['partnersTech', initPartnersTech],             // #parceiros
-  ['badge3D', initBadge3D],                       // #socios-scrolly      · Crachá 3D Co-Founders
+  ['badge3D', initBadge3D],                       // #socios-scrolly · Crachá 3D Co-Founders
   ['reveal', initReveal],                         // gatilhos genéricos (sem pin)
-  ['scroll', initScroll],                         // galeria / manifesto / leque (sem pin)
+  ['scroll', initScroll],                         // galeria / manifesto (sem pin)
 ];
 
 /** Instâncias retornadas pelos módulos (ex.: app.navigation.close()) */

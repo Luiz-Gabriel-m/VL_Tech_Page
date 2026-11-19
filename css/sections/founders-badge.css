@@ -1,0 +1,825 @@
+/* ==========================================================================
+   SEÇÃO CO-FOUNDERS — CRACHÁ 3D COM PÊNDULO + PAINÉIS LATERAIS EXTERNOS
+   Tema VL Tech: Black #0A0A0C | Surface #111114 | White #F8F8FC | Red #FF1E26
+   - Crachá ultra-limpo: apenas Acesso, Foto Grande, Nome e Função
+   - Informações detalhadas de cada sócio fora do crachá, nas laterais
+   ========================================================================== */
+
+.founders-badge-section {
+  position: relative !important;
+  width: 100% !important;
+  min-height: 100vh !important;
+  background-color: var(--bg-dark, #0A0A0C) !important;
+  overflow: hidden !important;
+  clear: both !important;
+  z-index: 10 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  box-sizing: border-box !important;
+  border-top: 1px solid rgba(255, 30, 38, 0.16) !important;
+  border-bottom: 1px solid rgba(255, 30, 38, 0.16) !important;
+  padding: clamp(4rem, 6vw, 6.5rem) 0 !important;
+}
+
+/* Iluminação e Grid de Fundo */
+.founders-ambient-glow {
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(980px, 92vw);
+  height: 580px;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 30, 38, 0.13) 0%,
+    rgba(255, 30, 38, 0.04) 45%,
+    transparent 74%
+  );
+  filter: blur(64px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.founders-grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 48px 48px;
+  background-position: center center;
+  pointer-events: none;
+  z-index: 1;
+  mask-image: radial-gradient(circle at center, black 42%, transparent 82%);
+  -webkit-mask-image: radial-gradient(circle at center, black 42%, transparent 82%);
+}
+
+.badge-section-container {
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 3vw, 2.5rem);
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Header Editorial Centralizado */
+.badge-section-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.4rem;
+  margin-bottom: clamp(2rem, 3.5vw, 3rem);
+  width: 100%;
+  max-width: 820px;
+}
+
+.badge-header-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.badge-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.76rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(248, 248, 252, 0.65);
+}
+
+.badge-section-title {
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.badge-section-lead {
+  font-size: clamp(0.9rem, 1.15vw, 1.02rem);
+  color: rgba(248, 248, 252, 0.62);
+  max-width: 620px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Switcher Nav Tabs (Luiz / Victor) */
+.badge-switcher-nav {
+  display: flex;
+  gap: 0.75rem;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 0.35rem;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.badge-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  background: transparent;
+  border: 1px solid transparent;
+  padding: 0.65rem 1.25rem;
+  border-radius: 10px;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.badge-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.badge-nav-btn.is-active {
+  background: rgba(255, 30, 38, 0.14);
+  border-color: rgba(255, 30, 38, 0.45);
+  box-shadow: 0 0 24px rgba(255, 30, 38, 0.24);
+}
+
+.nav-btn__initial {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--color--red, #FF1E26);
+  font-weight: 800;
+  font-family: var(--font-monument, sans-serif);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+}
+
+.badge-nav-btn.is-active .nav-btn__initial {
+  background: var(--color--red, #FF1E26);
+  color: #ffffff;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255, 30, 38, 0.6);
+}
+
+.nav-btn__info {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.nav-btn__name {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.nav-btn__role {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  color: rgba(248, 248, 252, 0.55);
+  letter-spacing: 0.05em;
+}
+
+/* ==========================================================================
+   GRID 3 COLUNAS: [TEXTO FLUTUANTE ESQ]  [CRACHÁ 3D CENTRO]  [TEXTO FLUTUANTE DIR]
+   ========================================================================== */
+.badge-stage-layout {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(250px, 1fr) minmax(344px, 390px) minmax(250px, 1fr);
+  align-items: center;
+  gap: clamp(2rem, 4.5vw, 4.5rem);
+}
+
+/* ==========================================================================
+   INFORMAÇÕES FLUTUANTES TRANSPARENTES (ZERO CARDS / ESTÉTICA PREMIUM)
+   ========================================================================== */
+.badge-side-float {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0.5rem 0;
+  will-change: transform, opacity;
+}
+
+.badge-side-float--left {
+  align-items: flex-end;
+  text-align: right;
+  padding-right: clamp(0.5rem, 1.5vw, 1.25rem);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.badge-side-float--right {
+  align-items: flex-start;
+  text-align: left;
+  padding-left: clamp(0.5rem, 1.5vw, 1.25rem);
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.badge-float-kicker {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color--red, #FF1E26);
+  opacity: 0.92;
+}
+
+.badge-float-statement {
+  font-size: clamp(1.05rem, 1.45vw, 1.28rem);
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: -0.015em;
+  color: rgba(255, 255, 255, 0.92);
+  margin: 0;
+  max-width: 31ch;
+}
+
+.badge-float-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.25rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.badge-float-item {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+  color: rgba(248, 248, 252, 0.54);
+  line-height: 1.45;
+  transition: color 0.25s ease;
+}
+
+.badge-float-item:hover {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.badge-float-stack {
+  font-size: clamp(0.95rem, 1.2vw, 1.08rem);
+  font-weight: 500;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.88);
+  letter-spacing: 0.01em;
+  margin: 0;
+  max-width: 28ch;
+}
+
+.badge-float-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  min-width: 170px;
+}
+
+.badge-float-meta-label {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(248, 248, 252, 0.4);
+}
+
+.badge-float-meta-value {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: rgba(248, 248, 252, 0.78);
+}
+
+.badge-float-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.35rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid rgba(255, 30, 38, 0.55);
+  color: #ffffff;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+.badge-float-link:hover {
+  color: var(--color--red, #FF1E26);
+  border-color: var(--color--red, #FF1E26);
+}
+
+.badge-float-link .float-link-arrow {
+  display: inline-block;
+  color: var(--color--red, #FF1E26);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.badge-float-link:hover .float-link-arrow {
+  transform: translate(3px, -3px);
+}
+
+/* ==========================================================================
+   PALCO CENTRAL DO PÊNDULO 3D
+   ========================================================================== */
+.badge-pendulum-stage {
+  position: relative;
+  width: 100%;
+  min-height: 740px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  perspective: 1600px;
+  -webkit-perspective: 1600px;
+  padding-top: 4px;
+}
+
+.badge-pendulum-rig {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform-origin: top center;
+  will-change: transform;
+  user-select: none;
+  touch-action: none;
+}
+
+/* Fixador Metálico no Teto */
+.badge-ceiling-mount {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 8;
+  pointer-events: none;
+}
+
+.ceiling-mount__bracket {
+  width: 64px;
+  height: 8px;
+  background: linear-gradient(180deg, #44444c, #1f1f24);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8), 0 0 10px rgba(255, 30, 38, 0.2);
+}
+
+.ceiling-mount__ring {
+  width: 24px;
+  height: 20px;
+  border: 3.5px solid #888894;
+  border-radius: 50%;
+  margin-top: -3px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.8), 0 2px 8px rgba(0, 0, 0, 0.6);
+  background: transparent;
+}
+
+/* Lanyard / Cordão */
+.badge-lanyard-assembly {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+  z-index: 6;
+  margin-top: -4px;
+}
+
+.lanyard-strap {
+  width: 34px;
+  height: 112px;
+  background: #141418;
+  border-left: 2px solid var(--color--red, #FF1E26);
+  border-right: 2px solid var(--color--red, #FF1E26);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8), inset 0 0 10px rgba(0, 0, 0, 0.7);
+  overflow: hidden;
+  position: relative;
+  transform-origin: top center;
+  transition: transform 0.1s ease-out;
+}
+
+.lanyard-strap__text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-family: var(--font-mono, monospace);
+  font-size: 8px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.72);
+  letter-spacing: 0.2em;
+  white-space: nowrap;
+  animation: strapTicker 15s linear infinite;
+  display: flex;
+  align-items: center;
+}
+
+@keyframes strapTicker {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+
+.lanyard-metal-clip {
+  width: 26px;
+  height: 28px;
+  margin-top: -2px;
+  background: linear-gradient(135deg, #888894, #2a2a30 50%, #70707c);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.9);
+  position: relative;
+  z-index: 7;
+}
+
+.clip-swivel {
+  width: 14px;
+  height: 6px;
+  background: #202026;
+  border-radius: 3px;
+  margin: 3px auto 0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.clip-clasp {
+  width: 8px;
+  height: 16px;
+  border: 2px solid #a8a8b2;
+  border-radius: 4px;
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* ==========================================================================
+   CRACHÁ 3D ULTRA-LIMPO (APENAS ACESSO, FOTO GRANDE, NOME E FUNÇÃO)
+   ========================================================================== */
+.badge-3d-wrapper {
+  margin-top: 12px;
+  width: 344px;
+  height: 520px;
+  position: relative;
+  transform-style: preserve-3d;
+  cursor: grab;
+  user-select: none;
+}
+
+.badge-3d-wrapper:active,
+.badge-card-3d.is-dragging {
+  cursor: grabbing !important;
+}
+
+.badge-card-3d {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  border-radius: 22px;
+  will-change: transform;
+}
+
+.badge-specular-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+  z-index: 10;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  opacity: 0.85;
+  transition: background 0.1s ease-out;
+}
+
+.badge-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 22px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+  padding: 1rem 1.15rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  background: linear-gradient(160deg, #18181f 0%, #0d0d12 100%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow:
+    0 32px 64px rgba(0, 0, 0, 0.9),
+    0 0 38px rgba(255, 30, 38, 0.18),
+    inset 0 0 0 1px rgba(255, 30, 38, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+.badge-face--front {
+  transform: rotateY(0deg) translateZ(1px);
+}
+
+.badge-face--back {
+  transform: rotateY(180deg) translateZ(1px);
+}
+
+/* Furo superior da presilha */
+.badge-slot-punch {
+  width: 50px;
+  height: 9px;
+  border-radius: 5px;
+  background: #060608;
+  border: 1.5px solid rgba(255, 255, 255, 0.22);
+  margin: -0.15rem auto 0;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.95);
+  flex-shrink: 0;
+}
+
+/* Barra superior mínima: apenas o nível de ACESSO */
+.badge-access-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.badge-access-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.78rem;
+  border-radius: 999px;
+  background: rgba(255, 30, 38, 0.14);
+  color: var(--color--red, #FF1E26);
+  border: 1px solid rgba(255, 30, 38, 0.45);
+  box-shadow: 0 0 14px rgba(255, 30, 38, 0.2);
+}
+
+.badge-access-pill::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color--red, #FF1E26);
+  box-shadow: 0 0 8px rgba(255, 30, 38, 0.9);
+}
+
+/* Foto PROTAGONISTA e MAIOR dentro do crachá */
+.badge-photo-wrapper {
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 318px;
+  border-radius: 15px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: #060608;
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.8);
+}
+
+.badge-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 15%;
+  filter: contrast(1.08) brightness(0.99);
+  display: block;
+}
+
+.badge-photo-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 65%, rgba(10, 10, 14, 0.75) 100%);
+  pointer-events: none;
+}
+
+.badge-corner-target {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: var(--color--red, #FF1E26);
+  border-style: solid;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+.badge-corner-target.top-left {
+  top: 8px;
+  left: 8px;
+  border-width: 2px 0 0 2px;
+}
+
+.badge-corner-target.bottom-right {
+  bottom: 8px;
+  right: 8px;
+  border-width: 0 2px 2px 0;
+}
+
+/* Rodapé limpo do crachá: apenas NOME e FUNÇÃO */
+.badge-identity {
+  text-align: center;
+  padding: 0.15rem 0.25rem 0;
+  flex-shrink: 0;
+}
+
+.badge-name {
+  font-size: 1.48rem;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin: 0 0 0.28rem 0;
+  text-transform: uppercase;
+}
+
+.badge-role {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--color--red, #FF1E26);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.3;
+  margin: 0;
+}
+
+/* ==========================================================================
+   BARRA DE CONTROLE INFERIOR (FLIP & TELEMETRIA COMPACTA)
+   ========================================================================== */
+.badge-bottom-hud {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.6rem;
+  position: relative;
+  z-index: 9;
+}
+
+.badge-flip-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: rgba(255, 30, 38, 0.12);
+  color: #ffffff;
+  border: 1px solid rgba(255, 30, 38, 0.42);
+  padding: 0.72rem 1.55rem;
+  border-radius: 30px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 30, 38, 0.18);
+}
+
+.badge-flip-action-btn:hover {
+  background: var(--color--red, #FF1E26);
+  border-color: var(--color--red, #FF1E26);
+  box-shadow: 0 8px 30px rgba(255, 30, 38, 0.5);
+  transform: translateY(-2px);
+}
+
+.badge-flip-action-btn .flip-icon {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.badge-flip-action-btn:hover .flip-icon {
+  transform: rotate(180deg);
+}
+
+.badge-physics-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.7rem;
+  color: rgba(248, 248, 252, 0.55);
+  letter-spacing: 0.1em;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 0.38rem 0.9rem;
+  border-radius: 20px;
+}
+
+.hint-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color--red, #FF1E26);
+}
+
+.hint-angle {
+  color: var(--color--red, #FF1E26);
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   RESPONSIVIDADE (TABLET & MOBILE)
+   ========================================================================== */
+@media (max-width: 1120px) {
+  .badge-stage-layout {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.25rem;
+    align-items: start;
+  }
+
+  .badge-pendulum-stage {
+    grid-column: 1 / -1;
+    order: -1;
+    min-height: 690px;
+  }
+
+  .badge-side-float--left,
+  .badge-side-float--right {
+    align-items: flex-start;
+    text-align: left;
+    border-right: none;
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+    padding-right: 0;
+    padding-left: 1.15rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .badge-stage-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .badge-side-float--left,
+  .badge-side-float--right {
+    align-items: center;
+    text-align: center;
+    border-left: none;
+    padding-left: 0;
+  }
+
+  .badge-float-meta {
+    align-items: center;
+  }
+
+  .badge-switcher-nav {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .badge-nav-btn {
+    padding: 0.55rem 0.9rem;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .badge-pendulum-stage {
+    min-height: 640px;
+  }
+
+  .badge-3d-wrapper {
+    width: 306px;
+    height: 478px;
+  }
+
+  .badge-photo-wrapper {
+    min-height: 290px;
+  }
+
+  .badge-name {
+    font-size: 1.32rem;
+  }
+
+  .badge-physics-hint {
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lanyard-strap__text {
+    animation: none;
+  }
+}

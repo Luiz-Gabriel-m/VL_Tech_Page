@@ -4,15 +4,16 @@
 
 ![VL Tech](assets/logo/vl-logo.jpg)
 
-**Experiência Web Cinemática de Alta Performance**  
-*Desenvolvida com foco obsessivo em precisão cirúrgica, animações fluidas em 60/120fps e design editorial moderno.*
+**Experiência Web 3D Cinemática de Alta Performance**  
+*Desenvolvida com foco obsessivo em precisão cirúrgica, animações fluidas em 60/120fps, estética editorial Awwwards e arquitetura modular.*
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
 [![License: MIT](https://img.shields.io/badge/License-MIT-red.svg)](LICENSE)
+[![Three.js](https://img.shields.io/badge/3D-Three.js%20%2B%20WebGL-0A0A0C.svg)](https://threejs.org/)
 [![GSAP 3](https://img.shields.io/badge/Animation-GSAP%203%20%2B%20ScrollTrigger-FF1E26.svg)](https://greensock.com/)
 [![Web Audio API](https://img.shields.io/badge/Audio-Web%20Audio%20API-0A0A0C.svg)]()
 
-[Demonstração](#-visão-geral) • [Recursos](#-recursos-principais) • [Scrollytelling Hero](#-sequência-cinemática-de-scrollytelling) • [Deploy na Vercel](#-deploy-na-vercel) • [Equipe](#-sócios--liderança-técnica)
+[Visão Geral](#-visão-geral) • [Seções & Interações 3D](#-seções--interações-3d) • [Padrão de Criação & Aprendizados](#-padrão-de-criação--aprendizados-técnicos) • [Arquitetura](#-arquitetura-modular) • [Deploy na Vercel](#-deploy-na-vercel)
 
 </div>
 
@@ -20,116 +21,117 @@
 
 ## 📖 Visão Geral
 
-A **VL Tech** é uma agência de engenharia de software de ponta, especializada na criação de ecossistemas digitais robustos, automações inteligentes e interfaces imersivas de alta fidelidade visual. 
+A **VL Tech** é um estúdio de engenharia de software de alta performance especializado em arquiteturas escaláveis, automações inteligentes e experiências web interativas em 3D.
 
-Este projeto foi construído inspirado em padrões internacionais premiados (**Awwwards**, **FWA**), combinando uma estética minimalista flutuante no tema **Black & Crimson** (`#0A0A0C` e `#FF1E26`) com arquitetura modular em **JavaScript ES Modules**, animações matemáticas via **GSAP 3 + ScrollTrigger** e sintetização de áudio em tempo real via **Web Audio API**.
-
----
-
-## ✨ Recursos Principais
-
-### 1. 🎬 Sequência Cinemática de Scrollytelling (Hero Section)
-Uma narrativa interativa guiada pela rolagem do usuário com pinning dinâmico (`pin: true`) através do GSAP ScrollTrigger:
-1. **Estado Inicial (Luiz Gabriel):** O nome "LUIZ GABRIEL" ganha destaque imediato com a inicial 'L' estilizada em vermelho neon e seu retrato editorial com máscara radial orgânica.
-2. **1ª Etapa de Rolagem:** Revelação suave e sincronizada dos textos de especialidade em Front-end, Arquitetura Web e do badge conceitual de conexão da marca.
-3. **2ª Etapa de Rolagem:** Encerramento dos elementos do primeiro fundador em fade-out; a tela atinge o preto absoluto (`#0A0A0C`) e o logotipo oficial da VL surge centralizado em um raio de imersão expansivo.
-4. **3ª Etapa de Rolagem:** O logotipo central foca exclusivamente na letra 'V', que se incendeia com um brilho intenso vermelho neon (`#FF1E26`), desliza suavemente até o canto superior da tela e fixa-se como âncora da marca.
-5. **4ª Etapa de Rolagem:** Apresentação monumental do co-founder **Victor Whohlers**, revelando seu retrato limpo, especialidades em Back-end, Cloud & Lógica de Sistemas.
-6. **Conclusão:** Liberação imperceptível do pin do ScrollTrigger para que o usuário prossiga suavemente para as próximas seções.
-
-### 2. 🖱️ Cursor Personalizado (Mouse Follower)
-- Cursor procedural de alta precisão construído em `js/cursor.js` com interpolação matemática suave (lerp) via `requestAnimationFrame`.
-- Composto por anel externo dinâmico (`.custom-cursor__ring`) com brilho vermelho neon e ponto central instantâneo (`.custom-cursor__dot`).
-- Efeito de expansão, glassmorphism e realce de borda ao interagir com links, botões, cards e inputs.
-- Desativação inteligente em dispositivos touch/móveis (`pointer: coarse`).
-
-### 3. 💻 Showcase de Notebook 3D com Zoom-In para o Portfólio
-- Seção imersiva (`#portfolio-experience`) com modelo de notebook 3D renderizado com CSS 3D Transforms (`perspective: 1300px`, `transform-style: preserve-3d`) e pinada com GSAP ScrollTrigger.
-- **Abertura da Tela:** Conforme o usuário rola a página, a tampa do notebook abre suavemente de 68° para a vertical.
-- **Zoom-In Progressivo:** O viewport aproxima-se rapidamente da tela interna do notebook, expandindo a interface dos cases reais de clientes até cobrir 100% da tela (`100vw × 100vh`).
-- Transição fluida para o carrossel em leque 3D e links dos clientes em produção (**Maciel Fit**, **G4 Batatas**, **Marinho Odonto**, **Ribeiro Team**, **Zildo Oliveira**).
-
-### 4. ❓ Perguntas Frequentes (FAQ Acordeão)
-- Seção dedicada (`#faq`) com acordeões clean em superfície dark (`#121216`), bordas arredondadas e detalhes em vermelho VL Tech.
-- Controle suave de abertura e fechamento via JavaScript acessível (`aria-expanded`, navegação por teclado e feedback sonoro ao clique).
-- Respostas objetivas sobre modelos de contratação (escopo fechado vs. squad dedicado), prazos, Core Web Vitals, automações e suporte.
-
-### 5. 💼 Rodapé Estilizado com Links para LinkedIn dos Co-founders
-- Layout editorial de alto impacto inspirado em portfólios mundiais de referência.
-- **Aba de Destaque dos Co-founders:** Apresentação visual de **Luiz Gabriel** (*Co-founder & Tech Lead*) e **Victor Whohlers** (*Co-founder & Cloud Architect*), com foto, especialidades e botões diretos para conexão no **LinkedIn**.
-- Navegação rápida completa, links diretos de WhatsApp corporativo, termos de serviço, privacidade e wordmark monumental "VL TECH".
-
-### 6. 🔊 Sistema de Efeitos Sonoros Nativos (Sound FX Engine)
-- Sintetizador construído 100% sobre a **Web Audio API** do navegador (zero arquivos de áudio externos, sem risco de 404 ou latência).
-- Micro-sons dinâmicos sintetizados com osciladores senoidais e triangulares:
-  - **Hover suave** em botões, links e cards;
-  - **Click tátil** com decaimento exponencial;
-  - **Harmônicos de abertura e fechamento** do menu em tela cheia;
-  - **Ignição sonora e swoosh** nas transições do scrollytelling.
-- Botão interativo **FX ON / FX OFF** em formato de pílula integrado ao header, com persistência automática de preferência no `localStorage`.
-
-### 7. 🌐 Cabeçalho Minimalista Flutuante
-- Header 100% transparente integrado ao topo da página sem caixas pesadas.
-- Logotipo oficial à extrema esquerda.
-- Seletor de perfil interativo e botões de ação rápida no centro flutuante.
-- Botão de áudio (Sound FX) e menu hambúrguer arredondado à extrema direita.
-- Menu em tela cheia com overlay fluido e bloqueio inteligente de scroll.
-
-### 8. 🚀 Seção de Serviços com Rolagem Horizontal (Pinned Track)
-- Pinned viewport que converte o scroll vertical em deslocamento horizontal fluído dos cards de serviço da agência.
-
-### 9. 🎴 Hall of Fame / Portfólio em Leque 3D
-- Apresentação em perspectiva 3D dos projetos de clientes reais desenvolvidos pela agência (Maciel Fit, Zildo Oliveira, G4 Beneficiadora, Marinho Odonto, Ribeiro Team).
-- Efeito de profundidade com cartões sobrepostos em arco e bordas com brilho vermelho.
-
-### 10. ⏳ Preloader Editorial Imersivo
-- Tela preta de alta prioridade (`z-index: 99999`) com contador numérico de progresso (0% a 100%) e barra de carregamento com brilho neon.
-- Saída cinematográfica em cortina deslizante (`yPercent: -100`) com curva de aceleração `power4.inOut`.
+Esta landing page oficial combina estética editorial minimalista no tema exclusivo **Black, White & Crimson** (`#0A0A0C`, `#111114`, `#F8F8FC` e `#FF1E26`), **Three.js / WebGL**, **CSS 3D Perspective**, **GSAP 3 + ScrollTrigger**, sintetização procedural de som via **Web Audio API** e referências interativas inspiradas na **21st.dev (dev21)** adaptadas 100% para **Vanilla ES Modules** (zero build / deploy instantâneo).
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+## ✨ Seções & Interações 3D
 
-- **HTML5 Semântico:** Marcação acessível (`aria-*`), metatags SEO completas e OpenGraph.
-- **CSS3 Vanilla & Design System:** Tokens em `css/variables.css`, grid flexível, glassmorphism, tipografia display monument e animações aceleradas por GPU.
-- **JavaScript Moderno (ES6+ Modules):** Arquitetura desacoplada em módulos (`js/hero.js`, `js/sound.js`, `js/scroll.js`, `js/navigation.js`, `js/loader.js`).
-- **GSAP 3 & ScrollTrigger:** Motor de animações cinemáticas de alta precisão.
-- **Web Audio API:** Geração procedural de som em tempo real.
+### 1. 💥 Hero — Sticker Swap Headline + Campo WebGL 3D (`#hero`)
+- Tipografia monumental minimalista (`CRIAMOS` + alternância animada entre `SOFTWARE`, `PROJETOS`, `PRODUTOS` e `AUTOMAÇÃO`) inspirada no `StickerSwapHeadline` da 21st.dev, com sticker die-cut animado encaixando na letra **"O"** em sincronia com GSAP (`js/hero-sticker-headline.js` + `css/sections/hero-sticker.css`).
+- Fundo interativo **Three.js WebGL** com campo de partículas e grade neon responsiva ao mouse (`js/tech-hero-3d.js`).
+
+### 2. 💻📱 Perfeição em Qualquer Tela — Notebook 3D + Carrossel 3D de Celulares (`#responsividade`)
+- Sequência cinemática guiada por scroll usando **CSS `position: sticky` nativo + GSAP ScrollTrigger `scrub`** (`js/responsive-showcase.js` + `css/sections/responsive-showcase.css`):
+  1. **Palco limpo → Aproximação 3D:** o notebook 3D fechado com a logo VL Tech retroiluminada surge vindo de longe em perspectiva 3/4.
+  2. **Abertura & Matriz Binária:** a tampa abre suavemente, dispara cascata binária `0/1` em vermelho VL Tech e revela um **navegador real com 5 abas clicáveis** exibindo a **Hero ao vivo** (`<iframe>` 1440×900 escalado) de cada projeto em produção (**Maciel Fit**, **G4 Batatas**, **Marinho Odonto**, **Ribeiro Team** e **Zildo Oliveira**).
+  3. **Sincronia Monitor + Mobile 3D:** o título editorial aparece, o notebook eleva-se mantendo a Hero visível e o **Carrossel 3D de Celulares** (adaptado do `PhoneCarousel` da 21st.dev, com a logo oficial de cada cliente) entra logo abaixo com arrasto lateral, clique e rotação sincronizada 1:1 com as abas do navegador.
+
+### 3. 🎡 Ecossistema & Stack Tecnológica — 3D Works Wheel (`#parceiros`)
+- Roda 3D interativa adaptada do `WorksWheel` da 21st.dev (`js/partners-tech.js` + `css/sections/partners-wheel.css`):
+  - **Estado Anel 360° (`turn = 0`):** todos os 8 cards da stack VL Tech (*Node.js & Go, Amazon AWS, Three.js & WebGL, Google Cloud, Docker & K8s, TypeScript, PostgreSQL & Redis, VL Tech Cloud*) dispostos em círculo 3D ao redor de `STACK '26`, com raio calibrado dinamicamente à viewport para zero corte.
+  - **Estado Tambor Curvo 3D (`turn = 1..8`):** rolar, arrastar ou clicar no índice lateral abre o anel em um tambor vertical 3D curvado à esquerda (`BOW`), destacando o card frontal com leitura editorial lateral.
+
+### 4. 🪪 Co-Founders 3D Access — Crachá com Física de Pêndulo (`#socios-scrolly`)
+- Credencial corporativa interativa em 3D (`js/badge-3d.js` + `css/sections/founders-badge.css`) com física real de pêndulo, arrasto e rotação 180° entre **Luiz Gabriel** (*Front-end & WebGL*) e **Victor Whohlers** (*Back-end & Cloud*), acompanhada por blocos editoriais flutuantes laterais sincronizados via GSAP.
+
+### 5. 🕹️ FAQ Editorial & Rodapé Pixel-Pong (`#rodape`)
+- Acordeão técnico acessível (`#faq`) + grid minimalista de contato direto.
+- Animação interativa **Pixel-Text Pong** em `<canvas>` (`VL TECH` / `ENGENHARIA DE SOFTWARE`) adaptada da 21st.dev (`js/footer-pong.js` + `css/sections/footer-pong.css`), reiniciável ao clique.
+- Botão **Voltar ao Topo** com scroll suave via proxy numérico do GSAP (sem dependência de `ScrollToPlugin`) e cancelamento automático ao toque/roda do mouse (`js/footer.js`).
+
+### 6. 🔊 Sound FX Procedural, Cursor Customizado & Preloader
+- **Web Audio API (`js/sound.js`):** micro-sons sintetizados em tempo real (hover, click, transições) com controle `FX ON / FX OFF` persistido em `localStorage`.
+- **Preloader Minimalista (`js/loader.js`):** tela `#0A0A0C` com monograma `VL` e contador `0% → 100%`.
+- **Cursor Procedural (`js/cursor.js`):** interpolação suave (lerp) desativada automaticamente em telas touch.
+
+---
+
+## 📚 Padrão de Criação & Aprendizados Técnicos
+
+Este repositório mantém uma base viva de conhecimento em [`padrao-criacao/`](padrao-criacao/README.md) e a skill especialista [`.agents/skills/interactive-3d-landing-pages/SKILL.md`](.agents/skills/interactive-3d-landing-pages/SKILL.md) para acelerar e blindar futuras landing pages da VL Tech:
+
+### ✅ Principais Acertos Validados ([`padrao-criacao/acertos/`](padrao-criacao/acertos/README.md))
+- **[01 — Arquitetura Modular, Design Tokens e Web Audio API](padrao-criacao/acertos/01-arquitetura-e-design-system.md):** tokens semânticos em `css/variables.css`, módulos ES desacoplados e áudio procedural sem assets externos.
+- **[02 — Motor Unificado de Scrollytelling Horizontal](padrao-criacao/acertos/02-scrollytelling-horizontal-unificado.md):** cálculo dinâmico de largura com `holdRatio` e limpeza de triggers.
+- **[03 — Scrollytelling 3D com CSS `sticky` Nativo e Adaptação 21st.dev](padrao-criacao/acertos/03-sticky-nativo-scrolltrigger-e-adaptacao-21st-dev.md):** uso de `position: sticky; top: 0` + `body { overflow-x: clip }` + GSAP `scrub` (sem `pin`), adaptação limpa de componentes React/Tailwind da 21st.dev para Vanilla ES Modules + `css/sections/*.css` e pausa automática de loops `rAF` fora da tela via `IntersectionObserver`.
+
+### ⚠️ Principais Erros Documentados Para Nunca Repetir ([`padrao-criacao/erros/`](padrao-criacao/erros/README.md))
+- **[01 — Blank Voids, Sobreposição de Texto e Pinagem Duplicada](padrao-criacao/erros/01-scrollytelling-e-layout.md):** evitar pins duplicados, criar triggers na ordem do DOM e garantir fade-out completo antes do próximo fade-in.
+- **[02 — Monólitos HTML/CSS, `.tsx` Solto e Assets Sem Padrão](padrao-criacao/erros/02-organizacao-codigo-e-assets.md):** nunca jogar `.tsx` sem bundler em site estático, isolar estilos em `css/sections/*.css` e padronizar nomes em `kebab-case`.
+- **[03 — `ScrollTrigger pin` com `<iframe>`, `overflow-x: hidden` e Geometria 3D](padrao-criacao/erros/03-pin-scrolltrigger-com-iframes-e-geometria-viewport.md):**
+  - `ScrollTrigger` com `pin: true` move o container via `insertBefore` (`.pin-spacer`), causando `NotFoundError` em `_swapPinOut` e recarregamento de `<iframe>`s embutidos — **solução:** usar `position: sticky` nativo + `body { overflow-x: clip }` (nunca `overflow-x: hidden`, que quebra `sticky`).
+  - Sempre limitar raios/dimensões de componentes 3D à altura útil da viewport (`Math.min(h * ..., w * ...)`) para evitar corte em telas de notebook/preview estreito.
+  - Nunca usar `gsap.to(window, { scrollTo })` sem carregar o `ScrollToPlugin` — usar proxy numérico do GSAP com `window.scrollTo`.
+  - Sempre atualizar query strings (`?v=`) em `index.html` e `js/main.js` para evitar cache obsoleto no navegador.
+
+---
+
+## 🧩 Arquitetura Modular
+
+```text
+VLtech/
+├── index.html                           # Página principal (5 seções: Hero, Responsividade, Stack, Sócios, Rodapé)
+├── AGENTS.md                            # Regras obrigatórias de engenharia e consulta ao Padrão de Criação
+├── css/
+│   ├── variables.css                    # Design tokens VL Tech + overflow-x: clip
+│   ├── layout.css                       # Base global, preloader e navegação flutuante
+│   └── sections/
+│       ├── hero-sticker.css             # Hero StickerSwapHeadline
+│       ├── responsive-showcase.css      # Notebook 3D + Carrossel 3D de Celulares (sticky nativo)
+│       ├── partners-wheel.css           # Roda 3D Ecossistema & Stack
+│       ├── founders-badge.css           # Crachá 3D Co-Founders
+│       └── footer-pong.css              # Rodapé Pixel-Pong
+├── js/
+│   ├── main.js                          # Bootstrap na ordem exata do DOM
+│   ├── core/                            # Ponte GSAP + motor de scroll
+│   ├── hero-sticker-headline.js         # Headline interativa do Hero
+│   ├── tech-hero-3d.js                  # Cena Three.js WebGL do Hero
+│   ├── responsive-showcase.js           # Notebook 3D + 5 Abas ao Vivo + Celulares 3D
+│   ├── partners-tech.js                 # Roda 3D (Anel 360° -> Tambor Curvo)
+│   ├── badge-3d.js                      # Física de pêndulo 3D dos Co-Founders
+│   ├── footer-pong.js / footer.js       # Pixel-Pong + Voltar ao Topo suave
+│   └── sound.js / cursor.js / loader.js / navigation.js / faq.js
+├── padrao-criacao/                      # Base de conhecimento (acertos/ e erros/)
+└── .agents/skills/                      # Skill especialista em Landing Pages 3D + 21st.dev
+```
 
 ---
 
 ## 🚀 Como Executar Localmente
 
-1. Clone o repositório:
 ```bash
 git clone https://github.com/Luiz-Gabriel-m/VL_Tech_Page.git
 cd VL_Tech_Page
-```
 
-2. Sirva os arquivos estáticos com qualquer servidor web:
-```bash
 # Usando Python:
 python -m http.server 5500
 
-# Usando Node/npx:
-npx serve .
-
-# Ou no Windows PowerShell:
-.\serve.ps1 -Port 5500
+# Ou com Node:
+npx serve -l 5500 .
 ```
 
-3. Acesse `http://localhost:5500` no seu navegador.
+Acesse `http://localhost:5500` no navegador.
 
 ---
 
 ## ☁️ Deploy na Vercel
 
-O projeto já está 100% preparado para deploy contínuo na Vercel:
-
-1. Importe o repositório na dashboard da [Vercel](https://vercel.com/new).
-2. Deixe as opções padrão de **Other / Static Site**.
-3. O arquivo [`vercel.json`](vercel.json) já inclui cabeçalhos otimizados de cache para assets estáticos e suporte a URLs limpas.
-4. Clique em **Deploy**.
+O projeto é 100% estático (zero build obrigatório) e pronto para deploy contínuo na Vercel:
+1. Importe o repositório na [Vercel](https://vercel.com/new) como **Other / Static Site**.
+2. O arquivo [`vercel.json`](vercel.json) já configura cabeçalhos de cache e rotas limpas.
 
 ---
 
@@ -139,9 +141,8 @@ O projeto já está 100% preparado para deploy contínuo na Vercel:
 
 | **Luiz Gabriel** | **Victor Whohlers** |
 | :---: | :---: |
-| *Co-founder & Tech Lead* | *Co-founder & Cloud Architect* |
-| **Expertise:** Front-end, Arquitetura Web & Automações | **Expertise:** Back-end, Cloud & Lógica de Sistemas |
-| **Conexão:** Front-end de Alta Fidelidade | **Conexão:** Resiliência & Escalabilidade Extrema |
+| *Co-Founder & Front-end Architect* | *Co-Founder & Cloud Architect* |
+| **Expertise:** Front-end, Landing Pages 3D (Three.js/GSAP) & Automações | **Expertise:** Back-end, Arquitetura Cloud, Microsserviços & Segurança |
 
 </div>
 
@@ -149,9 +150,7 @@ O projeto já está 100% preparado para deploy contínuo na Vercel:
 
 ## 📄 Licença
 
-Este projeto é distribuído sob a licença MIT. Consulte o arquivo `LICENSE` para mais detalhes.
-
----
+Este projeto é distribuído sob a licença MIT. Consulte [`LICENSE`](LICENSE) para mais detalhes.
 
 <div align="center">
   <sub>© 2026 VL Tech — Engenharia de Software e Alta Performance. Todos os direitos reservados.</sub>

@@ -6,8 +6,10 @@
    ========================================================================== */
 
 import { playClick } from './sound.js';
+import { initFooterPong } from './footer-pong.js?v=6.4';
 
 export function initFooter() {
+  const pong = initFooterPong();
   // 1. Relógio em tempo real da estação (São Paulo - BR / UTC-3)
   const clockElement = document.getElementById('footerClock');
   if (clockElement) {
@@ -70,22 +72,48 @@ export function initFooter() {
     });
   }
 
-  // 3. Botão suave "Voltar ao Topo"
+  // 3. Botão suave "Voltar ao Topo" (funciona sem depender do ScrollToPlugin)
   const backToTopBtn = document.getElementById('backToTopBtn');
   if (backToTopBtn) {
+    let scrollTween = null;
+
+    const cancelScrollTween = () => {
+      if (scrollTween) {
+        scrollTween.kill();
+        scrollTween = null;
+      }
+    };
+
+    window.addEventListener('wheel', cancelScrollTween, { passive: true });
+    window.addEventListener('touchstart', cancelScrollTween, { passive: true });
+
     backToTopBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      playClick();
+      try { playClick(); } catch (_) {}
 
-      if (window.gsap) {
-        window.gsap.to(window, {
-          scrollTo: { y: 0, autoKill: true },
-          duration: 1.2,
-          ease: 'power3.inOut',
-        });
-      } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+      const startY = window.scrollY || document.documentElement.scrollTop || 0;
+      if (startY <= 0) return;
+
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced || !window.gsap) {
+        window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
+        return;
       }
+
+      cancelScrollTween();
+      const proxy = { y: startY };
+      scrollTween = window.gsap.to(proxy, {
+        y: 0,
+        duration: 1.15,
+        ease: 'power3.inOut',
+        onUpdate: () => {
+          window.scrollTo(0, Math.round(proxy.y));
+        },
+        onComplete: () => {
+          window.scrollTo(0, 0);
+          scrollTween = null;
+        },
+      });
     });
   }
 
@@ -116,5 +144,6 @@ export function initFooter() {
 
   return {
     updateClock: () => {},
+    pong,
   };
 }

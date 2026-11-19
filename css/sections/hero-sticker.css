@@ -1,0 +1,286 @@
+/* ==========================================================================
+   HERO — STICKER SWAP HEADLINE (ADAPTADO DA 21st.dev PARA VL TECH)
+   Tipografia poster monumental ("Anton") sobre o fundo WebGL 3D da VL Tech:
+   - Linha 1 fixa: CRIAMOS
+   - Linha 2 rotativa: SOFTWARE / PROJETOS / PRODUTOS / AUTOMAÇÃO
+   - As letras abrem espaço no "O" e um sticker redondo die-cut salta no lugar!
+   ========================================================================== */
+
+.tech-hero {
+  position: relative;
+  min-height: 100svh;
+  height: 100svh;
+  width: 100%;
+  background-color: var(--bg-dark, #0A0A0C);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0 !important;
+  z-index: 2;
+}
+
+.ssh-inner {
+  position: relative;
+  z-index: 6;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 3vw, 2.5rem);
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.ssh-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: clamp(1rem, 2.4vh, 1.8rem);
+  font-family: var(--font-mono, monospace);
+  font-size: clamp(0.66rem, 0.9vw, 0.78rem);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(248, 248, 252, 0.72);
+}
+
+.ssh-eyebrow-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color--red, #FF1E26);
+  box-shadow: 0 0 12px rgba(255, 30, 38, 0.95);
+}
+
+/* Poster-weight Headline (Anton) */
+.ssh-h {
+  margin: 0;
+  font-family: 'Anton', Impact, 'Arial Narrow', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(64px, 19.5cqi, 280px);
+  line-height: 0.86;
+  letter-spacing: -0.005em;
+  color: #ffffff;
+  text-shadow: 0 12px 45px rgba(0, 0, 0, 0.65);
+}
+
+.ssh-line {
+  display: block;
+  white-space: nowrap;
+}
+
+.ssh-lead {
+  color: rgba(255, 255, 255, 0.96);
+}
+
+.ssh-reel {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  padding: 0.08em 0;
+  margin: -0.08em 0;
+}
+
+.ssh-word {
+  display: block;
+  white-space: nowrap;
+  cursor: pointer;
+  outline: none;
+  color: #ffffff;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.ssh-word.is-out {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0.08em;
+  pointer-events: none;
+}
+
+.ssh-word:focus-visible {
+  outline: 2px solid var(--color--red, #FF1E26);
+  outline-offset: 6px;
+  border-radius: 8px;
+}
+
+.ssh-part {
+  display: inline-block;
+  will-change: transform;
+}
+
+.ssh-word .ssh-after {
+  color: var(--color--red, #FF1E26);
+  text-shadow: 0 0 36px rgba(255, 30, 38, 0.35);
+}
+
+/* Slot redondo onde o Sticker entra no lugar do "O" */
+.ssh-slot {
+  position: relative;
+  display: inline-block;
+  width: 0.74em;
+  height: 0.74em;
+  margin: 0 0.025em;
+  vertical-align: -0.03em;
+}
+
+.ssh-stk {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #f8f8fc;
+  padding: 0.04em;
+  box-shadow:
+    0 0.05em 0.14em rgba(0, 0, 0, 0.65),
+    0 0 0.22em rgba(255, 30, 38, 0.42);
+  will-change: transform;
+}
+
+.ssh-stk > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  border-radius: 50%;
+  object-fit: cover;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.ssh-spin > img {
+  animation: ssh-spin 7s linear infinite;
+}
+
+@keyframes ssh-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Descrição & CTAs */
+.ssh-desc {
+  margin: clamp(1.35rem, 3vh, 2.2rem) 0 0;
+  max-width: 50ch;
+  font-size: clamp(0.92rem, 1.35cqi, 1.1rem);
+  line-height: 1.6;
+  color: rgba(248, 248, 252, 0.72);
+  text-wrap: balance;
+}
+
+.ssh-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.85rem;
+  margin-top: clamp(1.3rem, 2.8vh, 2rem);
+}
+
+.ssh-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  height: 48px;
+  padding: 0 1.55rem;
+  border-radius: 999px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  border: 0;
+  transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.ssh-btn:active {
+  transform: scale(0.97);
+}
+
+.ssh-btn:focus-visible {
+  outline: 2px solid var(--color--red, #FF1E26);
+  outline-offset: 3px;
+}
+
+.ssh-primary {
+  background: var(--color--red, #FF1E26);
+  color: #ffffff;
+  box-shadow: 0 10px 30px rgba(255, 30, 38, 0.36);
+}
+
+.ssh-primary:hover {
+  background: var(--color--red-hover, #ff3b42);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 36px rgba(255, 30, 38, 0.54);
+}
+
+.ssh-ghost {
+  background: rgba(255, 255, 255, 0.03);
+  color: #ffffff;
+  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.ssh-ghost:hover {
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 0 1.5px rgba(255, 30, 38, 0.65);
+  transform: translateY(-2px);
+}
+
+/* Indicador interativo discreto de palavras */
+.ssh-word-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: clamp(1.2rem, 2.5vh, 1.8rem);
+}
+
+.ssh-word-dot {
+  width: 20px;
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.ssh-word-dot.is-active {
+  width: 36px;
+  background: var(--color--red, #FF1E26);
+  box-shadow: 0 0 12px rgba(255, 30, 38, 0.8);
+}
+
+.ssh-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@container (max-width: 560px) {
+  .ssh-h {
+    font-size: clamp(46px, 21cqi, 180px);
+    line-height: 0.92;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ssh-spin > img {
+    animation: none;
+  }
+
+  .ssh-btn {
+    transition: none;
+  }
+}

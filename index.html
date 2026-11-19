@@ -21,9 +21,14 @@
   <link href="https://fonts.cdnfonts.com/css/monument-extended" rel="stylesheet">
 
   <!-- Estilos -->
-  <link rel="stylesheet" href="css/variables.css?v=6.1">
+  <link rel="stylesheet" href="css/variables.css?v=7.3">
   <link rel="stylesheet" href="css/layout.css?v=6.1">
   <link rel="stylesheet" href="styles.css?v=6.1">
+  <link rel="stylesheet" href="css/sections/hero-sticker.css?v=7.2">
+  <link rel="stylesheet" href="css/sections/responsive-showcase.css?v=7.4">
+  <link rel="stylesheet" href="css/sections/partners-wheel.css?v=7.4">
+  <link rel="stylesheet" href="css/sections/founders-badge.css?v=6.3">
+  <link rel="stylesheet" href="css/sections/footer-pong.css?v=6.4">
 
   <!-- Three.js WebGL Engine (Carregado antecipadamente para o Hero 3D) -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
@@ -82,9 +87,9 @@
           <span class="cta-text">WHATSAPP</span>
         </a>
 
-        <!-- Botão Serviços -->
-        <a href="#capacetes" class="nav__quick-cta nav__services-btn" id="nav-cta-loja" aria-label="Ir para Serviços">
-          <span>HARDWARE</span>
+        <!-- Botão Projetos -->
+        <a href="#responsividade" class="nav__quick-cta nav__services-btn" id="nav-cta-loja" aria-label="Ir para Projetos">
+          <span>PROJETOS</span>
           <span class="btn__arrow" aria-hidden="true">→</span>
         </a>
       </div>
@@ -120,21 +125,14 @@
         <ul class="menu-overlay__list">
           <li class="menu-overlay__item"><a href="#hero" class="menu-overlay__link" id="menu-link-hero"><span
                 class="menu-overlay__text">Início</span><span class="menu-overlay__index">01</span></a></li>
-          
-          <li class="menu-overlay__item"><a href="#tracks" class="menu-overlay__link" id="menu-link-tracks"><span class="menu-overlay__text">A Flecha da Execução</span><span class="menu-overlay__index">02</span></a></li>
-          
-          <li class="menu-overlay__item"><a href="#portfolio-experience" class="menu-overlay__link" id="menu-link-notebook"><span class="menu-overlay__text">Dispositivos 3D</span><span class="menu-overlay__index">03</span></a></li>
-          <li class="menu-overlay__item"><a href="#capacetes" class="menu-overlay__link" id="menu-link-capacetes"><span class="menu-overlay__text">Hardware &amp; Vitrine</span><span class="menu-overlay__index">04</span></a></li>
           <li class="menu-overlay__item"><a href="#responsividade" class="menu-overlay__link" id="menu-link-responsividade"><span
-                class="menu-overlay__text">Responsividade Total</span><span class="menu-overlay__index">05</span></a></li>
-          <li class="menu-overlay__item"><a href="#capacetes" class="menu-overlay__link" id="menu-link-loja"><span
-                class="menu-overlay__text">Serviços</span><span class="menu-overlay__index">07</span></a></li>
+                class="menu-overlay__text">Perfeição em Qualquer Tela</span><span class="menu-overlay__index">02</span></a></li>
           <li class="menu-overlay__item"><a href="#parceiros" class="menu-overlay__link" id="menu-link-parceiros"><span
-                class="menu-overlay__text">Parceiros</span><span class="menu-overlay__index">06</span></a></li>
+                class="menu-overlay__text">Parceiros</span><span class="menu-overlay__index">03</span></a></li>
           <li class="menu-overlay__item"><a href="#socios-scrolly" class="menu-overlay__link" id="menu-link-socios"><span
-                class="menu-overlay__text">Sócios (Liderança)</span><span class="menu-overlay__index">07</span></a></li>
+                class="menu-overlay__text">Sócios (Liderança)</span><span class="menu-overlay__index">04</span></a></li>
           <li class="menu-overlay__item"><a href="#rodape" class="menu-overlay__link" id="menu-link-contato"><span
-                class="menu-overlay__text">Contato</span><span class="menu-overlay__index">08</span></a></li>
+                class="menu-overlay__text">Contato</span><span class="menu-overlay__index">05</span></a></li>
         </ul>
       </nav>
 
@@ -152,7 +150,7 @@
 
   <main>
 
-    <!-- ============================== 1. NEW SUPER-TECHNOLOGICAL HERO ============================== -->
+    <!-- ============================== 1. HERO — STICKER SWAP HEADLINE + WEBGL 3D ============================== -->
     <section class="section section--dark tech-hero" id="hero" aria-labelledby="heroTechTitle">
       <!-- Interactive Three.js WebGL Particle Field & Glowing Neon Matrix Grid Canvas -->
       <canvas id="techHeroCanvas" class="tech-hero__canvas"></canvas>
@@ -161,889 +159,553 @@
       <div class="tech-hero__ambient-radial" aria-hidden="true"></div>
       <div class="tech-hero__grid-overlay" aria-hidden="true"></div>
 
-      <div class="tech-hero__container">
-        <!-- Immersive Typography Headline (Left-Aligned Brutalist Architecture) -->
-        <div class="tech-hero__headline-wrap">
-          <span class="tech-hero__eyebrow">VL TECH · HIGH-PERFORMANCE SOFTWARE ENGINEERING</span>
-          <h1 class="tech-hero__title" id="heroTechTitle">
-            TRANSFORMAMOS<br>
-            TECNOLOGIA<br>
-            <span class="highlight-red">EM ESCALA</span>
-          </h1>
-        </div>
-
-        <!-- Lead Narrativo Corporativo -->
-        <p class="tech-hero__lead">
-          Arquitetura de software de missão crítica, plataformas imersivas 3D WebGL e engenharia de nuvem resiliente.
-          Desenvolvemos soluções de alta precisão que convertem complexidade técnica em vantagem competitiva incontestável.
-        </p>
-      </div>
-    </section>
-    <!-- ============================== 3. THE ARROW OF EXECUTION // 3D SCROLLYTELLING ============================== -->
-    <section class="section section--dark arrow-scrollytelling-section" id="tracks" aria-label="A Flecha da Execução — Scrollytelling 3D">
-      <div class="arrow-scrolly-pin" id="arrowPinViewport">
-        <!-- Canvas WebGL Three.js da Flecha e Alvo 3D -->
-        <canvas class="arrow-scrolly-canvas" id="arrowCanvas"></canvas>
-
-        <!-- Efeitos de iluminação radial e grid cibernética -->
-        <div class="arrow-ambient-glow" aria-hidden="true"></div>
-        <div class="arrow-grid-overlay" aria-hidden="true"></div>
-
-        <!-- Barra de Telemetria e HUD Superior (Margens Limpas e Desobstruídas) -->
-        <header class="arrow-hud-top" aria-label="Telemetria de Voo">
-          <div class="arrow-hud-badge-left">
-            <span class="arrow-hud-dot" aria-hidden="true"></span>
-            <span id="arrowTelemetryStatus">CONCEPÇÃO // CARREGANDO TENSÃO</span>
-          </div>
-
-          <div class="arrow-hud-center" aria-hidden="true">
-            <span class="hud-step hud-step-active" data-step-idx="0">01. IDEIA</span>
-            <span>→</span>
-            <span class="hud-step" data-step-idx="1">02. DISPARO</span>
-            <span>→</span>
-            <span class="hud-step" data-step-idx="2">03. DESVIOS</span>
-            <span>→</span>
-            <span class="hud-step" data-step-idx="3">04. ALVO VL TECH</span>
-          </div>
-
-          <div class="arrow-hud-metrics-right">
-            <div class="arrow-metric-box">
-              <span class="arrow-metric-label">DISTÂNCIA</span>
-              <span class="arrow-metric-value" id="arrowTelemetryDistance">0M</span>
-            </div>
-            <div class="arrow-metric-box">
-              <span class="arrow-metric-label">VELOCIDADE</span>
-              <span class="arrow-metric-value" id="arrowTelemetrySpeed">0 KM/H</span>
-            </div>
-            <div class="arrow-metric-box">
-              <span class="arrow-metric-label">FASE</span>
-              <span class="arrow-metric-value" id="arrowPhaseBadge">01 / 04</span>
-            </div>
-          </div>
-        </header>
-
-        <!-- Indicador Interativo de Inspeção 360° -->
-        <div class="arrow-orbit-indicator" id="arrowOrbitIndicator" aria-live="polite">
-          <span class="orbit-badge">
-            <span class="orbit-icon" aria-hidden="true">🔄</span>
-            <span class="orbit-text" id="arrowOrbitText">INSPEÇÃO 360° ATIVA · ARRASTE PARA GIRAR</span>
-          </span>
-        </div>
-
-        <!-- Indicador de Scroll Inferior -->
-        <div class="arrow-hud-bottom" id="arrowHudBottom" aria-hidden="true">
-          <span>ROLE PARA NAVEGAR A TRAJETÓRIA</span>
-          <span class="arrow-hud-arrow-down">↓</span>
-        </div>
-
-        <!-- Container de Cards Cinemáticos que Alternam Conforme o Voo -->
-        <div class="arrow-stage-container">
-          <!-- Card 1: A Ideia -->
-          <article class="arrow-stage-card is-active" id="arrowStage1">
-            <span class="arrow-stage-pill">FASE 01 // A CONCEPÇÃO</span>
-            <h2 class="arrow-stage-title">TODA GRANDE EMPRESA COMEÇA COM UMA IDEIA.</h2>
-            <p class="arrow-stage-text">
-              Uma ideia sem tração permanece estática. No centro do arco, a flecha representa o potencial do seu negócio aguardando a força exata de engenharia para transformar visão em liderança de mercado.
-            </p>
-          </article>
-
-          <!-- Card 2: A Execução & Produção -->
-          <article class="arrow-stage-card" id="arrowStage2">
-            <span class="arrow-stage-pill">FASE 02 // O ARCO DA PRODUÇÃO</span>
-            <h2 class="arrow-stage-title">A EXECUÇÃO É A FORÇA QUE CRIA O IMPULSO.</h2>
-            <p class="arrow-stage-text">
-              A tensão do arco é a nossa infraestrutura. Ao soltar a corda, a VL Tech projeta sua solução com código ultraveloz, microsserviços em nuvem e arquitetura resiliente. A decolagem é imediata.
-            </p>
-          </article>
-
-          <!-- Card 3: Os Desafios do Mercado -->
-          <article class="arrow-stage-card" id="arrowStage3">
-            <span class="arrow-stage-pill">FASE 03 // RADAR DE RISCOS</span>
-            <h2 class="arrow-stage-title">O MERCADO ESTÁ CHEIO DE ARMADILHAS.</h2>
-            <p class="arrow-stage-text">
-              Projetos tradicionais colidem com armadilhas que queimam caixa e tempo. A flecha da VL Tech desvia com precisão cirúrgica de cada obstáculo:
-            </p>
-            <div class="arrow-hurdles-list">
-              <div class="arrow-hurdle-item" data-hurdle-pill="0">
-                <span>01. BUGS &amp; INSTABILIDADE</span>
-                <span class="arrow-hurdle-status">[ DESVIADO ✓ ]</span>
-              </div>
-              <div class="arrow-hurdle-item" data-hurdle-pill="1">
-                <span>02. PREÇO ABUSIVO</span>
-                <span class="arrow-hurdle-status">[ DESVIADO ✓ ]</span>
-              </div>
-              <div class="arrow-hurdle-item" data-hurdle-pill="2">
-                <span>03. FALTA DE EXECUÇÃO</span>
-                <span class="arrow-hurdle-status">[ DESVIADO ✓ ]</span>
-              </div>
-              <div class="arrow-hurdle-item" data-hurdle-pill="3">
-                <span>04. BAIXA QUALIDADE</span>
-                <span class="arrow-hurdle-status">[ DESVIADO ✓ ]</span>
-              </div>
-            </div>
-          </article>
-
-          <!-- Card 4: O Alvo Supremo (VL Tech Solution) -->
-          <article class="arrow-stage-card arrow-stage-card--final" id="arrowStage4">
-            <span class="arrow-stage-pill">FASE 04 // IMPACTO PERFEITO</span>
-            <h2 class="arrow-stage-title">
-              FAZER TUDO COM A <span class="text-red">VL TECH</span>: NO CENTRO DO ALVO.
-            </h2>
-            <p class="arrow-stage-text">
-              Sem desvios, sem desperdício de capital. A flecha crava com precisão cirúrgica no centro da alta performance digital. Sistemas modernos, automações com IA e design premiado.
-            </p>
-            <div class="arrow-stage-actions">
-              <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20quero%20iniciar%20um%20projeto%20com%20a%20VL%20Tech"
-                target="_blank" rel="noopener noreferrer" class="btn btn--neon">
-                INICIAR MEU PROJETO NO WHATSAPP <span class="btn__arrow" aria-hidden="true">→</span>
-              </a>
-              <a href="#portfolio-experience" class="btn btn--outline">
-                EXPLORAR DIFERENCIAIS <span class="btn__arrow" aria-hidden="true">↓</span>
-              </a>
-            </div>
-          </article>
-        </div>
+      <!-- Poster-Weight StickerSwapHeadline (somente a escrita principal monumental) -->
+      <div class="ssh-inner">
+        <h1 class="ssh-h" id="heroTechTitle">
+          <span class="ssh-sr" id="heroStickerSr" aria-live="polite">CRIAMOS SOFTWARE</span>
+          <span class="ssh-line ssh-lead" aria-hidden="true">CRIAMOS</span>
+          <span class="ssh-reel" id="heroStickerReel" aria-hidden="true"></span>
+        </h1>
       </div>
     </section>
 
-    <!-- ============================== 4.5 NOTEBOOK 3D ZOOM-IN EXPERIENCE ============================== -->
-    <section class="section section--dark notebook-experience-section" id="portfolio-experience"
-      aria-labelledby="notebook-experience-title">
-      <div class="notebook-pin-viewport" id="notebookPinViewport">
-
-        <!-- Header da Experiência 3D -->
-        <div class="container notebook-intro-header" id="notebookIntroHeader">
-          <span class="eyebrow text-red">04 — ENGENHARIA VISUAL &amp; DISPOSITIVOS</span>
-          <h2 class="display notebook-main-title" id="notebook-experience-title">
-            <span class="notebook-title-line">DESEMPENHO EM</span>
-            <span class="notebook-title-line text-red">CADA DISPOSITIVO</span>
-          </h2>
-          <p class="notebook-lead">
-            Role para baixo e mergulhe no poder de processamento gráfico e arquitetura de alta performance da VL Tech.
-          </p>
-        </div>
-
-        <!-- Palco do Notebook 3D (Perspectiva e Hardware estilizado) -->
-        <div class="notebook-stage" id="notebookStage">
-          <!-- Canvas Three.js WebGL para Iluminação Volumétrica e Reflexos Metálicos -->
-          <canvas class="notebook-webgl-canvas" id="notebookWebglCanvas" aria-hidden="true"></canvas>
-
-          <div class="notebook-ambient-glow" id="notebookGlow" aria-hidden="true"></div>
-
-          <div class="notebook-device" id="notebookDevice">
-            <!-- Tampa do Notebook (Lid que abre no scroll via GSAP ScrollTrigger) -->
-            <div class="notebook-lid" id="notebookLid">
-
-              <!-- Face Traseira / Tampa Externa (Visível no estado fechado com Logo VL Tech Retroiluminada) -->
-              <div class="notebook-lid-outer" id="notebookLidOuter">
-                <div class="notebook-outer-shell">
-                  <div class="notebook-outer-logo-wrap" id="notebookOuterLogoWrap">
-                    <div class="notebook-backlit-logo-container">
-                      <img src="assets/logo/vl-logo.jpg" alt="VL Tech Monograma Retroiluminado"
-                        class="notebook-backlit-logo" id="notebookBacklitLogo" width="140" height="110">
-                      <div class="notebook-logo-glow" id="notebookLogoGlow" aria-hidden="true"></div>
-                      <div class="notebook-logo-flare" aria-hidden="true"></div>
-                    </div>
-                  </div>
-                  <!-- Efeito de acabamento de alumínio escovado e reflexo especular -->
-                  <div class="notebook-lid-sheen" aria-hidden="true"></div>
-                  <div class="notebook-lid-reflection" aria-hidden="true"></div>
-                </div>
-              </div>
-
-              <!-- Face Frontal / Bezel da Tela (Revelada suavemente durante a abertura) -->
-              <div class="notebook-bezel" id="notebookBezel">
-                <div class="notebook-camera" aria-hidden="true">
-                  <span class="camera-lens"></span>
-                  <span class="camera-indicator"></span>
-                </div>
-
-                <!-- Display do Notebook (Tela que expande no Zoom-in) -->
-                <div class="notebook-screen" id="notebookScreen">
-                  <div class="notebook-screen-inner" id="notebookScreenInner">
-
-                    <!-- Barra Superior do Sistema Operacional VL-TECH OS -->
-                    <div class="screen-os-header" id="screenOsHeader">
-                      <div class="screen-os-left">
-                        <span class="os-apple-icon">✦</span>
-                        <span class="os-brand">VL-TECH // OS v4.2</span>
-                      </div>
-                      <div class="screen-os-center">
-                        <span class="os-badge-pulse"></span>
-                        <span class="os-status-text">SISTEMA ATIVO · KERNEL DE ALTA PERFORMANCE</span>
-                      </div>
-                      <div class="screen-os-right">
-                        <span class="os-wifi-icon" title="Conexão Segura">⚡ 100Gbps</span>
-                        <span class="os-clock" id="screenOsClock">18:40</span>
-                      </div>
-                    </div>
-
-                    <!-- Animação da Matriz Binária na Tela do Notebook (0 e 1 - 100% Vermelho) -->
-                    <div class="screen-matrix-overlay" id="screenMatrixOverlay" aria-hidden="true">
-                      <canvas class="screen-matrix-canvas" id="screenMatrixCanvas"></canvas>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Base do Notebook (Teclado, Trackpad e Deck) -->
-            <div class="notebook-base" id="notebookBase">
-              <div class="notebook-deck">
-                <div class="notebook-keyboard">
-                  <div class="keyboard-row"></div>
-                  <div class="keyboard-spacebar"></div>
-                </div>
-                <div class="notebook-trackpad"></div>
-              </div>
-              <div class="notebook-front-lip">
-                <div class="notebook-thumb-notch"></div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- Indicador de Scroll -->
-        <div class="notebook-scroll-hint" id="notebookScrollHint">
-          <span class="hint-text">Role para abrir o notebook</span>
-          <span class="hint-icon" aria-hidden="true">↓</span>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ============================== 5. HALL OF FAME / PORTFÓLIO DE MARCAS & CLIENTES ============================== -->
-    <section class="section section--dark portfolio-fan-section portfolio-showcase-section" id="capacetes" aria-labelledby="portfolio-title">
-      <!-- Canvas de Cascata de Matriz (Binário 0 e 1) com Convergência Tipográfica -->
-      <div class="matrix-cascade-wrapper" id="matrixCascadeWrapper" aria-hidden="true">
-        <canvas class="matrix-cascade-canvas" id="matrixCascadeCanvas"></canvas>
-      </div>
-
-      <div class="container portfolio-header-container">
-        <header class="portfolio-fan-header" id="portfolioFanHeader">
-          <div class="portfolio-fan-glyph" aria-hidden="true">✦</div>
-          <span class="eyebrow text-red">04 — HALL OF FAME</span>
-          <h2 class="display portfolio-fan-title" id="portfolio-title">
-            <span class="portfolio-fan-title__main" id="matrixTargetMain">MARCAS &amp; PROJETOS</span>
-            <span class="portfolio-fan-title__sub text-red" id="matrixTargetSub">CLIENT PORTFOLIO</span>
-          </h2>
-          <p class="portfolio-fan-lead">
-            Cases reais desenvolvidos e acelerados com a engenharia de software e alta performance da VL Tech.
-          </p>
-        </header>
-      </div>
-
-      <!-- SHOWCASE EDITORIAL EXCLUSIVO DE LOGOS E IDENTIDADES DE MARCA -->
-      <div class="container portfolio-showcase-container">
-        <div class="portfolio-brands-grid" id="portfolioBrandsGrid">
-
-          <!-- BRAND 01: ZILDO OLIVEIRA -->
-          <article class="brand-showcase-card" data-brand="zildo">
-            <div class="brand-card__inner">
-              <div class="brand-card__ambient-glow" aria-hidden="true"></div>
-              
-              <div class="brand-card__header">
-                <div class="brand-card__meta-left">
-                  <span class="brand-card__index">01</span>
-                  <span class="brand-card__category-badge">Governo &amp; Gestão</span>
-                </div>
-                <span class="brand-card__status">
-                  <span class="status-dot status-dot--pulse" aria-hidden="true"></span>
-                  <span>No Ar</span>
-                </span>
-              </div>
-
-              <!-- Brand Logo Spotlight -->
-              <div class="brand-card__logo-stage">
-                <img src="assets/images/portfolio/logos/zildo-logo.png" alt="Logotipo Oficial Zildo Oliveira"
-                  class="brand-card__logo-img brand-card__logo-img--zildo" width="160" height="80" loading="eager" decoding="async">
-              </div>
-
-              <!-- Brand Typography & Metadata -->
-              <div class="brand-card__body">
-                <h3 class="brand-card__name">Zildo Oliveira</h3>
-                <p class="brand-card__role">Portal Oficial &amp; Gestão Pública</p>
-                <div class="brand-card__tags">
-                  <span class="brand-tag">Liderança Política</span>
-                  <span class="brand-tag">Alta Disponibilidade</span>
-                </div>
-              </div>
-
-              <!-- Action Button Solid Red -->
-              <div class="brand-card__footer">
-                <a href="https://project-zil-zildo.vercel.app/" target="_blank" rel="noopener noreferrer"
-                  class="brand-card__cta" aria-label="Visitar site oficial Zildo Oliveira">
-                  <span>Visitar Site</span>
-                  <span class="btn__arrow" aria-hidden="true">↗</span>
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- BRAND 02: G4 BENEFICIADORA -->
-          <article class="brand-showcase-card" data-brand="g4">
-            <div class="brand-card__inner">
-              <div class="brand-card__ambient-glow" aria-hidden="true"></div>
-              
-              <div class="brand-card__header">
-                <div class="brand-card__meta-left">
-                  <span class="brand-card__index">02</span>
-                  <span class="brand-card__category-badge">Agronegócio &amp; B2B</span>
-                </div>
-                <span class="brand-card__status">
-                  <span class="status-dot status-dot--pulse" aria-hidden="true"></span>
-                  <span>No Ar</span>
-                </span>
-              </div>
-
-              <!-- Brand Logo Spotlight -->
-              <div class="brand-card__logo-stage">
-                <img src="assets/images/portfolio/logos/g4-logo.png" alt="Logotipo Oficial G4 Beneficiadora de Batatas"
-                  class="brand-card__logo-img brand-card__logo-img--g4" width="140" height="140" loading="eager" decoding="async">
-              </div>
-
-              <!-- Brand Typography & Metadata -->
-              <div class="brand-card__body">
-                <h3 class="brand-card__name">G4 Beneficiadora</h3>
-                <p class="brand-card__role">Agronegócio, Indústria &amp; B2B</p>
-                <div class="brand-card__tags">
-                  <span class="brand-tag">Agroindústria</span>
-                  <span class="brand-tag">Portal Corporativo</span>
-                </div>
-              </div>
-
-              <!-- Action Button Solid Red -->
-              <div class="brand-card__footer">
-                <a href="https://project-zil-g4-batatas.vercel.app/" target="_blank" rel="noopener noreferrer"
-                  class="brand-card__cta" aria-label="Visitar site corporativo G4 Beneficiadora">
-                  <span>Visitar Site</span>
-                  <span class="btn__arrow" aria-hidden="true">↗</span>
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- BRAND 03: MACIEL FIT STUDIO -->
-          <article class="brand-showcase-card brand-showcase-card--featured" data-brand="maciel">
-            <div class="brand-card__inner">
-              <div class="brand-card__ambient-glow" aria-hidden="true"></div>
-              
-              <div class="brand-card__header">
-                <div class="brand-card__meta-left">
-                  <span class="brand-card__index">03</span>
-                  <span class="brand-card__category-badge brand-card__category-badge--featured">Saúde &amp; Fitness</span>
-                </div>
-                <span class="brand-card__status">
-                  <span class="status-dot status-dot--pulse" aria-hidden="true"></span>
-                  <span>No Ar</span>
-                </span>
-              </div>
-
-              <!-- Brand Logo Spotlight -->
-              <div class="brand-card__logo-stage">
-                <img src="assets/images/portfolio/logos/maciel-logo.png" alt="Logotipo Oficial Maciel Fit Studio"
-                  class="brand-card__logo-img brand-card__logo-img--maciel" width="150" height="150" loading="eager" decoding="async">
-              </div>
-
-              <!-- Brand Typography & Metadata -->
-              <div class="brand-card__body">
-                <h3 class="brand-card__name">Maciel Fit Studio</h3>
-                <p class="brand-card__role">Plataforma Fitness &amp; Conversão</p>
-                <div class="brand-card__tags">
-                  <span class="brand-tag brand-tag--featured">Studio Fitness</span>
-                  <span class="brand-tag">Funil de Matrículas</span>
-                </div>
-              </div>
-
-              <!-- Action Button Solid Red -->
-              <div class="brand-card__footer">
-                <a href="https://macielfit-studio-eta.vercel.app/" target="_blank" rel="noopener noreferrer"
-                  class="brand-card__cta" aria-label="Visitar site Maciel Fit Studio">
-                  <span>Visitar Site</span>
-                  <span class="btn__arrow" aria-hidden="true">↗</span>
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- BRAND 04: MARINHO ODONTO -->
-          <article class="brand-showcase-card" data-brand="marinho">
-            <div class="brand-card__inner">
-              <div class="brand-card__ambient-glow" aria-hidden="true"></div>
-              
-              <div class="brand-card__header">
-                <div class="brand-card__meta-left">
-                  <span class="brand-card__index">04</span>
-                  <span class="brand-card__category-badge">Odonto &amp; Estética</span>
-                </div>
-                <span class="brand-card__status">
-                  <span class="status-dot status-dot--pulse" aria-hidden="true"></span>
-                  <span>No Ar</span>
-                </span>
-              </div>
-
-              <!-- Brand Logo Spotlight -->
-              <div class="brand-card__logo-stage">
-                <img src="assets/images/portfolio/logos/marinho-logo.svg" alt="Logotipo Oficial Marinho Odonto"
-                  class="brand-card__logo-img brand-card__logo-img--marinho" width="220" height="60" loading="eager" decoding="async">
-              </div>
-
-              <!-- Brand Typography & Metadata -->
-              <div class="brand-card__body">
-                <h3 class="brand-card__name">Marinho Odonto</h3>
-                <p class="brand-card__role">Clínica &amp; Odontologia Estética 3D</p>
-                <div class="brand-card__tags">
-                  <span class="brand-tag">Odontologia Digital</span>
-                  <span class="brand-tag">3D Interativo</span>
-                </div>
-              </div>
-
-              <!-- Action Button Solid Red -->
-              <div class="brand-card__footer">
-                <a href="https://marinhoodonto.vercel.app/" target="_blank" rel="noopener noreferrer"
-                  class="brand-card__cta" aria-label="Visitar clínica Marinho Odonto">
-                  <span>Visitar Site</span>
-                  <span class="btn__arrow" aria-hidden="true">↗</span>
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <!-- BRAND 05: RIBEIRO TEAM -->
-          <article class="brand-showcase-card" data-brand="ribeiro">
-            <div class="brand-card__inner">
-              <div class="brand-card__ambient-glow" aria-hidden="true"></div>
-              
-              <div class="brand-card__header">
-                <div class="brand-card__meta-left">
-                  <span class="brand-card__index">05</span>
-                  <span class="brand-card__category-badge">Lutas &amp; Performance</span>
-                </div>
-                <span class="brand-card__status">
-                  <span class="status-dot status-dot--pulse" aria-hidden="true"></span>
-                  <span>No Ar</span>
-                </span>
-              </div>
-
-              <!-- Brand Logo Spotlight -->
-              <div class="brand-card__logo-stage">
-                <img src="assets/images/portfolio/logos/ribeiro-logo.png" alt="Logotipo Oficial Ribeiro Team"
-                  class="brand-card__logo-img brand-card__logo-img--ribeiro" width="160" height="110" loading="eager" decoding="async">
-              </div>
-
-              <!-- Brand Typography & Metadata -->
-              <div class="brand-card__body">
-                <h3 class="brand-card__name">Ribeiro Team</h3>
-                <p class="brand-card__role">Centro de Treinamento &amp; Lutas</p>
-                <div class="brand-card__tags">
-                  <span class="brand-tag">Artes Marciais</span>
-                  <span class="brand-tag">Alta Performance</span>
-                </div>
-              </div>
-
-              <!-- Action Button Solid Red -->
-              <div class="brand-card__footer">
-                <a href="https://ribeiro-team.vercel.app/" target="_blank" rel="noopener noreferrer"
-                  class="brand-card__cta" aria-label="Visitar centro de lutas Ribeiro Team">
-                  <span>Visitar Site</span>
-                  <span class="btn__arrow" aria-hidden="true">↗</span>
-                </a>
-              </div>
-            </div>
-          </article>
-
-        </div>
-      </div>
-
-      <!-- RODAPÉ EDITORIAL CENTRALIZADO COM PILLS -->
-      <div class="container">
-        <footer class="portfolio-fan-footer">
-          <p class="portfolio-fan-caption">Projetos reais hospedados na Vercel e acelerados pela VL Tech</p>
-          <div class="portfolio-fan-pills">
-            <a href="https://project-zil-zildo.vercel.app/" target="_blank" rel="noopener noreferrer"
-              class="fan-pill">ZILDO OLIVEIRA ↗</a>
-            <a href="https://project-zil-g4-batatas.vercel.app/" target="_blank" rel="noopener noreferrer"
-              class="fan-pill">G4 BENEFICIADORA ↗</a>
-            <a href="https://macielfit-studio-eta.vercel.app/" target="_blank" rel="noopener noreferrer"
-              class="fan-pill">MACIEL FIT STUDIO ↗</a>
-            <a href="https://marinhoodonto.vercel.app/" target="_blank" rel="noopener noreferrer"
-              class="fan-pill">MARINHO ODONTO ↗</a>
-            <a href="https://ribeiro-team.vercel.app/" target="_blank" rel="noopener noreferrer"
-              class="fan-pill">RIBEIRO TEAM ↗</a>
-          </div>
-        </footer>
-      </div>
-    </section>
-
-    <!-- ============================== 5.5 RESPONSIVIDADE TOTAL // NOTEBOOK & MOBILE ============================== -->
+    <!-- ============================== 5.5 RESPONSIVIDADE TOTAL // NOTEBOOK 3D + PHONE CAROUSEL 3D ============================== -->
     <section class="section section--dark responsive-showcase-section" id="responsividade" aria-labelledby="responsive-title">
-      <!-- Glows de fundo e Grid cibernético -->
-      <div class="responsive-ambient-glow" aria-hidden="true"></div>
-      <div class="responsive-grid-overlay" aria-hidden="true"></div>
+      <div class="responsive-pin-viewport" id="respPinViewport">
+        <!-- Glows de fundo e Grid cibernético -->
+        <div class="responsive-ambient-glow" id="respAmbientGlow" aria-hidden="true"></div>
+        <div class="responsive-grid-overlay" aria-hidden="true"></div>
 
-      <div class="container responsive-container">
-        <!-- Header da Seção -->
-        <header class="responsive-header text-center">
-          <div class="responsive-eyebrow-wrapper">
-            <span class="responsive-pulse-dot" aria-hidden="true"></span>
-            <span class="eyebrow text-red">ARQUITETURA MULTIDISPOSITIVOS // FLUID ECOSYSTEM</span>
-          </div>
-          
-          <h2 class="display responsive-title" id="responsive-title">
-            PERFEIÇÃO EM QUALQUER TELA<br>
-            <span class="text-red">// NOTEBOOK &amp; MOBILE</span>
-          </h2>
-          
-          <p class="responsive-subtitle">
-            Desenvolvimento responsivo de alta precisão. Sua empresa com visual impecável, carregamento instantâneo e experiência fluida no celular ou no computador.
-          </p>
-
-          <!-- Seletor Interativo de Projetos Reais -->
-          <div class="responsive-tabs" role="tablist" aria-label="Selecione um projeto para inspecionar">
-            <button class="responsive-tab is-active" type="button" role="tab" aria-selected="true" data-project="maciel-fit">
-              <span class="responsive-tab__num">01</span>
-              <span class="responsive-tab__name">Maciel Fit</span>
-              <span class="responsive-tab__tag">Studio Fitness</span>
-            </button>
-            <button class="responsive-tab" type="button" role="tab" aria-selected="false" data-project="g4-batatas">
-              <span class="responsive-tab__num">02</span>
-              <span class="responsive-tab__name">G4 Batatas</span>
-              <span class="responsive-tab__tag">Indústria &amp; Agro</span>
-            </button>
-            <button class="responsive-tab" type="button" role="tab" aria-selected="false" data-project="marinho-odonto">
-              <span class="responsive-tab__num">03</span>
-              <span class="responsive-tab__name">Marinho Odonto</span>
-              <span class="responsive-tab__tag">Saúde &amp; Estética</span>
-            </button>
-            <button class="responsive-tab" type="button" role="tab" aria-selected="false" data-project="ribeiro-team">
-              <span class="responsive-tab__num">04</span>
-              <span class="responsive-tab__name">Ribeiro Team</span>
-              <span class="responsive-tab__tag">Centro de Lutas</span>
-            </button>
-            <button class="responsive-tab" type="button" role="tab" aria-selected="false" data-project="zildo-oliveira">
-              <span class="responsive-tab__num">05</span>
-              <span class="responsive-tab__name">Zildo Oliveira</span>
-              <span class="responsive-tab__tag">Portal Oficial</span>
-            </button>
-          </div>
-        </header>
-
-        <!-- Palco dos Dispositivos (Notebook Desktop + Smartphone Mobile) -->
-        <div class="responsive-stage" id="responsiveStage">
-          
-          <!-- Mockup do Notebook / Desktop (Camada de Fundo com perspectiva 3D) -->
-          <div class="responsive-mockup responsive-mockup--laptop" id="responsiveLaptop">
-            <!-- Barra Superior do Navegador Cyber/Safari -->
-            <div class="laptop-chrome">
-              <div class="chrome-controls">
-                <span class="chrome-dot chrome-dot--red"></span>
-                <span class="chrome-dot"></span>
-                <span class="chrome-dot"></span>
-              </div>
-              <div class="laptop-url-bar">
-                <span class="url-lock">🔒</span>
-                <span class="laptop-url-text" id="laptopUrlText">https://macielfit-studio-eta.vercel.app/</span>
-              </div>
-              <div class="laptop-chrome-badge">
-                <span class="badge-dot"></span>
-                <span>DESKTOP 1920×1080</span>
-              </div>
+        <div class="container responsive-container">
+          <!-- Header da Seção -->
+          <header class="responsive-header text-center" id="respHeader">
+            <div class="responsive-eyebrow-wrapper">
+              <span class="responsive-pulse-dot" aria-hidden="true"></span>
+              <span class="eyebrow text-red">ARQUITETURA MULTIDISPOSITIVOS // MONITOR &amp; MOBILE 3D</span>
             </div>
 
-            <!-- Tela do Notebook com Preview do Projeto -->
-            <div class="laptop-screen">
-              <img id="laptopScreenImg" src="assets/images/portfolio/maciel-fit.jpg" alt="Versão Desktop do Projeto VL Tech" class="laptop-screen-media">
-              <div class="laptop-screen-reflection" aria-hidden="true"></div>
-            </div>
+            <h2 class="display responsive-title" id="responsive-title">
+              PERFEIÇÃO EM QUALQUER TELA
+            </h2>
 
-            <!-- Chassi / Base do Notebook com Trackpad -->
-            <div class="laptop-base">
-              <div class="laptop-notch"></div>
-            </div>
+            <p class="responsive-subtitle">
+              Cada projeto nasce otimizado tanto para monitores 4K quanto para smartphones. Arraste o celular 3D para o lado e veja o mesmo site sincronizado nas duas telas.
+            </p>
+          </header>
 
-            <!-- Card Flutuante de Telemetria Desktop (Esquerda) -->
-            <div class="responsive-floating-card responsive-floating-card--desktop">
-              <div class="floating-card__header">
-                <span class="floating-card__icon">💻</span>
-                <span class="floating-card__label">DESKTOP EXCELLENCE</span>
-              </div>
-              <div class="floating-card__metric">
-                <span class="metric-val text-red">4K &amp; Retina</span>
-                <span class="metric-sub">Layout Hiperfluido</span>
-              </div>
-              <ul class="floating-card__list">
-                <li><span class="check-icon">✓</span> Micro-interações 60 FPS</li>
-                <li><span class="check-icon">✓</span> Zero CLS (Shift Cumulativo 0.00)</li>
-              </ul>
-            </div>
-          </div>
+          <!-- PALCO 3D UNIFICADO: NOTEBOOK 3D NO TOPO (NAVEGADOR COM ABAS & HERO REAL) + CELULARES 3D EM BAIXO (LOGOS) -->
+          <div class="resp-stage-3d" id="responsiveStage">
 
-          <!-- Mockup do Smartphone (Camada Frontal Sobreposta com Ângulo 3D e Brilho Neon) -->
-          <div class="responsive-mockup responsive-mockup--mobile" id="responsiveMobile">
-            <!-- Borda Externa em Titânio Escuro e Vidro -->
-            <div class="phone-frame">
-              <!-- Speaker & Dynamic Island -->
-              <div class="phone-dynamic-island">
-                <span class="camera-lens"></span>
-              </div>
-
-              <!-- Tela do Smartphone com Preview Mobile do Projeto -->
-              <div class="phone-screen">
-                <div class="phone-status-bar">
-                  <span class="status-time">09:41</span>
-                  <div class="status-icons">
-                    <span>5G</span>
+            <!-- WRAPPER DE APROXIMAÇÃO (VINDO DE LONGE NO SCROLL ANTES DO PIN) -->
+            <div class="resp-laptop-approach" id="respLaptopApproach">
+            <!-- CAMADA DE FUNDO (MAIS PARA CIMA): NOTEBOOK 3D COM NAVEGADOR REAL & 5 ABAS ABERTAS -->
+            <div class="resp-laptop-backdrop" id="respLaptopDevice">
+              <div class="resp-laptop-lid" id="respLaptopLid">
+                <!-- Tampa externa fechada com logo VL retroiluminada -->
+                <div class="resp-lid-outer" id="respLidOuter">
+                  <div class="resp-lid-sheen" aria-hidden="true"></div>
+                  <div class="resp-lid-logo-wrap">
+                    <img src="assets/logo/vl-logo.jpg" alt="VL Tech Monograma" class="resp-lid-logo" width="140" height="105">
+                    <div class="resp-lid-logo-glow" aria-hidden="true"></div>
                   </div>
                 </div>
 
-                <div class="phone-screen-inner">
-                  <img id="mobileScreenImg" src="assets/images/portfolio/maciel-fit.jpg" alt="Versão Mobile do Projeto VL Tech" class="phone-screen-media">
+                <!-- Moldura interna & Navegador com 5 Abas Abertas -->
+                <div class="resp-laptop-bezel" id="respLaptopBezel">
+                  <div class="resp-bezel-camera" aria-hidden="true">
+                    <span class="cam-lens"></span>
+                    <span class="cam-led"></span>
+                  </div>
+
+                  <div class="resp-laptop-screen">
+                    <!-- Barra de Abas Reais do Navegador (5 sites abertos) -->
+                    <div class="resp-browser-tabs" role="tablist" aria-label="Abas abertas no navegador">
+                      <div class="resp-monitor-dots" aria-hidden="true">
+                        <span></span><span></span><span></span>
+                      </div>
+
+                      <div class="resp-tabs-strip">
+                        <button type="button" class="resp-browser-tab is-active" data-index="0" role="tab" aria-selected="true">
+                          <span class="tab-favicon"></span>
+                          <span class="tab-label">Maciel Fit</span>
+                        </button>
+                        <button type="button" class="resp-browser-tab" data-index="1" role="tab" aria-selected="false">
+                          <span class="tab-favicon"></span>
+                          <span class="tab-label">G4 Batatas</span>
+                        </button>
+                        <button type="button" class="resp-browser-tab" data-index="2" role="tab" aria-selected="false">
+                          <span class="tab-favicon"></span>
+                          <span class="tab-label">Marinho Odonto</span>
+                        </button>
+                        <button type="button" class="resp-browser-tab" data-index="3" role="tab" aria-selected="false">
+                          <span class="tab-favicon"></span>
+                          <span class="tab-label">Ribeiro Team</span>
+                        </button>
+                        <button type="button" class="resp-browser-tab" data-index="4" role="tab" aria-selected="false">
+                          <span class="tab-favicon"></span>
+                          <span class="tab-label">Zildo Oliveira</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- Barra de Endereço do Navegador -->
+                    <div class="resp-monitor-bar">
+                      <div class="resp-nav-arrows" aria-hidden="true">
+                        <span>‹</span><span>›</span><span>↻</span>
+                      </div>
+                      <div class="resp-monitor-url" id="laptopUrlText">https://macielfit-studio-eta.vercel.app/</div>
+                      <span class="resp-monitor-badge">MONITOR 4K · OTIMIZADO</span>
+                    </div>
+
+                    <!-- Viewport Real da Hero de cada Aba + Matriz 0 e 1 -->
+                    <div class="resp-monitor-viewport" id="respMonitorViewport">
+                      <!-- Pré-visualização REAL da Hero de cada site aberto nas abas -->
+                      <div class="resp-monitor-site-layer" id="respMonitorSiteLayer">
+                        <div class="resp-tab-pane is-active" data-index="0">
+                          <div class="resp-pane-loader">
+                            <img src="assets/images/portfolio/logos/maciel-logo.png" alt="" class="pane-loader-logo">
+                          </div>
+                          <iframe class="resp-hero-iframe" data-src="https://macielfit-studio-eta.vercel.app/" title="Hero Maciel Fit" scrolling="no" tabindex="-1"></iframe>
+                        </div>
+
+                        <div class="resp-tab-pane" data-index="1">
+                          <div class="resp-pane-loader">
+                            <img src="assets/images/portfolio/logos/g4-logo.png" alt="" class="pane-loader-logo">
+                          </div>
+                          <iframe class="resp-hero-iframe" data-src="https://project-zil-g4-batatas.vercel.app/" title="Hero G4 Batatas" scrolling="no" tabindex="-1"></iframe>
+                        </div>
+
+                        <div class="resp-tab-pane" data-index="2">
+                          <div class="resp-pane-loader">
+                            <img src="assets/images/portfolio/logos/marinho-logo.svg" alt="" class="pane-loader-logo">
+                          </div>
+                          <iframe class="resp-hero-iframe" data-src="https://marinhoodonto.vercel.app/" title="Hero Marinho Odonto" scrolling="no" tabindex="-1"></iframe>
+                        </div>
+
+                        <div class="resp-tab-pane" data-index="3">
+                          <div class="resp-pane-loader">
+                            <img src="assets/images/portfolio/logos/ribeiro-logo.png" alt="" class="pane-loader-logo">
+                          </div>
+                          <iframe class="resp-hero-iframe" data-src="https://ribeiro-team.vercel.app/" title="Hero Ribeiro Team" scrolling="no" tabindex="-1"></iframe>
+                        </div>
+
+                        <div class="resp-tab-pane" data-index="4">
+                          <div class="resp-pane-loader">
+                            <img src="assets/images/portfolio/logos/zildo-logo.png" alt="" class="pane-loader-logo">
+                          </div>
+                          <iframe class="resp-hero-iframe" data-src="https://project-zil-zildo.vercel.app/" title="Hero Zildo Oliveira" scrolling="no" tabindex="-1"></iframe>
+                        </div>
+
+                        <div class="resp-monitor-scrim" aria-hidden="true"></div>
+                        <span class="resp-monitor-opt-tag">
+                          <strong>HERO AO VIVO</strong> · OTIMIZADO MONITOR
+                        </span>
+                      </div>
+
+                      <!-- Cascata Binária 0 e 1 Vermelho VL Tech -->
+                      <div class="resp-matrix-overlay" id="respMatrixOverlay" aria-hidden="true">
+                        <canvas class="resp-matrix-canvas" id="respMatrixCanvas"></canvas>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-
-                <!-- Barra de Navegação Inferior Mobile -->
-                <div class="phone-home-indicator"></div>
               </div>
 
-              <!-- Brilho Neon de Borda -->
-              <div class="phone-edge-glow" aria-hidden="true"></div>
+              <!-- Base de Alumínio do Notebook -->
+              <div class="resp-laptop-base" id="respLaptopBase" aria-hidden="true">
+                <div class="resp-laptop-notch"></div>
+              </div>
+            </div>
             </div>
 
-            <!-- Card Flutuante de Telemetria Mobile (Direita) -->
-            <div class="responsive-floating-card responsive-floating-card--mobile">
-              <div class="floating-card__header">
-                <span class="floating-card__icon">📱</span>
-                <span class="floating-card__label">MOBILE-FIRST NATIVE</span>
+            <!-- CAMADA FRONTAL (BEM MAIS EM BAIXO): CARROSSEL 3D DE CELULARES COM A LOGO DE CADA CLIENTE -->
+            <div class="resp-phone-carousel-layer" id="respPhoneCarouselLayer">
+              <div class="phone-carousel-track" id="phoneCarouselTrack" tabindex="0" role="region"
+                aria-roledescription="carousel" aria-label="Carrossel 3D de clientes no celular. Arraste para o lado ou use as setas para alternar entre os projetos.">
+
+                <!-- Phone 01: Maciel Fit -->
+                <article class="phone-3d-item is-active" data-index="0" data-project="maciel-fit" aria-label="Maciel Fit">
+                  <div class="phone-3d-shell">
+                    <div class="phone-3d-screen phone-3d-screen--brand">
+                      <div class="phone-3d-statusbar"><span>09:41</span><span>5G</span></div>
+                      <div class="phone-3d-island" aria-hidden="true"></div>
+                      <div class="phone-brand-content">
+                        <span class="phone-brand-index">01 / 05</span>
+                        <div class="phone-brand-logo-box">
+                          <img src="assets/images/portfolio/logos/maciel-logo.png" alt="Logo Maciel Fit" class="phone-brand-logo" loading="eager">
+                        </div>
+                        <div class="phone-brand-footer">
+                          <span class="phone-brand-name">MACIEL FIT</span>
+                          <span class="phone-brand-tag">MOBILE OTIMIZADO</span>
+                        </div>
+                      </div>
+                      <div class="phone-3d-glare" aria-hidden="true"></div>
+                      <div class="phone-3d-homebar" aria-hidden="true"></div>
+                    </div>
+                  </div>
+                </article>
+
+                <!-- Phone 02: G4 Batatas -->
+                <article class="phone-3d-item" data-index="1" data-project="g4-batatas" aria-label="G4 Batatas">
+                  <div class="phone-3d-shell">
+                    <div class="phone-3d-screen phone-3d-screen--brand">
+                      <div class="phone-3d-statusbar"><span>09:41</span><span>5G</span></div>
+                      <div class="phone-3d-island" aria-hidden="true"></div>
+                      <div class="phone-brand-content">
+                        <span class="phone-brand-index">02 / 05</span>
+                        <div class="phone-brand-logo-box">
+                          <img src="assets/images/portfolio/logos/g4-logo.png" alt="Logo G4 Batatas" class="phone-brand-logo" loading="eager">
+                        </div>
+                        <div class="phone-brand-footer">
+                          <span class="phone-brand-name">G4 BATATAS</span>
+                          <span class="phone-brand-tag">MOBILE OTIMIZADO</span>
+                        </div>
+                      </div>
+                      <div class="phone-3d-glare" aria-hidden="true"></div>
+                      <div class="phone-3d-homebar" aria-hidden="true"></div>
+                    </div>
+                  </div>
+                </article>
+
+                <!-- Phone 03: Marinho Odonto -->
+                <article class="phone-3d-item" data-index="2" data-project="marinho-odonto" aria-label="Marinho Odonto">
+                  <div class="phone-3d-shell">
+                    <div class="phone-3d-screen phone-3d-screen--brand">
+                      <div class="phone-3d-statusbar"><span>09:41</span><span>5G</span></div>
+                      <div class="phone-3d-island" aria-hidden="true"></div>
+                      <div class="phone-brand-content">
+                        <span class="phone-brand-index">03 / 05</span>
+                        <div class="phone-brand-logo-box">
+                          <img src="assets/images/portfolio/logos/marinho-logo.svg" alt="Logo Marinho Odonto" class="phone-brand-logo" loading="eager">
+                        </div>
+                        <div class="phone-brand-footer">
+                          <span class="phone-brand-name">MARINHO ODONTO</span>
+                          <span class="phone-brand-tag">MOBILE OTIMIZADO</span>
+                        </div>
+                      </div>
+                      <div class="phone-3d-glare" aria-hidden="true"></div>
+                      <div class="phone-3d-homebar" aria-hidden="true"></div>
+                    </div>
+                  </div>
+                </article>
+
+                <!-- Phone 04: Ribeiro Team -->
+                <article class="phone-3d-item" data-index="3" data-project="ribeiro-team" aria-label="Ribeiro Team">
+                  <div class="phone-3d-shell">
+                    <div class="phone-3d-screen phone-3d-screen--brand">
+                      <div class="phone-3d-statusbar"><span>09:41</span><span>5G</span></div>
+                      <div class="phone-3d-island" aria-hidden="true"></div>
+                      <div class="phone-brand-content">
+                        <span class="phone-brand-index">04 / 05</span>
+                        <div class="phone-brand-logo-box">
+                          <img src="assets/images/portfolio/logos/ribeiro-logo.png" alt="Logo Ribeiro Team" class="phone-brand-logo" loading="eager">
+                        </div>
+                        <div class="phone-brand-footer">
+                          <span class="phone-brand-name">RIBEIRO TEAM</span>
+                          <span class="phone-brand-tag">MOBILE OTIMIZADO</span>
+                        </div>
+                      </div>
+                      <div class="phone-3d-glare" aria-hidden="true"></div>
+                      <div class="phone-3d-homebar" aria-hidden="true"></div>
+                    </div>
+                  </div>
+                </article>
+
+                <!-- Phone 05: Zildo Oliveira -->
+                <article class="phone-3d-item" data-index="4" data-project="zildo-oliveira" aria-label="Zildo Oliveira">
+                  <div class="phone-3d-shell">
+                    <div class="phone-3d-screen phone-3d-screen--brand">
+                      <div class="phone-3d-statusbar"><span>09:41</span><span>5G</span></div>
+                      <div class="phone-3d-island" aria-hidden="true"></div>
+                      <div class="phone-brand-content">
+                        <span class="phone-brand-index">05 / 05</span>
+                        <div class="phone-brand-logo-box">
+                          <img src="assets/images/portfolio/logos/zildo-logo.png" alt="Logo Zildo Oliveira" class="phone-brand-logo" loading="eager">
+                        </div>
+                        <div class="phone-brand-footer">
+                          <span class="phone-brand-name">ZILDO OLIVEIRA</span>
+                          <span class="phone-brand-tag">MOBILE OTIMIZADO</span>
+                        </div>
+                      </div>
+                      <div class="phone-3d-glare" aria-hidden="true"></div>
+                      <div class="phone-3d-homebar" aria-hidden="true"></div>
+                    </div>
+                  </div>
+                </article>
+
               </div>
-              <div class="floating-card__metric">
-                <span class="metric-val text-red">&lt; 0.6s LCP</span>
-                <span class="metric-sub">Carregamento Instantâneo</span>
-              </div>
-              <ul class="floating-card__list">
-                <li><span class="check-icon">✓</span> Gestos Touch 120Hz Fluidos</li>
-                <li><span class="check-icon">✓</span> 100/100 Google Lighthouse</li>
-              </ul>
             </div>
           </div>
 
+          <!-- CONTROLES INFERIORES FLUTUANTES (ANTERIOR / PAUSE / PRÓXIMO + INFO DO SITE ATUAL) -->
+          <div class="resp-bottom-controls" id="respBottomControls">
+            <div class="resp-controls-row">
+              <button type="button" class="resp-ctrl-btn" id="respPrevBtn" aria-label="Projeto anterior">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+              </button>
+
+              <div class="resp-active-info" aria-live="polite">
+                <span class="resp-active-name" id="respActiveName">MACIEL FIT</span>
+                <span class="resp-active-meta" id="respActiveMeta">
+                  STUDIO FITNESS · <span class="text-red">OTIMIZADO MONITOR &amp; MOBILE</span>
+                </span>
+              </div>
+
+              <button type="button" class="resp-ctrl-btn resp-ctrl-btn--pause" id="respPauseBtn" aria-label="Pausar rotação automática" aria-pressed="false" title="Pausar / Retomar rotação automática">
+                <span id="respPauseIcon" aria-hidden="true">❚❚</span>
+              </button>
+
+              <button type="button" class="resp-ctrl-btn" id="respNextBtn" aria-label="Próximo projeto">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+              </button>
+            </div>
+
+            <div class="resp-dots-bar">
+              <div class="resp-dots" id="respDots" role="tablist" aria-label="Selecionar projeto">
+                <button type="button" class="resp-dot is-active" data-index="0" role="tab" aria-selected="true" aria-label="Maciel Fit"></button>
+                <button type="button" class="resp-dot" data-index="1" role="tab" aria-selected="false" aria-label="G4 Batatas"></button>
+                <button type="button" class="resp-dot" data-index="2" role="tab" aria-selected="false" aria-label="Marinho Odonto"></button>
+                <button type="button" class="resp-dot" data-index="3" role="tab" aria-selected="false" aria-label="Ribeiro Team"></button>
+                <button type="button" class="resp-dot" data-index="4" role="tab" aria-selected="false" aria-label="Zildo Oliveira"></button>
+              </div>
+              <a href="https://macielfit-studio-eta.vercel.app/" target="_blank" rel="noopener noreferrer" class="resp-visit-link" id="respVisitLink">
+                Abrir site ↗
+              </a>
+            </div>
+          </div>
         </div>
 
-        <!-- Barra Inferior de Métricas de Responsividade Total -->
-        <div class="responsive-metrics-bar">
-          <div class="responsive-metric-item">
-            <span class="metric-number">100<span class="text-red">%</span></span>
-            <span class="metric-desc">Fidelidade Visual em Telas de 320px a 3840px</span>
-          </div>
-          <div class="responsive-metric-divider" aria-hidden="true"></div>
-          <div class="responsive-metric-item">
-            <span class="metric-number">&lt; 800<span class="text-red">ms</span></span>
-            <span class="metric-desc">Core Web Vitals Médio em Redes Móveis 4G/5G</span>
-          </div>
-          <div class="responsive-metric-divider" aria-hidden="true"></div>
-          <div class="responsive-metric-item">
-            <span class="metric-number">0<span class="text-red">s</span></span>
-            <span class="metric-desc">Zero Perda de Conversão entre Plataformas</span>
-          </div>
-          <div class="responsive-metric-divider" aria-hidden="true"></div>
-          <div class="responsive-metric-item">
-            <span class="metric-number">60<span class="text-red">FPS</span></span>
-            <span class="metric-desc">WebGL e Animações GSAP Nativas e Leves</span>
-          </div>
+        <!-- Dica de Scroll Inicial -->
+        <div class="resp-scroll-hint" id="respScrollHint" aria-hidden="true">
+          <span>Role para abrir o notebook 3D</span>
+          <span class="hint-arrow">↓</span>
         </div>
-
-        <!-- CTA Direto -->
-        <div class="responsive-cta-wrap text-center">
-          <a href="#capacetes" class="btn btn--outline">
-            EXPLORAR TODAS AS SOLUÇÕES <span class="btn__arrow" aria-hidden="true">↓</span>
-          </a>
-        </div>
-
       </div>
     </section>
 
-    <!-- ============================== 7. PARCEIROS & TECNOLOGIAS ============================== -->
-    <section class="section section--dark partners-tech-section" id="parceiros" aria-labelledby="parceiros-title">
-      <!-- Iluminação e Grid Tecnológica de Fundo -->
-      <div class="partners-ambient-glow" aria-hidden="true"></div>
-      <div class="partners-grid-overlay" aria-hidden="true"></div>
+    <!-- ============================== 7. ECOSSISTEMA & STACK TECNOLÓGICA // 3D WORKS WHEEL ============================== -->
+    <section class="section section--dark partners-wheel-section" id="parceiros" aria-label="Ecossistema e Stack Tecnológica — Roda 3D">
+      <div class="partners-wheel-glow" aria-hidden="true"></div>
+      <div class="partners-wheel-grid" aria-hidden="true"></div>
 
-      <div class="container">
-        <header class="section__header partners-tech-header">
-          <div class="partners-header__badge">
-            <span class="tech-badge-dot" aria-hidden="true"></span>
-            <span class="eyebrow text-red">06 — ECOSSISTEMA &amp; STACK TECNOLÓGICA</span>
-          </div>
-          <h2 class="display section__title tech-main-title" id="parceiros-title">
-            PARCEIROS &amp; TECNOLOGIAS
-          </h2>
-          <p class="section__lead tech-lead-text">
-            Engenharia de precisão fundamentada nas tecnologias mais velozes e escaláveis do mercado global.
-          </p>
-        </header>
+      <!-- Eyebrow superior esquerdo -->
+      <div class="wheel-top-badge">
+        <span class="wheel-top-dot" aria-hidden="true"></span>
+        <span>ECOSSISTEMA &amp; STACK TECNOLÓGICA</span>
+      </div>
 
-        <!-- Grid de Cards Glassmórficos Tecnológicos -->
-        <div class="tech-stack-grid" id="techStackGrid">
-          <!-- CARD 01: NODE.JS & GO -->
-          <article class="tech-glass-card" data-tech="node-go">
-            <div class="tech-card__sheen" aria-hidden="true"></div>
-            <div class="tech-card__top">
-              <span class="tech-telemetry">
-                <span class="telemetry-beacon"></span>
-                <span>ONLINE // RUNTIME</span>
-              </span>
-              <span class="tech-card-id">01</span>
-            </div>
-            <div class="tech-card__body">
-              <h3 class="tech-card-name">NODE.JS &amp; GO</h3>
-              <p class="tech-card-desc">Microsserviços de ultra-baixa latência &amp; concorrência massiva.</p>
-            </div>
-            <div class="tech-card__footer">
-              <span class="tech-tag">REST &amp; gRPC API</span>
-              <span class="tech-metric">&lt; 10ms</span>
+      <!-- Palco Interativo 3D (Anel 360° -> Tambor Curvo 3D) -->
+      <div class="wheel-stage" id="partnersWheelStage" tabindex="0" role="listbox"
+        aria-label="Roda 3D do Ecossistema e Stack Tecnológica VL Tech"
+        aria-activedescendant="partners-wheel-card-0">
+        <div class="wheel-pivot" id="partnersWheelPivot">
+
+          <!-- 01: NODE.JS & GO -->
+          <article class="wheel-card is-active" id="partners-wheel-card-0" role="option" aria-selected="true" data-tech="node-go">
+            <div class="wheel-card__face">
+              <div class="wheel-card__bg-grid" aria-hidden="true"></div>
+              <div class="wheel-card__glow" aria-hidden="true"></div>
+              <span class="wheel-card__glyph" aria-hidden="true">GO</span>
+              <div class="wheel-card__top">
+                <span class="wheel-card__telemetry"><span class="wheel-card__beacon"></span>ONLINE // RUNTIME</span>
+                <span class="wheel-card__num">01</span>
+              </div>
+              <div class="wheel-card__body">
+                <h3 class="wheel-card__name">NODE.JS &amp; GO</h3>
+                <p class="wheel-card__desc">Microsserviços de ultra-baixa latência &amp; concorrência massiva.</p>
+              </div>
+              <div class="wheel-card__footer">
+                <span class="wheel-card__tag">REST &amp; gRPC API</span>
+                <span class="wheel-card__metric">&lt; 10ms</span>
+              </div>
             </div>
           </article>
 
-          <!-- CARD 02: AMAZON AWS -->
-          <article class="tech-glass-card" data-tech="aws">
-            <div class="tech-card__sheen" aria-hidden="true"></div>
-            <div class="tech-card__top">
-              <span class="tech-telemetry">
-                <span class="telemetry-beacon"></span>
-                <span>CLOUD // MULTI-AZ</span>
-              </span>
-              <span class="tech-card-id">02</span>
-            </div>
-            <div class="tech-card__body">
-              <h3 class="tech-card-name">AMAZON AWS</h3>
-              <p class="tech-card-desc">Infraestrutura elástica, Lambda Serverless &amp; CloudFront Edge.</p>
-            </div>
-            <div class="tech-card__footer">
-              <span class="tech-tag">INFRA AS CODE</span>
-              <span class="tech-metric">99.99%</span>
-            </div>
-          </article>
-
-          <!-- CARD 03: THREE.JS & WEBGL -->
-          <article class="tech-glass-card" data-tech="three-webgl">
-            <div class="tech-card__sheen" aria-hidden="true"></div>
-            <div class="tech-card__top">
-              <span class="tech-telemetry">
-                <span class="telemetry-beacon"></span>
-                <span>GRAPHICS // GPU</span>
-              </span>
-              <span class="tech-card-id">03</span>
-            </div>
-            <div class="tech-card__body">
-              <h3 class="tech-card-name">THREE.JS &amp; WEBGL</h3>
-              <p class="tech-card-desc">Cenas tridimensionais imersivas, Shaders GLSL &amp; 60 FPS fluidos.</p>
-            </div>
-            <div class="tech-card__footer">
-              <span class="tech-tag">HARDWARE ACCEL</span>
-              <span class="tech-metric">60 FPS</span>
+          <!-- 02: AMAZON AWS -->
+          <article class="wheel-card" id="partners-wheel-card-1" role="option" aria-selected="false" data-tech="aws">
+            <div class="wheel-card__face">
+              <div class="wheel-card__bg-grid" aria-hidden="true"></div>
+              <div class="wheel-card__glow" aria-hidden="true"></div>
+              <span class="wheel-card__glyph" aria-hidden="true">AWS</span>
+              <div class="wheel-card__top">
+                <span class="wheel-card__telemetry"><span class="wheel-card__beacon"></span>CLOUD // MULTI-AZ</span>
+                <span class="wheel-card__num">02</span>
+              </div>
+              <div class="wheel-card__body">
+                <h3 class="wheel-card__name">AMAZON AWS</h3>
+                <p class="wheel-card__desc">Infraestrutura elástica, Lambda Serverless &amp; CloudFront Edge.</p>
+              </div>
+              <div class="wheel-card__footer">
+                <span class="wheel-card__tag">INFRA AS CODE</span>
+                <span class="wheel-card__metric">99.99%</span>
+              </div>
             </div>
           </article>
 
-          <!-- CARD 04: GOOGLE CLOUD -->
-          <article class="tech-glass-card" data-tech="gcp">
-            <div class="tech-card__sheen" aria-hidden="true"></div>
-            <div class="tech-card__top">
-              <span class="tech-telemetry">
-                <span class="telemetry-beacon"></span>
-                <span>EDGE // GLOBAL CDN</span>
-              </span>
-              <span class="tech-card-id">04</span>
-            </div>
-            <div class="tech-card__body">
-              <h3 class="tech-card-name">GOOGLE CLOUD</h3>
-              <p class="tech-card-desc">Kubernetes GKE, BigQuery Analytics &amp; inteligência artificial em nuvem.</p>
-            </div>
-            <div class="tech-card__footer">
-              <span class="tech-tag">ENTERPRISE CLOUD</span>
-              <span class="tech-metric">GLOBAL</span>
-            </div>
-          </article>
-
-          <!-- CARD 05: DOCKER & K8S -->
-          <article class="tech-glass-card" data-tech="docker-k8s">
-            <div class="tech-card__sheen" aria-hidden="true"></div>
-            <div class="tech-card__top">
-              <span class="tech-telemetry">
-                <span class="telemetry-beacon"></span>
-                <span>DEVOPS // CI/CD</span>
-              </span>
-              <span class="tech-card-id">05</span>
-            </div>
-            <div class="tech-card__body">
-              <h3 class="tech-card-name">DOCKER &amp; K8S</h3>
-              <p class="tech-card-desc">Conteinerização isolada, autoscaling instantâneo &amp; zero downtime deploy.</p>
-            </div>
-            <div class="tech-card__footer">
-              <span class="tech-tag">ORCHESTRATION</span>
-              <span class="tech-metric">AUTO-SCALE</span>
+          <!-- 03: THREE.JS & WEBGL -->
+          <article class="wheel-card" id="partners-wheel-card-2" role="option" aria-selected="false" data-tech="three-webgl">
+            <div class="wheel-card__face">
+              <div class="wheel-card__bg-grid" aria-hidden="true"></div>
+              <div class="wheel-card__glow" aria-hidden="true"></div>
+              <span class="wheel-card__glyph" aria-hidden="true">3D</span>
+              <div class="wheel-card__top">
+                <span class="wheel-card__telemetry"><span class="wheel-card__beacon"></span>GRAPHICS // GPU</span>
+                <span class="wheel-card__num">03</span>
+              </div>
+              <div class="wheel-card__body">
+                <h3 class="wheel-card__name">THREE.JS &amp; WEBGL</h3>
+                <p class="wheel-card__desc">Cenas tridimensionais imersivas, Shaders GLSL &amp; 60 FPS fluidos.</p>
+              </div>
+              <div class="wheel-card__footer">
+                <span class="wheel-card__tag">HARDWARE ACCEL</span>
+                <span class="wheel-card__metric">60 FPS</span>
+              </div>
             </div>
           </article>
 
-          <!-- CARD 06: TYPESCRIPT -->
-          <article class="tech-glass-card" data-tech="typescript">
-            <div class="tech-card__sheen" aria-hidden="true"></div>
-            <div class="tech-card__top">
-              <span class="tech-telemetry">
-                <span class="telemetry-beacon"></span>
-                <span>TYPE-SAFE // ARCHITECTURE</span>
-              </span>
-              <span class="tech-card-id">06</span>
-            </div>
-            <div class="tech-card__body">
-              <h3 class="tech-card-name">TYPESCRIPT</h3>
-              <p class="tech-card-desc">Segurança estática de tipagem eliminando 99% dos erros em tempo de execução.</p>
-            </div>
-            <div class="tech-card__footer">
-              <span class="tech-tag">STRICT COMPLIANCE</span>
-              <span class="tech-metric">100% TYPED</span>
-            </div>
-          </article>
-
-          <!-- CARD 07: POSTGRESQL & REDIS -->
-          <article class="tech-glass-card" data-tech="postgres-redis">
-            <div class="tech-card__sheen" aria-hidden="true"></div>
-            <div class="tech-card__top">
-              <span class="tech-telemetry">
-                <span class="telemetry-beacon"></span>
-                <span>DATABASE // CACHE</span>
-              </span>
-              <span class="tech-card-id">07</span>
-            </div>
-            <div class="tech-card__body">
-              <h3 class="tech-card-name">POSTGRESQL &amp; REDIS</h3>
-              <p class="tech-card-desc">Bancos relacionais robustos ACID somados a cache em memória sub-milissegundo.</p>
-            </div>
-            <div class="tech-card__footer">
-              <span class="tech-tag">IN-MEMORY CACHE</span>
-              <span class="tech-metric">&lt; 1ms</span>
+          <!-- 04: GOOGLE CLOUD -->
+          <article class="wheel-card" id="partners-wheel-card-3" role="option" aria-selected="false" data-tech="gcp">
+            <div class="wheel-card__face">
+              <div class="wheel-card__bg-grid" aria-hidden="true"></div>
+              <div class="wheel-card__glow" aria-hidden="true"></div>
+              <span class="wheel-card__glyph" aria-hidden="true">GCP</span>
+              <div class="wheel-card__top">
+                <span class="wheel-card__telemetry"><span class="wheel-card__beacon"></span>EDGE // GLOBAL CDN</span>
+                <span class="wheel-card__num">04</span>
+              </div>
+              <div class="wheel-card__body">
+                <h3 class="wheel-card__name">GOOGLE CLOUD</h3>
+                <p class="wheel-card__desc">Kubernetes GKE, BigQuery Analytics &amp; inteligência artificial em nuvem.</p>
+              </div>
+              <div class="wheel-card__footer">
+                <span class="wheel-card__tag">ENTERPRISE CLOUD</span>
+                <span class="wheel-card__metric">GLOBAL</span>
+              </div>
             </div>
           </article>
 
-          <!-- CARD 08: VL TECH CLOUD -->
-          <article class="tech-glass-card tech-glass-card--featured" data-tech="vl-cloud">
-            <div class="tech-card__sheen" aria-hidden="true"></div>
-            <div class="tech-card__top">
-              <span class="tech-telemetry">
-                <span class="telemetry-beacon telemetry-beacon--red"></span>
-                <span class="text-red">PROPRIETARY // CORE</span>
-              </span>
-              <span class="tech-card-id text-red">08</span>
-            </div>
-            <div class="tech-card__body">
-              <h3 class="tech-card-name text-red">VL TECH CLOUD</h3>
-              <p class="tech-card-desc">Plataforma própria de orquestração de borda com caching adaptativo e segurança militar.</p>
-            </div>
-            <div class="tech-card__footer">
-              <span class="tech-tag tech-tag--featured">EDGE ENGINE</span>
-              <span class="tech-metric text-red">ZERO LATENCY</span>
+          <!-- 05: DOCKER & K8S -->
+          <article class="wheel-card" id="partners-wheel-card-4" role="option" aria-selected="false" data-tech="docker-k8s">
+            <div class="wheel-card__face">
+              <div class="wheel-card__bg-grid" aria-hidden="true"></div>
+              <div class="wheel-card__glow" aria-hidden="true"></div>
+              <span class="wheel-card__glyph" aria-hidden="true">K8S</span>
+              <div class="wheel-card__top">
+                <span class="wheel-card__telemetry"><span class="wheel-card__beacon"></span>DEVOPS // CI/CD</span>
+                <span class="wheel-card__num">05</span>
+              </div>
+              <div class="wheel-card__body">
+                <h3 class="wheel-card__name">DOCKER &amp; K8S</h3>
+                <p class="wheel-card__desc">Conteinerização isolada, autoscaling instantâneo &amp; zero downtime deploy.</p>
+              </div>
+              <div class="wheel-card__footer">
+                <span class="wheel-card__tag">ORCHESTRATION</span>
+                <span class="wheel-card__metric">AUTO-SCALE</span>
+              </div>
             </div>
           </article>
+
+          <!-- 06: TYPESCRIPT -->
+          <article class="wheel-card" id="partners-wheel-card-5" role="option" aria-selected="false" data-tech="typescript">
+            <div class="wheel-card__face">
+              <div class="wheel-card__bg-grid" aria-hidden="true"></div>
+              <div class="wheel-card__glow" aria-hidden="true"></div>
+              <span class="wheel-card__glyph" aria-hidden="true">TS</span>
+              <div class="wheel-card__top">
+                <span class="wheel-card__telemetry"><span class="wheel-card__beacon"></span>TYPE-SAFE // ARCHITECTURE</span>
+                <span class="wheel-card__num">06</span>
+              </div>
+              <div class="wheel-card__body">
+                <h3 class="wheel-card__name">TYPESCRIPT</h3>
+                <p class="wheel-card__desc">Segurança estática de tipagem eliminando 99% dos erros em tempo de execução.</p>
+              </div>
+              <div class="wheel-card__footer">
+                <span class="wheel-card__tag">STRICT COMPLIANCE</span>
+                <span class="wheel-card__metric">100% TYPED</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- 07: POSTGRESQL & REDIS -->
+          <article class="wheel-card" id="partners-wheel-card-6" role="option" aria-selected="false" data-tech="postgres-redis">
+            <div class="wheel-card__face">
+              <div class="wheel-card__bg-grid" aria-hidden="true"></div>
+              <div class="wheel-card__glow" aria-hidden="true"></div>
+              <span class="wheel-card__glyph" aria-hidden="true">SQL</span>
+              <div class="wheel-card__top">
+                <span class="wheel-card__telemetry"><span class="wheel-card__beacon"></span>DATABASE // CACHE</span>
+                <span class="wheel-card__num">07</span>
+              </div>
+              <div class="wheel-card__body">
+                <h3 class="wheel-card__name">POSTGRESQL &amp; REDIS</h3>
+                <p class="wheel-card__desc">Bancos relacionais robustos ACID somados a cache em memória sub-milissegundo.</p>
+              </div>
+              <div class="wheel-card__footer">
+                <span class="wheel-card__tag">IN-MEMORY CACHE</span>
+                <span class="wheel-card__metric">&lt; 1ms</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- 08: VL TECH CLOUD -->
+          <article class="wheel-card wheel-card--featured" id="partners-wheel-card-7" role="option" aria-selected="false" data-tech="vl-cloud">
+            <div class="wheel-card__face">
+              <div class="wheel-card__bg-grid" aria-hidden="true"></div>
+              <div class="wheel-card__glow" aria-hidden="true"></div>
+              <span class="wheel-card__glyph" aria-hidden="true">VL</span>
+              <div class="wheel-card__top">
+                <span class="wheel-card__telemetry"><span class="wheel-card__beacon"></span>PROPRIETARY // CORE</span>
+                <span class="wheel-card__num">08</span>
+              </div>
+              <div class="wheel-card__body">
+                <h3 class="wheel-card__name">VL TECH CLOUD</h3>
+                <p class="wheel-card__desc">Plataforma própria de orquestração de borda com caching adaptativo e segurança militar.</p>
+              </div>
+              <div class="wheel-card__footer">
+                <span class="wheel-card__tag">EDGE ENGINE</span>
+                <span class="wheel-card__metric">ZERO LATENCY</span>
+              </div>
+            </div>
+          </article>
+
         </div>
+      </div>
+
+      <!-- Título Central no Estado Anel (m = 0) -->
+      <div class="wheel-ring-label" id="wheelRingLabel" aria-hidden="true">
+        <span class="wheel-ring-label__title" id="wheelRingLabelTitle">STACK <span class="text-red">'26</span></span>
+        <span class="wheel-ring-label__sub">ROLE OU CLIQUE PARA ABRIR A RODA 3D</span>
+      </div>
+
+      <!-- Leitura Editorial à Esquerda no Estado Tambor (m = 1) -->
+      <div class="wheel-active-readout" id="wheelActiveReadout" aria-live="polite">
+        <span class="wheel-active-kicker" id="wheelActiveKicker">01 // ONLINE // RUNTIME</span>
+        <h2 class="wheel-active-title" id="wheelActiveTitle">NODE.JS &amp; GO</h2>
+        <span class="wheel-active-metric" id="wheelActiveMetric">REST &amp; gRPC API · &lt; 10ms</span>
+      </div>
+
+      <!-- Índice Interativo à Direita -->
+      <ol class="wheel-index" aria-label="Índice de tecnologias">
+        <li><button type="button" class="wheel-index-btn wheel-index-btn--ring" id="wheelRingBtn">◯ ANEL 360°</button></li>
+        <li><button type="button" class="wheel-index-btn" data-turn="1">01 · Node.js &amp; Go</button></li>
+        <li><button type="button" class="wheel-index-btn" data-turn="2">02 · Amazon AWS</button></li>
+        <li><button type="button" class="wheel-index-btn" data-turn="3">03 · Three.js &amp; WebGL</button></li>
+        <li><button type="button" class="wheel-index-btn" data-turn="4">04 · Google Cloud</button></li>
+        <li><button type="button" class="wheel-index-btn" data-turn="5">05 · Docker &amp; K8s</button></li>
+        <li><button type="button" class="wheel-index-btn" data-turn="6">06 · TypeScript</button></li>
+        <li><button type="button" class="wheel-index-btn" data-turn="7">07 · PostgreSQL &amp; Redis</button></li>
+        <li><button type="button" class="wheel-index-btn" data-turn="8">08 · VL Tech Cloud</button></li>
+      </ol>
+
+      <!-- Controles Inferiores Discretos -->
+      <div class="wheel-bottom-hud">
+        <button type="button" class="wheel-hud-btn" id="wheelPrevBtn" aria-label="Tecnologia anterior">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg>
+        </button>
+        <span class="wheel-hud-hint">ROLE · ARRASTE · OU CLIQUE NO ÍNDICE</span>
+        <button type="button" class="wheel-hud-btn" id="wheelNextBtn" aria-label="Próxima tecnologia">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
       </div>
     </section>
 
@@ -1088,157 +750,129 @@
           </div>
         </header>
 
-        <!-- MAIN MINIMALIST STAGE: PURE 3D PENDULUM BADGE (NO HEAVY SIDE CARDS) -->
-        <div class="badge-pendulum-stage" id="badge3dStage">
-          <!-- Pendulum Articulated Rig (Swings around top anchor) -->
-          <div class="badge-pendulum-rig" id="badgePendulumRig">
-            
-            <!-- Ceiling Mount / Anchor Assembly -->
-            <div class="badge-ceiling-mount" aria-hidden="true">
-              <div class="ceiling-mount__bracket"></div>
-              <div class="ceiling-mount__ring"></div>
-            </div>
+        <!-- STAGE 3 COLUNAS: INFORMAÇÕES FLUTUANTES TRANSPARENTES (FORA) + CRACHÁ 3D (CENTRO) -->
+        <div class="badge-stage-layout">
+          <!-- COLUNA ESQUERDA: O QUE FAZ (FLUTUANTE / SEM CARD) -->
+          <aside class="badge-side-float badge-side-float--left" id="badgeSideLeft" aria-live="polite">
+            <span class="badge-float-kicker" id="badgeInfoKicker">01 // FRONT-END &amp; AUTOMAÇÕES</span>
+            <p class="badge-float-statement" id="badgeInfoSummary">
+              Interfaces de alta conversão, experiências 3D WebGL e automações sob medida.
+            </p>
+            <ul class="badge-float-list" id="badgeRespList">
+              <li class="badge-float-item">Arquitetura Front-end &amp; Design Systems</li>
+              <li class="badge-float-item">Landing Pages 3D · Three.js &amp; GSAP</li>
+              <li class="badge-float-item">Automações Inteligentes &amp; IA Aplicada</li>
+            </ul>
+          </aside>
 
-            <!-- Hanging Lanyard / Cord Suspension Assembly -->
-            <div class="badge-lanyard-assembly" id="badgeLanyardAssembly" aria-hidden="true">
-              <div class="lanyard-strap" id="badgeLanyardStrap">
-                <div class="lanyard-strap__text">
-                  <span>VL TECH // EXECUTIVE ID // CORE ARCHITECT // VL TECH // EXECUTIVE ID //</span>
+          <!-- COLUNA CENTRAL: CRACHÁ 3D PENDULAR (SOMENTE ACESSO, FOTO GRANDE, NOME E FUNÇÃO) -->
+          <div class="badge-pendulum-stage" id="badge3dStage">
+            <div class="badge-pendulum-rig" id="badgePendulumRig">
+              <!-- Ceiling Mount / Anchor Assembly -->
+              <div class="badge-ceiling-mount" aria-hidden="true">
+                <div class="ceiling-mount__bracket"></div>
+                <div class="ceiling-mount__ring"></div>
+              </div>
+
+              <!-- Hanging Lanyard / Cord Suspension Assembly -->
+              <div class="badge-lanyard-assembly" id="badgeLanyardAssembly" aria-hidden="true">
+                <div class="lanyard-strap" id="badgeLanyardStrap">
+                  <div class="lanyard-strap__text">
+                    <span>VL TECH // EXECUTIVE ID // CORE ARCHITECT // VL TECH // EXECUTIVE ID //</span>
+                  </div>
+                </div>
+                <div class="lanyard-metal-clip">
+                  <div class="clip-swivel"></div>
+                  <div class="clip-clasp"></div>
                 </div>
               </div>
-              <div class="lanyard-metal-clip">
-                <div class="clip-swivel"></div>
-                <div class="clip-clasp"></div>
-              </div>
-            </div>
 
-            <!-- 3D Transform Container (Badge Card that Flips 360°) -->
-            <div class="badge-3d-wrapper" id="badge3dWrapper">
-              <div class="badge-card-3d" id="badgeCard3d" tabindex="0" role="region" aria-label="Crachá 3D dos Co-founders com física de pêndulo. Pressione Enter para girar ou arraste para balançar.">
-                
-                <!-- Dynamic Specular Glare / Sheen -->
-                <div class="badge-specular-glare" id="badgeSpecularGlare" aria-hidden="true"></div>
+              <!-- 3D Transform Container (Badge Card that Flips 360°) -->
+              <div class="badge-3d-wrapper" id="badge3dWrapper">
+                <div class="badge-card-3d" id="badgeCard3d" tabindex="0" role="region" aria-label="Crachá 3D dos Co-founders com física de pêndulo. Pressione Enter para girar ou arraste para balançar.">
+                  <!-- Dynamic Specular Glare / Sheen -->
+                  <div class="badge-specular-glare" id="badgeSpecularGlare" aria-hidden="true"></div>
 
-                <!-- ================= FRONT FACE: LUIZ GABRIEL ================= -->
-                <div class="badge-face badge-face--front" id="badgeFaceFront">
-                  <div class="badge-slot-punch" aria-hidden="true"></div>
-                  
-                  <div class="badge-card-header">
-                    <div class="badge-brand-logo">
-                      <span class="badge-vl-monogram">VL</span>
-                      <span class="badge-vl-sub">TECH ARCHITECT</span>
+                  <!-- ================= FRONT FACE: LUIZ GABRIEL ================= -->
+                  <div class="badge-face badge-face--front" id="badgeFaceFront">
+                    <div class="badge-slot-punch" aria-hidden="true"></div>
+
+                    <div class="badge-access-bar">
+                      <span class="badge-access-pill">ACESSO · LEVEL 05 ROOT</span>
                     </div>
-                    <div class="badge-chip-sim" aria-hidden="true">
-                      <div class="chip-pads"></div>
+
+                    <div class="badge-photo-wrapper">
+                      <img src="assets/images/luiz.jpg" alt="Retrato profissional de Luiz Gabriel - Co-founder VL Tech" class="badge-photo" width="440" height="540" loading="eager">
+                      <div class="badge-photo-overlay" aria-hidden="true"></div>
+                      <div class="badge-corner-target top-left" aria-hidden="true"></div>
+                      <div class="badge-corner-target bottom-right" aria-hidden="true"></div>
                     </div>
-                    <span class="badge-tag-pill">LEVEL 05 ROOT</span>
-                  </div>
 
-                  <div class="badge-photo-wrapper">
-                    <img src="assets/images/luiz.jpg" alt="Retrato profissional de Luiz Gabriel - Co-founder VL Tech" class="badge-photo" width="400" height="480" loading="eager">
-                    <div class="badge-photo-overlay" aria-hidden="true"></div>
-                    <div class="badge-corner-target top-left" aria-hidden="true"></div>
-                    <div class="badge-corner-target bottom-right" aria-hidden="true"></div>
-                    <span class="badge-photo-tag">FRONT-END ARCHITECT</span>
-                  </div>
-
-                  <div class="badge-identity">
-                    <div class="badge-id-num">ID: VL-ENG-01 · SAO-HQ · CLEARANCE 05</div>
-                    <h3 class="badge-name">LUIZ GABRIEL</h3>
-                    <p class="badge-title">Especialista em Front-end, Arquitetura Web &amp; Automações</p>
-                    
-                    <!-- Integrated Tech Stack Pills -->
-                    <div class="badge-tech-pills">
-                      <span class="b-pill">WebGL</span>
-                      <span class="b-pill">Three.js</span>
-                      <span class="b-pill">GSAP 3</span>
-                      <span class="b-pill">Next.js</span>
-                      <span class="b-pill">Tailwind</span>
+                    <div class="badge-identity">
+                      <h3 class="badge-name">LUIZ GABRIEL</h3>
+                      <p class="badge-role">Co-Founder &amp; Front-end Architect</p>
                     </div>
                   </div>
 
-                  <div class="badge-footer-bar">
-                    <div class="badge-barcode-group">
-                      <div class="barcode-lines" aria-hidden="true"></div>
-                      <span class="badge-serial">AUTH // 0492-8812-7740-L</span>
+                  <!-- ================= BACK FACE: VICTOR WHOHLERS ================= -->
+                  <div class="badge-face badge-face--back" id="badgeFaceBack">
+                    <div class="badge-slot-punch" aria-hidden="true"></div>
+
+                    <div class="badge-access-bar">
+                      <span class="badge-access-pill">ACESSO · SYS ROOT</span>
                     </div>
-                    <a href="https://wa.me/5511999999999?text=Ol%C3%A1%20Luiz%20Gabriel%2C%20gostaria%20de%20conversar%20sobre%20um%20projeto%20com%20a%20VL%20Tech"
-                       target="_blank" rel="noopener noreferrer" class="badge-direct-cta" aria-label="Falar com Luiz Gabriel no WhatsApp">
-                      <span>WhatsApp</span>
-                      <svg class="cta-arrow" viewBox="0 0 12 12" width="10" height="10" aria-hidden="true"><path fill="currentColor" d="M2 1h8v8H8.5V3.56L2.53 9.53 1.47 8.47 7.44 2.5H2V1z"/></svg>
-                    </a>
+
+                    <div class="badge-photo-wrapper">
+                      <img src="assets/images/victor.jpg" alt="Retrato profissional de Victor Whohlers - Co-founder VL Tech" class="badge-photo" width="440" height="540" loading="eager">
+                      <div class="badge-photo-overlay" aria-hidden="true"></div>
+                      <div class="badge-corner-target top-left" aria-hidden="true"></div>
+                      <div class="badge-corner-target bottom-right" aria-hidden="true"></div>
+                    </div>
+
+                    <div class="badge-identity">
+                      <h3 class="badge-name">VICTOR WHOHLERS</h3>
+                      <p class="badge-role">Co-Founder &amp; Cloud Architect</p>
+                    </div>
                   </div>
                 </div>
-
-                <!-- ================= BACK FACE: VICTOR WHOHLERS ================= -->
-                <div class="badge-face badge-face--back" id="badgeFaceBack">
-                  <div class="badge-slot-punch" aria-hidden="true"></div>
-
-                  <div class="badge-card-header">
-                    <div class="badge-brand-logo">
-                      <span class="badge-vl-monogram">VL</span>
-                      <span class="badge-vl-sub">TECH ARCHITECT</span>
-                    </div>
-                    <div class="badge-magnetic-stripe" aria-hidden="true"></div>
-                    <span class="badge-tag-pill badge-tag-pill--red">SYS ROOT</span>
-                  </div>
-
-                  <div class="badge-photo-wrapper">
-                    <img src="assets/images/victor.jpg" alt="Retrato profissional de Victor Whohlers - Co-founder VL Tech" class="badge-photo" width="400" height="480" loading="eager">
-                    <div class="badge-photo-overlay" aria-hidden="true"></div>
-                    <div class="badge-corner-target top-left" aria-hidden="true"></div>
-                    <div class="badge-corner-target bottom-right" aria-hidden="true"></div>
-                    <span class="badge-photo-tag">BACK-END LEAD</span>
-                  </div>
-
-                  <div class="badge-identity">
-                    <div class="badge-id-num">ID: VL-ENG-02 · SAO-HQ · CLEARANCE 05</div>
-                    <h3 class="badge-name">VICTOR WHOHLERS</h3>
-                    <p class="badge-title">Especialista em Back-end, Cloud &amp; Lógica de Sistemas</p>
-                    
-                    <!-- Integrated Tech Stack Pills -->
-                    <div class="badge-tech-pills">
-                      <span class="b-pill">AWS / GCP</span>
-                      <span class="b-pill">Docker &amp; K8s</span>
-                      <span class="b-pill">APIs Distribuídas</span>
-                      <span class="b-pill">PostgreSQL</span>
-                      <span class="b-pill">Redis</span>
-                    </div>
-                  </div>
-
-                  <div class="badge-footer-bar">
-                    <div class="badge-barcode-group">
-                      <div class="barcode-lines" aria-hidden="true"></div>
-                      <span class="badge-serial">AUTH // 0492-8812-7741-V</span>
-                    </div>
-                    <a href="https://wa.me/5511999999999?text=Ol%C3%A1%20Victor%20Whohlers%2C%20gostaria%20de%20conversar%20sobre%20arquitetura%20cloud%20com%20a%20VL%20Tech"
-                       target="_blank" rel="noopener noreferrer" class="badge-direct-cta" aria-label="Falar com Victor Whohlers no WhatsApp">
-                      <span>WhatsApp</span>
-                      <svg class="cta-arrow" viewBox="0 0 12 12" width="10" height="10" aria-hidden="true"><path fill="currentColor" d="M2 1h8v8H8.5V3.56L2.53 9.53 1.47 8.47 7.44 2.5H2V1z"/></svg>
-                    </a>
-                  </div>
-                </div>
-
               </div>
             </div>
 
+            <!-- Bottom Control Bar: Minimalist Flip & Physics Telemetry HUD -->
+            <div class="badge-bottom-hud">
+              <button type="button" class="badge-flip-action-btn" id="badgeFlipActionBtn" aria-label="Girar crachá em 3D">
+                <svg class="flip-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+                  <path fill="currentColor" d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0 0 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/>
+                </svg>
+                <span id="badgeFlipBtnLabel">GIRAR PARA VICTOR (VERSO)</span>
+              </button>
+
+              <div class="badge-physics-hint">
+                <span class="hint-dot status-dot--pulse"></span>
+                <span class="hint-text">PÊNDULO 3D ATIVO // ARRASTE PARA BALANÇAR</span>
+                <span class="hint-angle" id="badgeAngleDisplay">0° (LUIZ)</span>
+              </div>
+            </div>
           </div>
 
-          <!-- Bottom Control Bar: Minimalist Flip & Physics Telemetry HUD -->
-          <div class="badge-bottom-hud">
-            <button type="button" class="badge-flip-action-btn" id="badgeFlipActionBtn" aria-label="Girar crachá em 3D">
-              <svg class="flip-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
-                <path fill="currentColor" d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0 0 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 0 0 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/>
-              </svg>
-              <span id="badgeFlipBtnLabel">GIRAR PARA VICTOR (VERSO)</span>
-            </button>
+          <!-- COLUNA DIREITA: STACK & CONTATO DIRETO (FLUTUANTE / SEM CARD) -->
+          <aside class="badge-side-float badge-side-float--right" id="badgeSideRight" aria-live="polite">
+            <span class="badge-float-kicker">DOMÍNIO TÉCNICO</span>
+            <p class="badge-float-stack" id="badgeStackLine">
+              Three.js · WebGL · GSAP 3 · Next.js · IA
+            </p>
 
-            <div class="badge-physics-hint">
-              <span class="hint-dot status-dot--pulse"></span>
-              <span class="hint-text">PÊNDULO 3D ATIVO // ARRASTE PARA BALANÇAR</span>
-              <span class="hint-angle" id="badgeAngleDisplay">0° (LUIZ)</span>
+            <div class="badge-float-meta">
+              <span class="badge-float-meta-label">CREDENCIAL</span>
+              <span class="badge-float-meta-value" id="badgeMetaId">VL-ENG-01 · SAO-HQ</span>
             </div>
-          </div>
+
+            <a href="https://wa.me/5511999999999?text=Ol%C3%A1%20Luiz%20Gabriel%2C%20gostaria%20de%20conversar%20sobre%20um%20projeto%20com%20a%20VL%20Tech"
+               target="_blank" rel="noopener noreferrer" class="badge-float-link" id="badgeSideCta">
+              <span id="badgeSideCtaLabel">Falar com Luiz</span>
+              <span class="float-link-arrow" aria-hidden="true">↗</span>
+            </a>
+          </aside>
         </div>
 
       </div>
@@ -1404,8 +1038,7 @@
           </p>
           <ul class="footer-nav-clean-list">
             <li><a href="#hero" class="footer-nav-item">Início</a></li>
-            <li><a href="#tracks" class="footer-nav-item">A Flecha da Execução</a></li>
-            <li><a href="#capacetes" class="footer-nav-item">Cases de Produção</a></li>
+            <li><a href="#responsividade" class="footer-nav-item">Projetos &amp; Telas</a></li>
             <li><a href="#socios-scrolly" class="footer-nav-item">Sócios &amp; Liderança</a></li>
             <li><a href="#faq" class="footer-nav-item">Perguntas Frequentes</a></li>
           </ul>
@@ -1440,15 +1073,17 @@
         </div>
       </div>
 
-      <!-- ============================== 8.5. MONUMENTAL "VL TECH" WORDMARK & VOLTAR AO TOPO ============================== -->
+      <!-- ============================== 8.5. INTERACTIVE PIXEL-PONG "VL TECH" WORDMARK & VOLTAR AO TOPO ============================== -->
       <div class="footer-monument-wrap">
         <button type="button" class="btn-back-to-top" id="backToTopBtn" aria-label="Voltar suavemente ao topo da página">
           <span class="top-icon" aria-hidden="true">↑</span>
           <span class="top-text">VOLTAR AO TOPO</span>
         </button>
 
-        <div class="footer-brand-monumental" aria-hidden="true">
-          <p class="display footer__wordmark text-red">VL TECH</p>
+        <div class="footer-pong-stage">
+          <canvas id="footerPongCanvas" class="footer-pong-canvas"
+            aria-label="VL Tech Engenharia de Software — Animação interativa Pong em pixel art"></canvas>
+          <span class="footer-pong-hint" aria-hidden="true">CLIQUE PARA REINICIAR</span>
         </div>
       </div>
 
@@ -1481,7 +1116,7 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 
   <!-- Aplicação (módulos ES) -->
-  <script type="module" src="js/main.js?v=6.1"></script>
+  <script type="module" src="js/main.js?v=7.4"></script>
 </body>
 
 </html>
