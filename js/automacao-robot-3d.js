@@ -790,10 +790,11 @@ export function initAutomacaoRobot() {
   }
 
   // =========================================================================
-  // 4. LOOP 60/120FPS COM PAUSA REAL FORA DA VIEWPORT & ABA OCULTA
+  // 4. LOOP 60/120FPS COM PAUSA REAL FORA DA VIEWPORT, ABA OCULTA E PORTAL
   // =========================================================================
   let rafId = null;
   let isVisible = false;
+  let cardAwake = prefersReduced || section?.dataset.robotAwake === 'true';
   let elapsed = 0;
   let lastNow = performance.now();
 
@@ -805,7 +806,7 @@ export function initAutomacaoRobot() {
   }
 
   function animate(now) {
-    if (disposed || !isVisible || document.hidden) {
+    if (disposed || !isVisible || !cardAwake || document.hidden) {
       rafId = null;
       return;
     }
@@ -890,7 +891,7 @@ export function initAutomacaoRobot() {
   }
 
   function startLoop() {
-    if (!disposed && !rafId && isVisible && !document.hidden) {
+    if (!disposed && !rafId && isVisible && cardAwake && !document.hidden) {
       lastNow = performance.now();
       rafId = requestAnimationFrame(animate);
     }
@@ -903,17 +904,29 @@ export function initAutomacaoRobot() {
     }
   }
 
+  // Acorda o loop WebGL somente quando o card físico entra em cena (zero disputa de GPU no scroll!)
+  const onCardState = (e) => {
+    cardAwake = Boolean(e?.detail?.active);
+    if (cardAwake && isVisible) {
+      syncSize();
+      startLoop();
+    } else if (!cardAwake) {
+      stopLoop();
+    }
+  };
+  window.addEventListener('vl:automacao-card-state', onCardState);
+
   const intersectionObserver = new IntersectionObserver(
     ([entry]) => {
       isVisible = entry.isIntersecting;
-      if (isVisible) {
+      if (isVisible && cardAwake) {
         syncSize();
         startLoop();
-      } else {
+      } else if (!isVisible) {
         stopLoop();
       }
     },
-    { rootMargin: '220px', threshold: 0.01 }
+    { rootMargin: '120px', threshold: 0.01 }
   );
   intersectionObserver.observe(section || stage);
 
@@ -967,6 +980,7 @@ export function initAutomacaoRobot() {
       resizeObserver?.disconnect();
       window.removeEventListener('resize', onResize);
       window.removeEventListener('pointermove', onWindowPointerMove);
+      window.removeEventListener('vl:automacao-card-state', onCardState);
       document.removeEventListener('visibilitychange', onVisibilityChange);
       canvas.removeEventListener('pointerdown', onCanvasPointerDown);
 

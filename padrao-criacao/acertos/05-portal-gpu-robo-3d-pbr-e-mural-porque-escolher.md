@@ -9,9 +9,9 @@
 
 ## O que foi feito
 
-1. **Portal de Automação 100% GPU em palco `sticky` único (`js/automacao-portal.js`):**
-   - Trocou o `SVG <clipPath>` sujeito a flicker e cortes por uma transição direta em `transform: scale()` + `opacity` dentro de um único `.auto-sticky-viewport` (`100svh`).
-   - A palavra `"AUTOMAÇÃO"` mergulha em direção à câmera enquanto o palco do Robô 3D já nasce perfeitamente enquadrado atrás dela, liberando `pointer-events` assim que o portal abre (`progress >= 0.68`).
+1. **Transição de Automação 120fps estilo `CinematicHero` em palco `sticky` único (`js/automacao-portal.js`):**
+   - Substituiu tanto o `SVG <clipPath>` quanto o zoom gigante em texto (`scale: 7.5` + `text-shadow`) pela coreografia fluida do `CinematicLandingHero` (21st.dev) 100% GPU: o título editorial (`AUTOMAÇÃO / EM PILOTO AUTOMÁTICO.`) recua suavemente (`scale: 0.88, y: -44, opacity: 0`) enquanto o card físico de profundidade (`#autoMainCard` com o Robô 3D dentro) sobe da base da tela via `translate3d` + `scale(0.92 → 1)` sem mutar `width/height` nem aplicar `filter: blur()`.
+   - **Handoff GPU inteligente (`vl:automacao-card-state` + `data-robot-awake`):** o loop Three.js do Robô 3D fica pausado (`renderOnce()` estático) enquanto o card está oculto e acorda apenas quando `progress >= 0.14`, eliminando disputa de GPU durante o início da rolagem.
 2. **Robô 3D Vanilla fiel ao `RobotHero` (21st.dev) com Studio PBR (`js/automacao-robot-3d.js`):**
    - `THREE.PMREMGenerator` cria um mapa de ambiente de estúdio procedural em Three.js puro (sem dependências `@react-three/drei`), dando volume real ao chassi PBR granulado, visor obsidian e antenas metálicas.
    - Física de mola estável integrada com `* dt` + `clamp`, decaimento exponencial (`1 - Math.exp(-rate * dt)`), tracking de cursor normalizado pela viewport (imune a scroll), `THREE.Raycaster` para olhos de coração 3D (`HeartCurve`), `ResizeObserver` no canvas e 4 modos interativos completos com layout limpo sem sobreposição.

@@ -14,7 +14,7 @@
    - Os botões de modo e o próprio robô não respondiam a cliques durante parte da entrada na seção.
    - Ao clicar no robô ou trocar de aba, ele podia quicar violentamente ou sumir da tela em quedas de FPS.
    - Ao rolar a página com o mouse sobre a seção, a cabeça do robô torcia para trás/ângulos extremos.
-   - A transição com `SVG <clipPath>` escalado + conteúdo abaixo com `margin-top` gerava corte brusco e sensação de palco desalinhado, agravada por excesso de caixas flutuantes sobre o robô.
+   - A transição com `SVG <clipPath>` escalado + conteúdo abaixo com `margin-top` gerava corte brusco; e escalar texto gigante (`14.5rem`, `scale: 7.5`) com `text-shadow` enquanto o WebGL Three.js já rodava em 60fps por trás (`opacity: 0`) causava engasgo/travamento perceptível no scroll.
 2. **Mural "Por Que Nos Escolher":**
    - O título central fixo permanecia sobreposto sobre os cards durante toda a seção, atrapalhando a leitura dos textos de cada diferencial.
 3. **Preview do projeto não subia no app:**

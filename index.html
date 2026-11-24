@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="css/sections/hero-sticker.css?v=7.2">
   <link rel="stylesheet" href="css/sections/responsive-showcase.css?v=7.5">
   <link rel="stylesheet" href="css/sections/diferenciais-tunnel.css?v=8.0">
-  <link rel="stylesheet" href="css/sections/automacao-portal.css?v=8.2">
+  <link rel="stylesheet" href="css/sections/automacao-portal.css?v=8.4">
   <link rel="stylesheet" href="css/sections/why-choose-wall.css?v=8.3">
   <link rel="stylesheet" href="css/sections/partners-wheel.css?v=8.3">
   <link rel="stylesheet" href="css/sections/founders-badge.css?v=7.5">
@@ -666,118 +666,122 @@
       </div>
     </section>
 
-    <!-- ============================== 4. AUTOMAÇÃO & IA // PORTAL + ROBOZINHO 3D INTERATIVO ============================== -->
+    <!-- ============================== 4. AUTOMAÇÃO & IA // CINEMATIC CARD TRANSITION + ROBOZINHO 3D ============================== -->
     <section class="section section--dark auto-section" id="automacao" aria-label="Automação e Inteligência Artificial VL Tech">
       <div class="auto-sticky-viewport">
         <div class="auto-grid-overlay" aria-hidden="true"></div>
 
-        <!-- CAMADA 1: Véu Introdutório "AUTOMAÇÃO" (mergulha direto para o palco do Robô 3D) -->
-        <div class="auto-portal-veil" id="autoPortalVeil">
-          <div class="auto-portal-ring" id="autoPortalRing" aria-hidden="true"></div>
+        <!-- CAMADA 1 (FUNDO): Abertura editorial inspirada no CinematicHero (recua suavemente no scroll) -->
+        <div class="auto-intro-layer" id="autoIntroLayer">
           <span class="auto-portal-kicker" id="autoPortalKicker">
             <span class="auto-portal-kicker__dot" aria-hidden="true"></span>
             PRÓXIMO NÍVEL · AGENTES DE IA 24/7
           </span>
-          <h2 class="auto-portal-word" id="autoPortalWord">AUTOMAÇÃO</h2>
+          <h2 class="auto-cine-line-1" id="autoCineLine1">AUTOMAÇÃO</h2>
+          <p class="auto-cine-line-2" id="autoCineLine2">EM PILOTO AUTOMÁTICO.</p>
           <div class="auto-portal-caption" id="autoPortalCaption">
-            <span class="auto-portal-hint" aria-hidden="true">Role para entrar no laboratório de IA</span>
+            <span class="auto-portal-hint" aria-hidden="true">Role para revelar o laboratório interativo de IA</span>
             <a href="#automacao-robo" class="auto-portal-enter" id="autoPortalEnterBtn">
-              <span>Entrar em Automação</span>
+              <span>Abrir Robô 3D</span>
               <span aria-hidden="true">↓</span>
             </a>
           </div>
         </div>
 
-        <!-- CAMADA 2: Palco Interativo do Robozinho 3D (fiel ao RobotHero 21st.dev, 100% limpo) -->
-        <div class="robot-stage" id="autoRobotStage" data-active-mode="instagram">
-          <!-- Topbar estilo AntennaNavbar -->
-          <div class="robot-topbar" id="automacao-robo" role="toolbar" aria-label="Modos de Automação do Robô VL Tech">
-            <div class="robot-modes-group">
-              <button type="button" class="robot-mode-btn is-active" data-robot-mode="instagram" aria-pressed="true">
-                Instagram 24/7
-              </button>
-              <button type="button" class="robot-mode-btn" data-robot-mode="whatsapp" aria-pressed="false">
-                WhatsApp IA
-              </button>
-              <button type="button" class="robot-mode-btn" data-robot-mode="crm" aria-pressed="false">
-                CRM &amp; Leads
-              </button>
-              <button type="button" class="robot-mode-btn" data-robot-mode="backoffice" aria-pressed="false">
-                Backoffice IA
-              </button>
-            </div>
-
-            <!-- Mini-rosto central (pisca no hover · olhos de coração 3D no clique!) -->
-            <button type="button" class="robot-mini-face" id="autoRobotMiniFace"
-              aria-label="Fazer carinho no robô VL Tech (ativar olhos de coração)" title="Clique para fazer carinho no robô!">
-              <span class="robot-mini-ear robot-mini-ear--left" aria-hidden="true"></span>
-              <span class="robot-mini-head" aria-hidden="true">
-                <span class="robot-mini-visor">
-                  <span class="robot-mini-eye"></span>
-                  <span class="robot-mini-eye"></span>
-                </span>
-              </span>
-              <span class="robot-mini-ear robot-mini-ear--right" aria-hidden="true"></span>
-            </button>
-
-            <div class="robot-topbar-right">
-              <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20quero%20automatizar%20meu%20Instagram%20com%20o%20rob%C3%B4%20da%20VL%20Tech"
-                target="_blank" rel="noopener noreferrer" class="robot-top-cta" id="autoRobotCta">
-                <span id="autoRobotCtaLabel">Automatizar Insta</span>
-                <span aria-hidden="true">↗</span>
-              </a>
-            </div>
-          </div>
-
-          <!-- Arena Central 3D: Wordmark Gigante + Robô Three.js PBR + Balão Live -->
-          <div class="robot-arena" id="autoRobotArena">
-            <div class="robot-arena-glow" aria-hidden="true"></div>
-            <div class="robot-bg-word" id="autoRobotBgWord" aria-hidden="true">INSTAGRAM</div>
-
-            <div class="robot-bubble" id="autoRobotBubble" aria-live="polite">
-              <span class="robot-bubble__dot" aria-hidden="true"></span>
-              <span id="autoRobotBubbleText">Respondendo DMs e comentários do seu Insta em 1.4s</span>
-            </div>
-
-            <div class="robot-canvas-wrap" id="autoRobotCanvasWrap">
-              <canvas id="autoRobotCanvas" class="robot-canvas"
-                aria-label="Robô 3D interativo de Automação da VL Tech. Mova o mouse para ele acompanhar e clique nele para ativar olhos de coração."></canvas>
-            </div>
-
-            <span class="robot-tap-hint" aria-hidden="true">MOVA O MOUSE · CLIQUE NO ROBÔ PARA FAZER CARINHO · TROQUE AS ABAS ACIMA</span>
-          </div>
-
-          <!-- Faixa Editorial Inferior Enxuta -->
-          <div class="robot-bottom-deck" id="autoRobotInfoPanel">
-            <div class="robot-deck-main">
-              <span class="robot-deck-badge" id="autoRobotModeBadge">MODO INSTA · PILOTO AUTOMÁTICO</span>
-              <h2 class="robot-deck-title" id="autoRobotModeTitle">CUIDAMOS DO SEU INSTA 24/7.</h2>
-              <p class="robot-deck-desc" id="autoRobotModeDesc">
-                Nosso agente responde Directs, reage a comentários em Reels e posts ("comenta EU QUERO"), envia links e qualifica seguidores automaticamente.
-              </p>
-              <ul class="robot-deck-chips" id="autoRobotModeChips">
-                <li>DMs &amp; Comentários</li>
-                <li>Link no Direct</li>
-                <li>Filtro p/ WhatsApp</li>
-              </ul>
-            </div>
-
-            <div class="robot-deck-right">
-              <div class="robot-deck-metrics">
-                <div class="auto-metric">
-                  <span class="auto-metric__value" id="autoMetricAVal">1.4s</span>
-                  <span class="auto-metric__label" id="autoMetricALabel">Resposta na DM</span>
+        <!-- CAMADA 2 (PRIMEIRO PLANO): Card físico de profundidade que sobe suavemente em 120fps -->
+        <div class="auto-card-shell">
+          <div class="auto-main-card" id="autoMainCard">
+            <div class="robot-stage" id="autoRobotStage" data-active-mode="instagram">
+              <!-- Topbar estilo AntennaNavbar -->
+              <div class="robot-topbar" id="automacao-robo" role="toolbar" aria-label="Modos de Automação do Robô VL Tech">
+                <div class="robot-modes-group">
+                  <button type="button" class="robot-mode-btn is-active" data-robot-mode="instagram" aria-pressed="true">
+                    Instagram 24/7
+                  </button>
+                  <button type="button" class="robot-mode-btn" data-robot-mode="whatsapp" aria-pressed="false">
+                    WhatsApp IA
+                  </button>
+                  <button type="button" class="robot-mode-btn" data-robot-mode="crm" aria-pressed="false">
+                    CRM &amp; Leads
+                  </button>
+                  <button type="button" class="robot-mode-btn" data-robot-mode="backoffice" aria-pressed="false">
+                    Backoffice IA
+                  </button>
                 </div>
-                <div class="auto-metric">
-                  <span class="auto-metric__value" id="autoMetricBVal">+340%</span>
-                  <span class="auto-metric__label" id="autoMetricBLabel">Engajamento ativo</span>
+
+                <!-- Mini-rosto central (pisca no hover · olhos de coração 3D no clique!) -->
+                <button type="button" class="robot-mini-face" id="autoRobotMiniFace"
+                  aria-label="Fazer carinho no robô VL Tech (ativar olhos de coração)" title="Clique para fazer carinho no robô!">
+                  <span class="robot-mini-ear robot-mini-ear--left" aria-hidden="true"></span>
+                  <span class="robot-mini-head" aria-hidden="true">
+                    <span class="robot-mini-visor">
+                      <span class="robot-mini-eye"></span>
+                      <span class="robot-mini-eye"></span>
+                    </span>
+                  </span>
+                  <span class="robot-mini-ear robot-mini-ear--right" aria-hidden="true"></span>
+                </button>
+
+                <div class="robot-topbar-right">
+                  <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20quero%20automatizar%20meu%20Instagram%20com%20o%20rob%C3%B4%20da%20VL%20Tech"
+                    target="_blank" rel="noopener noreferrer" class="robot-top-cta" id="autoRobotCta">
+                    <span id="autoRobotCtaLabel">Automatizar Insta</span>
+                    <span aria-hidden="true">↗</span>
+                  </a>
                 </div>
               </div>
 
-              <button type="button" class="robot-sim-btn" id="autoRobotSimulateBtn" aria-label="Simular ação do robô">
-                <span class="robot-sim-btn__dot" aria-hidden="true"></span>
-                <span>Testar Ação</span>
-              </button>
+              <!-- Arena Central 3D: Wordmark Gigante + Robô Three.js PBR + Balão Live -->
+              <div class="robot-arena" id="autoRobotArena">
+                <div class="robot-arena-glow" aria-hidden="true"></div>
+                <div class="robot-bg-word" id="autoRobotBgWord" aria-hidden="true">INSTAGRAM</div>
+
+                <div class="robot-bubble" id="autoRobotBubble" aria-live="polite">
+                  <span class="robot-bubble__dot" aria-hidden="true"></span>
+                  <span id="autoRobotBubbleText">Respondendo DMs e comentários do seu Insta em 1.4s</span>
+                </div>
+
+                <div class="robot-canvas-wrap" id="autoRobotCanvasWrap">
+                  <canvas id="autoRobotCanvas" class="robot-canvas"
+                    aria-label="Robô 3D interativo de Automação da VL Tech. Mova o mouse para ele acompanhar e clique nele para ativar olhos de coração."></canvas>
+                </div>
+
+                <span class="robot-tap-hint" aria-hidden="true">MOVA O MOUSE · CLIQUE NO ROBÔ PARA FAZER CARINHO · TROQUE AS ABAS ACIMA</span>
+              </div>
+
+              <!-- Faixa Editorial Inferior Enxuta -->
+              <div class="robot-bottom-deck" id="autoRobotInfoPanel">
+                <div class="robot-deck-main">
+                  <span class="robot-deck-badge" id="autoRobotModeBadge">MODO INSTA · PILOTO AUTOMÁTICO</span>
+                  <h2 class="robot-deck-title" id="autoRobotModeTitle">CUIDAMOS DO SEU INSTA 24/7.</h2>
+                  <p class="robot-deck-desc" id="autoRobotModeDesc">
+                    Nosso agente responde Directs, reage a comentários em Reels e posts ("comenta EU QUERO"), envia links e qualifica seguidores automaticamente.
+                  </p>
+                  <ul class="robot-deck-chips" id="autoRobotModeChips">
+                    <li>DMs &amp; Comentários</li>
+                    <li>Link no Direct</li>
+                    <li>Filtro p/ WhatsApp</li>
+                  </ul>
+                </div>
+
+                <div class="robot-deck-right">
+                  <div class="robot-deck-metrics">
+                    <div class="auto-metric">
+                      <span class="auto-metric__value" id="autoMetricAVal">1.4s</span>
+                      <span class="auto-metric__label" id="autoMetricALabel">Resposta na DM</span>
+                    </div>
+                    <div class="auto-metric">
+                      <span class="auto-metric__value" id="autoMetricBVal">+340%</span>
+                      <span class="auto-metric__label" id="autoMetricBLabel">Engajamento ativo</span>
+                    </div>
+                  </div>
+
+                  <button type="button" class="robot-sim-btn" id="autoRobotSimulateBtn" aria-label="Simular ação do robô">
+                    <span class="robot-sim-btn__dot" aria-hidden="true"></span>
+                    <span>Testar Ação</span>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -1464,7 +1468,7 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 
   <!-- Aplicação (módulos ES) -->
-  <script type="module" src="js/main.js?v=8.3"></script>
+  <script type="module" src="js/main.js?v=8.4"></script>
 </body>
 
 </html>

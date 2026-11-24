@@ -167,9 +167,13 @@ function navigateToProductSection(item) {
     if (item.robotMode && window.app?.automacaoRobot?.setMode) {
       window.app.automacaoRobot.setMode(item.robotMode, true);
     }
+    if (window.app?.automacaoPortal?.scrollToCard) {
+      window.app.automacaoPortal.scrollToCard();
+      return;
+    }
     const autoSec = document.getElementById('automacao');
     if (autoSec) {
-      const top = autoSec.getBoundingClientRect().top + window.scrollY + window.innerHeight * 0.65;
+      const top = autoSec.getBoundingClientRect().top + window.scrollY + window.innerHeight * 0.72;
       window.scrollTo({ top: Math.round(top), behavior: 'smooth' });
       return;
     }
