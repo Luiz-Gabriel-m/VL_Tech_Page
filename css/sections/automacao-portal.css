@@ -1,131 +1,207 @@
 /* ==========================================================================
-   SEÇÃO AUTOMAÇÃO — TRANSIÇÃO CINEMATIC HERO + ROBOZINHO 3D (21st.dev)
-   - Inspirada em CinematicLandingHero + RobotHero (21st.dev), 100% Vanilla GPU
-   - Palco único `position: sticky` (height: 100svh) sem saltos nem lag
-   - Fundo: título editorial metálico ("AUTOMAÇÃO / EM PILOTO AUTOMÁTICO.")
-     que recua suavemente em profundidade (zero `scale: 7.5` / zero blur!)
-   - Primeiro plano: Card físico de profundidade (`.auto-main-card`) que sobe
-     suavemente da base da tela via `translate3d` + `scale` (0ms de layout!)
-   - Dentro do card: Robô 3D Studio PBR + 4 abas + Testar Ação + CTA
+   SEÇÃO AUTOMAÇÃO — GLYPH PORTAL (ZOOM NA LETRA) + ROBOZINHO 3D INTERATIVO
+   - Palco único `position: sticky` (height: 100svh) sem cortes nem saltos
+   - A palavra monumental "AUTOMAÇÃO" dá zoom por dentro da letra escolhida
+     até preencher 100% da tela toda (Glyph Portal), desligando o clipPath
+     no final e revelando o palco completo do Robô 3D no mesmo viewport!
+   - Robô 3D 100% interativo: arraste para girar 360°, mova o mouse para ele
+     olhar, clique para olhos de coração 3D, troque as 4 abas e teste ações
    - ZERO filter: blur() / ZERO backdrop-filter sobre WebGL (60/120fps)
    ========================================================================== */
 
-.auto-section {
+.gp-automacao {
+  --gp-paper: #0A0A0C;
+  --gp-ink: #F8F8FC;
+  --gp-field: #0B0709;
+  --gp-accent: #FF1E26;
   --robot-accent: #ff245b;
   --robot-accent-rgb: 255, 36, 91;
 
   position: relative;
   isolation: isolate;
   width: 100%;
-  height: calc(100svh + 2100px);
-  min-height: 2700px;
+  height: calc(100svh + 1550px);
+  min-height: 2150px;
   padding: 0 !important;
-  background-color: #0A0A0C !important;
-  color: #F8F8FC;
+  background-color: var(--gp-paper) !important;
+  color: var(--gp-ink);
   overflow: visible !important;
   border-top: 1px solid rgba(255, 30, 38, 0.14);
   border-bottom: 1px solid rgba(255, 30, 38, 0.16);
   z-index: 6;
 }
 
-.auto-sticky-viewport {
+.gp-automacao [data-gp-pin] {
   position: sticky;
   top: 0;
   width: 100%;
   height: 100vh;
   height: 100svh;
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background:
-    radial-gradient(ellipse 68% 58% at 50% 48%, rgba(255, 30, 38, 0.12) 0%, rgba(255, 30, 38, 0.03) 44%, transparent 74%),
-    linear-gradient(180deg, #0c090b 0%, #09090c 58%, #07070a 100%);
-}
-
-.auto-grid-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: radial-gradient(ellipse 76% 74% at 50% 50%, #000 28%, transparent 90%);
-  -webkit-mask-image: radial-gradient(ellipse 76% 74% at 50% 50%, #000 28%, transparent 90%);
+  isolation: isolate;
+  container-type: size;
+  background: var(--gp-paper);
 }
 
 /* ==========================================================================
-   CAMADA 1 (FUNDO): TÍTULO EDITORIAL CINEMATIC HERO (RECUA NO SCROLL)
+   CAMPO INTERNO DO PORTAL (REVELADO PELAS LETRAS -> PREENCHE 100% DA TELA)
    ========================================================================== */
-.auto-intro-layer {
+.gp-automacao [data-gp-field] {
   position: absolute;
   inset: 0;
-  z-index: 5;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 0 clamp(1.25rem, 4vw, 3rem);
-  will-change: transform, opacity;
+  z-index: 1;
+  background: var(--gp-field);
+  opacity: 0;
+  pointer-events: none;
 }
 
-.auto-portal-kicker {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  margin-bottom: 1rem;
-  font-family: var(--font-mono, monospace);
-  font-size: clamp(0.62rem, 0.85vw, 0.76rem);
-  font-weight: 700;
-  letter-spacing: 0.34em;
-  text-transform: uppercase;
-  color: #FF1E26;
+.gp-automacao[data-gp-ready='true'] [data-gp-field] {
+  opacity: 1;
 }
 
-.auto-portal-kicker__dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #FF1E26;
-  box-shadow: 0 0 10px rgba(255, 30, 38, 0.95);
-}
-
-.auto-cine-line-1 {
-  margin: 0;
-  font-family: 'Anton', Impact, 'Arial Narrow', sans-serif;
-  font-weight: 400;
-  font-size: clamp(3.6rem, 11vw, 10.5rem);
-  line-height: 0.9;
-  letter-spacing: -0.015em;
-  text-transform: uppercase;
-  background: linear-gradient(180deg, #ffffff 0%, #dcdce4 78%, #9898a6 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  user-select: none;
-}
-
-.auto-cine-line-2 {
-  margin: 0.15rem 0 0;
-  font-family: 'Anton', Impact, 'Arial Narrow', sans-serif;
-  font-weight: 400;
-  font-size: clamp(2.1rem, 6.2vw, 5.6rem);
-  line-height: 0.96;
-  letter-spacing: -0.01em;
-  text-transform: uppercase;
-  color: #FF1E26;
-  user-select: none;
-  will-change: clip-path;
-}
-
-.auto-portal-caption {
+.gp-portal-bg {
   position: absolute;
-  left: clamp(1.25rem, 5vw, 4rem);
-  right: clamp(1.25rem, 5vw, 4rem);
-  bottom: clamp(1.5rem, 4.8vh, 2.6rem);
+  inset: 0;
+  background:
+    radial-gradient(ellipse 68% 58% at 50% 48%, rgba(var(--robot-accent-rgb), 0.18) 0%, rgba(var(--robot-accent-rgb), 0.05) 42%, transparent 72%),
+    radial-gradient(circle at 18% 20%, rgba(255, 30, 38, 0.14) 0%, transparent 48%),
+    radial-gradient(circle at 84% 78%, rgba(255, 30, 38, 0.12) 0%, transparent 52%),
+    linear-gradient(180deg, #10080c 0%, #0a090d 55%, #07070a 100%);
+}
+
+.gp-portal-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+  background-size: 50px 50px;
+  mask-image: radial-gradient(ellipse 78% 76% at 50% 50%, #000 32%, transparent 92%);
+  -webkit-mask-image: radial-gradient(ellipse 78% 76% at 50% 50%, #000 32%, transparent 92%);
+  pointer-events: none;
+}
+
+/* Véu branco luminoso dentro das letras no início (dissolve durante o zoom!) */
+.gp-portal-ink-veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #ffffff 0%, #f4f4f8 72%, #ffd4d6 100%);
+  opacity: var(--gp-ink-veil, 1);
+  pointer-events: none;
+  will-change: opacity;
+}
+
+/* ==========================================================================
+   SVG CLIPPATH + ESCOLHA INTERATIVA DA LETRA DE ENTRADA
+   ========================================================================== */
+.gp-automacao [data-gp-art] {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.gp-automacao [data-gp-marks] {
+  fill: none;
+  stroke: rgba(255, 30, 38, 0.72);
+  opacity: 0.7;
+}
+
+.gp-automacao [data-gp-choices] {
+  position: absolute;
+  inset: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 8;
+}
+
+.gp-automacao[data-gp-choosing='true'] [data-gp-choices] {
+  visibility: visible;
+}
+
+.gp-automacao [data-gp-letter] {
+  box-sizing: border-box;
+  position: absolute;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+  pointer-events: auto;
+  touch-action: pan-y;
+  border-radius: 6px;
+}
+
+.gp-automacao [data-gp-letter]:disabled {
+  pointer-events: none;
+}
+
+.gp-automacao [data-gp-letter]:focus-visible {
+  outline: 2px solid var(--gp-accent);
+  outline-offset: 5px;
+}
+
+.gp-automacao [data-gp-touch-picker] {
+  display: none;
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.68rem;
+  align-items: center;
+  gap: 0.6rem;
+  visibility: hidden;
+}
+
+.gp-automacao[data-gp-choosing='true'] [data-gp-touch-picker] {
+  visibility: visible;
+}
+
+.gp-automacao [data-gp-select] {
+  min-height: 38px;
+  min-width: 110px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  background: rgba(14, 14, 18, 0.92);
+  color: #F8F8FC;
+  padding: 0 14px;
+  font: inherit;
+}
+
+@media (any-pointer: coarse) {
+  .gp-automacao [data-gp-touch-picker] {
+    display: flex;
+  }
+}
+
+.gp-automacao [data-gp-fallback] {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  font-family: 'Anton', Impact, 'Arial Narrow', sans-serif;
+  font-weight: 400;
+  font-size: min(calc(86cqw / var(--gp-characters, 9)), 38cqh);
+  line-height: 0.86;
+  text-transform: uppercase;
+  color: #ffffff;
+  pointer-events: none;
+}
+
+.gp-automacao[data-gp-ready='true'] [data-gp-fallback] {
+  visibility: hidden;
+}
+
+.gp-automacao [data-gp-caption] {
+  position: absolute;
+  inset: auto clamp(1.25rem, 6vw, 4rem) clamp(1.5rem, 5vh, 2.75rem);
+  z-index: 9;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -134,18 +210,20 @@
   font-size: 0.68rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
+  opacity: var(--gp-caption, 1);
+  pointer-events: var(--gp-caption-hit, auto);
 }
 
-.auto-portal-hint {
+.gp-automacao [data-gp-hint] {
   color: rgba(248, 248, 252, 0.52);
 }
 
-.auto-portal-enter {
+.gp-automacao [data-gp-enter] {
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
   min-height: 40px;
-  padding: 0 1.15rem;
+  padding: 0 1.1rem;
   border-radius: 999px;
   border: 1px solid rgba(255, 30, 38, 0.55);
   background: rgba(16, 8, 10, 0.92);
@@ -156,177 +234,35 @@
   transition: background-color 0.22s ease, border-color 0.22s ease, transform 0.22s ease;
 }
 
-.auto-portal-enter:hover {
-  background: #FF1E26;
-  border-color: #FF1E26;
+.gp-automacao [data-gp-enter]:hover {
+  background: var(--gp-accent);
+  border-color: var(--gp-accent);
   transform: translateY(-2px);
 }
 
 /* ==========================================================================
-   CAMADA 1B (FUNDO B): CTA TÁTIL REVELADO NO PULLBACK DO CARD (ATO 3)
-   Inspirado nos botões táteis `.btn-modern-light` / `.btn-modern-dark`
+   CAMADA DO ROBOZINHO 3D (DENTRO DO MESMO STICKY VIEWPORT — ZERO CORTES!)
    ========================================================================== */
-.auto-cta-layer {
+.gp-robot-layer {
   position: absolute;
   inset: 0;
-  z-index: 8;
+  z-index: 15;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
-  text-align: center;
-  padding: 0 clamp(1.25rem, 4vw, 3rem);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
   will-change: transform, opacity;
 }
 
-.auto-cta-title {
-  margin: 0;
-  font-family: 'Anton', Impact, 'Arial Narrow', sans-serif;
-  font-weight: 400;
-  font-size: clamp(2.8rem, 7.6vw, 6.8rem);
-  line-height: 0.92;
-  letter-spacing: -0.012em;
-  text-transform: uppercase;
-  background: linear-gradient(180deg, #ffffff 0%, #dcdce4 78%, #9898a6 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.auto-cta-desc {
-  margin: 1rem auto 2.1rem;
-  max-width: 48ch;
-  font-size: clamp(0.9rem, 1.15vw, 1.08rem);
-  line-height: 1.6;
-  color: rgba(248, 248, 252, 0.72);
-}
-
-.auto-cta-actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 0.9rem;
-}
-
-.auto-btn-tactile {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.65rem;
-  padding: 0.95rem 1.75rem;
-  border-radius: 18px;
-  font-family: var(--font-mono, monospace);
-  font-size: 0.76rem;
-  font-weight: 800;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  text-decoration: none;
-  cursor: pointer;
-  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease, background-color 0.25s ease;
-}
-
-.auto-btn-tactile--light {
-  background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
-  color: #0a0a0c;
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.2),
-    0 12px 26px -6px rgba(0, 0, 0, 0.55),
-    inset 0 1px 1px #ffffff,
-    inset 0 -3px 6px rgba(0, 0, 0, 0.08);
-}
-
-.auto-btn-tactile--light:hover {
-  transform: translateY(-3px);
-  box-shadow:
-    0 0 0 1px rgba(255, 30, 38, 0.45),
-    0 18px 34px -6px rgba(255, 30, 38, 0.35),
-    inset 0 1px 1px #ffffff;
-}
-
-.auto-btn-tactile--dark {
-  background: linear-gradient(180deg, #27272e 0%, #15151b 100%);
-  color: #ffffff;
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.14),
-    0 12px 26px -6px rgba(0, 0, 0, 0.85),
-    inset 0 1px 1px rgba(255, 255, 255, 0.18),
-    inset 0 -3px 6px rgba(0, 0, 0, 0.8);
-}
-
-.auto-btn-tactile--dark:hover {
-  transform: translateY(-3px);
-  background: linear-gradient(180deg, #32323c 0%, #1c1c24 100%);
-  box-shadow:
-    0 0 0 1px rgba(255, 30, 38, 0.55),
-    0 18px 34px -6px rgba(0, 0, 0, 0.95),
-    inset 0 1px 1px rgba(255, 255, 255, 0.22);
-}
-
-.auto-btn-tactile:active {
-  transform: translateY(1px);
-}
-
-/* ==========================================================================
-   CAMADA 2 (PRIMEIRO PLANO): CARD FÍSICO DE PROFUNDIDADE (SOBE NO SCROLL)
-   Inspirado no `.premium-depth-card` do CinematicHero — 100% GPU transform!
-   ========================================================================== */
-.auto-card-shell {
-  position: relative;
-  z-index: 20;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: clamp(4.2rem, 6.4vh, 5rem) clamp(0.85rem, 2.2vw, 2rem) clamp(1rem, 2vh, 1.5rem);
-  box-sizing: border-box;
-  pointer-events: none;
-}
-
-.auto-main-card {
-  position: relative;
-  width: min(94vw, 1340px);
-  height: min(86svh, 790px);
-  border-radius: 28px;
-  overflow: hidden;
-  pointer-events: auto;
-  background:
-    radial-gradient(ellipse 64% 54% at 50% 48%, rgba(var(--robot-accent-rgb), 0.18) 0%, rgba(var(--robot-accent-rgb), 0.04) 44%, transparent 74%),
-    linear-gradient(160deg, #171015 0%, #0d0c11 48%, #08080c 100%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow:
-    0 34px 90px -20px rgba(0, 0, 0, 0.92),
-    0 0 0 1px rgba(255, 30, 38, 0.14),
-    inset 0 1px 0 rgba(255, 255, 255, 0.18),
-    inset 0 -2px 6px rgba(0, 0, 0, 0.85);
-  will-change: transform;
-}
-
-/* Grid sutil dentro do card físico */
-.auto-main-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.024) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.024) 1px, transparent 1px);
-  background-size: 44px 44px;
-  mask-image: radial-gradient(ellipse 75% 75% at 50% 50%, #000 35%, transparent 94%);
-  -webkit-mask-image: radial-gradient(ellipse 75% 75% at 50% 50%, #000 35%, transparent 94%);
-}
-
-/* ==========================================================================
-   PALCO INTERATIVO DO ROBOZINHO 3D DENTRO DO CARD FÍSICO
-   ========================================================================== */
 .robot-stage {
   position: relative;
-  z-index: 2;
   width: 100%;
+  max-width: 1360px;
   height: 100%;
-  padding: clamp(1.1rem, 2.2vh, 1.75rem) clamp(1.1rem, 2.8vw, 2.4rem);
+  margin: 0 auto;
+  padding: clamp(4.6rem, 7.2vh, 5.4rem) clamp(1.1rem, 3.5vw, 2.75rem) clamp(1.2rem, 2.5vh, 2rem);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -342,8 +278,8 @@
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: 0.85rem;
-  padding-bottom: 0.8rem;
-  border-bottom: 1px dashed rgba(255, 255, 255, 0.16);
+  padding-bottom: 0.85rem;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.18);
   flex-shrink: 0;
 }
 
@@ -351,24 +287,24 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.42rem;
 }
 
 .robot-mode-btn {
   position: relative;
-  padding: 0.5rem 1rem;
+  padding: 0.52rem 1.05rem;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.07);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  color: rgba(248, 248, 252, 0.85);
+  color: rgba(248, 248, 252, 0.84);
   font-family: var(--font-mono, monospace);
-  font-size: 0.67rem;
+  font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
   overflow: hidden;
-  transition: background-color 0.22s ease, color 0.22s ease, border-color 0.22s ease, transform 0.2s ease;
+  transition: background-color 0.22s ease, color 0.22s ease, border-color 0.22s ease, transform 0.2s ease, box-shadow 0.22s ease;
 }
 
 .robot-mode-btn::after {
@@ -398,7 +334,7 @@
   background: #ffffff;
   border-color: #ffffff;
   color: #0a0a0c;
-  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.18);
+  box-shadow: 0 6px 22px rgba(255, 255, 255, 0.18);
 }
 
 .robot-mode-btn.is-active::after {
@@ -412,8 +348,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 60px;
-  height: 42px;
+  width: 62px;
+  height: 44px;
   background: transparent;
   border: none;
   cursor: pointer;
@@ -450,8 +386,8 @@
 .robot-mini-head {
   position: relative;
   z-index: 2;
-  width: 40px;
-  height: 35px;
+  width: 42px;
+  height: 36px;
   border-radius: 11px;
   background: rgba(255, 255, 255, 0.1);
   border: 1.5px solid rgba(255, 255, 255, 0.28);
@@ -508,12 +444,12 @@
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  padding: 0.54rem 1.2rem;
+  padding: 0.56rem 1.25rem;
   border-radius: 999px;
   background: var(--robot-accent);
   color: #0a0a0c;
   font-family: var(--font-mono, monospace);
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -534,12 +470,12 @@
 }
 
 /* ==========================================================================
-   ARENA CENTRAL 3D
+   ARENA CENTRAL 3D (ARRASTÁVEL + CLICÁVEL)
    ========================================================================== */
 .robot-arena {
   position: relative;
   flex: 1 1 auto;
-  min-height: 230px;
+  min-height: 260px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -565,7 +501,7 @@
   justify-content: center;
   font-family: 'Anton', Impact, 'Arial Narrow', sans-serif;
   font-weight: 400;
-  font-size: clamp(4.2rem, 14.5vw, 13.5rem);
+  font-size: clamp(4.5rem, 15.5vw, 14.8rem);
   line-height: 0.88;
   letter-spacing: -0.02em;
   text-transform: uppercase;
@@ -588,26 +524,30 @@
   display: block;
   width: 100%;
   height: 100%;
-  cursor: pointer;
+  cursor: grab;
   touch-action: pan-y;
+}
+
+.robot-canvas.is-dragging {
+  cursor: grabbing;
 }
 
 .robot-bubble {
   position: absolute;
-  top: 0.35rem;
+  top: 0.4rem;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
-  padding: 0.4rem 0.98rem;
+  padding: 0.42rem 1rem;
   border-radius: 999px;
   background: rgba(12, 12, 16, 0.92);
   border: 1px solid rgba(var(--robot-accent-rgb), 0.52);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
   font-family: var(--font-mono, monospace);
-  font-size: 0.67rem;
+  font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   color: #f8f8fc;
@@ -629,7 +569,7 @@
 
 .robot-tap-hint {
   position: absolute;
-  bottom: 0.2rem;
+  bottom: 0.25rem;
   left: 50%;
   transform: translateX(-50%);
   z-index: 8;
@@ -637,7 +577,7 @@
   font-size: 0.58rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(248, 248, 252, 0.42);
+  color: rgba(248, 248, 252, 0.44);
   pointer-events: none;
   white-space: nowrap;
 }
@@ -653,19 +593,19 @@
   grid-template-columns: minmax(0, 1.4fr) auto;
   align-items: end;
   gap: clamp(1rem, 2.5vw, 2.2rem);
-  padding-top: 0.85rem;
+  padding-top: 0.9rem;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .robot-deck-main {
   display: flex;
   flex-direction: column;
-  gap: 0.28rem;
+  gap: 0.3rem;
 }
 
 .robot-deck-badge {
   font-family: var(--font-mono, monospace);
-  font-size: 0.62rem;
+  font-size: 0.64rem;
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -677,7 +617,7 @@
   margin: 0;
   font-family: 'Anton', Impact, 'Arial Narrow', sans-serif;
   font-weight: 400;
-  font-size: clamp(1.45rem, 2.5vw, 2.2rem);
+  font-size: clamp(1.5rem, 2.7vw, 2.3rem);
   line-height: 0.96;
   letter-spacing: -0.005em;
   text-transform: uppercase;
@@ -686,35 +626,35 @@
 
 .robot-deck-desc {
   margin: 0;
-  font-size: clamp(0.8rem, 0.92vw, 0.9rem);
-  line-height: 1.46;
+  font-size: clamp(0.82rem, 0.95vw, 0.92rem);
+  line-height: 1.48;
   color: rgba(248, 248, 252, 0.74);
-  max-width: 60ch;
+  max-width: 62ch;
 }
 
 .robot-deck-chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.38rem;
-  margin-top: 0.2rem;
+  gap: 0.4rem;
+  margin-top: 0.22rem;
   list-style: none;
   padding: 0;
 }
 
 .robot-deck-chips li {
-  padding: 0.2rem 0.6rem;
+  padding: 0.22rem 0.62rem;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.12);
   font-family: var(--font-mono, monospace);
-  font-size: 0.6rem;
+  font-size: 0.62rem;
   color: rgba(248, 248, 252, 0.84);
 }
 
 .robot-deck-right {
   display: flex;
   align-items: center;
-  gap: 1.35rem;
+  gap: 1.4rem;
   flex-wrap: wrap;
   justify-content: flex-end;
 }
@@ -722,25 +662,25 @@
 .robot-deck-metrics {
   display: flex;
   align-items: center;
-  gap: 1.35rem;
+  gap: 1.4rem;
 }
 
 .auto-metric {
   display: flex;
   flex-direction: column;
-  gap: 0.12rem;
+  gap: 0.14rem;
 }
 
 .auto-metric__value {
   font-family: 'Anton', Impact, sans-serif;
-  font-size: clamp(1.45rem, 2.2vw, 2.05rem);
+  font-size: clamp(1.5rem, 2.3vw, 2.1rem);
   line-height: 1;
   color: #ffffff;
 }
 
 .auto-metric__label {
   font-family: var(--font-mono, monospace);
-  font-size: 0.56rem;
+  font-size: 0.58rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: rgba(248, 248, 252, 0.54);
@@ -751,13 +691,13 @@
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  padding: 0.52rem 0.98rem;
+  padding: 0.54rem 1rem;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.07);
   border: 1px solid rgba(var(--robot-accent-rgb), 0.52);
   color: #ffffff;
   font-family: var(--font-mono, monospace);
-  font-size: 0.65rem;
+  font-size: 0.66rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -789,7 +729,7 @@
   .robot-topbar {
     grid-template-columns: 1fr;
     justify-items: center;
-    gap: 0.6rem;
+    gap: 0.65rem;
   }
 
   .robot-mini-face {
@@ -803,7 +743,7 @@
 
   .robot-bottom-deck {
     grid-template-columns: 1fr;
-    gap: 0.75rem;
+    gap: 0.85rem;
   }
 
   .robot-deck-right {
@@ -812,20 +752,19 @@
 }
 
 @media (max-width: 767px) {
-  .auto-section {
-    height: calc(100svh + 1650px);
-    min-height: 2250px;
+  .gp-automacao {
+    height: calc(100svh + 1250px);
+    min-height: 1850px;
   }
 
-  .auto-main-card {
-    width: 95vw;
-    height: 85svh;
-    border-radius: 22px;
+  .robot-stage {
+    padding-top: 4.5rem;
+    padding-bottom: 1rem;
   }
 
   .robot-mode-btn {
-    padding: 0.4rem 0.72rem;
-    font-size: 0.6rem;
+    padding: 0.42rem 0.78rem;
+    font-size: 0.62rem;
   }
 
   .robot-deck-chips {
@@ -833,41 +772,54 @@
   }
 
   .robot-bubble {
-    font-size: 0.58rem;
-    padding: 0.32rem 0.72rem;
+    font-size: 0.6rem;
+    padding: 0.34rem 0.78rem;
   }
 
   .robot-tap-hint {
-    font-size: 0.5rem;
+    font-size: 0.52rem;
     letter-spacing: 0.1em;
   }
 
-  .auto-portal-caption {
+  .gp-automacao [data-gp-caption] {
     justify-content: center;
   }
 
-  .auto-portal-hint {
+  .gp-automacao [data-gp-hint] {
     display: none;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .auto-section {
+  .gp-automacao {
     height: auto !important;
     min-height: 100svh !important;
   }
 
-  .auto-sticky-viewport {
+  .gp-automacao [data-gp-pin] {
     position: relative;
     height: auto;
     min-height: 100svh;
   }
 
-  .auto-intro-layer {
+  .gp-automacao [data-gp-art],
+  .gp-automacao [data-gp-choices],
+  .gp-automacao [data-gp-caption],
+  .gp-automacao [data-gp-fallback],
+  .gp-portal-ink-veil {
     display: none !important;
   }
 
-  .auto-main-card {
+  .gp-automacao [data-gp-field] {
+    opacity: 1 !important;
+    clip-path: none !important;
+  }
+
+  .gp-robot-layer {
+    position: relative;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
     transform: none !important;
   }
 }

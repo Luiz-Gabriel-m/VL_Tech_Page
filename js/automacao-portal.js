@@ -1,50 +1,121 @@
 /* ==========================================================================
-   AUTOMAÇÃO PORTAL — Coreografia 3 Atos CinematicHero (21st.dev) em 120fps
-   - ATO 1 (0.00 -> 0.28): Título editorial ("AUTOMAÇÃO / EM PILOTO AUTOMÁTICO.")
-     recua suavemente enquanto o Card Físico (`#autoMainCard`) sobe da base da
-     tela via `translate3d` + `scale(0.90 -> 1)` (ZERO blur / ZERO width/height!)
-   - ATO 2 (0.28 -> 0.68): Palco do Robô 3D fica 100% centralizado, nítido e
-     interativo (4 abas + clique no robô + Testar Ação) com hold confortável
-   - ATO 3 (0.68 -> 1.00): Pullback físico do card (`scale: 1 -> 0.88`) e saída
-     suave pelo topo (`yPercent: 0 -> -118`), revelando por trás a camada CTA
-     com botões táteis ("Quero Automatizar Agora" + "Por Que a VL Tech")!
-   - Handoff GPU inteligente: acorda o loop WebGL Three.js apenas enquanto o
-     card físico está em tela (`0.08 <= p <= 0.84`) — 100% GPU livre na entrada/saída!
+   AUTOMAÇÃO PORTAL — Glyph Portal Otimizado 120fps (Zoom por Dentro da Letra)
+   Baseado em Glyph Portal © 2026 Christian Katzmann (MIT) — ktzm.dk
+   Otimizações VL Tech:
+   - Palco único `position: sticky` (`100svh`): a palavra "AUTOMAÇÃO" dá zoom
+     por dentro da letra escolhida até preencher 100% da tela, revelando o
+     Robô 3D já perfeitamente centralizado no MESMO viewport (zero corte!)
+   - ZERO disputa de GPU:
+       1. Durante o zoom da letra (`p < 0.48`), o WebGL do Robô 3D fica pausado
+          (100% GPU livre para o zoom do SVG `<clipPath>`!)
+       2. Assim que a letra preenche 100% da tela (`t >= 0.99`), o `clipPath`
+          desliga (`none`), a camada do portal recebe `pointer-events: none` e
+          o Robô 3D acorda instantaneamente (`vl:automacao-card-state: true`)
+   - Scrub suavizado via GSAP ScrollTrigger + escolha interativa da letra
+     (hover / clique / teclado / select touch)
    ========================================================================== */
 
 import { gsap, ScrollTrigger } from './core/gsap.js';
 import { playClick } from './sound.js';
 
+const DEFAULT_FONT = '"Anton", Impact, "Arial Black", sans-serif';
+
+const clamp = (n, a = 0, b = 1) => Math.min(b, Math.max(a, n));
+const smooth = (a, b, n) => {
+  const t = clamp((n - a) / (b - a || 1));
+  return t * t * (3 - 2 * t);
+};
+
+/**
+ * Encontra o maior quadrado interno opaco da letra em O(W*H) para centralizar
+ * o zoom exatamente dentro do preenchimento do glifo (A, U, T, O, M, Ç, Ã).
+ */
+function interior(context, char, font) {
+  const canvas = context.canvas;
+  context.font = font;
+  const m = context.measureText(char);
+  const pad = 8;
+  const left = Math.ceil(m.actualBoundingBoxLeft);
+  const ascent = Math.ceil(m.actualBoundingBoxAscent);
+  canvas.width = Math.max(1, Math.ceil(m.actualBoundingBoxLeft + m.actualBoundingBoxRight) + pad * 2);
+  canvas.height = Math.max(1, Math.ceil(m.actualBoundingBoxAscent + m.actualBoundingBoxDescent) + pad * 2);
+
+  context.font = font;
+  context.fontKerning = 'none';
+  context.fillStyle = '#000';
+  context.fillText(char, pad + left, pad + ascent);
+
+  const { width, height } = canvas;
+  const pixels = context.getImageData(0, 0, width, height).data;
+  const rows = new Uint16Array(width + 1);
+  let size = 0;
+  let bx = 0;
+  let by = 0;
+
+  for (let y = 0; y < height; y++) {
+    let diagonal = 0;
+    for (let x = 0; x < width; x++) {
+      const above = rows[x + 1];
+      rows[x + 1] =
+        pixels[(y * width + x) * 4 + 3] > 245
+          ? Math.min(above, rows[x], diagonal) + 1
+          : 0;
+      diagonal = above;
+      if (rows[x + 1] > size) {
+        size = rows[x + 1];
+        bx = x;
+        by = y;
+      }
+    }
+  }
+
+  if (size < 3) return null;
+  return {
+    x: (bx + 1 - size / 2 - pad - left) / 3,
+    y: (by + 1 - size / 2 - pad - ascent) / 3,
+    radius: (size / 2 - 1) / 3,
+  };
+}
+
 export function initAutomacaoPortal() {
   const section = document.getElementById('automacao');
   if (!section) return null;
 
-  const introLayer = section.querySelector('#autoIntroLayer');
-  const ctaLayer = section.querySelector('#autoCtaLayer');
-  const line1 = section.querySelector('#autoCineLine1');
-  const line2 = section.querySelector('#autoCineLine2');
-  const kicker = section.querySelector('#autoPortalKicker');
-  const caption = section.querySelector('#autoPortalCaption');
-  const enterBtn = section.querySelector('#autoPortalEnterBtn');
-  const mainCard = section.querySelector('#autoMainCard');
-  const topbar = section.querySelector('.robot-topbar');
-  const arena = section.querySelector('.robot-arena');
-  const bottomDeck = section.querySelector('.robot-bottom-deck');
+  const pin = section.querySelector('[data-gp-pin]');
+  const field = section.querySelector('[data-gp-field]');
+  const art = section.querySelector('[data-gp-art]');
+  const clip = section.querySelector('#gp-automacao-clip');
+  const glyph = section.querySelector('[data-gp-glyph]');
+  const marks = section.querySelector('[data-gp-marks]');
+  const choices = section.querySelector('[data-gp-choices]');
+  const picker = section.querySelector('[data-gp-select]');
+  const enterLink = section.querySelector('[data-gp-enter]');
+  const robotLayer = section.querySelector('#gpRobotLayer');
 
-  if (!introLayer || !mainCard) return null;
+  if (!pin || !field || !art || !clip || !glyph || !choices || !robotLayer) {
+    return null;
+  }
 
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const text = (section.dataset.gpWord || 'AUTOMAÇÃO').trim().normalize('NFC');
+  const focusChar = (section.dataset.gpFocusChar || '').trim().normalize('NFC');
+  const interactive = section.dataset.gpInteractive !== 'false';
+  const fontFamily = section.dataset.gpFont || DEFAULT_FONT;
+  const fontWeight = section.dataset.gpWeight || '400';
 
   const notifyRobot = (active) => {
     section.dataset.robotAwake = active ? 'true' : 'false';
     window.dispatchEvent(new CustomEvent('vl:automacao-card-state', { detail: { active } }));
   };
 
-  if (prefersReduced || !gsap || !ScrollTrigger) {
-    introLayer.style.display = 'none';
-    if (ctaLayer) ctaLayer.style.display = 'none';
-    gsap?.set(mainCard, { yPercent: 0, scale: 1, opacity: 1 });
-    section.dataset.portalOpen = 'true';
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  if (motion.matches || !gsap || !ScrollTrigger) {
+    section.dataset.gpMotion = 'off';
+    section.dataset.gpEntered = 'true';
+    field.style.clipPath = 'none';
+    robotLayer.style.opacity = '1';
+    robotLayer.style.transform = 'none';
+    robotLayer.style.pointerEvents = 'auto';
     notifyRobot(true);
     return {
       scrollToCard() {
@@ -54,136 +125,360 @@ export function initAutomacaoPortal() {
     };
   }
 
-  // Estados iniciais 100% GPU
-  gsap.set(mainCard, { yPercent: 112, scale: 0.9, force3D: true });
-  gsap.set(introLayer, { opacity: 1, scale: 1, y: 0, force3D: true });
-  if (line2) gsap.set(line2, { clipPath: 'inset(0 100% 0 0)' });
-  if (ctaLayer) {
-    gsap.set(ctaLayer, { autoAlpha: 0, scale: 0.9, y: 24, force3D: true });
-    ctaLayer.style.pointerEvents = 'none';
-  }
-  if (topbar) gsap.set(topbar, { opacity: 0, y: -14 });
-  if (arena) gsap.set(arena, { opacity: 0, scale: 0.92 });
-  if (bottomDeck) gsap.set(bottomDeck, { opacity: 0, y: 18 });
+  section.style.setProperty('--gp-characters', String(Array.from(text).length));
 
-  // Revelação editorial leve quando a seção entra na tela
-  let introPlayed = false;
-  const playIntroReveal = () => {
-    if (introPlayed) return;
-    introPlayed = true;
-    if (line1) {
-      gsap.fromTo(
-        line1,
-        { y: 26, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.85, ease: 'expo.out' }
-      );
+  // Popula botões invisíveis sobre cada letra para escolher por onde dar zoom
+  const chars = [];
+  let charOffset = 0;
+  for (const ch of Array.from(text)) {
+    chars.push({ char: ch, index: charOffset });
+    charOffset += ch.length;
+  }
+
+  choices.innerHTML = '';
+  const buttons = chars.map(({ char, index }, i) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.role = 'radio';
+    btn.setAttribute('aria-checked', 'false');
+    btn.tabIndex = -1;
+    btn.dataset.gpLetter = String(index);
+    btn.setAttribute('aria-label', `${char}, letra ${i + 1} de ${chars.length}`);
+    choices.appendChild(btn);
+    return btn;
+  });
+
+  if (picker) {
+    picker.innerHTML = '<option value="" disabled selected>Escolher letra</option>';
+    chars.forEach(({ char, index }, i) => {
+      const opt = document.createElement('option');
+      opt.value = String(index);
+      opt.textContent = `${i + 1} · ${char}`;
+      picker.appendChild(opt);
+    });
+  }
+
+  glyph.textContent = text;
+  glyph.style.fontFamily = fontFamily;
+  glyph.style.fontWeight = fontWeight;
+
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d', { willReadFrequently: true });
+
+  let disposed = false;
+  let ready = false;
+  let W = 1;
+  let H = 1;
+  let startScale = 1;
+  let endScale = 1;
+  let center = { x: 0, y: 0 };
+  let bounds = { x: 0, y: 0, width: 1, height: 1 };
+  let target = null;
+  let candidates = [];
+  let letters = [];
+  let choosing = false;
+  let fontDirty = true;
+  let lastClipDropped = null;
+  let robotAwake = false;
+  let entered = false;
+
+  const state = { p: 0 };
+
+  function readInk() {
+    if (!context) return false;
+    const computed = getComputedStyle(glyph);
+    const weightStr = computed.fontWeight || fontWeight;
+    const familyStr = computed.fontFamily || fontFamily;
+    const scanFont = `${weightStr} 300px ${familyStr}`;
+    const baseFont = `${weightStr} 100px ${familyStr}`;
+
+    context.font = baseFont;
+    context.fontKerning = 'none';
+    const metrics = context.measureText(text);
+    const advances = Array.from({ length: text.length }, (_, i) =>
+      context.measureText(text.slice(0, i)).width
+    );
+
+    bounds = {
+      x: -metrics.actualBoundingBoxLeft,
+      y: -metrics.actualBoundingBoxAscent,
+      width: metrics.actualBoundingBoxLeft + metrics.actualBoundingBoxRight,
+      height: metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent,
+    };
+
+    if (!bounds.width || !bounds.height) return false;
+    center = { x: bounds.x + bounds.width / 2, y: bounds.y + bounds.height / 2 };
+
+    const requested = focusChar ? text.indexOf(focusChar) : -1;
+    let offset = 0;
+    candidates = [];
+    letters = [];
+
+    for (const char of Array.from(text)) {
+      context.font = baseFont;
+      const m = context.measureText(char);
+      letters.push({
+        index: offset,
+        x: advances[offset] - m.actualBoundingBoxLeft,
+        y: -m.actualBoundingBoxAscent,
+        width: m.actualBoundingBoxLeft + m.actualBoundingBoxRight,
+        height: m.actualBoundingBoxAscent + m.actualBoundingBoxDescent,
+      });
+
+      const found = interior(context, char, scanFont);
+      if (found) {
+        candidates.push({ ...found, x: found.x + advances[offset], index: offset });
+      }
+      offset += char.length;
     }
-    if (line2) {
-      gsap.to(line2, {
-        clipPath: 'inset(0 0% 0 0)',
-        duration: 0.9,
-        delay: 0.14,
-        ease: 'power4.inOut',
+
+    const prevIndex = target?.index;
+    target =
+      candidates.find((c) => c.index === prevIndex) ??
+      candidates.find((c) => c.index === requested) ??
+      [...candidates].sort(
+        (a, b) => b.radius - a.radius || Math.abs(a.x - center.x) - Math.abs(b.x - center.x)
+      )[0] ??
+      null;
+
+    return Boolean(target);
+  }
+
+  function select(next) {
+    target = next;
+    endScale = target
+      ? Math.max(startScale, Math.hypot(W, H) / (target.radius * 1.28))
+      : startScale;
+
+    section.dataset.gpFocus = target ? Array.from(text.slice(target.index))[0] : '';
+    section.dataset.gpFocusIndex = String(target?.index ?? -1);
+
+    for (const btn of buttons) {
+      const idx = Number(btn.dataset.gpLetter);
+      const selected = idx === target?.index;
+      btn.disabled = !candidates.some((c) => c.index === idx);
+      btn.setAttribute('aria-checked', String(selected));
+      btn.tabIndex = selected ? 0 : -1;
+    }
+
+    if (picker) {
+      if (picker.value !== '') picker.value = String(target?.index ?? -1);
+      for (const opt of Array.from(picker.options)) {
+        opt.disabled =
+          opt.value === '' || !candidates.some((c) => c.index === Number(opt.value));
+      }
+    }
+
+    if (marks) {
+      const u = 1 / (startScale || 1);
+      const y = bounds.y + bounds.height + 24 * u;
+      const x = bounds.x;
+      const right = x + bounds.width;
+      const cross = target
+        ? `M${target.x - 9 * u} ${target.y}h${18 * u}M${target.x} ${target.y - 9 * u}v${18 * u}`
+        : '';
+      const annotationPath = marks.querySelector('path');
+      if (annotationPath) {
+        annotationPath.setAttribute(
+          'd',
+          `M${x} ${y}H${right}M${x} ${y - 5 * u}v${10 * u}M${right} ${y - 5 * u}v${10 * u}${cross}`
+        );
+        annotationPath.setAttribute('stroke-width', String(u));
+      }
+    }
+  }
+
+  function paint() {
+    if (!ready || !target) return;
+    const p = state.p;
+
+    // 0.00 -> 0.06: hold inicial limpo em "AUTOMAÇÃO"
+    // 0.06 -> 0.52: zoom contínuo por dentro da letra até preencher 100% da tela!
+    const t = clamp((p - 0.06) / 0.46);
+    const shouldDropClip = t >= 0.99;
+
+    // Só muta SVG enquanto o clipPath está ativo (0% custo SVG após preencher a tela!)
+    if (!shouldDropClip) {
+      const eased = t < 0.5 ? 4 * t ** 3 : 1 - (-2 * t + 2) ** 3 / 2;
+      const scale = Math.exp(Math.log(startScale) + Math.log(endScale / startScale) * eased);
+      const blend =
+        endScale === startScale
+          ? 0
+          : (1 / scale - 1 / startScale) / (1 / endScale - 1 / startScale);
+
+      const cx = center.x + (target.x - center.x) * blend;
+      const cy = center.y + (target.y - center.y) * blend;
+      const roll = -3.5 * smooth(0.06, 0.5, t) * (1 - smooth(0.62, 0.94, t));
+
+      const radians = (roll * Math.PI) / 180;
+      const anchorY = H * 0.5;
+      const dx = W / 2 / scale;
+      const dy = anchorY / scale;
+
+      clip.setAttribute('transform', `scale(${scale.toFixed(4)}) rotate(${roll.toFixed(3)})`);
+      glyph.setAttribute(
+        'transform',
+        `translate(${(Math.cos(radians) * dx + Math.sin(radians) * dy - cx).toFixed(3)} ${(
+          -Math.sin(radians) * dx +
+          Math.cos(radians) * dy -
+          cy
+        ).toFixed(3)})`
+      );
+
+      if (marks) {
+        marks.setAttribute(
+          'transform',
+          `translate(${W / 2} ${anchorY}) scale(${scale.toFixed(4)}) rotate(${roll.toFixed(3)}) translate(${-cx} ${-cy})`
+        );
+        marks.style.opacity = String((1 - smooth(0.05, 0.18, p)).toFixed(3));
+      }
+    }
+
+    if (shouldDropClip !== lastClipDropped) {
+      lastClipDropped = shouldDropClip;
+      field.style.clipPath = shouldDropClip ? 'none' : 'url(#gp-automacao-clip)';
+      art.style.visibility = shouldDropClip ? 'hidden' : 'visible';
+    }
+
+    choosing = interactive && p < 0.08;
+    choices.inert = !choosing;
+    section.dataset.gpChoosing = String(choosing);
+
+    // Véu branco inicial dissolve suavemente durante o mergulho na letra
+    const inkVeil = 1 - smooth(0.08, 0.42, p);
+    const captionAlpha = 1 - smooth(0.05, 0.16, p);
+    const reveal = smooth(0.48, 0.62, p);
+    const robotScale = 0.95 + 0.05 * reveal;
+
+    section.style.setProperty('--gp-ink-veil', inkVeil.toFixed(3));
+    section.style.setProperty('--gp-caption', captionAlpha.toFixed(3));
+    section.style.setProperty('--gp-caption-hit', p < 0.14 ? 'auto' : 'none');
+
+    // Palco do Robô 3D já está no MESMO viewport sticky (zero salto/corte!)
+    robotLayer.style.opacity = reveal.toFixed(3);
+    robotLayer.style.transform = `scale(${robotScale.toFixed(4)})`;
+
+    // Libera cliques/arrasto no Robô 3D e nas 4 abas imediatamente ao revelar!
+    const nowEntered = p >= 0.5;
+    if (nowEntered !== entered) {
+      entered = nowEntered;
+      section.dataset.gpEntered = nowEntered ? 'true' : 'false';
+      robotLayer.style.pointerEvents = nowEntered ? 'auto' : 'none';
+      robotLayer.style.visibility = nowEntered ? 'visible' : 'hidden';
+    } else if (reveal > 0.01 && robotLayer.style.visibility !== 'visible') {
+      robotLayer.style.visibility = 'visible';
+    }
+
+    // Handoff GPU: acorda o WebGL do Robô 3D só depois que o zoom da letra terminou!
+    const shouldWake = p >= 0.46;
+    if (shouldWake !== robotAwake) {
+      robotAwake = shouldWake;
+      notifyRobot(shouldWake);
+    }
+  }
+
+  function layout() {
+    if (!section.clientWidth) return;
+    W = pin.clientWidth || window.innerWidth;
+    H = pin.clientHeight || window.innerHeight;
+    art.setAttribute('viewBox', `0 0 ${W} ${H}`);
+
+    if (fontDirty) {
+      ready = readInk();
+      fontDirty = false;
+    }
+    if (!ready) return;
+
+    const maxW = Math.min(W * 0.86, 1220);
+    const maxH = H * 0.36;
+    startScale = Math.min(maxW / bounds.width, maxH / bounds.height);
+
+    select(target);
+
+    for (const btn of buttons) {
+      const letter = letters.find((item) => item.index === Number(btn.dataset.gpLetter));
+      if (!letter) continue;
+      Object.assign(btn.style, {
+        left: `${W / 2 + (letter.x - center.x) * startScale}px`,
+        top: `${
+          H * 0.5 +
+          (letter.y - center.y) * startScale -
+          Math.max(0, 44 - letter.height * startScale) / 2
+        }px`,
+        width: `${Math.max(1, letter.width * startScale)}px`,
+        height: `${Math.max(44, letter.height * startScale)}px`,
       });
     }
-  };
 
-  let robotAwake = false;
-  let ctaInteractive = false;
+    section.dataset.gpReady = 'true';
+    section.dataset.gpMotion = 'on';
+    lastClipDropped = null;
+    paint();
+  }
 
-  // Timeline de 3 Atos (scrub suave 0.4s, apenas transform + opacity)
-  const tl = gsap.timeline({
+  // GSAP ScrollTrigger scrub suave (elimina trancos de scroll discreto!)
+  const scrollTween = gsap.to(state, {
+    p: 1,
+    ease: 'none',
+    onUpdate: paint,
     scrollTrigger: {
       trigger: section,
       start: 'top top',
       end: 'bottom bottom',
-      scrub: 0.4,
+      scrub: 0.35,
       invalidateOnRefresh: true,
-      onEnter: playIntroReveal,
-      onEnterBack: playIntroReveal,
-      onUpdate(self) {
-        const p = self.progress;
-
-        // WebGL acorda apenas enquanto o card do robô está visível na viewport
-        const shouldWake = p >= 0.08 && p <= 0.86;
-        if (shouldWake !== robotAwake) {
-          robotAwake = shouldWake;
-          notifyRobot(shouldWake);
-        }
-
-        // Camada CTA só recebe cliques quando o card saiu e ela está revelada
-        const ctaReady = p >= 0.78;
-        if (ctaReady !== ctaInteractive) {
-          ctaInteractive = ctaReady;
-          if (ctaLayer) {
-            ctaLayer.style.pointerEvents = ctaReady ? 'auto' : 'none';
-            ctaLayer.setAttribute('aria-hidden', ctaReady ? 'false' : 'true');
-          }
-          mainCard.style.pointerEvents = ctaReady ? 'none' : 'auto';
-        }
-      },
     },
   });
 
-  const rect = section.getBoundingClientRect();
-  if (rect.top < window.innerHeight * 0.85) {
-    playIntroReveal();
-  }
+  const onChoose = (event) => {
+    if (!choosing || state.p >= 0.08) return;
+    const btn = event.target.closest('[data-gp-letter]');
+    if (!btn) return;
+    const next = candidates.find((c) => c.index === Number(btn.dataset.gpLetter));
+    if (!next || next === target) return;
+    select(next);
+    paint();
+    if (event.type === 'click') {
+      try { playClick(); } catch (_) {}
+    }
+  };
 
-  // ===== ATO 1 (0.00 -> 0.28): Intro recua + Card físico sobe da base =====
-  if (kicker) tl.to(kicker, { opacity: 0, y: -14, duration: 0.1, ease: 'power2.in' }, 0);
-  if (caption) tl.to(caption, { opacity: 0, y: 12, duration: 0.1, ease: 'power2.in' }, 0);
+  const onKeydown = (event) => {
+    if (
+      !choosing ||
+      !['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(event.key)
+    ) {
+      return;
+    }
+    event.preventDefault();
+    const current = candidates.indexOf(target);
+    const index =
+      event.key === 'Home'
+        ? 0
+        : event.key === 'End'
+          ? candidates.length - 1
+          : (current + (event.key === 'ArrowLeft' || event.key === 'ArrowUp' ? -1 : 1) + candidates.length) %
+            candidates.length;
+    buttons
+      .find((b) => Number(b.dataset.gpLetter) === candidates[index].index)
+      ?.focus({ preventScroll: true });
+  };
 
-  tl.to(
-    introLayer,
-    { scale: 1.08, y: -28, autoAlpha: 0, duration: 0.2, ease: 'power2.inOut' },
-    0.02
-  );
+  const onPick = () => {
+    if (!choosing || state.p >= 0.08 || !picker) return;
+    const next = candidates.find((c) => c.index === Number(picker.value));
+    if (next) {
+      select(next);
+      paint();
+    }
+  };
 
-  tl.to(
-    mainCard,
-    { yPercent: 0, scale: 1, duration: 0.26, ease: 'power3.out' },
-    0.02
-  );
-
-  // Revelação sequencial limpa dos elementos internos do Robô 3D
-  if (topbar) tl.to(topbar, { opacity: 1, y: 0, duration: 0.12, ease: 'power3.out' }, 0.16);
-  if (arena) tl.to(arena, { opacity: 1, scale: 1, duration: 0.16, ease: 'expo.out' }, 0.18);
-  if (bottomDeck) tl.to(bottomDeck, { opacity: 1, y: 0, duration: 0.12, ease: 'power3.out' }, 0.2);
-
-  // ===== ATO 2 (0.32 -> 0.66): Hold interativo estável no Robô 3D =====
-  tl.to({}, { duration: 0.34 }, 0.32);
-
-  // ===== ATO 3 (0.66 -> 1.00): Pullback físico + saída do card -> revela CTA Tátil =====
-  tl.to(
-    mainCard,
-    { scale: 0.88, duration: 0.14, ease: 'power2.inOut' },
-    0.66
-  );
-
-  if (ctaLayer) {
-    tl.to(
-      ctaLayer,
-      { autoAlpha: 1, scale: 1, y: 0, duration: 0.18, ease: 'expo.out' },
-      0.74
-    );
-  }
-
-  tl.to(
-    mainCard,
-    { yPercent: -120, duration: 0.2, ease: 'power3.in' },
-    0.78
-  );
-
-  // Pequeno hold final no CTA tátil
-  tl.to({}, { duration: 0.06 }, 0.98);
-
-  // Pula diretamente para o meio do ATO 2 (Robô 3D aberto e 100% interativo!)
+  // Vai direto para o meio do hold com o Robô 3D 100% aberto e interativo!
   const scrollToCard = () => {
-    const st = tl.scrollTrigger;
+    const st = scrollTween.scrollTrigger;
     const targetY = st
-      ? st.start + (st.end - st.start) * 0.45
-      : section.offsetTop + window.innerHeight * 0.95;
+      ? st.start + (st.end - st.start) * 0.72
+      : section.offsetTop + window.innerHeight * 1.1;
     window.scrollTo({
       top: Math.round(targetY),
       behavior: 'smooth',
@@ -195,14 +490,45 @@ export function initAutomacaoPortal() {
     try { playClick(); } catch (_) {}
     scrollToCard();
   };
-  enterBtn?.addEventListener('click', onEnterClick);
+
+  choices.addEventListener('pointerover', onChoose);
+  choices.addEventListener('click', onChoose);
+  choices.addEventListener('focusin', onChoose);
+  choices.addEventListener('keydown', onKeydown);
+  picker?.addEventListener('change', onPick);
+  enterLink?.addEventListener('click', onEnterClick);
+
+  let resizeTimer = null;
+  const onResize = () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(layout, 120);
+  };
+  window.addEventListener('resize', onResize, { passive: true });
+
+  // Medição inicial + re-medição exata assim que a fonte Anton carregar
+  robotLayer.style.pointerEvents = 'none';
+  robotLayer.style.visibility = 'hidden';
+  layout();
+  document.fonts?.ready.then(() => {
+    if (disposed) return;
+    fontDirty = true;
+    layout();
+  });
 
   return {
     scrollToCard,
     destroy() {
-      enterBtn?.removeEventListener('click', onEnterClick);
-      tl.scrollTrigger?.kill();
-      tl.kill();
+      disposed = true;
+      clearTimeout(resizeTimer);
+      scrollTween.scrollTrigger?.kill();
+      scrollTween.kill();
+      window.removeEventListener('resize', onResize);
+      choices.removeEventListener('pointerover', onChoose);
+      choices.removeEventListener('click', onChoose);
+      choices.removeEventListener('focusin', onChoose);
+      choices.removeEventListener('keydown', onKeydown);
+      picker?.removeEventListener('change', onPick);
+      enterLink?.removeEventListener('click', onEnterClick);
     },
   };
 }

@@ -617,6 +617,17 @@ export function initAutomacaoRobot() {
   let scalePulse = 0;
   let nodImpulse = 0;
 
+  // Arrasto interativo 3D livre no robô (arrastar gira 360°; clique rápido dá coração!)
+  let isDraggingRobot = false;
+  let dragMoved = false;
+  let dragStartX = 0;
+  let dragStartY = 0;
+  let dragLastX = 0;
+  let dragLastY = 0;
+  let userSpinY = 0;
+  let userSpinX = 0;
+  let userDragOffsetX = 0;
+
   let pointerX = 0;
   let pointerY = 0;
   let lastPointerTime = 0;
@@ -761,20 +772,56 @@ export function initAutomacaoRobot() {
   simulateBtn?.addEventListener('click', triggerSimulation);
 
   const onCanvasPointerDown = (e) => {
-    const rect = canvas.getBoundingClientRect();
-    if (!rect.width || !rect.height) return;
+    isDraggingRobot = true;
+    dragMoved = false;
+    dragStartX = dragLastX = e.clientX;
+    dragStartY = dragLastY = e.clientY;
+    canvas.classList.add('is-dragging');
+    canvas.setPointerCapture?.(e.pointerId);
+  };
 
-    ndcPoint.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-    ndcPoint.y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
+  const onCanvasPointerMove = (e) => {
+    if (!isDraggingRobot) return;
+    const dx = e.clientX - dragLastX;
+    const dy = e.clientY - dragLastY;
+    dragLastX = e.clientX;
+    dragLastY = e.clientY;
 
-    raycaster.setFromCamera(ndcPoint, camera);
-    const hits = raycaster.intersectObjects(hitMeshes, false);
+    if (Math.hypot(e.clientX - dragStartX, e.clientY - dragStartY) > 6) {
+      dragMoved = true;
+    }
 
-    if (hits.length > 0 || (Math.abs(ndcPoint.x) < 0.48 && Math.abs(ndcPoint.y) < 0.75)) {
-      triggerLove();
+    // Arrastar gira o robô livremente em 360° e desliza levemente de lado!
+    userSpinY += dx * 0.014;
+    userSpinX = clamp(userSpinX + dy * 0.008, -0.55, 0.55);
+    userDragOffsetX = clamp(userDragOffsetX + dx * 0.0035, -0.75, 0.75);
+  };
+
+  const onCanvasPointerUp = (e) => {
+    if (!isDraggingRobot) return;
+    isDraggingRobot = false;
+    canvas.classList.remove('is-dragging');
+    canvas.releasePointerCapture?.(e.pointerId);
+
+    // Se foi clique rápido (não arrasto), dispara os olhos de coração 3D!
+    if (!dragMoved) {
+      const rect = canvas.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+      ndcPoint.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      ndcPoint.y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
+      raycaster.setFromCamera(ndcPoint, camera);
+      const hits = raycaster.intersectObjects(hitMeshes, false);
+
+      if (hits.length > 0 || (Math.abs(ndcPoint.x) < 0.52 && Math.abs(ndcPoint.y) < 0.78)) {
+        triggerLove();
+      }
     }
   };
+
   canvas.addEventListener('pointerdown', onCanvasPointerDown);
+  canvas.addEventListener('pointermove', onCanvasPointerMove);
+  canvas.addEventListener('pointerup', onCanvasPointerUp);
+  canvas.addEventListener('pointercancel', onCanvasPointerUp);
 
   const onWindowPointerMove = (e) => {
     if (!isVisible || document.hidden) return;
@@ -838,18 +885,25 @@ export function initAutomacaoRobot() {
     const sXZ = 1 - scalePulse * 0.45;
     bodyGroup.scale.set(sXZ, sY, sXZ);
 
+    // Ao soltar o arrasto, retorna suavemente ao eixo frontal (mantendo fluidez elástica!)
+    if (!isDraggingRobot) {
+      userSpinY = THREE.MathUtils.lerp(userSpinY, 0, expDecay(3.2));
+      userSpinX = THREE.MathUtils.lerp(userSpinX, 0, expDecay(4.2));
+      userDragOffsetX = THREE.MathUtils.lerp(userDragOffsetX, 0, expDecay(2.8));
+    }
+
     const maxMoveX = width < 768 ? 0.24 : 0.56;
-    const targetPosX = tx * maxMoveX;
-    bodyGroup.position.x = THREE.MathUtils.lerp(bodyGroup.position.x, targetPosX, expDecay(1.7));
+    const targetPosX = isDraggingRobot ? userDragOffsetX : tx * maxMoveX + userDragOffsetX;
+    bodyGroup.position.x = THREE.MathUtils.lerp(bodyGroup.position.x, targetPosX, expDecay(isDraggingRobot ? 14 : 1.9));
     shadowPlane.position.x = bodyGroup.position.x;
 
     const shadowScale = clamp(1 - bounceOffset * 1.4, 0.75, 1.08);
     shadowPlane.scale.setScalar(shadowScale);
 
     const relX = clamp(tx - bodyGroup.position.x * 0.4, -1.1, 1.1);
-    const bodyRotSpeed = expDecay(8.5);
-    bodyGroup.rotation.y = THREE.MathUtils.lerp(bodyGroup.rotation.y, -relX * 0.55, bodyRotSpeed);
-    bodyGroup.rotation.x = THREE.MathUtils.lerp(bodyGroup.rotation.x, -ty * 0.16, bodyRotSpeed);
+    const bodyRotSpeed = expDecay(isDraggingRobot ? 18 : 8.5);
+    bodyGroup.rotation.y = THREE.MathUtils.lerp(bodyGroup.rotation.y, -relX * 0.5 + userSpinY, bodyRotSpeed);
+    bodyGroup.rotation.x = THREE.MathUtils.lerp(bodyGroup.rotation.x, -ty * 0.16 + userSpinX, bodyRotSpeed);
     bodyGroup.rotation.z = THREE.MathUtils.lerp(bodyGroup.rotation.z, -relX * 0.13, bodyRotSpeed);
 
     const headRotSpeed = expDecay(15);
@@ -983,6 +1037,9 @@ export function initAutomacaoRobot() {
       window.removeEventListener('vl:automacao-card-state', onCardState);
       document.removeEventListener('visibilitychange', onVisibilityChange);
       canvas.removeEventListener('pointerdown', onCanvasPointerDown);
+      canvas.removeEventListener('pointermove', onCanvasPointerMove);
+      canvas.removeEventListener('pointerup', onCanvasPointerUp);
+      canvas.removeEventListener('pointercancel', onCanvasPointerUp);
 
       scene.traverse((obj) => {
         if (obj.geometry) obj.geometry.dispose();

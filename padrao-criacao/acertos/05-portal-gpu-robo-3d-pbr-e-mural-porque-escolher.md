@@ -9,12 +9,13 @@
 
 ## O que foi feito
 
-1. **Transição de Automação 120fps estilo `CinematicHero` em palco `sticky` único (`js/automacao-portal.js`):**
-   - Substituiu tanto o `SVG <clipPath>` quanto o zoom gigante em texto (`scale: 7.5` + `text-shadow`) pela coreografia fluida do `CinematicLandingHero` (21st.dev) 100% GPU: o título editorial (`AUTOMAÇÃO / EM PILOTO AUTOMÁTICO.`) recua suavemente (`scale: 0.88, y: -44, opacity: 0`) enquanto o card físico de profundidade (`#autoMainCard` com o Robô 3D dentro) sobe da base da tela via `translate3d` + `scale(0.92 → 1)` sem mutar `width/height` nem aplicar `filter: blur()`.
-   - **Handoff GPU inteligente (`vl:automacao-card-state` + `data-robot-awake`):** o loop Three.js do Robô 3D fica pausado (`renderOnce()` estático) enquanto o card está oculto e acorda apenas quando `progress >= 0.14`, eliminando disputa de GPU durante o início da rolagem.
-2. **Robô 3D Vanilla fiel ao `RobotHero` (21st.dev) com Studio PBR (`js/automacao-robot-3d.js`):**
+1. **Glyph Portal `"AUTOMAÇÃO"` Otimizado em Palco `sticky` Único (`js/automacao-portal.js`):**
+   - Mantém o impacto visual do zoom por dentro da letra escolhida (`SVG <clipPath>`) até preencher 100% da tela, mas **sem engasgo e sem bloquear cliques**:
+     - Palco único `position: sticky; top: 0` (`100svh`) com `GSAP ScrollTrigger` `scrub: 0.35` (sem deslocar conteúdo com `margin-top`).
+     - **Handoff GPU inteligente (`vl:automacao-card-state` + `data-robot-awake`):** o WebGL Three.js fica pausado durante o zoom da letra (`p < 0.46`); assim que a letra preenche 100% da tela (`t >= 0.99`), o `clipPath` é desligado (`none`), o SVG oculta (`visibility: hidden`), `gpRobotLayer` libera `pointer-events: auto` e o Robô 3D acorda com 100% da GPU livre.
+2. **Robô 3D Vanilla fiel ao `RobotHero` (21st.dev) com Studio PBR + Arrasto 360° (`js/automacao-robot-3d.js`):**
    - `THREE.PMREMGenerator` cria um mapa de ambiente de estúdio procedural em Three.js puro (sem dependências `@react-three/drei`), dando volume real ao chassi PBR granulado, visor obsidian e antenas metálicas.
-   - Física de mola estável integrada com `* dt` + `clamp`, decaimento exponencial (`1 - Math.exp(-rate * dt)`), tracking de cursor normalizado pela viewport (imune a scroll), `THREE.Raycaster` para olhos de coração 3D (`HeartCurve`), `ResizeObserver` no canvas e 4 modos interativos completos com layout limpo sem sobreposição.
+   - Física de mola estável integrada com `* dt` + `clamp`, decaimento exponencial (`1 - Math.exp(-rate * dt)`), tracking de cursor normalizado pela viewport (imune a scroll), **arrasto 3D interativo** (`pointerdown`/`pointermove` girando e deslocando o robô com retorno elástico suave ao soltar), `THREE.Raycaster` para olhos de coração 3D (`HeartCurve`) em cliques rápidos, `ResizeObserver` no canvas e 4 modos interativos completos com layout limpo sem sobreposição.
 3. **Mural "Por Que Nos Escolher" com Nano Banana + Texto Solto ao Lado (`js/why-choose-wall.js`):**
    - Título de abertura `"POR QUE NOS ESCOLHER"` some suavemente ao iniciar o scroll (`autoAlpha: 0`), liberando 100% da tela para os cards.
    - Em cada pilar (6 artes editoriais geradas no Nano Banana em `assets/images/porque-escolher/` comprimidas para `55–95 KB`, `900×900` + 2 retratos reais dos sócios), a **imagem fica isolada no card** e o **texto explicativo flutua solto ao lado (fora da caixa, sem fundo/borda)** com traço vermelho conector, alternando esquerda/direita em 12 colunas. Ambos crescem juntos (`scale` + `autoAlpha`), seguram no centro para leitura e somem juntos ao sair.

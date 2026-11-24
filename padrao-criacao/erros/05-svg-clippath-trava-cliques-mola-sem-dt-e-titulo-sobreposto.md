@@ -31,8 +31,8 @@
 
 ## Como foi resolvido
 
-1. **Portal reescrito em palco `sticky` único 100% GPU (`js/automacao-portal.js`):** Zoom de `"AUTOMAÇÃO"` via `scale` + `opacity` revelando o palco do robô já centralizado atrás, com `veil.style.pointerEvents = 'none'` e `visibility: hidden` assim que abre.
-2. **Física e tracking blindados (`js/automacao-robot-3d.js`):** `bounceOffset = clamp(bounceOffset + bounceVel * dt, -0.08, 0.22)`, `expDecay(rate)` independente de FPS, ponteiro normalizado direto pela viewport (`window.innerWidth/Height`) clampado em `[-1, 1]`, iluminação Studio PBR via `PMREMGenerator` e layout da aba do robô limpo sem caixas sobrepostas.
+1. **Glyph Portal otimizado em palco `sticky` único (`js/automacao-portal.js`):** Mantido o zoom por dentro da letra `"AUTOMAÇÃO"` até preencher 100% da tela, porém com `GSAP ScrollTrigger` `scrub: 0.35`, desligamento imediato do `clipPath` (`none`) + `art.visibility = hidden` ao completar o zoom, `pointer-events: auto` imediato em `#gpRobotLayer` dentro do mesmo viewport `sticky` e **handoff GPU** (WebGL Three.js só acorda após o zoom terminar, eliminando qualquer travamento).
+2. **Física, tracking e arrasto 3D blindados (`js/automacao-robot-3d.js`):** `bounceOffset = clamp(bounceOffset + bounceVel * dt, -0.08, 0.22)`, `expDecay(rate)` independente de FPS, ponteiro normalizado direto pela viewport (`window.innerWidth/Height`) clampado em `[-1, 1]`, arrasto 360° livre com retorno elástico suave + clique rápido para olhos de coração 3D, iluminação Studio PBR via `PMREMGenerator` e layout da aba do robô limpo sem caixas sobrepostas.
 3. **Fade-out do título + sincronia imagem/texto (`js/why-choose-wall.js`):** O cabeçalho `"POR QUE NOS ESCOLHER"` faz fade para `autoAlpha: 0` ao iniciar a rolagem, e cada diferencial anima imagem + texto juntos (`scale` + `autoAlpha` com pausa de leitura no centro).
 4. **Dev server nativo dual-stack (`scripts/dev-server.mjs`):** Adicionados scripts `dev`, `start` e `serve` ao `package.json`, com bind dual-stack (`localhost` IPv4/IPv6), suporte a `--port`/`--host`, fallback automático em `EADDRINUSE` e encerramento limpo da porta ao finalizar testes.
 
