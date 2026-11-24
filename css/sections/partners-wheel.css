@@ -397,6 +397,51 @@
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.wheel-active-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.65rem;
+  padding: 0.54rem 1.1rem;
+  border-radius: 999px;
+  background: rgba(255, 30, 38, 0.16);
+  border: 1px solid rgba(255, 30, 38, 0.62);
+  color: #ffffff;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.22s ease, transform 0.2s ease, box-shadow 0.22s ease;
+}
+
+.wheel-active-cta:hover {
+  background: var(--color--red, #FF1E26);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 30, 38, 0.45);
+}
+
+.wheel-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--font-mono, monospace);
+  font-size: clamp(0.6rem, 0.75vw, 0.72rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color--red, #FF1E26);
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.wheel-card__link:hover {
+  color: #ffffff;
+  transform: translateX(2px);
+}
+
 /* ==========================================================================
    ÍNDICE INTERATIVO À DIREITA (LISTA DOS 8 ITENS + VOLTAR AO ANEL)
    ========================================================================== */

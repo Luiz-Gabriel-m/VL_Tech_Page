@@ -23,12 +23,12 @@ import { initScroll } from './scroll.js?v=6.1';
 import { initTiltHat } from './animations/tilt-hat.js';
 import { initTechHero } from './tech-hero-3d.js?v=7.5';
 import { initHeroStickerHeadline } from './hero-sticker-headline.js?v=7.2';
-import { initPartnersTech } from './partners-tech.js?v=7.5';
+import { initPartnersTech } from './partners-tech.js?v=8.3';
 import { initResponsiveShowcase } from './responsive-showcase.js?v=7.5';
 import { initDiferenciaisTunnel } from './diferenciais-tunnel.js?v=8.0';
 import { initAutomacaoPortal } from './automacao-portal.js?v=8.2';
 import { initAutomacaoRobot } from './automacao-robot-3d.js?v=8.2';
-import { initWhyChooseWall } from './why-choose-wall.js?v=8.2';
+import { initWhyChooseWall } from './why-choose-wall.js?v=8.3';
 import { initBadge3D } from './badge-3d.js?v=7.5';
 
 /**
@@ -57,7 +57,7 @@ const MOTION_MODULES = [
   ['automacaoPortal', initAutomacaoPortal],             // #automacao · GlyphPortal ("AUTOMAÇÃO")
   ['automacaoRobot', initAutomacaoRobot],               // #automacao · Robozinho 3D Three.js
   ['whyChooseWall', initWhyChooseWall],                 // #porque-escolher · ScrollPortraitWall
-  ['partnersTech', initPartnersTech],                   // #parceiros
+  ['partnersTech', initPartnersTech],                   // #produtos · Catálogo 3D Auto-Animado
   ['badge3D', initBadge3D],                       // #socios-scrolly · Crachá 3D Co-Founders
   ['reveal', initReveal],                         // gatilhos genéricos (sem pin)
   ['scroll', initScroll],                         // galeria / manifesto (sem pin)
