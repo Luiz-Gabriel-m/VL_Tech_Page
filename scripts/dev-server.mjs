@@ -6,8 +6,28 @@ import { fileURLToPath } from 'node:url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ROOT_DIR = path.resolve(__dirname, '..');
-const PORT = Number(process.env.PORT) || 3000;
-const HOST = process.env.HOST || '127.0.0.1';
+
+function parseArgs(argv) {
+  let port = Number(process.env.PORT) || 3000;
+  let host = process.env.HOST || '';
+
+  for (let i = 0; i < argv.length; i++) {
+    const arg = argv[i];
+    if ((arg === '--port' || arg === '-p') && argv[i + 1]) {
+      const parsed = Number(argv[++i]);
+      if (Number.isInteger(parsed) && parsed > 0) port = parsed;
+    } else if (arg.startsWith('--port=')) {
+      const parsed = Number(arg.slice('--port='.length));
+      if (Number.isInteger(parsed) && parsed > 0) port = parsed;
+    } else if (arg === '--host' && argv[i + 1] && !argv[i + 1].startsWith('-')) {
+      host = argv[++i];
+    } else if (arg.startsWith('--host=')) {
+      host = arg.slice('--host='.length);
+    }
+  }
+
+  return { port, host };
+}
 
 const MIME_TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -28,6 +48,9 @@ const MIME_TYPES = {
   '.mp4': 'video/mp4',
   '.webm': 'video/webm',
 };
+
+const { port: initialPort, host: configuredHost } = parseArgs(process.argv.slice(2));
+const MAX_PORT_RETRIES = 20;
 
 const server = http.createServer((req, res) => {
   const urlPath = (req.url || '/').split('?')[0];
@@ -72,6 +95,43 @@ const server = http.createServer((req, res) => {
   });
 });
 
-server.listen(PORT, HOST, () => {
-  console.log(`VL Tech dev server running at http://localhost:${PORT}`);
+let currentPort = initialPort;
+let retries = 0;
+
+server.on('error', (err) => {
+  if (err && err.code === 'EADDRINUSE' && retries < MAX_PORT_RETRIES) {
+    retries += 1;
+    currentPort += 1;
+    startListening(currentPort);
+    return;
+  }
+  console.error('[dev-server] Failed to start:', err);
+  process.exit(1);
 });
+
+server.on('listening', () => {
+  const addr = server.address();
+  const activePort = typeof addr === 'object' && addr ? addr.port : currentPort;
+  console.log(`\n  VL Tech dev server ready\n`);
+  console.log(`  ➜  Local:   http://localhost:${activePort}/`);
+  console.log(`  ➜  Network: http://127.0.0.1:${activePort}/\n`);
+});
+
+function startListening(port) {
+  if (configuredHost) {
+    server.listen(port, configuredHost);
+  } else {
+    // Dual-stack default: accepts both IPv6 (::1) and IPv4 (127.0.0.1) for localhost
+    server.listen(port);
+  }
+}
+
+function shutdown() {
+  server.close(() => process.exit(0));
+  setTimeout(() => process.exit(0), 500).unref();
+}
+
+process.on('SIGINT', shutdown);
+process.on('SIGTERM', shutdown);
+
+startListening(currentPort);
