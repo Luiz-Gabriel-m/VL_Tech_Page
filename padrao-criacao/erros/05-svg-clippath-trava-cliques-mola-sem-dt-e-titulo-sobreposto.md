@@ -18,7 +18,8 @@
 2. **Mural "Por Que Nos Escolher":**
    - O título central fixo permanecia sobreposto sobre os cards durante toda a seção, atrapalhando a leitura dos textos de cada diferencial.
 3. **Preview do projeto não subia no app:**
-   - `package.json` não possuía script `"dev"`, `"start"` ou `"serve"` para iniciar o servidor local na porta esperada.
+   - `package.json` inicialmente não possuía script `"dev"`, `"start"` ou `"serve"`.
+   - Depois de criado o servidor, um processo residual segurando `127.0.0.1:3000` + bind restrito a IPv4 (sem dual-stack IPv6 `::1` para `localhost`) + ausência de fallback `EADDRINUSE` e flags `--port` impediam o launcher do app de abrir o webview.
 
 ## Causa raiz (Por que aconteceu)
 
@@ -33,7 +34,7 @@
 1. **Portal reescrito em palco `sticky` único 100% GPU (`js/automacao-portal.js`):** Zoom de `"AUTOMAÇÃO"` via `scale` + `opacity` revelando o palco do robô já centralizado atrás, com `veil.style.pointerEvents = 'none'` e `visibility: hidden` assim que abre.
 2. **Física e tracking blindados (`js/automacao-robot-3d.js`):** `bounceOffset = clamp(bounceOffset + bounceVel * dt, -0.08, 0.22)`, `expDecay(rate)` independente de FPS, ponteiro normalizado direto pela viewport (`window.innerWidth/Height`) clampado em `[-1, 1]`, iluminação Studio PBR via `PMREMGenerator` e layout da aba do robô limpo sem caixas sobrepostas.
 3. **Fade-out do título + sincronia imagem/texto (`js/why-choose-wall.js`):** O cabeçalho `"POR QUE NOS ESCOLHER"` faz fade para `autoAlpha: 0` ao iniciar a rolagem, e cada diferencial anima imagem + texto juntos (`scale` + `autoAlpha` com pausa de leitura no centro).
-4. **Dev server nativo (`scripts/dev-server.mjs`):** Adicionados scripts `dev`, `start` e `serve` ao `package.json` escutando em `http://localhost:3000`.
+4. **Dev server nativo dual-stack (`scripts/dev-server.mjs`):** Adicionados scripts `dev`, `start` e `serve` ao `package.json`, com bind dual-stack (`localhost` IPv4/IPv6), suporte a `--port`/`--host`, fallback automático em `EADDRINUSE` e encerramento limpo da porta ao finalizar testes.
 
 ## Regra para nunca repetir
 
