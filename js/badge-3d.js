@@ -64,6 +64,16 @@ export function initBadge3D() {
   const faceBack = section.querySelector('#badgeFaceBack');
   const lanyardStrap = section.querySelector('#badgeLanyardStrap');
   const specular = section.querySelector('#badgeSpecularGlare');
+  let specularBeam = null;
+  if (specular) {
+    specularBeam = specular.querySelector('.badge-specular-glare__beam');
+    if (!specularBeam) {
+      specularBeam = document.createElement('span');
+      specularBeam.className = 'badge-specular-glare__beam';
+      specularBeam.setAttribute('aria-hidden', 'true');
+      specular.appendChild(specularBeam);
+    }
+  }
   const flipActionBtn = section.querySelector('#badgeFlipActionBtn');
   const flipBtnLabel = section.querySelector('#badgeFlipBtnLabel');
   const angleDisplay = section.querySelector('#badgeAngleDisplay');
@@ -191,7 +201,10 @@ export function initBadge3D() {
     animateSidePanels(data);
   }
 
-  // 2. Aplicação das matrizes de transformação 3D
+  // 2. Aplicação das matrizes de transformação 3D (ZERO repaint / ZERO textContent redundante!)
+  let lastAngleText = '';
+  let lastFacingFront = null;
+
   function applyTransforms() {
     const normalized = Math.round(((currentRotationY % 360) + 360) % 360);
     const facingFront = normalized <= 90 || normalized >= 270;
@@ -199,18 +212,22 @@ export function initBadge3D() {
     updateFaceState(activeFace);
 
     if (angleDisplay) {
-      const label = facingFront ? 'LUIZ' : 'VICTOR';
-      angleDisplay.textContent = `${normalized}° (${label})`;
+      const nextAngleText = `${normalized}° (${facingFront ? 'LUIZ' : 'VICTOR'})`;
+      if (nextAngleText !== lastAngleText) {
+        lastAngleText = nextAngleText;
+        angleDisplay.textContent = nextAngleText;
+      }
     }
 
-    if (faceFront && faceBack) {
+    if (faceFront && faceBack && facingFront !== lastFacingFront) {
+      lastFacingFront = facingFront;
       faceFront.style.visibility = facingFront ? 'visible' : 'hidden';
       faceBack.style.visibility = facingFront ? 'hidden' : 'visible';
     }
 
     const swingRad = (swingAngleZ * Math.PI) / 180;
     const arcLiftY = (1 - Math.cos(swingRad)) * -20;
-    rig.style.transform = `translateY(${arcLiftY.toFixed(2)}px) rotateZ(${swingAngleZ.toFixed(2)}deg)`;
+    rig.style.transform = `translate3d(0, ${arcLiftY.toFixed(2)}px, 0) rotateZ(${swingAngleZ.toFixed(2)}deg)`;
 
     if (lanyardStrap) {
       const strapSkew = -(swingAngleZ * 0.35);
@@ -223,20 +240,21 @@ export function initBadge3D() {
 
     card.style.transform = `rotateX(${totalTiltX.toFixed(2)}deg) rotateY(${totalRotationY.toFixed(2)}deg) rotateZ(${totalWobbleZ.toFixed(2)}deg)`;
 
-    if (specular) {
-      const sheenX = 50 + currentTiltY * 2.2 + swingAngleZ * 1.2;
-      const sheenY = 50 - currentTiltX * 2.2;
-      specular.style.background = `radial-gradient(circle at ${sheenX.toFixed(1)}% ${sheenY.toFixed(1)}%, rgba(255, 255, 255, 0.26) 0%, rgba(255, 30, 38, 0.08) 35%, transparent 70%)`;
+    if (specularBeam) {
+      // Move camada especular interna via GPU transform (zero repaint e sem vazar do crachá!)
+      const shiftX = (currentTiltY * 1.4 + swingAngleZ * 0.85).toFixed(1);
+      const shiftY = (-currentTiltX * 1.4).toFixed(1);
+      specularBeam.style.transform = `translate3d(${shiftX}%, ${shiftY}%, 0)`;
     }
   }
 
-  // 3. Simulação Física do Pêndulo com pausa automática fora da tela
+  // 3. Simulação Física do Pêndulo com pausa automática fora da tela (inicia dormindo!)
   let rafId = null;
-  let isVisible = true;
+  let isVisible = false;
   let lastTime = performance.now();
 
   function updatePhysics(time) {
-    if (!isVisible && !isDragging && !flipTween) {
+    if ((!isVisible || document.hidden) && !isDragging && !flipTween) {
       rafId = null;
       return;
     }
@@ -266,7 +284,7 @@ export function initBadge3D() {
   }
 
   function startLoop() {
-    if (!rafId) {
+    if (!rafId && !document.hidden) {
       lastTime = performance.now();
       rafId = requestAnimationFrame(updatePhysics);
     }
@@ -282,9 +300,15 @@ export function initBadge3D() {
       { threshold: 0.05 }
     );
     observer.observe(section);
+  } else {
+    isVisible = true;
+    startLoop();
   }
 
-  startLoop();
+  const onVisibilityChange = () => {
+    if (!document.hidden && isVisible) startLoop();
+  };
+  document.addEventListener('visibilitychange', onVisibilityChange);
 
   // 4. Interação Física de Arrasto & Arremesso (Drag-to-Throw)
   function onPointerDown(e) {
@@ -351,19 +375,25 @@ export function initBadge3D() {
 
   card.addEventListener('pointerdown', onPointerDown);
 
-  // 5. Parallax do Mouse no Palco (desativado em touch / pointer: coarse)
+  // 5. Parallax do Mouse no Palco (rect cacheado no mouseenter — zero layout read no mousemove!)
+  let stageRect = null;
   if (stage && !prefersReduced && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    stage.addEventListener('mouseenter', () => {
+      stageRect = stage.getBoundingClientRect();
+    }, { passive: true });
+
     stage.addEventListener('mousemove', (e) => {
       if (isDragging) return;
-      const rect = stage.getBoundingClientRect();
-      const relX = (e.clientX - rect.left) / rect.width - 0.5;
-      const relY = (e.clientY - rect.top) / rect.height - 0.5;
+      if (!stageRect) stageRect = stage.getBoundingClientRect();
+      const relX = (e.clientX - stageRect.left) / (stageRect.width || 1) - 0.5;
+      const relY = (e.clientY - stageRect.top) / (stageRect.height || 1) - 0.5;
 
       currentTiltY = relX * 15;
       currentTiltX = -relY * 13;
-    });
+    }, { passive: true });
 
     stage.addEventListener('mouseleave', () => {
+      stageRect = null;
       if (isDragging) return;
       gsap.to({ tiltX: currentTiltX, tiltY: currentTiltY }, {
         tiltX: 0,

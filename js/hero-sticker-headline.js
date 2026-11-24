@@ -8,7 +8,7 @@
 
 import { gsap } from './core/gsap.js';
 import { playClick } from './sound.js';
-import { LOADER_COMPLETE_EVENT } from './loader.js';
+import { LOADER_COMPLETE_EVENT } from './loader.js?v=7.5';
 
 const svgUri = (svg) => `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
 

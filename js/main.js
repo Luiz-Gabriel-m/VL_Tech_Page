@@ -11,21 +11,25 @@
    ========================================================================== */
 
 import { isReady, ScrollTrigger } from './core/gsap.js';
-import { initLoader } from './loader.js';
+import { initLoader } from './loader.js?v=7.5';
 import { initSound } from './sound.js';
-import { initCustomCursor } from './cursor.js';
-import { initNavigation } from './navigation.js';
+import { initCustomCursor } from './cursor.js?v=7.5';
+import { initNavigation } from './navigation.js?v=7.5';
 import { initFounderSwitch } from './founder-switch.js';
 import { initFAQ } from './faq.js';
-import { initFooter } from './footer.js?v=6.6';
+import { initFooter } from './footer.js?v=7.5';
 import { initReveal } from './animations/reveal.js';
 import { initScroll } from './scroll.js?v=6.1';
 import { initTiltHat } from './animations/tilt-hat.js';
-import { initTechHero } from './tech-hero-3d.js?v=7.2';
+import { initTechHero } from './tech-hero-3d.js?v=7.5';
 import { initHeroStickerHeadline } from './hero-sticker-headline.js?v=7.2';
-import { initPartnersTech } from './partners-tech.js?v=7.4';
-import { initResponsiveShowcase } from './responsive-showcase.js?v=7.3';
-import { initBadge3D } from './badge-3d.js?v=6.3';
+import { initPartnersTech } from './partners-tech.js?v=7.5';
+import { initResponsiveShowcase } from './responsive-showcase.js?v=7.5';
+import { initDiferenciaisTunnel } from './diferenciais-tunnel.js?v=8.0';
+import { initAutomacaoPortal } from './automacao-portal.js?v=8.2';
+import { initAutomacaoRobot } from './automacao-robot-3d.js?v=8.2';
+import { initWhyChooseWall } from './why-choose-wall.js?v=8.2';
+import { initBadge3D } from './badge-3d.js?v=7.5';
 
 /**
  * Módulos essenciais — funcionam mesmo se o GSAP não carregar.
@@ -48,8 +52,12 @@ const MOTION_MODULES = [
   ['techHero', initTechHero],                           // #hero (WebGL 3D background)
   ['heroStickerHeadline', initHeroStickerHeadline],     // #hero (StickerSwapHeadline)
   ['tiltHat', initTiltHat],                             // gatilho tilt-hat (se presente)
-  ['responsiveShowcase', initResponsiveShowcase], // #responsividade · PIN
-  ['partnersTech', initPartnersTech],             // #parceiros
+  ['diferenciaisTunnel', initDiferenciaisTunnel],       // #diferenciais · Túnel 3D (logo após Hero)
+  ['responsiveShowcase', initResponsiveShowcase],       // #responsividade · STICKY
+  ['automacaoPortal', initAutomacaoPortal],             // #automacao · GlyphPortal ("AUTOMAÇÃO")
+  ['automacaoRobot', initAutomacaoRobot],               // #automacao · Robozinho 3D Three.js
+  ['whyChooseWall', initWhyChooseWall],                 // #porque-escolher · ScrollPortraitWall
+  ['partnersTech', initPartnersTech],                   // #parceiros
   ['badge3D', initBadge3D],                       // #socios-scrolly · Crachá 3D Co-Founders
   ['reveal', initReveal],                         // gatilhos genéricos (sem pin)
   ['scroll', initScroll],                         // galeria / manifesto (sem pin)
@@ -78,13 +86,17 @@ function initModules(modules) {
  * containerAnimation (cards horizontais) precisam permanecer depois do
  * tween do track ao qual pertencem.
  */
+let refreshTimer = null;
 function syncScrollTriggers() {
-  ScrollTrigger.refresh();
+  if (refreshTimer) clearTimeout(refreshTimer);
+  refreshTimer = setTimeout(() => {
+    refreshTimer = null;
+    requestAnimationFrame(() => ScrollTrigger.refresh());
+  }, 120);
 }
 
 function refreshOnAssetsLoad() {
-  // Fontes e imagens alteram a altura/largura das seções e dos tracks
-  // horizontais → recalcula distâncias e posições de pin.
+  // Fontes e imagens alteram a altura/largura das seções → recalcula com debounce
   document.fonts?.ready.then(syncScrollTriggers);
   window.addEventListener('load', syncScrollTriggers, { once: true });
 }

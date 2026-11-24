@@ -1,0 +1,434 @@
+/* ==========================================================================
+   SEÇÃO DIFERENCIAIS — TÚNEL DE PERSPECTIVA 3D (ADAPTADO DA 21st.dev)
+   - Inspirado em PerspectiveTunnelHero (21st.dev), portado para Vanilla JS + GSAP
+   - CSS position: sticky nativo + ScrollTrigger scrub (zero pin-spacer / DOM mutation)
+   - Paleta oficial VL Tech: #0A0A0C | #111114 | #F8F8FC | #FF1E26
+   - ZERO filter: blur() pesado e ZERO backdrop-filter (60/120fps garantidos)
+   ========================================================================== */
+
+.dtunnel-section {
+  position: relative;
+  width: 100%;
+  height: calc(100vh + 2950px);
+  min-height: 3500px;
+  padding: 0 !important;
+  background-color: var(--bg-dark, #0A0A0C) !important;
+  color: #F8F8FC;
+  overflow: visible !important;
+  border-top: 1px solid rgba(255, 30, 38, 0.16);
+  border-bottom: none;
+  z-index: 6;
+}
+
+.dtunnel-viewport {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  min-height: 100svh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0A0A0C;
+  user-select: none;
+  perspective: 1200px;
+  -webkit-perspective: 1200px;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+}
+
+/* ==========================================================================
+   CAMADAS AMBIENTAIS (RADIAL PURO — ZERO FILTER BLUR)
+   ========================================================================== */
+.dtunnel-bg-wrap {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  will-change: opacity;
+}
+
+.dtunnel-dots {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.11) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 52%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 52%, transparent 100%);
+  opacity: 0.55;
+}
+
+.dtunnel-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 30, 38, 0.16) 0%,
+    rgba(255, 30, 38, 0.055) 36%,
+    rgba(255, 30, 38, 0.012) 58%,
+    transparent 74%
+  );
+}
+
+/* Anéis Concêntricos de Profundidade */
+.dtunnel-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.dtunnel-ring--inner {
+  width: 48vmin;
+  height: 48vmin;
+  border: 1px solid rgba(255, 30, 38, 0.2);
+}
+
+.dtunnel-ring--outer {
+  width: 76vmin;
+  height: 76vmin;
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+/* ==========================================================================
+   TIPOGRAFIA ÂNCORA CENTRAL (FASE DO TÚNEL)
+   ========================================================================== */
+.dtunnel-anchor {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 clamp(1.25rem, 3vw, 2.5rem);
+  max-width: 740px;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.dtunnel-anchor__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-mono, monospace);
+  font-size: clamp(0.64rem, 0.85vw, 0.76rem);
+  font-weight: 700;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--color--red, #FF1E26);
+  margin-bottom: 0.9rem;
+}
+
+.dtunnel-anchor__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color--red, #FF1E26);
+  box-shadow: 0 0 10px rgba(255, 30, 38, 0.9);
+}
+
+.dtunnel-anchor__title {
+  margin: 0;
+  font-family: 'Anton', Impact, 'Arial Narrow', sans-serif;
+  font-weight: 400;
+  font-size: clamp(3.1rem, 8.2vw, 6.8rem);
+  line-height: 0.88;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-shadow: 0 14px 45px rgba(0, 0, 0, 0.72);
+}
+
+.dtunnel-anchor__title .dtunnel-accent {
+  color: var(--color--red, #FF1E26);
+}
+
+.dtunnel-anchor__lead {
+  margin: 1rem 0 0;
+  max-width: 40ch;
+  font-size: clamp(0.84rem, 1.05vw, 0.98rem);
+  line-height: 1.55;
+  color: rgba(248, 248, 252, 0.66);
+}
+
+/* Prompt de Scroll na Base */
+.dtunnel-prompt {
+  position: absolute;
+  bottom: clamp(1.4rem, 3vh, 2.2rem);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(248, 248, 252, 0.56);
+  pointer-events: none;
+  will-change: opacity;
+}
+
+.dtunnel-prompt__line {
+  width: 1px;
+  height: 24px;
+  background: linear-gradient(180deg, var(--color--red, #FF1E26) 0%, transparent 100%);
+}
+
+/* ==========================================================================
+   PLANO Z-SPACE 3D — CARDS VOANDO EM DIREÇÃO À CÂMERA
+   ========================================================================== */
+.dtunnel-space {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  pointer-events: none;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+}
+
+.dtunnel-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  aspect-ratio: 4 / 5;
+  pointer-events: auto;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.dtunnel-card__inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #111116;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.88),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dtunnel-card:hover .dtunnel-card__inner {
+  border-color: rgba(255, 30, 38, 0.78);
+  box-shadow:
+    0 28px 68px rgba(0, 0, 0, 0.92),
+    0 0 32px rgba(255, 30, 38, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+
+.dtunnel-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.dtunnel-card:hover .dtunnel-card__img {
+  transform: scale(1.07);
+}
+
+.dtunnel-card__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 10, 12, 0.52) 0%,
+    rgba(10, 10, 12, 0.08) 38%,
+    rgba(10, 10, 12, 0.78) 72%,
+    rgba(10, 10, 12, 0.96) 100%
+  );
+  pointer-events: none;
+}
+
+.dtunnel-card__top {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  right: 0.75rem;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+}
+
+.dtunnel-card__index {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.dtunnel-card__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.32rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(10, 10, 14, 0.86);
+  border: 1px solid rgba(255, 30, 38, 0.5);
+  font-family: var(--font-mono, monospace);
+  font-size: 0.54rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.dtunnel-card__pill::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color--red, #FF1E26);
+}
+
+.dtunnel-card__content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  padding: 0.95rem 0.95rem 1.05rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.34rem;
+}
+
+.dtunnel-card__title {
+  margin: 0;
+  font-family: var(--font-display, 'Syne', sans-serif);
+  font-size: clamp(0.84rem, 1.1vw, 1.02rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.dtunnel-card__desc {
+  margin: 0;
+  font-size: clamp(0.66rem, 0.78vw, 0.76rem);
+  line-height: 1.42;
+  color: rgba(248, 248, 252, 0.76);
+}
+
+/* Barra de progresso minimalista lateral */
+.dtunnel-progress {
+  position: absolute;
+  right: clamp(1rem, 2.2vw, 2rem);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 15;
+  width: 2px;
+  height: 110px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  pointer-events: none;
+  will-change: opacity;
+}
+
+.dtunnel-progress__fill {
+  width: 100%;
+  height: 100%;
+  background: var(--color--red, #FF1E26);
+  transform-origin: top center;
+  transform: scaleY(0);
+  will-change: transform;
+}
+
+/* ==========================================================================
+   RESPONSIVIDADE
+   ========================================================================== */
+@media (max-width: 767px) {
+  .dtunnel-section {
+    height: calc(100vh + 2700px);
+    min-height: 3200px;
+  }
+
+  .dtunnel-viewport {
+    perspective: 900px;
+    -webkit-perspective: 900px;
+  }
+
+  .dtunnel-card__content {
+    padding: 0.7rem 0.72rem 0.8rem;
+  }
+
+  .dtunnel-card__desc {
+    font-size: 0.64rem;
+    line-height: 1.35;
+  }
+
+  .dtunnel-progress {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   ACESSIBILIDADE: MOVIMENTO REDUZIDO (GRADE ESTÁTICA)
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .dtunnel-section {
+    height: auto !important;
+    min-height: auto !important;
+    padding: clamp(4rem, 7vw, 6rem) 0 !important;
+  }
+
+  .dtunnel-viewport {
+    position: relative;
+    height: auto;
+    min-height: auto;
+    flex-direction: column;
+    gap: 3rem;
+    padding: 2rem clamp(1.25rem, 3vw, 2.5rem);
+    perspective: none;
+    transform-style: flat;
+  }
+
+  .dtunnel-ring,
+  .dtunnel-prompt,
+  .dtunnel-progress {
+    display: none;
+  }
+
+  .dtunnel-space {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    max-width: 1240px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1.25rem;
+    transform-style: flat;
+  }
+
+  .dtunnel-card {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100% !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+}

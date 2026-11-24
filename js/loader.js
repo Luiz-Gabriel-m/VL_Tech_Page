@@ -51,7 +51,7 @@ export function initLoader() {
       preloader.setAttribute('aria-hidden', 'true');
     }
     if (ScrollTrigger && typeof ScrollTrigger.refresh === 'function') {
-      ScrollTrigger.refresh();
+      requestAnimationFrame(() => ScrollTrigger.refresh());
     }
   };
 

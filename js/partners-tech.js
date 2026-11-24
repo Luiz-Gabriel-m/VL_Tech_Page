@@ -236,14 +236,17 @@ export function initPartnersTech() {
     startLoop();
   }
 
-  // Loop de renderização com pausa automática fora da tela
+  // Loop de renderização com IDLE SLEEP automático (0% CPU quando assentado ou fora da tela!)
   let rafId = null;
   let isVisible = false;
+  const cardState = cards.map(() => ({ opacity: '', zIndex: '' }));
 
   function renderFrame() {
     const gap = target - turn;
+    let settled = false;
     if (Math.abs(gap) < 0.0005) {
       turn = target;
+      settled = true;
     } else {
       turn += gap * (prefersReduced ? 1 : EASE);
     }
@@ -255,18 +258,30 @@ export function initPartnersTech() {
 
     pivot.style.transform = `translateZ(${(-m * drumR).toFixed(2)}px)`;
 
+    const faceScale = `scale(${lerp(ringScale, 1, m).toFixed(4)})`;
+
     for (let i = 0; i < count; i++) {
       const d = i - pos;
       const drumDeg = d * STEP;
       const card = cards[i];
 
       card.style.transform = place(d * (360 / count), drumDeg, ringR, drumR, bow, m);
-      card.style.opacity = m > 0.5 && Math.abs(d) > CULL ? '0' : '1';
-      card.style.zIndex = String(Math.round(100 - Math.abs(d) * 2));
+
+      const nextOpacity = m > 0.5 && Math.abs(d) > CULL ? '0' : '1';
+      if (cardState[i].opacity !== nextOpacity) {
+        cardState[i].opacity = nextOpacity;
+        card.style.opacity = nextOpacity;
+      }
+
+      const nextZ = String(Math.round(100 - Math.abs(d) * 2));
+      if (cardState[i].zIndex !== nextZ) {
+        cardState[i].zIndex = nextZ;
+        card.style.zIndex = nextZ;
+      }
 
       const face = card.firstElementChild;
       if (face) {
-        face.style.transform = `scale(${lerp(ringScale, 1, m).toFixed(4)})`;
+        face.style.transform = faceScale;
       }
     }
 
@@ -279,19 +294,25 @@ export function initPartnersTech() {
       active = near;
       updateActiveReadout(active);
     }
+
+    return settled;
   }
 
   function draw() {
-    if (!isVisible) {
+    if (!isVisible || document.hidden) {
       rafId = null;
       return;
     }
-    renderFrame();
+    const settled = renderFrame();
+    if (settled) {
+      rafId = null;
+      return;
+    }
     rafId = requestAnimationFrame(draw);
   }
 
   function startLoop() {
-    if (!rafId && isVisible) {
+    if (!rafId && isVisible && !document.hidden) {
       rafId = requestAnimationFrame(draw);
     }
   }
@@ -397,28 +418,38 @@ export function initPartnersTech() {
   if ('ResizeObserver' in window) {
     ro = new ResizeObserver(() => {
       computeMetrics();
-      if (!rafId && isVisible) startLoop();
+      renderFrame();
     });
     ro.observe(stage);
   }
-  window.addEventListener('resize', computeMetrics, { passive: true });
+  const onResize = () => {
+    computeMetrics();
+    renderFrame();
+  };
+  window.addEventListener('resize', onResize, { passive: true });
 
   let io = null;
   if ('IntersectionObserver' in window) {
     io = new IntersectionObserver(
       ([entry]) => {
         isVisible = entry.isIntersecting;
-        if (isVisible) startLoop();
+        if (isVisible && Math.abs(target - turn) >= 0.0005) startLoop();
       },
       { rootMargin: '140px' }
     );
     io.observe(section);
   } else {
     isVisible = true;
-    startLoop();
   }
 
-  // Renderiza o anel inicial imediatamente
+  const onVisibilityChange = () => {
+    if (!document.hidden && isVisible && Math.abs(target - turn) >= 0.0005) {
+      startLoop();
+    }
+  };
+  document.addEventListener('visibilitychange', onVisibilityChange);
+
+  // Renderiza o anel inicial imediatamente (e fica em idle 0% CPU!)
   renderFrame();
 
   return {
@@ -429,7 +460,8 @@ export function initPartnersTech() {
       ro?.disconnect();
       io?.disconnect();
       stage.removeEventListener('wheel', onWheel);
-      window.removeEventListener('resize', computeMetrics);
+      window.removeEventListener('resize', onResize);
+      document.removeEventListener('visibilitychange', onVisibilityChange);
     },
   };
 }

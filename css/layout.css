@@ -29,7 +29,7 @@ body.is-loading {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  will-change: transform;
+  will-change: opacity;
   pointer-events: all;
   user-select: none;
 }
@@ -38,16 +38,15 @@ body.is-loading {
    PRELOADER MINIMALISTA VL TECH (Fundo #0A0A0C + "VL" Central + 0% a 100%)
    ========================================================================== */
 
-/* Brilho radial ambiente vermelho suave centralizado */
+/* Brilho radial ambiente vermelho suave centralizado (sem filter: blur pesado) */
 .preloader__glow {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: min(720px, 90vw);
-  height: min(720px, 90vw);
+  width: min(820px, 96vw);
+  height: min(820px, 96vw);
   transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(255, 30, 38, 0.22) 0%, rgba(255, 30, 38, 0.05) 45%, transparent 70%);
-  filter: blur(65px);
+  background: radial-gradient(circle, rgba(255, 30, 38, 0.2) 0%, rgba(255, 30, 38, 0.06) 38%, rgba(255, 30, 38, 0.015) 60%, transparent 74%);
   pointer-events: none;
   z-index: 1;
 }
@@ -340,13 +339,11 @@ body.is-loading {
   text-decoration: none;
   cursor: pointer;
   user-select: none;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  transition: all 0.25s ease;
+  transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
 }
 
 .nav__whatsapp-btn {
-  background: rgba(255, 30, 38, 0.1);
+  background: rgba(18, 10, 13, 0.88);
   border: 1px solid rgba(255, 30, 38, 0.35);
   color: var(--accent-red, #FF1E26);
 }
@@ -359,7 +356,7 @@ body.is-loading {
 }
 
 .nav__services-btn {
-  background: rgba(255, 30, 38, 0.1);
+  background: rgba(18, 10, 13, 0.88);
   border: 1px solid rgba(255, 30, 38, 0.35);
   color: var(--accent-red);
 }
@@ -386,7 +383,7 @@ body.is-loading {
   gap: 6px;
   padding: 0.45rem 0.9rem;
   border-radius: var(--radius-pill);
-  background: rgba(18, 18, 22, 0.85);
+  background: rgba(14, 14, 18, 0.92);
   border: 1px solid rgba(255, 255, 255, 0.12);
   color: #F8F8FC;
   font-family: var(--font-mono);
@@ -395,10 +392,8 @@ body.is-loading {
   letter-spacing: 0.08em;
   cursor: pointer;
   user-select: none;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
-  transition: all 0.25s ease;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
 }
 
 .fx-toggle-btn:hover {
@@ -412,7 +407,7 @@ body.is-loading {
 }
 
 .fx-toggle-btn.is-active .fx-wave {
-  animation: fxSoundWavePulse 1.4s ease-in-out infinite alternate;
+  animation: fxSoundWavePulse 1.6s ease-in-out infinite alternate;
 }
 
 .fx-toggle-btn.is-muted {
@@ -429,8 +424,8 @@ body.is-loading {
 }
 
 @keyframes fxSoundWavePulse {
-  0% { opacity: 0.4; }
-  100% { opacity: 1; filter: drop-shadow(0 0 4px var(--accent-red)); }
+  0% { opacity: 0.35; }
+  100% { opacity: 1; }
 }
 
 /* Botão Menu Hamburguer Arredondado Escuro */
@@ -444,14 +439,12 @@ body.is-loading {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: rgba(18, 18, 22, 0.85);
+  background: rgba(14, 14, 18, 0.92);
   border: 1px solid rgba(255, 255, 255, 0.12);
   color: #F8F8FC;
   cursor: pointer;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
-  transition: all 0.25s ease;
+  transition: transform 0.25s ease, background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .nav__toggle:hover,
@@ -3000,8 +2993,6 @@ body.is-loading {
   background: rgba(255, 30, 38, 0.15);
   border-color: #FF1E26;
   box-shadow: 0 0 24px rgba(255, 30, 38, 0.6);
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
 }
 
 .custom-cursor.is-hover .custom-cursor__dot {

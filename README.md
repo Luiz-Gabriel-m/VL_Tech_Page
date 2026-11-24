@@ -67,6 +67,7 @@ Este repositório mantém uma base viva de conhecimento em [`padrao-criacao/`](p
 - **[01 — Arquitetura Modular, Design Tokens e Web Audio API](padrao-criacao/acertos/01-arquitetura-e-design-system.md):** tokens semânticos em `css/variables.css`, módulos ES desacoplados e áudio procedural sem assets externos.
 - **[02 — Motor Unificado de Scrollytelling Horizontal](padrao-criacao/acertos/02-scrollytelling-horizontal-unificado.md):** cálculo dinâmico de largura com `holdRatio` e limpeza de triggers.
 - **[03 — Scrollytelling 3D com CSS `sticky` Nativo e Adaptação 21st.dev](padrao-criacao/acertos/03-sticky-nativo-scrolltrigger-e-adaptacao-21st-dev.md):** uso de `position: sticky; top: 0` + `body { overflow-x: clip }` + GSAP `scrub` (sem `pin`), adaptação limpa de componentes React/Tailwind da 21st.dev para Vanilla ES Modules + `css/sections/*.css` e pausa automática de loops `rAF` fora da tela via `IntersectionObserver`.
+- **[04 — Performance 60/120fps em GSAP, Idle Sleep e GPU Compositing Limpo](padrao-criacao/acertos/04-performance-60fps-gsap-idle-sleep-gpu-compositing.md):** `lagSmoothing` + `limitCallbacks` + debounce no `ScrollTrigger.refresh()`, *idle sleep* em loops `rAF`, iframes sob demanda com `content-visibility: hidden`, glows em `radial-gradient` puro (sem `filter: blur`) e zero layout thrashing.
 
 ### ⚠️ Principais Erros Documentados Para Nunca Repetir ([`padrao-criacao/erros/`](padrao-criacao/erros/README.md))
 - **[01 — Blank Voids, Sobreposição de Texto e Pinagem Duplicada](padrao-criacao/erros/01-scrollytelling-e-layout.md):** evitar pins duplicados, criar triggers na ordem do DOM e garantir fade-out completo antes do próximo fade-in.
@@ -76,6 +77,10 @@ Este repositório mantém uma base viva de conhecimento em [`padrao-criacao/`](p
   - Sempre limitar raios/dimensões de componentes 3D à altura útil da viewport (`Math.min(h * ..., w * ...)`) para evitar corte em telas de notebook/preview estreito.
   - Nunca usar `gsap.to(window, { scrollTo })` sem carregar o `ScrollToPlugin` — usar proxy numérico do GSAP com `window.scrollTo`.
   - Sempre atualizar query strings (`?v=`) em `index.html` e `js/main.js` para evitar cache obsoleto no navegador.
+- **[04 — Travamento Severo no Load e Scroll (GSAP + `rAF` + Blur GPU + Iframes)](padrao-criacao/erros/04-travamento-performance-gsap-raf-blur-iframes.md):**
+  - Nunca pré-carregar vários `<iframe>`s `1440×900` no boot (`rootMargin` alto) nem mantê-los ativos fora de foco.
+  - Nunca ler `getComputedStyle`/`getBoundingClientRect` dentro de `rAF`, `mousemove` ou `scroll`, nem animar `filter` (`blur`/`brightness`/`drop-shadow`) ou `background: radial-gradient` em GSAP/keyframes/rAF.
+  - Todo loop `rAF` precisa de `cancelAnimationFrame` real fora da viewport/aba oculta e *idle sleep* quando assentar.
 
 ---
 

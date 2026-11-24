@@ -394,19 +394,20 @@ export function initFooterPong() {
       ctx.fillRect(p.x, p.y, p.width, p.height);
     }
 
-    // Bolinha com brilho vermelho VL Tech
-    ctx.save();
-    ctx.shadowColor = 'rgba(255, 30, 38, 0.9)';
-    ctx.shadowBlur = 14;
+    // Bolinha com halo suave desenhado sem ctx.shadowBlur (10x mais rápido no Canvas 2D)
+    ctx.fillStyle = 'rgba(255, 30, 38, 0.24)';
+    ctx.beginPath();
+    ctx.arc(ball.x, ball.y, ball.radius * 2.1, 0, Math.PI * 2);
+    ctx.fill();
+
     ctx.fillStyle = COLORS.ball;
     ctx.beginPath();
     ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
     ctx.fill();
-    ctx.restore();
   }
 
   function loop(now) {
-    if (!isVisible) {
+    if (!isVisible || document.hidden) {
       rafId = null;
       return;
     }

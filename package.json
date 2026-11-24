@@ -4,6 +4,9 @@
   "description": "<div align=\"center\">",
   "main": "index.js",
   "scripts": {
+    "dev": "node scripts/dev-server.mjs",
+    "start": "node scripts/dev-server.mjs",
+    "serve": "node scripts/dev-server.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

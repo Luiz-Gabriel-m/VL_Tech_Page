@@ -6,7 +6,7 @@
    ========================================================================== */
 
 import { playClick } from './sound.js';
-import { initFooterPong } from './footer-pong.js?v=6.4';
+import { initFooterPong } from './footer-pong.js?v=7.5';
 
 export function initFooter() {
   const pong = initFooterPong();

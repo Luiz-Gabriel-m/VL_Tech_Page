@@ -21,13 +21,16 @@
   <link href="https://fonts.cdnfonts.com/css/monument-extended" rel="stylesheet">
 
   <!-- Estilos -->
-  <link rel="stylesheet" href="css/variables.css?v=7.3">
-  <link rel="stylesheet" href="css/layout.css?v=6.1">
-  <link rel="stylesheet" href="styles.css?v=6.1">
+  <link rel="stylesheet" href="css/variables.css?v=7.5">
+  <link rel="stylesheet" href="css/layout.css?v=7.5">
+  <link rel="stylesheet" href="styles.css?v=7.5">
   <link rel="stylesheet" href="css/sections/hero-sticker.css?v=7.2">
-  <link rel="stylesheet" href="css/sections/responsive-showcase.css?v=7.4">
-  <link rel="stylesheet" href="css/sections/partners-wheel.css?v=7.4">
-  <link rel="stylesheet" href="css/sections/founders-badge.css?v=6.3">
+  <link rel="stylesheet" href="css/sections/responsive-showcase.css?v=7.5">
+  <link rel="stylesheet" href="css/sections/diferenciais-tunnel.css?v=8.0">
+  <link rel="stylesheet" href="css/sections/automacao-portal.css?v=8.2">
+  <link rel="stylesheet" href="css/sections/why-choose-wall.css?v=8.2">
+  <link rel="stylesheet" href="css/sections/partners-wheel.css?v=7.5">
+  <link rel="stylesheet" href="css/sections/founders-badge.css?v=7.5">
   <link rel="stylesheet" href="css/sections/footer-pong.css?v=6.4">
 
   <!-- Three.js WebGL Engine (Carregado antecipadamente para o Hero 3D) -->
@@ -125,14 +128,20 @@
         <ul class="menu-overlay__list">
           <li class="menu-overlay__item"><a href="#hero" class="menu-overlay__link" id="menu-link-hero"><span
                 class="menu-overlay__text">Início</span><span class="menu-overlay__index">01</span></a></li>
+          <li class="menu-overlay__item"><a href="#diferenciais" class="menu-overlay__link" id="menu-link-diferenciais"><span
+                class="menu-overlay__text">Diferenciais VL Tech</span><span class="menu-overlay__index">02</span></a></li>
           <li class="menu-overlay__item"><a href="#responsividade" class="menu-overlay__link" id="menu-link-responsividade"><span
-                class="menu-overlay__text">Perfeição em Qualquer Tela</span><span class="menu-overlay__index">02</span></a></li>
+                class="menu-overlay__text">Perfeição em Qualquer Tela</span><span class="menu-overlay__index">03</span></a></li>
+          <li class="menu-overlay__item"><a href="#automacao" class="menu-overlay__link" id="menu-link-automacao"><span
+                class="menu-overlay__text">Automação &amp; IA</span><span class="menu-overlay__index">04</span></a></li>
+          <li class="menu-overlay__item"><a href="#porque-escolher" class="menu-overlay__link" id="menu-link-porque"><span
+                class="menu-overlay__text">Por Que Nos Escolher</span><span class="menu-overlay__index">05</span></a></li>
           <li class="menu-overlay__item"><a href="#parceiros" class="menu-overlay__link" id="menu-link-parceiros"><span
-                class="menu-overlay__text">Parceiros</span><span class="menu-overlay__index">03</span></a></li>
+                class="menu-overlay__text">Parceiros</span><span class="menu-overlay__index">06</span></a></li>
           <li class="menu-overlay__item"><a href="#socios-scrolly" class="menu-overlay__link" id="menu-link-socios"><span
-                class="menu-overlay__text">Sócios (Liderança)</span><span class="menu-overlay__index">04</span></a></li>
+                class="menu-overlay__text">Sócios (Liderança)</span><span class="menu-overlay__index">07</span></a></li>
           <li class="menu-overlay__item"><a href="#rodape" class="menu-overlay__link" id="menu-link-contato"><span
-                class="menu-overlay__text">Contato</span><span class="menu-overlay__index">05</span></a></li>
+                class="menu-overlay__text">Contato</span><span class="menu-overlay__index">08</span></a></li>
         </ul>
       </nav>
 
@@ -169,7 +178,181 @@
       </div>
     </section>
 
-    <!-- ============================== 5.5 RESPONSIVIDADE TOTAL // NOTEBOOK 3D + PHONE CAROUSEL 3D ============================== -->
+    <!-- ============================== 2. DIFERENCIAIS VL TECH // PERSPECTIVE TUNNEL 3D ============================== -->
+    <section class="section section--dark dtunnel-section" id="diferenciais" aria-labelledby="dtunnel-title">
+      <div class="dtunnel-viewport" id="dtunnelViewport">
+
+        <!-- Fundo Ambiental, Grid de Pontos & Anéis de Profundidade -->
+        <div class="dtunnel-bg-wrap" id="dtunnelBgWrap" aria-hidden="true">
+          <div class="dtunnel-dots"></div>
+          <div class="dtunnel-glow"></div>
+          <div class="dtunnel-ring dtunnel-ring--inner"></div>
+          <div class="dtunnel-ring dtunnel-ring--outer"></div>
+        </div>
+
+        <!-- Tipografia Âncora Central (Fase do Túnel) -->
+        <header class="dtunnel-anchor" id="dtunnelAnchor">
+          <span class="dtunnel-anchor__eyebrow">
+            <span class="dtunnel-anchor__dot" aria-hidden="true"></span>
+            POR QUE ESCOLHER A VL TECH
+          </span>
+          <h2 class="dtunnel-anchor__title" id="dtunnel-title">
+            DIFERENCIAIS<br>
+            <span class="dtunnel-accent">QUE CONVERTEM.</span>
+          </h2>
+          <p class="dtunnel-anchor__lead">
+            Preço justo, entrega ultrarrápida e engenharia 3D de nível internacional — direto com quem codifica o seu projeto.
+          </p>
+        </header>
+
+        <!-- Prompt de Scroll Inicial -->
+        <div class="dtunnel-prompt" id="dtunnelPrompt" aria-hidden="true">
+          <span>Role para explorar</span>
+          <div class="dtunnel-prompt__line"></div>
+        </div>
+
+        <!-- Barra de Progresso Lateral Discreta -->
+        <div class="dtunnel-progress" id="dtunnelProgress" aria-hidden="true">
+          <div class="dtunnel-progress__fill" id="dtunnelProgressFill"></div>
+        </div>
+
+        <!-- Plano 3D Z-Space com os 8 Diferenciais da VL Tech -->
+        <div class="dtunnel-space" id="dtunnelSpace">
+
+          <!-- 01: PREÇO JUSTO & DIRETO -->
+          <article class="dtunnel-card" data-index="0">
+            <div class="dtunnel-card__inner">
+              <img src="assets/images/diferenciais/preco-justo.jpg" alt="Preço justo e direto sem intermediários" class="dtunnel-card__img" width="600" height="750" loading="lazy" decoding="async" draggable="false">
+              <div class="dtunnel-card__scrim" aria-hidden="true"></div>
+              <div class="dtunnel-card__top">
+                <span class="dtunnel-card__index">01</span>
+                <span class="dtunnel-card__pill">ATÉ 60% MENOS</span>
+              </div>
+              <div class="dtunnel-card__content">
+                <h3 class="dtunnel-card__title">Preço Justo &amp; Direto</h3>
+                <p class="dtunnel-card__desc">Sem taxas ocultas de agência ou intermediários. Qualidade de estúdio global por um investimento acessível.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- 02: ENTREGA ULTRARRÁPIDA -->
+          <article class="dtunnel-card" data-index="1">
+            <div class="dtunnel-card__inner">
+              <img src="assets/images/diferenciais/entrega-rapida.jpg" alt="Entrega ultrarrápida em sprints ágeis" class="dtunnel-card__img" width="600" height="750" loading="lazy" decoding="async" draggable="false">
+              <div class="dtunnel-card__scrim" aria-hidden="true"></div>
+              <div class="dtunnel-card__top">
+                <span class="dtunnel-card__index">02</span>
+                <span class="dtunnel-card__pill">5 A 12 DIAS</span>
+              </div>
+              <div class="dtunnel-card__content">
+                <h3 class="dtunnel-card__title">Entrega Ultrarrápida</h3>
+                <p class="dtunnel-card__desc">Seu projeto no ar em dias, não meses — com sprints transparentes e prévias ao vivo desde a primeira semana.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- 03: PERFORMANCE 99+ -->
+          <article class="dtunnel-card" data-index="2">
+            <div class="dtunnel-card__inner">
+              <img src="assets/images/diferenciais/performance-extrema.jpg" alt="Performance 99+ no Google PageSpeed" class="dtunnel-card__img" width="600" height="750" loading="lazy" decoding="async" draggable="false">
+              <div class="dtunnel-card__scrim" aria-hidden="true"></div>
+              <div class="dtunnel-card__top">
+                <span class="dtunnel-card__index">03</span>
+                <span class="dtunnel-card__pill">99+ PAGESPEED</span>
+              </div>
+              <div class="dtunnel-card__content">
+                <h3 class="dtunnel-card__title">Performance Extrema</h3>
+                <p class="dtunnel-card__desc">Código nativo e enxuto, zero templates lentos e carregamento instantâneo até no 4G.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- 04: EXPERIÊNCIA 3D & MOTION -->
+          <article class="dtunnel-card" data-index="3">
+            <div class="dtunnel-card__inner">
+              <img src="assets/images/diferenciais/design-3d.jpg" alt="Design 3D interativo WebGL e GSAP" class="dtunnel-card__img" width="600" height="750" loading="lazy" decoding="async" draggable="false">
+              <div class="dtunnel-card__scrim" aria-hidden="true"></div>
+              <div class="dtunnel-card__top">
+                <span class="dtunnel-card__index">04</span>
+                <span class="dtunnel-card__pill">60 / 120 FPS</span>
+              </div>
+              <div class="dtunnel-card__content">
+                <h3 class="dtunnel-card__title">Visual 3D &amp; Motion</h3>
+                <p class="dtunnel-card__desc">Interações em Three.js, WebGL e GSAP que destacam sua marca imediatamente da concorrência.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- 05: DIRETO COM OS FUNDADORES -->
+          <article class="dtunnel-card" data-index="4">
+            <div class="dtunnel-card__inner">
+              <img src="assets/images/diferenciais/direto-fundadores.jpg" alt="Atendimento direto com os fundadores e engenheiros" class="dtunnel-card__img" width="600" height="750" loading="lazy" decoding="async" draggable="false">
+              <div class="dtunnel-card__scrim" aria-hidden="true"></div>
+              <div class="dtunnel-card__top">
+                <span class="dtunnel-card__index">05</span>
+                <span class="dtunnel-card__pill">ZERO BUROCRACIA</span>
+              </div>
+              <div class="dtunnel-card__content">
+                <h3 class="dtunnel-card__title">Direto com os Sócios</h3>
+                <p class="dtunnel-card__desc">Você fala direto com os arquitetos que escrevem o código — respostas rápidas e zero telefone sem fio.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- 06: CÓDIGO 100% SEU -->
+          <article class="dtunnel-card" data-index="5">
+            <div class="dtunnel-card__inner">
+              <img src="assets/images/diferenciais/codigo-proprietario.jpg" alt="Código proprietário limpo e escalável" class="dtunnel-card__img" width="600" height="750" loading="lazy" decoding="async" draggable="false">
+              <div class="dtunnel-card__scrim" aria-hidden="true"></div>
+              <div class="dtunnel-card__top">
+                <span class="dtunnel-card__index">06</span>
+                <span class="dtunnel-card__pill">100% PROPRIETÁRIO</span>
+              </div>
+              <div class="dtunnel-card__content">
+                <h3 class="dtunnel-card__title">Código Limpo &amp; Seu</h3>
+                <p class="dtunnel-card__desc">Sem mensalidade abusiva de plataforma fechada. Arquitetura modular pronta para escalar com o seu negócio.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- 07: SEO & FOCO EM CONVERSÃO -->
+          <article class="dtunnel-card" data-index="6">
+            <div class="dtunnel-card__inner">
+              <img src="assets/images/diferenciais/conversao-seo.jpg" alt="SEO técnico e arquitetura focada em conversão" class="dtunnel-card__img" width="600" height="750" loading="lazy" decoding="async" draggable="false">
+              <div class="dtunnel-card__scrim" aria-hidden="true"></div>
+              <div class="dtunnel-card__top">
+                <span class="dtunnel-card__index">07</span>
+                <span class="dtunnel-card__pill">FOCO EM VENDAS</span>
+              </div>
+              <div class="dtunnel-card__content">
+                <h3 class="dtunnel-card__title">SEO &amp; Alta Conversão</h3>
+                <p class="dtunnel-card__desc">Estrutura pensada para posicionar no Google e transformar cada clique em conversa real no WhatsApp.</p>
+              </div>
+            </div>
+          </article>
+
+          <!-- 08: SUPORTE & UPTIME 99.98% -->
+          <article class="dtunnel-card" data-index="7">
+            <div class="dtunnel-card__inner">
+              <img src="assets/images/diferenciais/suporte-uptime.jpg" alt="Suporte contínuo, segurança e uptime 99.98%" class="dtunnel-card__img" width="600" height="750" loading="lazy" decoding="async" draggable="false">
+              <div class="dtunnel-card__scrim" aria-hidden="true"></div>
+              <div class="dtunnel-card__top">
+                <span class="dtunnel-card__index">08</span>
+                <span class="dtunnel-card__pill">99.98% UPTIME</span>
+              </div>
+              <div class="dtunnel-card__content">
+                <h3 class="dtunnel-card__title">Suporte &amp; Estabilidade</h3>
+                <p class="dtunnel-card__desc">Garantia técnica pós-entrega, deploy em Edge CDN global e evolução contínua quando você precisar.</p>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================== 3. RESPONSIVIDADE TOTAL // NOTEBOOK 3D + PHONE CAROUSEL 3D ============================== -->
     <section class="section section--dark responsive-showcase-section" id="responsividade" aria-labelledby="responsive-title">
       <div class="responsive-pin-viewport" id="respPinViewport">
         <!-- Glows de fundo e Grid cibernético -->
@@ -480,6 +663,160 @@
           <span>Role para abrir o notebook 3D</span>
           <span class="hint-arrow">↓</span>
         </div>
+      </div>
+    </section>
+
+    <!-- ============================== 4. AUTOMAÇÃO & IA // PORTAL + ROBOZINHO 3D INTERATIVO ============================== -->
+    <section class="section section--dark auto-section" id="automacao" aria-label="Automação e Inteligência Artificial VL Tech">
+      <div class="auto-sticky-viewport">
+        <div class="auto-grid-overlay" aria-hidden="true"></div>
+
+        <!-- CAMADA 1: Véu Introdutório "AUTOMAÇÃO" (mergulha direto para o palco do Robô 3D) -->
+        <div class="auto-portal-veil" id="autoPortalVeil">
+          <div class="auto-portal-ring" id="autoPortalRing" aria-hidden="true"></div>
+          <span class="auto-portal-kicker" id="autoPortalKicker">
+            <span class="auto-portal-kicker__dot" aria-hidden="true"></span>
+            PRÓXIMO NÍVEL · AGENTES DE IA 24/7
+          </span>
+          <h2 class="auto-portal-word" id="autoPortalWord">AUTOMAÇÃO</h2>
+          <div class="auto-portal-caption" id="autoPortalCaption">
+            <span class="auto-portal-hint" aria-hidden="true">Role para entrar no laboratório de IA</span>
+            <a href="#automacao-robo" class="auto-portal-enter" id="autoPortalEnterBtn">
+              <span>Entrar em Automação</span>
+              <span aria-hidden="true">↓</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- CAMADA 2: Palco Interativo do Robozinho 3D (fiel ao RobotHero 21st.dev, 100% limpo) -->
+        <div class="robot-stage" id="autoRobotStage" data-active-mode="instagram">
+          <!-- Topbar estilo AntennaNavbar -->
+          <div class="robot-topbar" id="automacao-robo" role="toolbar" aria-label="Modos de Automação do Robô VL Tech">
+            <div class="robot-modes-group">
+              <button type="button" class="robot-mode-btn is-active" data-robot-mode="instagram" aria-pressed="true">
+                Instagram 24/7
+              </button>
+              <button type="button" class="robot-mode-btn" data-robot-mode="whatsapp" aria-pressed="false">
+                WhatsApp IA
+              </button>
+              <button type="button" class="robot-mode-btn" data-robot-mode="crm" aria-pressed="false">
+                CRM &amp; Leads
+              </button>
+              <button type="button" class="robot-mode-btn" data-robot-mode="backoffice" aria-pressed="false">
+                Backoffice IA
+              </button>
+            </div>
+
+            <!-- Mini-rosto central (pisca no hover · olhos de coração 3D no clique!) -->
+            <button type="button" class="robot-mini-face" id="autoRobotMiniFace"
+              aria-label="Fazer carinho no robô VL Tech (ativar olhos de coração)" title="Clique para fazer carinho no robô!">
+              <span class="robot-mini-ear robot-mini-ear--left" aria-hidden="true"></span>
+              <span class="robot-mini-head" aria-hidden="true">
+                <span class="robot-mini-visor">
+                  <span class="robot-mini-eye"></span>
+                  <span class="robot-mini-eye"></span>
+                </span>
+              </span>
+              <span class="robot-mini-ear robot-mini-ear--right" aria-hidden="true"></span>
+            </button>
+
+            <div class="robot-topbar-right">
+              <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20quero%20automatizar%20meu%20Instagram%20com%20o%20rob%C3%B4%20da%20VL%20Tech"
+                target="_blank" rel="noopener noreferrer" class="robot-top-cta" id="autoRobotCta">
+                <span id="autoRobotCtaLabel">Automatizar Insta</span>
+                <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Arena Central 3D: Wordmark Gigante + Robô Three.js PBR + Balão Live -->
+          <div class="robot-arena" id="autoRobotArena">
+            <div class="robot-arena-glow" aria-hidden="true"></div>
+            <div class="robot-bg-word" id="autoRobotBgWord" aria-hidden="true">INSTAGRAM</div>
+
+            <div class="robot-bubble" id="autoRobotBubble" aria-live="polite">
+              <span class="robot-bubble__dot" aria-hidden="true"></span>
+              <span id="autoRobotBubbleText">Respondendo DMs e comentários do seu Insta em 1.4s</span>
+            </div>
+
+            <div class="robot-canvas-wrap" id="autoRobotCanvasWrap">
+              <canvas id="autoRobotCanvas" class="robot-canvas"
+                aria-label="Robô 3D interativo de Automação da VL Tech. Mova o mouse para ele acompanhar e clique nele para ativar olhos de coração."></canvas>
+            </div>
+
+            <span class="robot-tap-hint" aria-hidden="true">MOVA O MOUSE · CLIQUE NO ROBÔ PARA FAZER CARINHO · TROQUE AS ABAS ACIMA</span>
+          </div>
+
+          <!-- Faixa Editorial Inferior Enxuta -->
+          <div class="robot-bottom-deck" id="autoRobotInfoPanel">
+            <div class="robot-deck-main">
+              <span class="robot-deck-badge" id="autoRobotModeBadge">MODO INSTA · PILOTO AUTOMÁTICO</span>
+              <h2 class="robot-deck-title" id="autoRobotModeTitle">CUIDAMOS DO SEU INSTA 24/7.</h2>
+              <p class="robot-deck-desc" id="autoRobotModeDesc">
+                Nosso agente responde Directs, reage a comentários em Reels e posts ("comenta EU QUERO"), envia links e qualifica seguidores automaticamente.
+              </p>
+              <ul class="robot-deck-chips" id="autoRobotModeChips">
+                <li>DMs &amp; Comentários</li>
+                <li>Link no Direct</li>
+                <li>Filtro p/ WhatsApp</li>
+              </ul>
+            </div>
+
+            <div class="robot-deck-right">
+              <div class="robot-deck-metrics">
+                <div class="auto-metric">
+                  <span class="auto-metric__value" id="autoMetricAVal">1.4s</span>
+                  <span class="auto-metric__label" id="autoMetricALabel">Resposta na DM</span>
+                </div>
+                <div class="auto-metric">
+                  <span class="auto-metric__value" id="autoMetricBVal">+340%</span>
+                  <span class="auto-metric__label" id="autoMetricBLabel">Engajamento ativo</span>
+                </div>
+              </div>
+
+              <button type="button" class="robot-sim-btn" id="autoRobotSimulateBtn" aria-label="Simular ação do robô">
+                <span class="robot-sim-btn__dot" aria-hidden="true"></span>
+                <span>Testar Ação</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== 5. POR QUE NOS ESCOLHER // SCROLL PORTRAIT WALL (21st.dev + Nano Banana) ============================== -->
+    <section class="section section--dark spw-section" id="porque-escolher" aria-labelledby="spwTitle">
+      <div class="spw-backdrop" aria-hidden="true">
+        <div class="spw-backdrop__glow"></div>
+        <div class="spw-backdrop__grid"></div>
+      </div>
+
+      <!-- Abertura "POR QUE NOS ESCOLHER" que some ao iniciar a rolagem dos diferenciais -->
+      <header class="spw-intro-stage" id="spwIntroStage">
+        <span class="spw-kicker">
+          <span class="spw-kicker__dot" aria-hidden="true"></span>
+          VL TECH · ENGENHARIA DE ALTA CONVERSÃO
+        </span>
+        <h2 class="spw-title" id="spwTitle">POR QUE NOS ESCOLHER</h2>
+        <p class="spw-date">8 PILARES QUE TRANSFORMAM UM SITE COMUM EM MÁQUINA DE VENDAS</p>
+
+        <div class="spw-hint" id="spwHint" aria-hidden="true">
+          <span class="spw-hint__label">Role para revelar cada diferencial</span>
+          <span class="spw-hint__line"></span>
+        </div>
+      </header>
+
+      <!-- Grade espalhada de diferenciais (imagem + texto surgem e somem juntos) -->
+      <div class="spw-grid" id="spwGrid" aria-label="8 razões para escolher a VL Tech"></div>
+
+      <!-- CTA de fechamento -->
+      <div class="spw-footer-cta">
+        <p class="spw-footer-cta__note">Pronto para tirar o seu projeto do comum?</p>
+        <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C%20vi%20os%20diferenciais%20da%20VL%20Tech%20e%20quero%20um%20or%C3%A7amento"
+          target="_blank" rel="noopener noreferrer" class="spw-footer-cta__btn">
+          <span>Falar Direto com os Sócios</span>
+          <span aria-hidden="true">↗</span>
+        </a>
       </div>
     </section>
 
@@ -1038,7 +1375,10 @@
           </p>
           <ul class="footer-nav-clean-list">
             <li><a href="#hero" class="footer-nav-item">Início</a></li>
+            <li><a href="#diferenciais" class="footer-nav-item">Diferenciais</a></li>
             <li><a href="#responsividade" class="footer-nav-item">Projetos &amp; Telas</a></li>
+            <li><a href="#automacao" class="footer-nav-item">Automação &amp; IA</a></li>
+            <li><a href="#porque-escolher" class="footer-nav-item">Por Que Nos Escolher</a></li>
             <li><a href="#socios-scrolly" class="footer-nav-item">Sócios &amp; Liderança</a></li>
             <li><a href="#faq" class="footer-nav-item">Perguntas Frequentes</a></li>
           </ul>
@@ -1116,7 +1456,7 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 
   <!-- Aplicação (módulos ES) -->
-  <script type="module" src="js/main.js?v=7.4"></script>
+  <script type="module" src="js/main.js?v=8.2"></script>
 </body>
 
 </html>

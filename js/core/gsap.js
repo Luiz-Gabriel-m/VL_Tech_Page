@@ -34,7 +34,14 @@ if (isReady) {
   });
 
   // Evita saltos de layout ao abrir/fechar a barra de endereço no mobile
-  ScrollTrigger.config({ ignoreMobileResize: true });
+  // e reduz overhead de callbacks em triggers fora da viewport
+  ScrollTrigger.config({
+    ignoreMobileResize: true,
+    limitCallbacks: true,
+  });
+
+  // Suaviza eventuais picos de CPU/GC sem travar ou pular timelines GSAP
+  gsap.ticker.lagSmoothing(500, 33);
 }
 
 export { gsap, ScrollTrigger };

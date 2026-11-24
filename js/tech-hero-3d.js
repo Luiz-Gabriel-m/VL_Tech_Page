@@ -1,63 +1,63 @@
 /* ==========================================================================
    TECH HERO 3D — WebGL Interactive Particle Field & Neon Matrix Grid
-   State-of-the-art corporate tech introduction for VL Tech:
-   - Deep dark theme (#111112)
-   - Three.js WebGL Particle Field with depth, float and mouse parallax
-   - Receding glowing neon matrix grid highway with horizon fade
-   - Live telemetry dynamic updates
-   - Magnetic CTA button hover physics
+   Otimizado para 60/120fps reais sem travamentos:
+   - Antialias desligado (desnecessário para partículas aditivas/wireframe)
+   - PixelRatio limitado a 1.5 (economia massiva de fill-rate em telas 4K/Retina)
+   - Cancelamento real de requestAnimationFrame fora da viewport / aba oculta
+   - Zero getBoundingClientRect() no mousemove (dimensões cacheadas no resize)
+   - Inicia o loop apenas após o preloader liberar o Hero (renderiza 1 frame inicial)
    ========================================================================== */
+
+import { LOADER_COMPLETE_EVENT } from './loader.js?v=7.5';
 
 export function initTechHero() {
   const canvas = document.getElementById('techHeroCanvas');
   const heroSection = document.getElementById('hero');
   if (!canvas || !heroSection) return null;
 
-  // Verifica se o Three.js está disponível globalmente
   const THREE = window.THREE;
   if (!THREE) {
     console.warn('[tech-hero-3d] Three.js não encontrado na janela global.');
     return null;
   }
 
-  // Configurações do Renderer
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isTouch = window.matchMedia('(pointer: coarse)').matches;
+
+  let heroWidth = heroSection.clientWidth || window.innerWidth;
+  let heroHeight = heroSection.clientHeight || window.innerHeight;
+
+  // Configurações otimizadas do Renderer
   const renderer = new THREE.WebGLRenderer({
     canvas,
-    antialias: true,
+    antialias: false,
     alpha: true,
     powerPreference: 'high-performance',
+    stencil: false,
+    depth: false,
   });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.setSize(heroSection.clientWidth, heroSection.clientHeight);
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.2;
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+  renderer.setSize(heroWidth, heroHeight, false);
 
   // Cena e Câmera
   const scene = new THREE.Scene();
   scene.fog = new THREE.FogExp2(0x0a0a0c, 0.038);
 
-  const camera = new THREE.PerspectiveCamera(
-    60,
-    heroSection.clientWidth / heroSection.clientHeight,
-    0.1,
-    1000
-  );
+  const camera = new THREE.PerspectiveCamera(60, heroWidth / heroHeight, 0.1, 120);
   camera.position.set(0, 1.2, 10);
 
-  // ---------------------------------------------------------------------------
-  // 1. Textura de Partícula Glow Circular (Vermelho VL Tech #FF1E26 & Branco)
-  // ---------------------------------------------------------------------------
+  // 1. Textura compacta 64x64 de Partícula Glow Circular
   function createParticleTexture() {
-    const size = 128;
+    const size = 64;
     const pCanvas = document.createElement('canvas');
     pCanvas.width = size;
     pCanvas.height = size;
     const ctx = pCanvas.getContext('2d');
 
     const grad = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
-    grad.addColorStop(0, 'rgba(255, 120, 120, 1)');
-    grad.addColorStop(0.25, 'rgba(255, 30, 38, 0.98)');
-    grad.addColorStop(0.6, 'rgba(220, 10, 20, 0.45)');
+    grad.addColorStop(0, 'rgba(255, 130, 130, 1)');
+    grad.addColorStop(0.28, 'rgba(255, 30, 38, 0.96)');
+    grad.addColorStop(0.62, 'rgba(220, 10, 20, 0.42)');
     grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
 
     ctx.fillStyle = grad;
@@ -72,54 +72,39 @@ export function initTechHero() {
 
   const particleTexture = createParticleTexture();
 
-  // ---------------------------------------------------------------------------
-  // 2. Campo de Partículas Interativo (Dust & Digital Constellation 100% Vermelho Neon)
-  // ---------------------------------------------------------------------------
-  const particleCount = window.innerWidth < 768 ? 650 : 1500;
+  // 2. Campo de Partículas (contagem calibrada para visual rico com baixo overdraw)
+  const particleCount = heroWidth < 768 ? 320 : 680;
   const particleGeometry = new THREE.BufferGeometry();
   const positions = new Float32Array(particleCount * 3);
   const colors = new Float32Array(particleCount * 3);
-  const scales = new Float32Array(particleCount);
 
-  // Paleta de cores exclusiva: Vermelho neon (#FF1E26), Vermelho Rubi (#FF3B42) e Vermelho Carmesim (#D6001C)
   const colorRed = new THREE.Color(0xff1e26);
   const colorRuby = new THREE.Color(0xff3b42);
   const colorCrimson = new THREE.Color(0xd6001c);
 
   for (let i = 0; i < particleCount; i++) {
     const i3 = i * 3;
-    // Dispersão espacial tridimensional em torno da visão do usuário
     positions[i3] = (Math.random() - 0.5) * 32;
     positions[i3 + 1] = (Math.random() - 0.5) * 18;
-    positions[i3 + 2] = (Math.random() - 0.5) * 28 - 2;
+    positions[i3 + 2] = (Math.random() - 0.5) * 26 - 2;
 
-    // Distribuição de cores 100% vermelhas
     const rChoice = Math.random();
-    let pColor;
-    if (rChoice < 0.6) {
-      pColor = colorRed;
-    } else if (rChoice < 0.85) {
-      pColor = colorRuby;
-    } else {
-      pColor = colorCrimson;
-    }
+    const pColor = rChoice < 0.6 ? colorRed : rChoice < 0.85 ? colorRuby : colorCrimson;
 
     colors[i3] = pColor.r;
     colors[i3 + 1] = pColor.g;
     colors[i3 + 2] = pColor.b;
-
-    scales[i] = Math.random() * 0.8 + 0.3;
   }
 
   particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
   particleGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
   const particleMaterial = new THREE.PointsMaterial({
-    size: 0.28,
+    size: 0.34,
     map: particleTexture,
     vertexColors: true,
     transparent: true,
-    opacity: 0.85,
+    opacity: 0.88,
     blending: THREE.AdditiveBlending,
     depthWrite: false,
   });
@@ -127,12 +112,10 @@ export function initTechHero() {
   const particleField = new THREE.Points(particleGeometry, particleMaterial);
   scene.add(particleField);
 
-  // ---------------------------------------------------------------------------
-  // 3. Grid Neon de Matriz em Perspectiva (Wireframe Ground Highway Vermelho #FF1E26)
-  // ---------------------------------------------------------------------------
+  // 3. Grid Neon de Matriz em Perspectiva
   const gridWidth = 40;
-  const gridDepth = 60;
-  const gridDivisions = 40;
+  const gridDivisions = 32;
+  const gridStep = gridWidth / gridDivisions;
 
   const gridHelper = new THREE.GridHelper(gridWidth, gridDivisions, 0xff1e26, 0x300507);
   gridHelper.position.set(0, -3.2, -8);
@@ -141,7 +124,6 @@ export function initTechHero() {
   gridHelper.material.blending = THREE.AdditiveBlending;
   scene.add(gridHelper);
 
-  // Segundo Grid no teto invertido (estilo túnel tecnológico de dados)
   const ceilingGrid = new THREE.GridHelper(gridWidth, gridDivisions, 0xff1e26, 0x1f0305);
   ceilingGrid.position.set(0, 8.5, -8);
   ceilingGrid.material.transparent = true;
@@ -149,9 +131,7 @@ export function initTechHero() {
   ceilingGrid.material.blending = THREE.AdditiveBlending;
   scene.add(ceilingGrid);
 
-  // ---------------------------------------------------------------------------
-  // 4. Floating Holographic Cyber Polyhedron (Símbolo de Engenharia Vermelho #FF1E26)
-  // ---------------------------------------------------------------------------
+  // 4. Floating Holographic Cyber Polyhedron
   const coreGroup = new THREE.Group();
   coreGroup.position.set(6, 0.5, -4);
 
@@ -166,7 +146,6 @@ export function initTechHero() {
   const polyMesh = new THREE.Mesh(polyGeom, polyWireMat);
   coreGroup.add(polyMesh);
 
-  // Núcleo interno menor em rotação oposta
   const innerGeom = new THREE.OctahedronGeometry(1.2, 0);
   const innerMat = new THREE.MeshBasicMaterial({
     color: 0xffffff,
@@ -178,61 +157,64 @@ export function initTechHero() {
   const innerMesh = new THREE.Mesh(innerGeom, innerMat);
   coreGroup.add(innerMesh);
 
-  // Esconde o núcleo em telas mobile muito estreitas para focar na tipografia
-  if (window.innerWidth > 992) {
+  if (heroWidth > 992) {
     scene.add(coreGroup);
   }
 
-  // ---------------------------------------------------------------------------
-  // 5. Interação com Mouse & Smooth Lerp Parallax
-  // ---------------------------------------------------------------------------
+  // 5. Interação com Mouse (ZERO getBoundingClientRect() no mousemove!)
   let targetMouseX = 0;
   let targetMouseY = 0;
   let currentMouseX = 0;
   let currentMouseY = 0;
+  let isVisible = true;
+  let loaderReady = Boolean(window.__loaderComplete);
 
   const onMouseMove = (e) => {
-    const rect = heroSection.getBoundingClientRect();
-    if (rect.bottom < 0 || rect.top > window.innerHeight) return;
-    targetMouseX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-    targetMouseY = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
+    if (!isVisible || !loaderReady) return;
+    targetMouseX = (e.clientX / (heroWidth || 1)) * 2 - 1;
+    targetMouseY = -((e.clientY / (heroHeight || 1)) * 2 - 1);
   };
 
-  window.addEventListener('mousemove', onMouseMove, { passive: true });
+  if (!isTouch && !prefersReduced) {
+    window.addEventListener('mousemove', onMouseMove, { passive: true });
+  }
 
-  // ---------------------------------------------------------------------------
-  // 6. Loop de Renderização Acelerado por GPU
-  // ---------------------------------------------------------------------------
+  // 6. Loop com parada REAL de rAF fora da viewport ou com aba oculta
   let animationFrameId = null;
-  let isVisible = true;
-  const clock = new THREE.Clock();
+  let elapsedTime = 0;
+  let lastNow = performance.now();
 
-  function animate() {
-    animationFrameId = requestAnimationFrame(animate);
+  function renderOnce() {
+    camera.position.x = currentMouseX * 1.5;
+    camera.position.y = 1.2 + currentMouseY * 0.8;
+    camera.lookAt(0, 0, -4);
+    renderer.render(scene, camera);
+  }
 
-    if (!isVisible) return;
+  function animate(now) {
+    if (!isVisible || document.hidden || !loaderReady || prefersReduced) {
+      animationFrameId = null;
+      return;
+    }
 
-    const elapsedTime = clock.getElapsedTime();
+    const dt = Math.min((now - lastNow) / 1000, 0.05);
+    lastNow = now;
+    elapsedTime += dt;
 
-    // Interpolação suave do mouse (damping 0.05)
     currentMouseX += (targetMouseX - currentMouseX) * 0.05;
     currentMouseY += (targetMouseY - currentMouseY) * 0.05;
 
-    // Movimentação sutil da câmera reagindo ao mouse
     camera.position.x = currentMouseX * 1.5;
     camera.position.y = 1.2 + currentMouseY * 0.8;
     camera.lookAt(0, 0, -4);
 
-    // Rotação suave do campo de partículas
     particleField.rotation.y = elapsedTime * 0.03 + currentMouseX * 0.15;
     particleField.rotation.x = currentMouseY * 0.1;
 
-    // Deslocamento contínuo do grid para simular fluxo de dados infinito
-    gridHelper.position.z = -8 + (elapsedTime * 1.8) % (gridWidth / gridDivisions);
-    ceilingGrid.position.z = -8 + (elapsedTime * 1.2) % (gridWidth / gridDivisions);
+    gridHelper.position.z = -8 + ((elapsedTime * 1.8) % gridStep);
+    ceilingGrid.position.z = -8 + ((elapsedTime * 1.2) % gridStep);
 
-    // Rotação do holograma de engenharia
-    if (coreGroup) {
+    if (coreGroup.parent) {
       polyMesh.rotation.x = elapsedTime * 0.15;
       polyMesh.rotation.y = elapsedTime * 0.22;
       innerMesh.rotation.x = -elapsedTime * 0.25;
@@ -240,56 +222,105 @@ export function initTechHero() {
     }
 
     renderer.render(scene, camera);
+    animationFrameId = requestAnimationFrame(animate);
   }
 
-  animate();
+  function startLoop() {
+    if (prefersReduced || !isVisible || document.hidden || !loaderReady || animationFrameId) {
+      return;
+    }
+    lastNow = performance.now();
+    animationFrameId = requestAnimationFrame(animate);
+  }
 
-  // ---------------------------------------------------------------------------
-  // 7. Otimização de Performance via IntersectionObserver
-  // ---------------------------------------------------------------------------
+  function stopLoop() {
+    if (animationFrameId) {
+      cancelAnimationFrame(animationFrameId);
+      animationFrameId = null;
+    }
+  }
+
+  // Renderiza 1 frame inicial limpo e só ativa o loop contínuo após o preloader
+  renderOnce();
+  if (loaderReady) {
+    startLoop();
+  } else {
+    document.addEventListener(
+      LOADER_COMPLETE_EVENT,
+      () => {
+        loaderReady = true;
+        startLoop();
+      },
+      { once: true }
+    );
+  }
+
+  // 7. IntersectionObserver + VisibilityChange
   const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        isVisible = entry.isIntersecting;
-      });
+    ([entry]) => {
+      isVisible = entry.isIntersecting;
+      if (isVisible) {
+        startLoop();
+      } else {
+        stopLoop();
+      }
     },
-    { threshold: 0.05 }
+    { threshold: 0.02 }
   );
   observer.observe(heroSection);
 
-  // ---------------------------------------------------------------------------
-  // 8. Redimensionamento Responsivo
-  // ---------------------------------------------------------------------------
-  const onResize = () => {
-    if (!heroSection || !renderer || !camera) return;
-    const width = heroSection.clientWidth;
-    const height = heroSection.clientHeight;
-
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
-
-    renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-    if (width <= 992 && coreGroup.parent) {
-      scene.remove(coreGroup);
-    } else if (width > 992 && !coreGroup.parent) {
-      scene.add(coreGroup);
+  const onVisibilityChange = () => {
+    if (document.hidden) {
+      stopLoop();
+    } else {
+      startLoop();
     }
+  };
+  document.addEventListener('visibilitychange', onVisibilityChange);
+
+  // 8. Redimensionamento Responsivo com debounce
+  let resizeTimer = null;
+  const onResize = () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      if (!heroSection || !renderer || !camera) return;
+      heroWidth = heroSection.clientWidth || window.innerWidth;
+      heroHeight = heroSection.clientHeight || window.innerHeight;
+
+      camera.aspect = heroWidth / heroHeight;
+      camera.updateProjectionMatrix();
+
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+      renderer.setSize(heroWidth, heroHeight, false);
+
+      if (heroWidth <= 992 && coreGroup.parent) {
+        scene.remove(coreGroup);
+      } else if (heroWidth > 992 && !coreGroup.parent) {
+        scene.add(coreGroup);
+      }
+
+      if (!animationFrameId) renderOnce();
+    }, 120);
   };
 
   window.addEventListener('resize', onResize, { passive: true });
 
   return {
     destroy: () => {
-      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      stopLoop();
+      clearTimeout(resizeTimer);
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('resize', onResize);
+      document.removeEventListener('visibilitychange', onVisibilityChange);
       observer.disconnect();
       renderer.dispose();
       particleGeometry.dispose();
       particleMaterial.dispose();
       particleTexture.dispose();
+      polyGeom.dispose();
+      polyWireMat.dispose();
+      innerGeom.dispose();
+      innerMat.dispose();
     },
   };
 }

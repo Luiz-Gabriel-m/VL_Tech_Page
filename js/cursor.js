@@ -31,6 +31,39 @@ export function initCustomCursor() {
   let ringY = -100;
   let isVisible = false;
 
+  let rafId = null;
+  const lerpFactor = 0.2;
+
+  function renderLoop() {
+    const dx = mouseX - ringX;
+    const dy = mouseY - ringY;
+
+    if (Math.abs(dx) < 0.15 && Math.abs(dy) < 0.15) {
+      ringX = mouseX;
+      ringY = mouseY;
+      if (ring) {
+        ring.style.transform = `translate3d(${ringX.toFixed(1)}px, ${ringY.toFixed(1)}px, 0)`;
+      }
+      rafId = null;
+      return;
+    }
+
+    ringX += dx * lerpFactor;
+    ringY += dy * lerpFactor;
+
+    if (ring) {
+      ring.style.transform = `translate3d(${ringX.toFixed(1)}px, ${ringY.toFixed(1)}px, 0)`;
+    }
+
+    rafId = requestAnimationFrame(renderLoop);
+  }
+
+  function wakeLoop() {
+    if (!rafId) {
+      rafId = requestAnimationFrame(renderLoop);
+    }
+  }
+
   const onMouseMove = (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
@@ -40,32 +73,19 @@ export function initCustomCursor() {
       cursor.classList.add('is-visible');
       ringX = mouseX;
       ringY = mouseY;
+      if (ring) {
+        ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0)`;
+      }
     }
 
-    // O ponto central acompanha instantaneamente
     if (dot) {
       dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
     }
+
+    wakeLoop();
   };
 
   window.addEventListener('mousemove', onMouseMove, { passive: true });
-
-  // Animação contínua do anel externo com interpolação suave (lerp)
-  let rafId;
-  const lerpFactor = 0.18;
-
-  function renderLoop() {
-    ringX += (mouseX - ringX) * lerpFactor;
-    ringY += (mouseY - ringY) * lerpFactor;
-
-    if (ring) {
-      ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0)`;
-    }
-
-    rafId = requestAnimationFrame(renderLoop);
-  }
-
-  rafId = requestAnimationFrame(renderLoop);
 
   // Estados de clique e hover
   window.addEventListener('mousedown', () => cursor.classList.add('is-pressed'));

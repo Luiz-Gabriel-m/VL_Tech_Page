@@ -1,14 +1,12 @@
 /* ==========================================================================
-   RESPONSIVE SHOWCASE — "PERFEIÇÃO EM QUALQUER TELA"
-   Sequência Unificada:
-   0. Inicia sem nada (palco escuro limpo)
-   1. Notebook 3D surge fechado em perspectiva 3/4 com logo VL retroiluminada
-   2. Tampa abre suavemente + roda cascata 0 e 1 + abre Navegador Real com
-      5 abas clicáveis mostrando a HERO ao vivo de cada site!
-   3. Aparecem as escritas ("PERFEIÇÃO EM QUALQUER TELA")
-   4. Notebook sobe mais para cima no fundo (deixando a Hero toda visível!)
-      e o Carrossel 3D de Celulares (com a LOGO de cada cliente) entra bem
-      mais em baixo, sincronizado 1:1 com as abas do navegador!
+   RESPONSIVE SHOWCASE — "PERFEIÇÃO EM QUALQUER TELA" (OTIMIZADO 60/120FPS)
+   - ZERO carregamento de 5 iframes no boot: carrega apenas a aba ativa sob demanda
+     quando a tampa do notebook abre (progress >= 0.12) ou ao trocar de aba.
+   - ZERO getComputedStyle() em loop rAF: cascata binária 0/1 roda ~30fps SOMENTE
+     enquanto está visível (abertura da tampa ou pulso de troca) e dorme 100% fora.
+   - ZERO animação de CSS filter: brightness() em GSAP (usa apenas transform/opacity).
+   - Drag com gsap.set() (sem criar 5 tweens novos por pixel de pointermove).
+   - CSS sticky nativo + ScrollTrigger scrub (zero pin-spacer / DOM reparenting).
    ========================================================================== */
 
 import { gsap } from './core/gsap.js';
@@ -48,17 +46,22 @@ const PROJECTS = [
 ];
 
 /**
- * Motor da Cascata Binária (0 e 1 vermelho VL Tech) na tela do Notebook 3D
+ * Motor da Cascata Binária (0 e 1 vermelho VL Tech) — 0% CPU quando inativo
  */
 function createBinaryMatrix(canvas, overlay, section) {
-  if (!canvas || !overlay) return { pulse: () => {}, destroy: () => {} };
+  if (!canvas || !overlay) {
+    return { setActive: () => {}, pulse: () => {}, destroy: () => {} };
+  }
 
-  const ctx = canvas.getContext('2d');
-  if (!ctx) return { pulse: () => {}, destroy: () => {} };
+  const ctx = canvas.getContext('2d', { alpha: true });
+  if (!ctx) {
+    return { setActive: () => {}, pulse: () => {}, destroy: () => {} };
+  }
 
   const FONT_SIZE = 13;
   const BINARY = ['0', '1'];
   const COLORS = ['#FF1E26', '#FF2A2A', '#E11D48', '#FF4D4D', '#D6001C'];
+  const FRAME_INTERVAL = 33; // ~30fps: visual matrix idêntico com metade do custo
 
   let width = 0;
   let height = 0;
@@ -67,50 +70,68 @@ function createBinaryMatrix(canvas, overlay, section) {
   let speeds = [];
   let colColors = [];
   let rafId = null;
+  let lastTick = 0;
   let isVisible = false;
+  let isActive = false;
+  let isPulsing = false;
+  let resizeTimer = null;
 
   function resize() {
     const rect = overlay.getBoundingClientRect();
     width = rect.width || 640;
     height = rect.height || 360;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     canvas.width = Math.round(width * dpr);
     canvas.height = Math.round(height * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
     columns = Math.floor(width / FONT_SIZE) + 1;
     drops = Array.from({ length: columns }, () => Math.random() * -40);
-    speeds = Array.from({ length: columns }, () => 1.2 + Math.random() * 2.2);
+    speeds = Array.from({ length: columns }, () => 1.4 + Math.random() * 2.2);
     colColors = Array.from(
       { length: columns },
       () => COLORS[Math.floor(Math.random() * COLORS.length)]
     );
   }
 
-  function render() {
-    if (!isVisible) {
+  function stop() {
+    if (rafId) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+  }
+
+  function maybeStart() {
+    if ((isActive || isPulsing) && isVisible && !document.hidden && !rafId) {
+      lastTick = 0;
+      rafId = requestAnimationFrame(render);
+    }
+  }
+
+  function render(now) {
+    if ((!isActive && !isPulsing) || !isVisible || document.hidden) {
       rafId = null;
       return;
     }
 
-    const opacity = parseFloat(getComputedStyle(overlay).opacity || '0');
-    if (opacity > 0.02) {
-      ctx.fillStyle = 'rgba(6, 6, 10, 0.26)';
+    if (now - lastTick >= FRAME_INTERVAL) {
+      lastTick = now;
+      ctx.fillStyle = 'rgba(6, 6, 10, 0.28)';
       ctx.fillRect(0, 0, width, height);
       ctx.font = `bold ${FONT_SIZE}px "JetBrains Mono", monospace`;
       ctx.textAlign = 'center';
 
       for (let i = 0; i < columns; i++) {
-        const char = BINARY[Math.floor(Math.random() * 2)];
+        const char = BINARY[(Math.random() * 2) | 0];
         const x = i * FONT_SIZE + FONT_SIZE / 2;
         const y = drops[i] * FONT_SIZE;
 
         ctx.fillStyle = Math.random() > 0.92 ? '#FF8A8E' : colColors[i];
         ctx.fillText(char, x, y);
 
-        if (y > height && Math.random() > 0.96) {
+        if (y > height && Math.random() > 0.95) {
           drops[i] = 0;
-          speeds[i] = 1.2 + Math.random() * 2.2;
+          speeds[i] = 1.4 + Math.random() * 2.2;
         }
         drops[i] += speeds[i];
       }
@@ -119,33 +140,67 @@ function createBinaryMatrix(canvas, overlay, section) {
     rafId = requestAnimationFrame(render);
   }
 
+  const onResize = () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(resize, 140);
+  };
+
   resize();
-  window.addEventListener('resize', resize, { passive: true });
+  window.addEventListener('resize', onResize, { passive: true });
 
   const observer = new IntersectionObserver(
     ([entry]) => {
       isVisible = entry.isIntersecting;
-      if (isVisible && !rafId) {
-        rafId = requestAnimationFrame(render);
+      if (isVisible) {
+        maybeStart();
+      } else {
+        stop();
       }
     },
-    { rootMargin: '140px' }
+    { threshold: 0.01 }
   );
   observer.observe(section);
 
+  const onVisibilityChange = () => {
+    if (document.hidden) stop();
+    else maybeStart();
+  };
+  document.addEventListener('visibilitychange', onVisibilityChange);
+
   return {
+    setActive(active) {
+      if (isActive === active) return;
+      isActive = active;
+      if (isActive) {
+        maybeStart();
+      } else if (!isPulsing) {
+        stop();
+      }
+    },
     pulse() {
+      isPulsing = true;
+      maybeStart();
       gsap.killTweensOf(overlay, 'opacity');
       gsap.fromTo(
         overlay,
         { opacity: 0.36 },
-        { opacity: 0, duration: 0.34, ease: 'power2.out' }
+        {
+          opacity: 0,
+          duration: 0.34,
+          ease: 'power2.out',
+          onComplete: () => {
+            isPulsing = false;
+            if (!isActive) stop();
+          },
+        }
       );
     },
     destroy() {
-      if (rafId) cancelAnimationFrame(rafId);
+      stop();
+      clearTimeout(resizeTimer);
       observer.disconnect();
-      window.removeEventListener('resize', resize);
+      window.removeEventListener('resize', onResize);
+      document.removeEventListener('visibilitychange', onVisibilityChange);
     },
   };
 }
@@ -194,9 +249,10 @@ export function initResponsiveShowcase() {
   const matrix = createBinaryMatrix(matrixCanvas, matrixOverlay, section);
 
   // =========================================================================
-  // 0. ESCALA REAL 1440×900 DOS IFRAMES DA HERO + LAZY LOAD INTELIGENTE
+  // 0. ESCALA REAL 1440×900 DOS IFRAMES — LAZY ON-DEMAND (ZERO LOAD NO BOOT!)
   // =========================================================================
-  let iframesLoaded = false;
+  let isSectionInView = false;
+  let hasOpenedOnce = prefersReduced;
 
   function ensureIframeLoaded(index) {
     const iframe = heroIframes[index];
@@ -204,6 +260,7 @@ export function initResponsiveShowcase() {
     const src = iframe.dataset.src;
     if (!src) return;
     iframe.dataset.mounted = '1';
+    iframe.loading = 'lazy';
     iframe.addEventListener(
       'load',
       () => {
@@ -214,18 +271,6 @@ export function initResponsiveShowcase() {
     iframe.src = src;
   }
 
-  function preloadAllHeroIframes() {
-    if (iframesLoaded) return;
-    iframesLoaded = true;
-    // Carrega primeiro a aba ativa, depois as demais em sequência rápida
-    ensureIframeLoaded(activeIndex);
-    heroIframes.forEach((_, idx) => {
-      if (idx !== activeIndex) {
-        setTimeout(() => ensureIframeLoaded(idx), 250 + idx * 180);
-      }
-    });
-  }
-
   function scaleHeroIframes() {
     if (!monitorViewport) return;
     const vw = monitorViewport.clientWidth;
@@ -233,39 +278,29 @@ export function initResponsiveShowcase() {
     if (!vw || !vh) return;
     const scale = vw / 1440;
     const targetHeight = Math.ceil(vh / scale);
+    const heightCss = `${Math.max(820, targetHeight)}px`;
+    const transformCss = `scale(${scale.toFixed(4)})`;
     heroIframes.forEach((iframe) => {
-      iframe.style.height = `${Math.max(820, targetHeight)}px`;
-      iframe.style.transform = `scale(${scale.toFixed(4)})`;
+      iframe.style.height = heightCss;
+      iframe.style.transform = transformCss;
     });
   }
 
   scaleHeroIframes();
   let resizeObserver = null;
+  let scaleResizeTimer = null;
+  const debouncedScale = () => {
+    clearTimeout(scaleResizeTimer);
+    scaleResizeTimer = setTimeout(scaleHeroIframes, 120);
+  };
   if ('ResizeObserver' in window && monitorViewport) {
-    resizeObserver = new ResizeObserver(scaleHeroIframes);
+    resizeObserver = new ResizeObserver(debouncedScale);
     resizeObserver.observe(monitorViewport);
   }
-  window.addEventListener('resize', scaleHeroIframes, { passive: true });
-
-  // Carrega a Hero do primeiro site imediatamente e as demais ao se aproximar
-  ensureIframeLoaded(0);
-  if ('IntersectionObserver' in window) {
-    const preloadObs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          preloadAllHeroIframes();
-          preloadObs.disconnect();
-        }
-      },
-      { rootMargin: '900px' }
-    );
-    preloadObs.observe(section);
-  } else {
-    preloadAllHeroIframes();
-  }
+  window.addEventListener('resize', debouncedScale, { passive: true });
 
   // =========================================================================
-  // 1. CARROSSEL 3D DE CELULARES (LOGOS DOS CLIENTES) + SINCRONIA COM ABAS
+  // 1. CARROSSEL 3D DE CELULARES (SOMENTE TRANSFORM & OPACITY — ZERO FILTER!)
   // =========================================================================
   let activeIndex = 0;
   let isPaused = false;
@@ -285,7 +320,7 @@ export function initResponsiveShowcase() {
     const isMobile = window.innerWidth < 768;
     const spreadX = isMobile ? 132 : 196;
     const farX = isMobile ? 210 : 320;
-    const duration = immediate || prefersReduced ? 0 : 0.6;
+    const useImmediate = immediate || prefersReduced;
 
     phoneItems.forEach((item, idx) => {
       const diff = wrapDelta(idx, activeIndex, total);
@@ -297,41 +332,45 @@ export function initResponsiveShowcase() {
       let scale = 1;
       let opacity = 1;
       let zIndex = 6;
-      let filter = 'brightness(1)';
 
       if (absDiff === 1) {
         x = diff * spreadX;
         z = -120;
         rotateY = diff * -24;
         scale = 0.8;
-        opacity = 0.72;
+        opacity = 0.58;
         zIndex = 4;
-        filter = 'brightness(0.74)';
       } else if (absDiff >= 2) {
         x = Math.sign(diff) * farX;
         z = -240;
         rotateY = Math.sign(diff) * -36;
         scale = 0.62;
-        opacity = isMobile ? 0 : 0.22;
+        opacity = isMobile ? 0 : 0.2;
         zIndex = 2;
-        filter = 'brightness(0.45)';
       }
 
       item.classList.toggle('is-active', diff === 0);
       item.setAttribute('aria-hidden', diff === 0 ? 'false' : 'true');
 
-      gsap.to(item, {
+      const props = {
         x: x + dragOffsetX * (diff === 0 ? 0.65 : 0.35),
         z,
         rotateY: rotateY + dragOffsetX * 0.04,
         scale,
         opacity,
         zIndex,
-        filter,
-        duration,
-        ease: 'power3.out',
-        overwrite: 'auto',
-      });
+      };
+
+      if (useImmediate) {
+        gsap.set(item, props);
+      } else {
+        gsap.to(item, {
+          ...props,
+          duration: 0.55,
+          ease: 'power3.out',
+          overwrite: 'auto',
+        });
+      }
     });
   }
 
@@ -339,28 +378,27 @@ export function initResponsiveShowcase() {
     const project = PROJECTS[index];
     if (!project) return;
 
-    ensureIframeLoaded(index);
+    // Carrega o iframe somente se a seção já entrou/abriu (nunca no boot!)
+    if (hasOpenedOnce) {
+      ensureIframeLoaded(index);
+    }
 
-    // Atualiza Abas Reais do Navegador no Notebook
     browserTabs.forEach((tab, idx) => {
       const isActive = idx === index;
       tab.classList.toggle('is-active', isActive);
       tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
     });
 
-    // Alterna a pré-visualização da Hero correspondente no navegador
     tabPanes.forEach((pane, idx) => {
       pane.classList.toggle('is-active', idx === index);
     });
 
-    // Atualiza dots inferiores
     dots.forEach((dot, idx) => {
       const isActive = idx === index;
       dot.classList.toggle('is-active', isActive);
       dot.setAttribute('aria-selected', isActive ? 'true' : 'false');
     });
 
-    // Atualiza URL e textos
     if (laptopUrl) laptopUrl.textContent = project.url;
     if (activeNameEl) activeNameEl.textContent = project.name;
     if (activeMetaEl) {
@@ -368,7 +406,6 @@ export function initResponsiveShowcase() {
     }
     if (visitLink) visitLink.href = project.url;
 
-    // Pulso breve de 0/1 ao alternar de aba no navegador aberto
     if (withTransition && !prefersReduced && isCarouselRevealed) {
       matrix.pulse();
     }
@@ -380,6 +417,7 @@ export function initResponsiveShowcase() {
     if (target === activeIndex && userTriggered) return;
 
     activeIndex = target;
+    hasOpenedOnce = true;
     if (userTriggered) {
       try { playClick(); } catch (_) {}
       restartAutoPlay();
@@ -406,14 +444,34 @@ export function initResponsiveShowcase() {
 
   function startAutoPlay() {
     stopAutoPlay();
-    if (isPaused || prefersReduced || !isCarouselRevealed) return;
+    if (isPaused || prefersReduced || !isCarouselRevealed || !isSectionInView) return;
     autoTimer = setInterval(() => {
-      if (!isDragging) nextSlide(false);
+      if (!isDragging && isSectionInView && !document.hidden) nextSlide(false);
     }, 4500);
   }
 
   function restartAutoPlay() {
     if (!isPaused) startAutoPlay();
+  }
+
+  // Observa se a seção está na viewport para congelar autoplay e panes fora da tela
+  let viewObserver = null;
+  if ('IntersectionObserver' in window) {
+    viewObserver = new IntersectionObserver(
+      ([entry]) => {
+        isSectionInView = entry.isIntersecting;
+        section.classList.toggle('is-dormant', !isSectionInView);
+        if (isSectionInView) {
+          if (isCarouselRevealed) startAutoPlay();
+        } else {
+          stopAutoPlay();
+        }
+      },
+      { rootMargin: '120px' }
+    );
+    viewObserver.observe(section);
+  } else {
+    isSectionInView = true;
   }
 
   // =========================================================================
@@ -470,7 +528,6 @@ export function initResponsiveShowcase() {
     });
   }
 
-  // Clique direto num celular lateral traz ele pro centro
   phoneItems.forEach((item, idx) => {
     item.addEventListener('click', () => {
       if (Math.abs(dragDeltaX) > 10) return;
@@ -478,7 +535,6 @@ export function initResponsiveShowcase() {
     });
   });
 
-  // Clique direto nas ABAS DO NAVEGADOR no notebook também troca tudo!
   browserTabs.forEach((tab, idx) => {
     tab.addEventListener('click', () => goToIndex(idx, true));
     tab.addEventListener('mouseenter', () => {
@@ -510,17 +566,11 @@ export function initResponsiveShowcase() {
 
   layoutPhones(0, true);
   syncBrowserAndMeta(0, false);
-  window.addEventListener('resize', () => layoutPhones(0, true), { passive: true });
+  const onPhonesResize = () => layoutPhones(0, true);
+  window.addEventListener('resize', onPhonesResize, { passive: true });
 
   // =========================================================================
-  // 3. COREOGRAFIA SCROLLTRIGGER EM 2 ETAPAS COM CSS STICKY NATIVO:
-  //    (Zero DOM reparenting / pin-spacer -> nunca conflita com iframes!)
-  //    ETAPA A (top 95% -> top top):
-  //      - Palco começa limpo e o Notebook 3D FECHADO já vem vindo de longe!
-  //    ETAPA B (top top -> bottom bottom, dentro do sticky 100vh):
-  //      - Notebook abre a tampa -> roda 0 e 1 -> mostra Navegador + Hero ao vivo
-  //      - Aparecem as escritas ("PERFEIÇÃO EM QUALQUER TELA")
-  //      - Notebook sobe bem pra cima + Celulares 3D (com logos) entram em baixo
+  // 3. COREOGRAFIA SCROLLTRIGGER EM 2 ETAPAS COM CSS STICKY NATIVO
   // =========================================================================
   if (prefersReduced) {
     if (header) gsap.set(header, { opacity: 1, y: 0 });
@@ -538,25 +588,27 @@ export function initResponsiveShowcase() {
     if (bottomControls) gsap.set(bottomControls, { opacity: 1, y: 0 });
     if (scrollHint) gsap.set(scrollHint, { opacity: 0 });
     isCarouselRevealed = true;
-    preloadAllHeroIframes();
+    ensureIframeLoaded(0);
     return {
       goToIndex,
       next: () => nextSlide(true),
       prev: () => prevSlide(true),
       destroy: () => {
         stopAutoPlay();
+        viewObserver?.disconnect();
         resizeObserver?.disconnect();
+        window.removeEventListener('resize', debouncedScale);
+        window.removeEventListener('resize', onPhonesResize);
         matrix.destroy();
       },
     };
   }
 
-  // ESTADO INICIAL ANTES DA SEÇÃO ENTRAR NA TELA:
-  // Sem textos, sem celular; Notebook fechado bem longe pronto para se aproximar
+  // ESTADO INICIAL ANTES DA SEÇÃO ENTRAR NA TELA
   if (header) gsap.set(header, { opacity: 0, y: -22 });
-  if (glow) gsap.set(glow, { opacity: 0, scale: 0.65 });
+  if (glow) gsap.set(glow, { opacity: 0, scale: 0.72 });
   if (laptopApproach) {
-    gsap.set(laptopApproach, { opacity: 0, scale: 0.52, y: 95 });
+    gsap.set(laptopApproach, { opacity: 0, scale: 0.56, y: 90 });
   }
   gsap.set(laptopLid, { rotateX: -62 });
   gsap.set(laptopDevice, {
@@ -577,13 +629,13 @@ export function initResponsiveShowcase() {
   if (bottomControls) gsap.set(bottomControls, { opacity: 0, y: 20 });
   if (scrollHint) gsap.set(scrollHint, { opacity: 0.85, y: 0 });
 
-  // ETAPA A: NOTEBOOK FECHADO VEM VINDO DE LONGE ENQUANTO A SEÇÃO ENTRA NA TELA
+  // ETAPA A: NOTEBOOK FECHADO VEM VINDO DE LONGE
   const approachTl = gsap.timeline({
     scrollTrigger: {
       trigger: section,
       start: 'top 95%',
       end: 'top top',
-      scrub: 0.55,
+      scrub: 0.45,
       invalidateOnRefresh: true,
     },
   });
@@ -604,17 +656,27 @@ export function initResponsiveShowcase() {
     );
   }
 
-  // ETAPA B: SEQUÊNCIA STICKY (COM O NOTEBOOK FECHADO JÁ NA FRENTE!)
+  // ETAPA B: SEQUÊNCIA STICKY
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: section,
       start: 'top top',
       end: 'bottom bottom',
-      scrub: 0.65,
+      scrub: 0.5,
       invalidateOnRefresh: true,
       onUpdate: (self) => {
-        if (self.progress >= 0.04) preloadAllHeroIframes();
-        const ready = self.progress >= 0.72;
+        const p = self.progress;
+
+        // Só carrega o iframe da aba ativa quando a tampa começa a abrir
+        if (!hasOpenedOnce && p >= 0.12) {
+          hasOpenedOnce = true;
+          ensureIframeLoaded(activeIndex);
+        }
+
+        // Liga a cascata binária SOMENTE na janela em que ela está visível na tela
+        matrix.setActive(p >= 0.15 && p <= 0.46);
+
+        const ready = p >= 0.72;
         if (ready !== isCarouselRevealed) {
           isCarouselRevealed = ready;
           phoneLayer?.classList.toggle('is-interactive', ready);
@@ -628,7 +690,7 @@ export function initResponsiveShowcase() {
     },
   });
 
-  // 1) Dica some + Notebook ABRE a tampa + 0 e 1 + Navegador com Hero ao vivo (0.00 -> 0.40)
+  // 1) Dica some + Notebook ABRE a tampa + 0 e 1 + Navegador com Hero ao vivo
   if (scrollHint) {
     tl.to(scrollHint, { opacity: 0, y: 12, duration: 0.08, ease: 'power2.in' }, 0);
   }
@@ -653,7 +715,7 @@ export function initResponsiveShowcase() {
     tl.to(matrixOverlay, { opacity: 1, duration: 0.08, ease: 'power2.out' }, 0.16).to(
       matrixOverlay,
       { opacity: 0, duration: 0.14, ease: 'power2.inOut' },
-      0.30
+      0.3
     );
   }
 
@@ -665,7 +727,7 @@ export function initResponsiveShowcase() {
     );
   }
 
-  // 2) Aparecem as escritas ("PERFEIÇÃO EM QUALQUER TELA") (0.36 -> 0.54)
+  // 2) Aparecem as escritas ("PERFEIÇÃO EM QUALQUER TELA")
   if (header) {
     tl.to(
       header,
@@ -677,12 +739,12 @@ export function initResponsiveShowcase() {
   if (glow) {
     tl.to(
       glow,
-      { opacity: 1, scale: 1.12, duration: 0.18, ease: 'power2.out', immediateRender: false },
+      { opacity: 1, scale: 1.08, duration: 0.18, ease: 'power2.out', immediateRender: false },
       0.36
     );
   }
 
-  // 3) Notebook sobe bem para cima + Celulares 3D (com logos) entram em baixo (0.54 -> 0.82)
+  // 3) Notebook sobe + Celulares 3D entram abaixo
   tl.to(
     laptopDevice,
     { scale: 0.88, y: -26, rotateX: 0, duration: 0.22, ease: 'power2.out' },
@@ -705,7 +767,7 @@ export function initResponsiveShowcase() {
     );
   }
 
-  // 4) Hold final (0.82 -> 1.00)
+  // 4) Hold final
   tl.to({}, { duration: 0.18 });
 
   return {
@@ -714,7 +776,11 @@ export function initResponsiveShowcase() {
     prev: () => prevSlide(true),
     destroy: () => {
       stopAutoPlay();
+      clearTimeout(scaleResizeTimer);
+      viewObserver?.disconnect();
       resizeObserver?.disconnect();
+      window.removeEventListener('resize', debouncedScale);
+      window.removeEventListener('resize', onPhonesResize);
       approachTl.scrollTrigger?.kill();
       approachTl.kill();
       tl.scrollTrigger?.kill();

@@ -185,17 +185,25 @@ export function initNavigation() {
   links.forEach((link) => link.addEventListener('click', onLinkClick));
 
   // O menu superior flutuante (seletor de perfil, WhatsApp e Serviços)
-  // fica visível apenas na seção Hero. Fora da Hero, desaparece suavemente.
+  // fica visível apenas na seção Hero. Usa IntersectionObserver (zero layout read no scroll!).
   const heroEl = document.getElementById('hero');
   if (nav && heroEl) {
-    const handleHeroScroll = () => {
-      const heroRect = heroEl.getBoundingClientRect();
-      const isOutside = heroRect.bottom <= 80;
-      nav.classList.toggle('is-outside-hero', isOutside);
-    };
-
-    window.addEventListener('scroll', handleHeroScroll, { passive: true });
-    handleHeroScroll();
+    if ('IntersectionObserver' in window) {
+      const heroNavObserver = new IntersectionObserver(
+        ([entry]) => {
+          nav.classList.toggle('is-outside-hero', !entry.isIntersecting);
+        },
+        { rootMargin: '-80px 0px 0px 0px', threshold: 0 }
+      );
+      heroNavObserver.observe(heroEl);
+    } else {
+      const handleHeroScroll = () => {
+        const isOutside = window.scrollY > window.innerHeight - 80;
+        nav.classList.toggle('is-outside-hero', isOutside);
+      };
+      window.addEventListener('scroll', handleHeroScroll, { passive: true });
+      handleHeroScroll();
+    }
   }
 
   setState(false);

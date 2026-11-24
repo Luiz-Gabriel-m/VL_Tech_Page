@@ -101,7 +101,16 @@ mm.add(
 
 ## 5. Regras de Ouro de Performance (60/120fps)
 
+- **Configuração global obrigatória (`js/core/gsap.js`):**
+  ```js
+  ScrollTrigger.config({ ignoreMobileResize: true, limitCallbacks: true });
+  gsap.ticker.lagSmoothing(500, 33);
+  ```
+- **Debounce no `ScrollTrigger.refresh()`:** consolide recálculos de `fonts.ready`, `window.load` e `loader:complete` em um único timer debounced (~120ms) dentro de `requestAnimationFrame` para nunca causar travamentos no boot.
 - Anime **apenas** `transform` (`x`, `y`, `scale`, `rotate`, `rotateX/Y`), `opacity` e `clip-path`.
-- **Nunca anime** `width`, `height`, `top`, `left`, `margin`, `padding` ou `box-shadow` em `scrub` contínuo.
-- Use `gsap.quickTo()` para seguir o mouse (cursor, tilt, parallax) em vez de criar um novo `gsap.to()` a cada evento `mousemove`.
-- Evite `will-change: transform` em dezenas de elementos ao mesmo tempo — aplique apenas no trilho ou elemento realmente em movimento.
+- **Nunca anime** `width`, `height`, `top`, `left`, `margin`, `padding`, `box-shadow`, `background` (`radial-gradient`) ou CSS `filter` (`blur`, `brightness`, `drop-shadow`) em `scrub` contínuo, tweens GSAP ou keyframes infinitos.
+- **Glows ambientais sem `filter: blur()`:** use `radial-gradient` puro com 3–4 stops suaves até `transparent` — nunca aplique `filter: blur(60px+)` em elementos grandes (especialmente se o GSAP animar `scale`/`opacity` neles) e evite `backdrop-filter` sobre palcos WebGL/3D.
+- **Drag e mousemove eficientes:** use `gsap.set()` ou `gsap.quickTo()` no `pointermove`/`mousemove` em vez de criar novos `gsap.to()` a cada pixel. Nunca chame `getBoundingClientRect()` ou `getComputedStyle()` dentro de `rAF`, `mousemove` ou `scroll` (cacheie no `resize`/`mouseenter` ou use `IntersectionObserver`).
+- **Idle sleep obrigatório em loops `rAF`:** todo loop paralelo ao GSAP (WebGL, física 3D, roda 3D, cursor, canvas) deve usar `IntersectionObserver` + `visibilitychange`, cancelar o `rAF` de verdade fora da tela e dormir automaticamente (`rafId = null`) quando o movimento assentar.
+- **Iframes em seções animadas:** nunca carregue múltiplos `<iframe>`s no boot — carregue sob demanda (apenas a aba ativa quando a seção abrir) e congele os inativos com `content-visibility: hidden` + `contain: strict`.
+- Evite `will-change: transform` em dezenas de elementos aninhados ao mesmo tempo — aplique apenas no trilho ou camada realmente em movimento.

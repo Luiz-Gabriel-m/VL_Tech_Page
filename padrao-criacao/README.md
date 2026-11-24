@@ -14,13 +14,15 @@ padrao-criacao/
 │   ├── _TEMPLATE.md                              # Modelo para registrar novos acertos
 │   ├── 01-arquitetura-e-design-system.md
 │   ├── 02-scrollytelling-horizontal-unificado.md
-│   └── 03-sticky-nativo-scrolltrigger-e-adaptacao-21st-dev.md
+│   ├── 03-sticky-nativo-scrolltrigger-e-adaptacao-21st-dev.md
+│   └── 04-performance-60fps-gsap-idle-sleep-gpu-compositing.md
 └── erros/                                        # Erros/armadilhas para EVITAR
     ├── README.md                                 # Índice de erros
     ├── _TEMPLATE.md                              # Modelo para registrar novos erros
     ├── 01-scrollytelling-e-layout.md
     ├── 02-organizacao-codigo-e-assets.md
-    └── 03-pin-scrolltrigger-com-iframes-e-geometria-viewport.md
+    ├── 03-pin-scrolltrigger-com-iframes-e-geometria-viewport.md
+    └── 04-travamento-performance-gsap-raf-blur-iframes.md
 ```
 
 ---
@@ -46,8 +48,12 @@ padrao-criacao/
 - [ ] Respeitar `prefers-reduced-motion` e desativar interações exclusivas de mouse (como cursor customizado) em dispositivos touch (`pointer: coarse`).
 
 ### Scrollytelling e Animações
+- [ ] Configurar `gsap.ticker.lagSmoothing(500, 33)`, `ScrollTrigger.config({ ignoreMobileResize: true, limitCallbacks: true })` e consolidar `ScrollTrigger.refresh()` com debounce.
 - [ ] Usar **`position: sticky; top: 0` + `body { overflow-x: clip }`** com ScrollTrigger apenas em `scrub` (sem `pin: true`) sempre que a seção contiver `<iframe>` ou DOM sensível a reparenting.
 - [ ] Usar sempre o motor unificado para seções pinadas horizontais com cálculo dinâmico de `scrollWidth` + `holdRatio`.
+- [ ] Garantir **idle sleep + `cancelAnimationFrame` real** em todos os loops `rAF` (WebGL, física 3D, cursor, canvas) fora da viewport e quando `document.hidden` for `true`.
+- [ ] **Zero layout thrashing & zero repaint em 60fps:** nunca chamar `getComputedStyle`/`getBoundingClientRect` em `rAF`, `mousemove` ou `scroll`, e nunca animar `filter` (`blur`, `brightness`, `drop-shadow`) ou `background: radial-gradient` em GSAP/keyframes/rAF.
+- [ ] Usar `radial-gradient` puro para glows (sem `filter: blur(60px+)`) e evitar `backdrop-filter` sobre palcos WebGL/3D; carregar `<iframe>`s sob demanda (1 por vez) congelando os inativos com `content-visibility: hidden`.
 - [ ] Limitar geometrias 3D (anéis, tambores, carrosséis) à altura e largura útil da viewport (`Math.min(h * ..., w * ...)`) para nunca cortar cards no topo/base.
 - [ ] Garantir transições sequenciais (fade-out completo antes do próximo fade-in) para evitar sobreposição de texto.
 - [ ] Testar redimensionamento de tela, mobile e rolagem rápida (ida e volta) para garantir ausência de "buracos pretos" (*blank voids*) após seções pinadas.

@@ -58,16 +58,15 @@ html {
   pointer-events: auto;
 }
 
-/* Iluminação de Fundo Tecnológica Vermelha */
+/* Iluminação de Fundo Tecnológica Vermelha (radial-gradient suave, zero filter: blur) */
 .tech-hero__ambient-radial {
   position: absolute;
   top: 30%;
   left: 28%;
   transform: translate(-50%, -50%);
-  width: 950px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(255, 30, 38, 0.16) 0%, rgba(255, 30, 38, 0.04) 45%, transparent 70%);
-  filter: blur(85px);
+  width: 1100px;
+  height: 760px;
+  background: radial-gradient(circle, rgba(255, 30, 38, 0.14) 0%, rgba(255, 30, 38, 0.05) 38%, rgba(255, 30, 38, 0.01) 60%, transparent 74%);
   pointer-events: none;
   z-index: 1;
 }
