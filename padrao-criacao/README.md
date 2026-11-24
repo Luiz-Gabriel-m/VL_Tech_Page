@@ -15,14 +15,16 @@ padrao-criacao/
 │   ├── 01-arquitetura-e-design-system.md
 │   ├── 02-scrollytelling-horizontal-unificado.md
 │   ├── 03-sticky-nativo-scrolltrigger-e-adaptacao-21st-dev.md
-│   └── 04-performance-60fps-gsap-idle-sleep-gpu-compositing.md
+│   ├── 04-performance-60fps-gsap-idle-sleep-gpu-compositing.md
+│   └── 05-portal-gpu-robo-3d-pbr-e-mural-porque-escolher.md
 └── erros/                                        # Erros/armadilhas para EVITAR
     ├── README.md                                 # Índice de erros
     ├── _TEMPLATE.md                              # Modelo para registrar novos erros
     ├── 01-scrollytelling-e-layout.md
     ├── 02-organizacao-codigo-e-assets.md
     ├── 03-pin-scrolltrigger-com-iframes-e-geometria-viewport.md
-    └── 04-travamento-performance-gsap-raf-blur-iframes.md
+    ├── 04-travamento-performance-gsap-raf-blur-iframes.md
+    └── 05-svg-clippath-trava-cliques-mola-sem-dt-e-titulo-sobreposto.md
 ```
 
 ---
