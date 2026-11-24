@@ -1,15 +1,15 @@
 /* ==========================================================================
-   AUTOMAÇÃO PORTAL — Transição Cinematográfica 120fps (CinematicHero 21st.dev)
-   - Substitui o zoom gigante em texto (`scale: 7.5` com text-shadow pesado)
-     pela coreografia fluida do CinematicLandingHero em 100% GPU compositor:
-       1. Fundo: Título editorial "AUTOMAÇÃO / EM PILOTO AUTOMÁTICO." revela
-          com clip-path limpo e recua suavemente em profundidade (`scale: 0.9`)
-       2. Primeiro plano: O card físico de profundidade (`#autoMainCard` com o
-          Robô 3D já pronto dentro) sobe da base da tela via `translate3d` +
-          `scale(0.92 -> 1)` sem mutar `width/height` (zero layout thrashing!)
-       3. Handoff GPU inteligente: dispara `vl:automacao-card-visible` assim
-          que o card entra na tela para acordar o loop Three.js sem disputar
-          GPU durante o início da rolagem!
+   AUTOMAÇÃO PORTAL — Coreografia 3 Atos CinematicHero (21st.dev) em 120fps
+   - ATO 1 (0.00 -> 0.28): Título editorial ("AUTOMAÇÃO / EM PILOTO AUTOMÁTICO.")
+     recua suavemente enquanto o Card Físico (`#autoMainCard`) sobe da base da
+     tela via `translate3d` + `scale(0.90 -> 1)` (ZERO blur / ZERO width/height!)
+   - ATO 2 (0.28 -> 0.68): Palco do Robô 3D fica 100% centralizado, nítido e
+     interativo (4 abas + clique no robô + Testar Ação) com hold confortável
+   - ATO 3 (0.68 -> 1.00): Pullback físico do card (`scale: 1 -> 0.88`) e saída
+     suave pelo topo (`yPercent: 0 -> -118`), revelando por trás a camada CTA
+     com botões táteis ("Quero Automatizar Agora" + "Por Que a VL Tech")!
+   - Handoff GPU inteligente: acorda o loop WebGL Three.js apenas enquanto o
+     card físico está em tela (`0.08 <= p <= 0.84`) — 100% GPU livre na entrada/saída!
    ========================================================================== */
 
 import { gsap, ScrollTrigger } from './core/gsap.js';
@@ -20,12 +20,16 @@ export function initAutomacaoPortal() {
   if (!section) return null;
 
   const introLayer = section.querySelector('#autoIntroLayer');
+  const ctaLayer = section.querySelector('#autoCtaLayer');
   const line1 = section.querySelector('#autoCineLine1');
   const line2 = section.querySelector('#autoCineLine2');
   const kicker = section.querySelector('#autoPortalKicker');
   const caption = section.querySelector('#autoPortalCaption');
   const enterBtn = section.querySelector('#autoPortalEnterBtn');
   const mainCard = section.querySelector('#autoMainCard');
+  const topbar = section.querySelector('.robot-topbar');
+  const arena = section.querySelector('.robot-arena');
+  const bottomDeck = section.querySelector('.robot-bottom-deck');
 
   if (!introLayer || !mainCard) return null;
 
@@ -38,6 +42,7 @@ export function initAutomacaoPortal() {
 
   if (prefersReduced || !gsap || !ScrollTrigger) {
     introLayer.style.display = 'none';
+    if (ctaLayer) ctaLayer.style.display = 'none';
     gsap?.set(mainCard, { yPercent: 0, scale: 1, opacity: 1 });
     section.dataset.portalOpen = 'true';
     notifyRobot(true);
@@ -49,14 +54,19 @@ export function initAutomacaoPortal() {
     };
   }
 
-  // Estado inicial: texto editorial visível e card físico aguardando logo abaixo
-  gsap.set(mainCard, { yPercent: 108, scale: 0.92, force3D: true });
+  // Estados iniciais 100% GPU
+  gsap.set(mainCard, { yPercent: 112, scale: 0.9, force3D: true });
   gsap.set(introLayer, { opacity: 1, scale: 1, y: 0, force3D: true });
-  if (line2) {
-    gsap.set(line2, { clipPath: 'inset(0 100% 0 0)' });
+  if (line2) gsap.set(line2, { clipPath: 'inset(0 100% 0 0)' });
+  if (ctaLayer) {
+    gsap.set(ctaLayer, { autoAlpha: 0, scale: 0.9, y: 24, force3D: true });
+    ctaLayer.style.pointerEvents = 'none';
   }
+  if (topbar) gsap.set(topbar, { opacity: 0, y: -14 });
+  if (arena) gsap.set(arena, { opacity: 0, scale: 0.92 });
+  if (bottomDeck) gsap.set(bottomDeck, { opacity: 0, y: 18 });
 
-  // Animação leve de entrada do texto assim que a seção chega na viewport
+  // Revelação editorial leve quando a seção entra na tela
   let introPlayed = false;
   const playIntroReveal = () => {
     if (introPlayed) return;
@@ -64,84 +74,116 @@ export function initAutomacaoPortal() {
     if (line1) {
       gsap.fromTo(
         line1,
-        { y: 28, opacity: 0 },
+        { y: 26, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.85, ease: 'expo.out' }
       );
     }
     if (line2) {
       gsap.to(line2, {
         clipPath: 'inset(0 0% 0 0)',
-        duration: 0.95,
-        delay: 0.15,
+        duration: 0.9,
+        delay: 0.14,
         ease: 'power4.inOut',
       });
     }
   };
 
   let robotAwake = false;
-  let portalOpen = false;
+  let ctaInteractive = false;
 
-  // Timeline única de scroll — 100% GPU (`transform` + `opacity`), sem `filter` nem `width/height`
+  // Timeline de 3 Atos (scrub suave 0.4s, apenas transform + opacity)
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: section,
       start: 'top top',
-      end: '+=68%',
-      scrub: 0.35,
+      end: 'bottom bottom',
+      scrub: 0.4,
       invalidateOnRefresh: true,
       onEnter: playIntroReveal,
       onEnterBack: playIntroReveal,
       onUpdate(self) {
         const p = self.progress;
 
-        const shouldWakeRobot = p >= 0.14;
-        if (shouldWakeRobot !== robotAwake) {
-          robotAwake = shouldWakeRobot;
-          notifyRobot(shouldWakeRobot);
+        // WebGL acorda apenas enquanto o card do robô está visível na viewport
+        const shouldWake = p >= 0.08 && p <= 0.86;
+        if (shouldWake !== robotAwake) {
+          robotAwake = shouldWake;
+          notifyRobot(shouldWake);
         }
 
-        const isNowOpen = p >= 0.55;
-        if (isNowOpen !== portalOpen) {
-          portalOpen = isNowOpen;
-          section.dataset.portalOpen = isNowOpen ? 'true' : 'false';
-          introLayer.style.visibility = isNowOpen ? 'hidden' : 'visible';
+        // Camada CTA só recebe cliques quando o card saiu e ela está revelada
+        const ctaReady = p >= 0.78;
+        if (ctaReady !== ctaInteractive) {
+          ctaInteractive = ctaReady;
+          if (ctaLayer) {
+            ctaLayer.style.pointerEvents = ctaReady ? 'auto' : 'none';
+            ctaLayer.setAttribute('aria-hidden', ctaReady ? 'false' : 'true');
+          }
+          mainCard.style.pointerEvents = ctaReady ? 'none' : 'auto';
         }
       },
     },
   });
 
-  // Se o usuário já recarregou com a seção na tela, revela o texto na hora
   const rect = section.getBoundingClientRect();
   if (rect.top < window.innerHeight * 0.85) {
     playIntroReveal();
   }
 
-  // 0.00 -> 0.45: Texto de abertura recua suavemente em profundidade (sem zoom gigante!)
-  if (kicker) {
-    tl.to(kicker, { opacity: 0, y: -16, duration: 0.25, ease: 'power2.in' }, 0);
-  }
-  if (caption) {
-    tl.to(caption, { opacity: 0, y: 14, duration: 0.22, ease: 'power2.in' }, 0);
-  }
+  // ===== ATO 1 (0.00 -> 0.28): Intro recua + Card físico sobe da base =====
+  if (kicker) tl.to(kicker, { opacity: 0, y: -14, duration: 0.1, ease: 'power2.in' }, 0);
+  if (caption) tl.to(caption, { opacity: 0, y: 12, duration: 0.1, ease: 'power2.in' }, 0);
+
   tl.to(
     introLayer,
-    { scale: 0.88, y: -44, opacity: 0, duration: 0.5, ease: 'power2.inOut' },
-    0.04
+    { scale: 1.08, y: -28, autoAlpha: 0, duration: 0.2, ease: 'power2.inOut' },
+    0.02
   );
 
-  // 0.06 -> 0.88: Card físico com o Robô 3D sobe suavemente da base e assenta no centro
   tl.to(
     mainCard,
-    { yPercent: 0, scale: 1, duration: 0.82, ease: 'power3.out' },
-    0.06
+    { yPercent: 0, scale: 1, duration: 0.26, ease: 'power3.out' },
+    0.02
   );
 
-  // Micro-hold no final para assentar perfeitamente antes de liberar o scroll
-  tl.to({}, { duration: 0.12 });
+  // Revelação sequencial limpa dos elementos internos do Robô 3D
+  if (topbar) tl.to(topbar, { opacity: 1, y: 0, duration: 0.12, ease: 'power3.out' }, 0.16);
+  if (arena) tl.to(arena, { opacity: 1, scale: 1, duration: 0.16, ease: 'expo.out' }, 0.18);
+  if (bottomDeck) tl.to(bottomDeck, { opacity: 1, y: 0, duration: 0.12, ease: 'power3.out' }, 0.2);
 
+  // ===== ATO 2 (0.32 -> 0.66): Hold interativo estável no Robô 3D =====
+  tl.to({}, { duration: 0.34 }, 0.32);
+
+  // ===== ATO 3 (0.66 -> 1.00): Pullback físico + saída do card -> revela CTA Tátil =====
+  tl.to(
+    mainCard,
+    { scale: 0.88, duration: 0.14, ease: 'power2.inOut' },
+    0.66
+  );
+
+  if (ctaLayer) {
+    tl.to(
+      ctaLayer,
+      { autoAlpha: 1, scale: 1, y: 0, duration: 0.18, ease: 'expo.out' },
+      0.74
+    );
+  }
+
+  tl.to(
+    mainCard,
+    { yPercent: -120, duration: 0.2, ease: 'power3.in' },
+    0.78
+  );
+
+  // Pequeno hold final no CTA tátil
+  tl.to({}, { duration: 0.06 }, 0.98);
+
+  // Pula diretamente para o meio do ATO 2 (Robô 3D aberto e 100% interativo!)
   const scrollToCard = () => {
     const st = tl.scrollTrigger;
-    const targetY = st ? st.end + 16 : section.offsetTop + window.innerHeight * 0.72;
+    const targetY = st
+      ? st.start + (st.end - st.start) * 0.45
+      : section.offsetTop + window.innerHeight * 0.95;
     window.scrollTo({
       top: Math.round(targetY),
       behavior: 'smooth',
