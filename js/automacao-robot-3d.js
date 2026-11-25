@@ -261,8 +261,13 @@ function createStudioEnvironment(THREE, renderer) {
 
 function generatePbrTexturesAsync(THREE) {
   return new Promise((resolve) => {
-    setTimeout(() => {
-      const size = 512;
+    const schedule =
+      typeof window.requestIdleCallback === 'function'
+        ? (cb) => window.requestIdleCallback(cb, { timeout: 600 })
+        : (cb) => setTimeout(cb, 320);
+
+    schedule(() => {
+      const size = 256;
       const canvasC = document.createElement('canvas');
       const canvasB = document.createElement('canvas');
       canvasC.width = canvasB.width = size;
@@ -276,22 +281,29 @@ function generatePbrTexturesAsync(THREE) {
         ctxB.fillStyle = '#808080';
         ctxB.fillRect(0, 0, size, size);
 
-        for (let i = 0; i < 6500; i++) {
-          const x = Math.random() * size;
-          const y = Math.random() * size;
-          const r = 0.5 + Math.random() * 1.35;
-          const isDark = Math.random() > 0.16;
-
-          ctxC.beginPath();
-          ctxC.arc(x, y, r, 0, Math.PI * 2);
-          ctxC.fillStyle = isDark ? '#3a3a44' : '#f2f2f8';
-          ctxC.fill();
-
-          ctxB.beginPath();
-          ctxB.arc(x, y, r, 0, Math.PI * 2);
-          ctxB.fillStyle = isDark ? '#181818' : '#f4f4f4';
-          ctxB.fill();
+        // Batch em apenas 2 caminhos (escuro + claro) em vez de 13.000 draw calls individuais (< 3ms!)
+        const darkDots = [];
+        const lightDots = [];
+        for (let i = 0; i < 2200; i++) {
+          const dot = [Math.random() * size, Math.random() * size, 0.7 + Math.random() * 1.4];
+          if (Math.random() > 0.16) darkDots.push(dot);
+          else lightDots.push(dot);
         }
+
+        const fillBatch = (ctx, list, color) => {
+          ctx.fillStyle = color;
+          ctx.beginPath();
+          for (let i = 0; i < list.length; i++) {
+            const [x, y, s] = list[i];
+            ctx.rect(x, y, s, s);
+          }
+          ctx.fill();
+        };
+
+        fillBatch(ctxC, darkDots, '#3a3a44');
+        fillBatch(ctxC, lightDots, '#f2f2f8');
+        fillBatch(ctxB, darkDots, '#181818');
+        fillBatch(ctxB, lightDots, '#f4f4f4');
       }
 
       const colorMap = new THREE.CanvasTexture(canvasC);
@@ -304,7 +316,7 @@ function generatePbrTexturesAsync(THREE) {
       bumpMap.needsUpdate = true;
 
       resolve({ colorMap, bumpMap });
-    }, 0);
+    });
   });
 }
 
@@ -386,6 +398,7 @@ export function initAutomacaoRobot() {
 
   const canvasWrap = stage.querySelector('#autoRobotCanvasWrap') || canvas.parentElement;
   const bgWordEl = stage.querySelector('#autoRobotBgWord');
+  const bubbleEl = stage.querySelector('#autoRobotBubble');
   const bubbleTextEl = stage.querySelector('#autoRobotBubbleText');
   const badgeEl = stage.querySelector('#autoRobotModeBadge');
   const titleEl = stage.querySelector('#autoRobotModeTitle');
@@ -411,13 +424,16 @@ export function initAutomacaoRobot() {
   let width = Math.max(1, canvasWrap.clientWidth || window.innerWidth);
   let height = Math.max(1, canvasWrap.clientHeight || 380);
 
+  const maxDpr = isTouch ? 1.25 : 1.5;
+
   const renderer = new THREE.WebGLRenderer({
     canvas,
     antialias: true,
     alpha: true,
+    stencil: false,
     powerPreference: 'high-performance',
   });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, maxDpr));
   renderer.setSize(width, height, false);
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.24;
@@ -429,10 +445,8 @@ export function initAutomacaoRobot() {
   const camera = new THREE.PerspectiveCamera(36, width / height, 0.1, 30);
   camera.position.set(0, 0.14, 3.85);
 
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
-  scene.add(ambientLight);
-
-  const hemiLight = new THREE.HemisphereLight(0xffffff, 0x262632, 1.05);
+  // Ambient fundido no HemisphereLight (1 luz a menos por fragmento PBR com iluminação idêntica!)
+  const hemiLight = new THREE.HemisphereLight(0xffffff, 0x464654, 1.75);
   scene.add(hemiLight);
 
   const keyLight = new THREE.DirectionalLight(0xffffff, 1.85);
@@ -485,27 +499,15 @@ export function initAutomacaoRobot() {
 
   let disposed = false;
   let generatedMaps = null;
-  generatePbrTexturesAsync(THREE).then((maps) => {
-    if (disposed) {
-      maps.colorMap.dispose();
-      maps.bumpMap.dispose();
-      return;
-    }
-    generatedMaps = maps;
-    chassisMat.map = maps.colorMap;
-    chassisMat.bumpMap = maps.bumpMap;
-    chassisMat.needsUpdate = true;
-    if (!rafId) renderOnce();
-  });
 
   const bodyMesh = new THREE.Mesh(
-    new THREE.SphereGeometry(0.43, 48, 48, 0, Math.PI * 2, Math.PI * 0.15, Math.PI * 0.85),
+    new THREE.SphereGeometry(0.43, 36, 28, 0, Math.PI * 2, Math.PI * 0.15, Math.PI * 0.85),
     chassisMat
   );
   bodyGroup.add(bodyMesh);
 
   const bevelMesh = new THREE.Mesh(
-    new THREE.TorusGeometry(0.235, 0.025, 24, 48),
+    new THREE.TorusGeometry(0.235, 0.025, 16, 32),
     chassisMat
   );
   bevelMesh.position.set(0, 0.34, 0);
@@ -520,7 +522,7 @@ export function initAutomacaoRobot() {
     new THREE.Vector2(0.27, 0.055),
     new THREE.Vector2(0.1, 0.055),
   ];
-  const neckMesh = new THREE.Mesh(new THREE.LatheGeometry(neckPoints, 48), chassisMat);
+  const neckMesh = new THREE.Mesh(new THREE.LatheGeometry(neckPoints, 32), chassisMat);
   neckMesh.position.set(0, 0.38, 0);
   bodyGroup.add(neckMesh);
 
@@ -534,7 +536,7 @@ export function initAutomacaoRobot() {
     metalness: 0.18,
     envMapIntensity: 0.75,
   });
-  const headMesh = new THREE.Mesh(new THREE.SphereGeometry(0.28, 48, 48), headMat);
+  const headMesh = new THREE.Mesh(new THREE.SphereGeometry(0.28, 32, 24), headMat);
   headGroup.add(headMesh);
 
   const glassUniforms = {
@@ -572,16 +574,16 @@ export function initAutomacaoRobot() {
     blending: THREE.AdditiveBlending,
     depthWrite: false,
   });
-  const glassMesh = new THREE.Mesh(new THREE.SphereGeometry(0.302, 48, 48), glassMat);
+  const glassMesh = new THREE.Mesh(new THREE.SphereGeometry(0.302, 32, 24), glassMat);
   headGroup.add(glassMesh);
 
   // Olhos 3D + Corações 3D HeartCurve
   const { topPath, bottomPath } = createEyePaths(THREE);
   const heartCurve = createHeartCurve(THREE);
 
-  const eyeTopGeom = new THREE.TubeGeometry(topPath, 18, 0.004, 8, false);
-  const eyeBottomGeom = new THREE.TubeGeometry(bottomPath, 18, 0.004, 8, false);
-  const heartGeom = new THREE.TubeGeometry(heartCurve, 56, 0.004, 8, true);
+  const eyeTopGeom = new THREE.TubeGeometry(topPath, 14, 0.004, 6, false);
+  const eyeBottomGeom = new THREE.TubeGeometry(bottomPath, 14, 0.004, 6, false);
+  const heartGeom = new THREE.TubeGeometry(heartCurve, 36, 0.004, 6, true);
 
   const eyeMat = new THREE.MeshBasicMaterial({ color: 0xffffff, toneMapped: false });
   const heartMat = new THREE.MeshBasicMaterial({ color: 0xff245b, toneMapped: false });
@@ -615,14 +617,37 @@ export function initAutomacaoRobot() {
   const earCenterMat = new THREE.MeshStandardMaterial({ color: 0x3c3c48, roughness: 0.68 });
   const antBaseMat = new THREE.MeshStandardMaterial({ color: 0xa0a0b0, roughness: 0.3, metalness: 0.6 });
   const antStickMat = new THREE.MeshStandardMaterial({ color: 0xdcdce6, roughness: 0.3, metalness: 0.35 });
-  const antTipMat = new THREE.MeshBasicMaterial({ color: 0xff245b, toneMapped: false });
+  const antTipMat = new THREE.MeshBasicMaterial({ color: 0x00ffc6, toneMapped: false });
 
-  const earCylGeom = new THREE.CylinderGeometry(0.04, 0.04, 0.025, 24);
-  const earTorusGeom = new THREE.TorusGeometry(0.032, 0.008, 12, 24);
-  const earCenterGeom = new THREE.CylinderGeometry(0.03, 0.03, 0.006, 24);
-  const antBaseGeom = new THREE.CylinderGeometry(0.006, 0.008, 0.02, 12);
-  const antStickGeom = new THREE.CylinderGeometry(0.003, 0.003, 0.1, 8);
-  const antTipGeom = new THREE.SphereGeometry(0.008, 14, 14);
+  const earCylGeom = new THREE.CylinderGeometry(0.04, 0.04, 0.025, 16);
+  const earTorusGeom = new THREE.TorusGeometry(0.032, 0.008, 10, 18);
+  const earCenterGeom = new THREE.CylinderGeometry(0.03, 0.03, 0.006, 16);
+  const antBaseGeom = new THREE.CylinderGeometry(0.006, 0.008, 0.02, 10);
+  const antStickGeom = new THREE.CylinderGeometry(0.003, 0.003, 0.1, 6);
+  const antTipGeom = new THREE.SphereGeometry(0.008, 10, 10);
+
+  // Gera texturas PBR em idle e pré-compila TODOS os shaders (inclusive corações 3D!) -> zero hitch no 1º wake/clique!
+  generatePbrTexturesAsync(THREE).then((maps) => {
+    if (disposed) {
+      maps.colorMap.dispose();
+      maps.bumpMap.dispose();
+      return;
+    }
+    generatedMaps = maps;
+    chassisMat.map = maps.colorMap;
+    chassisMat.bumpMap = maps.bumpMap;
+    chassisMat.needsUpdate = true;
+
+    const prevLeftHeart = leftEye.heartMesh.visible;
+    const prevRightHeart = rightEye.heartMesh.visible;
+    leftEye.heartMesh.visible = true;
+    rightEye.heartMesh.visible = true;
+    renderer.compile(scene, camera);
+    leftEye.heartMesh.visible = prevLeftHeart;
+    rightEye.heartMesh.visible = prevRightHeart;
+
+    if (!rafId) renderOnce();
+  });
 
   function createEar(isLeft) {
     const dir = isLeft ? -1 : 1;
@@ -729,18 +754,27 @@ export function initAutomacaoRobot() {
     const total = String(features.length).padStart(2, '0');
 
     const apply = () => {
-      if (bgWordEl) bgWordEl.textContent = mode.bgWord;
+      if (bgWordEl && bgWordEl.textContent !== mode.bgWord) {
+        bgWordEl.textContent = mode.bgWord;
+      }
       if (badgeEl) badgeEl.textContent = `${mode.label} · FUNÇÃO ${num} / ${total} · ${feat.tag}`;
       if (bubbleTextEl) bubbleTextEl.textContent = feat.bubble;
       if (titleEl) titleEl.textContent = feat.title;
       if (descEl) descEl.textContent = feat.desc;
       if (chipsEl) {
-        chipsEl.innerHTML = '';
-        feat.chips.forEach((label) => {
-          const li = document.createElement('li');
-          li.textContent = label;
-          chipsEl.appendChild(li);
-        });
+        // Reutiliza os <li> existentes in-place (zero DOM churn / zero GC nos cliques rápidos!)
+        const existing = chipsEl.children;
+        for (let i = 0; i < feat.chips.length; i++) {
+          let li = existing[i];
+          if (!li) {
+            li = document.createElement('li');
+            chipsEl.appendChild(li);
+          }
+          li.textContent = feat.chips[i];
+        }
+        while (chipsEl.children.length > feat.chips.length) {
+          chipsEl.removeChild(chipsEl.lastElementChild);
+        }
       }
       if (metricAVal) metricAVal.textContent = feat.metricA.val;
       if (metricALabel) metricALabel.textContent = feat.metricA.label;
@@ -758,8 +792,16 @@ export function initAutomacaoRobot() {
     if (animateBgWord && bgWordEl) {
       gsap.fromTo(
         bgWordEl,
-        { opacity: 0.02, scale: 0.94 },
-        { opacity: 1, scale: 1, duration: 0.4, ease: 'power3.out', overwrite: 'auto' }
+        { opacity: 0.02, scale: 0.94, force3D: true },
+        { opacity: 1, scale: 1, duration: 0.36, ease: 'power3.out', overwrite: 'auto', force3D: true }
+      );
+    }
+
+    if (bubbleEl) {
+      gsap.fromTo(
+        bubbleEl,
+        { scale: 0.95, opacity: 0.72, force3D: true },
+        { scale: 1, opacity: 1, duration: 0.24, ease: 'power3.out', overwrite: 'auto', force3D: true }
       );
     }
 
@@ -767,8 +809,8 @@ export function initAutomacaoRobot() {
       gsap.killTweensOf(infoPanel);
       gsap
         .timeline()
-        .to(infoPanel, { opacity: 0, y: 6, duration: 0.12, ease: 'power2.in', onComplete: apply })
-        .to(infoPanel, { opacity: 1, y: 0, duration: 0.24, ease: 'power3.out' });
+        .to(infoPanel, { opacity: 0, y: 6, duration: 0.1, ease: 'power2.in', force3D: true, onComplete: apply })
+        .to(infoPanel, { opacity: 1, y: 0, duration: 0.22, ease: 'power3.out', force3D: true });
     } else {
       apply();
     }
@@ -931,6 +973,8 @@ export function initAutomacaoRobot() {
   const BLINK_CYCLE = 3.0;
   const BLINK_DUR = 0.34;
 
+  let prevLoved = false;
+
   function renderOnce() {
     renderer.render(scene, camera);
   }
@@ -1014,13 +1058,16 @@ export function initAutomacaoRobot() {
       scaleY = Math.max(0.06, 1 - Math.sin(p * Math.PI));
     }
 
-    const eyeScale = isLoved ? 1.18 + Math.sin(elapsed * 12) * 0.08 : 1.14;
-    leftEye.normalGroup.visible = !isLoved;
-    leftEye.heartMesh.visible = isLoved;
-    leftEye.group.scale.set(eyeScale, eyeScale * scaleY, eyeScale);
+    if (isLoved !== prevLoved) {
+      prevLoved = isLoved;
+      leftEye.normalGroup.visible = !isLoved;
+      leftEye.heartMesh.visible = isLoved;
+      rightEye.normalGroup.visible = !isLoved;
+      rightEye.heartMesh.visible = isLoved;
+    }
 
-    rightEye.normalGroup.visible = !isLoved;
-    rightEye.heartMesh.visible = isLoved;
+    const eyeScale = isLoved ? 1.18 + Math.sin(elapsed * 12) * 0.08 : 1.14;
+    leftEye.group.scale.set(eyeScale, eyeScale * scaleY, eyeScale);
     rightEye.group.scale.set(eyeScale, eyeScale * scaleY, eyeScale);
 
     renderer.render(scene, camera);
@@ -1041,11 +1088,11 @@ export function initAutomacaoRobot() {
     }
   }
 
-  // Acorda o loop WebGL somente quando o card físico entra em cena (zero disputa de GPU no scroll!)
+  // Acorda o loop WebGL somente quando o portal terminou (sem forçar layout reflow no scroll!)
   const onCardState = (e) => {
     cardAwake = Boolean(e?.detail?.active);
     if (cardAwake && isVisible) {
-      syncSize();
+      if (width <= 1 || height <= 1) syncSize();
       startLoop();
     } else if (!cardAwake) {
       stopLoop();
@@ -1057,7 +1104,7 @@ export function initAutomacaoRobot() {
     ([entry]) => {
       isVisible = entry.isIntersecting;
       if (isVisible && cardAwake) {
-        syncSize();
+        if (width <= 1 || height <= 1) syncSize();
         startLoop();
       } else if (!isVisible) {
         stopLoop();
@@ -1081,7 +1128,7 @@ export function initAutomacaoRobot() {
     height = nextH;
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, maxDpr));
     renderer.setSize(width, height, false);
     updateResponsiveScale();
     if (!rafId) renderOnce();

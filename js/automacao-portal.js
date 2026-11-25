@@ -1,18 +1,19 @@
 /* ==========================================================================
-   AUTOMAÇÃO PORTAL — Glyph Portal Otimizado 120fps (Zoom por Dentro da Letra)
+   AUTOMAÇÃO PORTAL — Glyph Portal Ultra-Fluido 60/120fps (Zoom por Dentro da Letra)
    Baseado em Glyph Portal © 2026 Christian Katzmann (MIT) — ktzm.dk
    Otimizações VL Tech:
    - Palco único `position: sticky` (`100svh`): a palavra "AUTOMAÇÃO" dá zoom
      por dentro da letra escolhida até preencher 100% da tela, revelando o
      Robô 3D já perfeitamente centralizado no MESMO viewport (zero corte!)
+   - ZERO Recalc Style no scroll:
+       · NUNCA muta CSS custom properties ou dataset na <section> por frame
+       · Atualiza diretamente `opacity` / `transform` nos nós-folha com dirty-check
+       · Pré-calcula `log(startScale)` e `log(endScale/startScale)` fora do scroll
    - ZERO disputa de GPU:
-       1. Durante o zoom da letra (`p < 0.48`), o WebGL do Robô 3D fica pausado
-          (100% GPU livre para o zoom do SVG `<clipPath>`!)
-       2. Assim que a letra preenche 100% da tela (`t >= 0.99`), o `clipPath`
-          desliga (`none`), a camada do portal recebe `pointer-events: none` e
-          o Robô 3D acorda instantaneamente (`vl:automacao-card-state: true`)
-   - Scrub suavizado via GSAP ScrollTrigger + escolha interativa da letra
-     (hover / clique / teclado / select touch)
+       1. Durante o zoom (`clip-path` ativo), o WebGL do Robô 3D fica pausado e
+          o grid mascarado (`.gp-portal-grid`) permanece oculto (metade do fill-rate!)
+       2. Ao completar o zoom (`t >= 0.99`), `clipPath` vira `none`, o SVG some,
+          o grid entra suave e o Robô 3D acorda com shaders já pré-compilados
    ========================================================================== */
 
 import { gsap, ScrollTrigger } from './core/gsap.js';
@@ -54,10 +55,11 @@ function interior(context, char, font) {
 
   for (let y = 0; y < height; y++) {
     let diagonal = 0;
+    const rowOffset = y * width;
     for (let x = 0; x < width; x++) {
       const above = rows[x + 1];
       rows[x + 1] =
-        pixels[(y * width + x) * 4 + 3] > 245
+        pixels[(rowOffset + x) * 4 + 3] > 245
           ? Math.min(above, rows[x], diagonal) + 1
           : 0;
       diagonal = above;
@@ -83,6 +85,9 @@ export function initAutomacaoPortal() {
 
   const pin = section.querySelector('[data-gp-pin]');
   const field = section.querySelector('[data-gp-field]');
+  const portalGrid = section.querySelector('.gp-portal-grid');
+  const inkVeilEl = section.querySelector('.gp-portal-ink-veil');
+  const captionEl = section.querySelector('[data-gp-caption]');
   const art = section.querySelector('[data-gp-art]');
   const clip = section.querySelector('#gp-automacao-clip');
   const glyph = section.querySelector('[data-gp-glyph]');
@@ -113,9 +118,15 @@ export function initAutomacaoPortal() {
     section.dataset.gpMotion = 'off';
     section.dataset.gpEntered = 'true';
     field.style.clipPath = 'none';
+    if (portalGrid) {
+      portalGrid.style.opacity = '1';
+      portalGrid.style.visibility = 'visible';
+    }
+    if (inkVeilEl) inkVeilEl.style.opacity = '0';
     robotLayer.style.opacity = '1';
     robotLayer.style.transform = 'none';
     robotLayer.style.pointerEvents = 'auto';
+    robotLayer.style.visibility = 'visible';
     notifyRobot(true);
     return {
       scrollToCard() {
@@ -171,14 +182,27 @@ export function initAutomacaoPortal() {
   let H = 1;
   let startScale = 1;
   let endScale = 1;
+  let logStartScale = 0;
+  let logScaleRatio = 0;
+  let invStartScale = 1;
+  let invScaleDelta = 0;
   let center = { x: 0, y: 0 };
   let bounds = { x: 0, y: 0, width: 1, height: 1 };
   let target = null;
   let candidates = [];
   let letters = [];
-  let choosing = false;
+  let choosing = null;
   let fontDirty = true;
+
+  // Caches de estado para ZERO mutações redundantes no DOM durante scroll 120fps
   let lastClipDropped = null;
+  let lastInkVeil = '';
+  let lastCaptionAlpha = '';
+  let lastCaptionHit = '';
+  let lastMarksAlpha = '';
+  let lastMarksVisible = null;
+  let lastReveal = -1;
+  let lastRobotVisible = null;
   let robotAwake = false;
   let entered = false;
 
@@ -250,6 +274,12 @@ export function initAutomacaoPortal() {
       ? Math.max(startScale, Math.hypot(W, H) / (target.radius * 1.28))
       : startScale;
 
+    // Pré-calcula constantes logarítmicas e inversas fora do loop de scroll!
+    logStartScale = Math.log(startScale || 1);
+    logScaleRatio = Math.log((endScale || 1) / (startScale || 1));
+    invStartScale = 1 / (startScale || 1);
+    invScaleDelta = 1 / (endScale || 1) - invStartScale;
+
     section.dataset.gpFocus = target ? Array.from(text.slice(target.index))[0] : '';
     section.dataset.gpFocusIndex = String(target?.index ?? -1);
 
@@ -270,7 +300,7 @@ export function initAutomacaoPortal() {
     }
 
     if (marks) {
-      const u = 1 / (startScale || 1);
+      const u = invStartScale;
       const y = bounds.y + bounds.height + 24 * u;
       const x = bounds.x;
       const right = x + bounds.width;
@@ -299,38 +329,45 @@ export function initAutomacaoPortal() {
 
     // Só muta SVG enquanto o clipPath está ativo (0% custo SVG após preencher a tela!)
     if (!shouldDropClip) {
-      const eased = t < 0.5 ? 4 * t ** 3 : 1 - (-2 * t + 2) ** 3 / 2;
-      const scale = Math.exp(Math.log(startScale) + Math.log(endScale / startScale) * eased);
-      const blend =
-        endScale === startScale
-          ? 0
-          : (1 / scale - 1 / startScale) / (1 / endScale - 1 / startScale);
+      const eased = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      const scale = Math.exp(logStartScale + logScaleRatio * eased);
+      const blend = invScaleDelta === 0 ? 0 : (1 / scale - invStartScale) / invScaleDelta;
 
       const cx = center.x + (target.x - center.x) * blend;
       const cy = center.y + (target.y - center.y) * blend;
       const roll = -3.5 * smooth(0.06, 0.5, t) * (1 - smooth(0.62, 0.94, t));
 
-      const radians = (roll * Math.PI) / 180;
+      const radians = roll * 0.017453292519943295;
+      const cosR = Math.cos(radians);
+      const sinR = Math.sin(radians);
       const anchorY = H * 0.5;
-      const dx = W / 2 / scale;
+      const dx = W * 0.5 / scale;
       const dy = anchorY / scale;
 
       clip.setAttribute('transform', `scale(${scale.toFixed(4)}) rotate(${roll.toFixed(3)})`);
       glyph.setAttribute(
         'transform',
-        `translate(${(Math.cos(radians) * dx + Math.sin(radians) * dy - cx).toFixed(3)} ${(
-          -Math.sin(radians) * dx +
-          Math.cos(radians) * dy -
-          cy
-        ).toFixed(3)})`
+        `translate(${(cosR * dx + sinR * dy - cx).toFixed(2)} ${(-sinR * dx + cosR * dy - cy).toFixed(2)})`
       );
 
       if (marks) {
-        marks.setAttribute(
-          'transform',
-          `translate(${W / 2} ${anchorY}) scale(${scale.toFixed(4)}) rotate(${roll.toFixed(3)}) translate(${-cx} ${-cy})`
-        );
-        marks.style.opacity = String((1 - smooth(0.05, 0.18, p)).toFixed(3));
+        const marksAlpha = 1 - smooth(0.05, 0.18, p);
+        const marksVis = marksAlpha > 0.005;
+        if (marksVis !== lastMarksVisible) {
+          lastMarksVisible = marksVis;
+          marks.style.visibility = marksVis ? 'visible' : 'hidden';
+        }
+        if (marksVis) {
+          marks.setAttribute(
+            'transform',
+            `translate(${W * 0.5} ${anchorY}) scale(${scale.toFixed(4)}) rotate(${roll.toFixed(3)}) translate(${-cx} ${-cy})`
+          );
+          const marksStr = marksAlpha.toFixed(3);
+          if (marksStr !== lastMarksAlpha) {
+            lastMarksAlpha = marksStr;
+            marks.style.opacity = marksStr;
+          }
+        }
       }
     }
 
@@ -338,25 +375,58 @@ export function initAutomacaoPortal() {
       lastClipDropped = shouldDropClip;
       field.style.clipPath = shouldDropClip ? 'none' : 'url(#gp-automacao-clip)';
       art.style.visibility = shouldDropClip ? 'hidden' : 'visible';
+      // Só liga o grid com mask-image DEPOIS que o SVG clipPath desligou (economia massiva de GPU!)
+      if (portalGrid) {
+        portalGrid.style.visibility = shouldDropClip ? 'visible' : 'hidden';
+        portalGrid.style.opacity = shouldDropClip ? '1' : '0';
+      }
     }
 
-    choosing = interactive && p < 0.08;
-    choices.inert = !choosing;
-    section.dataset.gpChoosing = String(choosing);
+    // Só escreve dataset/inert quando cruzar o limiar (ZERO recalc style em scroll!)
+    const nextChoosing = interactive && p < 0.08;
+    if (nextChoosing !== choosing) {
+      choosing = nextChoosing;
+      choices.inert = !choosing;
+      section.dataset.gpChoosing = String(choosing);
+    }
 
-    // Véu branco inicial dissolve suavemente durante o mergulho na letra
-    const inkVeil = 1 - smooth(0.08, 0.42, p);
-    const captionAlpha = 1 - smooth(0.05, 0.16, p);
+    // Atualiza nós-folha direto (ZERO CSS var cascade na <section>!)
+    if (inkVeilEl) {
+      const inkStr = (1 - smooth(0.08, 0.42, p)).toFixed(3);
+      if (inkStr !== lastInkVeil) {
+        lastInkVeil = inkStr;
+        inkVeilEl.style.opacity = inkStr;
+      }
+    }
+
+    if (captionEl) {
+      const capStr = (1 - smooth(0.05, 0.16, p)).toFixed(3);
+      if (capStr !== lastCaptionAlpha) {
+        lastCaptionAlpha = capStr;
+        captionEl.style.opacity = capStr;
+      }
+      const capHit = p < 0.14 ? 'auto' : 'none';
+      if (capHit !== lastCaptionHit) {
+        lastCaptionHit = capHit;
+        captionEl.style.pointerEvents = capHit;
+      }
+    }
+
+    // Pré-aquece visibilidade do layer 3D um pouco antes do fade para upload suave de textura
     const reveal = smooth(0.48, 0.62, p);
-    const robotScale = 0.95 + 0.05 * reveal;
+    const shouldShowRobotLayer = p >= 0.44;
+    if (shouldShowRobotLayer !== lastRobotVisible) {
+      lastRobotVisible = shouldShowRobotLayer;
+      robotLayer.style.visibility = shouldShowRobotLayer ? 'visible' : 'hidden';
+    }
 
-    section.style.setProperty('--gp-ink-veil', inkVeil.toFixed(3));
-    section.style.setProperty('--gp-caption', captionAlpha.toFixed(3));
-    section.style.setProperty('--gp-caption-hit', p < 0.14 ? 'auto' : 'none');
-
-    // Palco do Robô 3D já está no MESMO viewport sticky (zero salto/corte!)
-    robotLayer.style.opacity = reveal.toFixed(3);
-    robotLayer.style.transform = `scale(${robotScale.toFixed(4)})`;
+    if (Math.abs(reveal - lastReveal) > 0.0005) {
+      lastReveal = reveal;
+      const robotScale = 0.95 + 0.05 * reveal;
+      robotLayer.style.opacity = reveal.toFixed(3);
+      robotLayer.style.transform =
+        reveal >= 0.999 ? 'translate3d(0, 0, 0)' : `translate3d(0, 0, 0) scale(${robotScale.toFixed(4)})`;
+    }
 
     // Libera cliques/arrasto no Robô 3D e nas 4 abas imediatamente ao revelar!
     const nowEntered = p >= 0.5;
@@ -364,9 +434,6 @@ export function initAutomacaoPortal() {
       entered = nowEntered;
       section.dataset.gpEntered = nowEntered ? 'true' : 'false';
       robotLayer.style.pointerEvents = nowEntered ? 'auto' : 'none';
-      robotLayer.style.visibility = nowEntered ? 'visible' : 'hidden';
-    } else if (reveal > 0.01 && robotLayer.style.visibility !== 'visible') {
-      robotLayer.style.visibility = 'visible';
     }
 
     // Handoff GPU: acorda o WebGL do Robô 3D só depois que o zoom da letra terminou!
@@ -413,10 +480,11 @@ export function initAutomacaoPortal() {
     section.dataset.gpReady = 'true';
     section.dataset.gpMotion = 'on';
     lastClipDropped = null;
+    lastReveal = -1;
     paint();
   }
 
-  // GSAP ScrollTrigger scrub suave (elimina trancos de scroll discreto!)
+  // GSAP ScrollTrigger scrub ágil e sedoso (0.25s = responsivo sem sensação travada)
   const scrollTween = gsap.to(state, {
     p: 1,
     ease: 'none',
@@ -425,7 +493,7 @@ export function initAutomacaoPortal() {
       trigger: section,
       start: 'top top',
       end: 'bottom bottom',
-      scrub: 0.35,
+      scrub: 0.25,
       invalidateOnRefresh: true,
     },
   });
@@ -505,9 +573,13 @@ export function initAutomacaoPortal() {
   };
   window.addEventListener('resize', onResize, { passive: true });
 
-  // Medição inicial + re-medição exata assim que a fonte Anton carregar
+  // Estado inicial limpo + medição exata assim que a fonte Anton carregar
   robotLayer.style.pointerEvents = 'none';
   robotLayer.style.visibility = 'hidden';
+  if (portalGrid) {
+    portalGrid.style.opacity = '0';
+    portalGrid.style.visibility = 'hidden';
+  }
   layout();
   document.fonts?.ready.then(() => {
     if (disposed) return;

@@ -182,12 +182,17 @@ export function initDiferenciaisTunnel() {
     if (progressFill) progressFill.style.transform = `scaleY(${tunnelP.toFixed(4)})`;
   }
 
-  // Loop de parallax com IDLE SLEEP real (dorme assim que o ponteiro assenta!)
-  function parallaxTick() {
+  // Loop de parallax independente de Hz com IDLE SLEEP real (dorme assim que o ponteiro assenta!)
+  let lastParallaxTime = performance.now();
+
+  function parallaxTick(now) {
     if (!isVisible || document.hidden) {
       rafId = null;
       return;
     }
+
+    const dt = clamp((now - lastParallaxTime) / 1000, 0.001, 0.05);
+    lastParallaxTime = now;
 
     const dx = targetPx - currPx;
     const dy = targetPy - currPy;
@@ -200,14 +205,16 @@ export function initDiferenciaisTunnel() {
       return;
     }
 
-    currPx += dx * 0.08;
-    currPy += dy * 0.08;
+    const step = 1 - Math.exp(-5.2 * dt);
+    currPx += dx * step;
+    currPy += dy * step;
     render();
     rafId = requestAnimationFrame(parallaxTick);
   }
 
   function wakeParallax() {
     if (!rafId && isVisible && !document.hidden) {
+      lastParallaxTime = performance.now();
       rafId = requestAnimationFrame(parallaxTick);
     }
   }

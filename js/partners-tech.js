@@ -350,19 +350,21 @@ export function initPartnersTech() {
     startAutoCycle();
   }
 
-  // Loop de renderização com IDLE SLEEP automático
+  // Loop de renderização independente de Hz com IDLE SLEEP automático
   let rafId = null;
   let isVisible = false;
+  let lastDrawTime = performance.now();
   const cardState = cards.map(() => ({ opacity: '', zIndex: '' }));
 
-  function renderFrame() {
+  function renderFrame(dt = 1 / 60) {
     const gap = target - turn;
     let settled = false;
     if (Math.abs(gap) < 0.0005) {
       turn = target;
       settled = true;
     } else {
-      turn += gap * (prefersReduced ? 1 : EASE);
+      const factor = prefersReduced ? 1 : 1 - Math.exp(-7.5 * dt);
+      turn += gap * factor;
     }
 
     const t = turn;
@@ -415,12 +417,14 @@ export function initPartnersTech() {
     return settled;
   }
 
-  function draw() {
+  function draw(now) {
     if (!isVisible || document.hidden) {
       rafId = null;
       return;
     }
-    const settled = renderFrame();
+    const dt = clamp((now - lastDrawTime) / 1000, 0.001, 0.05);
+    lastDrawTime = now;
+    const settled = renderFrame(dt);
     if (settled) {
       rafId = null;
       return;
@@ -430,6 +434,7 @@ export function initPartnersTech() {
 
   function startLoop() {
     if (!rafId && isVisible && !document.hidden) {
+      lastDrawTime = performance.now();
       rafId = requestAnimationFrame(draw);
     }
   }

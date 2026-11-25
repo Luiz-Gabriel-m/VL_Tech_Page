@@ -201,8 +201,9 @@ export function initTechHero() {
     lastNow = now;
     elapsedTime += dt;
 
-    currentMouseX += (targetMouseX - currentMouseX) * 0.05;
-    currentMouseY += (targetMouseY - currentMouseY) * 0.05;
+    const mouseLerp = 1 - Math.exp(-3.2 * dt);
+    currentMouseX += (targetMouseX - currentMouseX) * mouseLerp;
+    currentMouseY += (targetMouseY - currentMouseY) * mouseLerp;
 
     camera.position.x = currentMouseX * 1.5;
     camera.position.y = 1.2 + currentMouseY * 0.8;

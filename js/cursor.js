@@ -32,9 +32,12 @@ export function initCustomCursor() {
   let isVisible = false;
 
   let rafId = null;
-  const lerpFactor = 0.2;
+  let lastCursorTime = performance.now();
 
-  function renderLoop() {
+  function renderLoop(now) {
+    const dt = Math.min(Math.max((now - lastCursorTime) / 1000, 0.001), 0.05);
+    lastCursorTime = now;
+
     const dx = mouseX - ringX;
     const dy = mouseY - ringY;
 
@@ -48,8 +51,9 @@ export function initCustomCursor() {
       return;
     }
 
-    ringX += dx * lerpFactor;
-    ringY += dy * lerpFactor;
+    const step = 1 - Math.exp(-14 * dt);
+    ringX += dx * step;
+    ringY += dy * step;
 
     if (ring) {
       ring.style.transform = `translate3d(${ringX.toFixed(1)}px, ${ringY.toFixed(1)}px, 0)`;
@@ -60,6 +64,7 @@ export function initCustomCursor() {
 
   function wakeLoop() {
     if (!rafId) {
+      lastCursorTime = performance.now();
       rafId = requestAnimationFrame(renderLoop);
     }
   }

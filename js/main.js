@@ -13,7 +13,7 @@
 import { isReady, ScrollTrigger } from './core/gsap.js';
 import { initLoader } from './loader.js?v=7.5';
 import { initSound } from './sound.js';
-import { initCustomCursor } from './cursor.js?v=7.5';
+import { initCustomCursor } from './cursor.js?v=9.1';
 import { initNavigation } from './navigation.js?v=7.5';
 import { initFounderSwitch } from './founder-switch.js';
 import { initFAQ } from './faq.js';
@@ -21,13 +21,13 @@ import { initFooter } from './footer.js?v=7.5';
 import { initReveal } from './animations/reveal.js';
 import { initScroll } from './scroll.js?v=6.1';
 import { initTiltHat } from './animations/tilt-hat.js';
-import { initTechHero } from './tech-hero-3d.js?v=7.5';
+import { initTechHero } from './tech-hero-3d.js?v=9.1';
 import { initHeroStickerHeadline } from './hero-sticker-headline.js?v=7.2';
-import { initPartnersTech } from './partners-tech.js?v=8.4';
+import { initPartnersTech } from './partners-tech.js?v=9.1';
 import { initResponsiveShowcase } from './responsive-showcase.js?v=8.9';
-import { initDiferenciaisTunnel } from './diferenciais-tunnel.js?v=8.0';
-import { initAutomacaoPortal } from './automacao-portal.js?v=8.6';
-import { initAutomacaoRobot } from './automacao-robot-3d.js?v=9.0';
+import { initDiferenciaisTunnel } from './diferenciais-tunnel.js?v=9.1';
+import { initAutomacaoPortal } from './automacao-portal.js?v=9.1';
+import { initAutomacaoRobot } from './automacao-robot-3d.js?v=9.1';
 import { initWhyChooseWall } from './why-choose-wall.js?v=8.3';
 import { initBadge3D } from './badge-3d.js?v=8.8';
 

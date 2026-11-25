@@ -39,6 +39,7 @@
   height: 100svh;
   overflow: hidden;
   isolation: isolate;
+  contain: layout style paint;
   container-type: size;
   background: var(--gp-paper);
 }
@@ -53,6 +54,8 @@
   background: var(--gp-field);
   opacity: 0;
   pointer-events: none;
+  contain: strict;
+  transform: translateZ(0);
 }
 
 .gp-automacao[data-gp-ready='true'] [data-gp-field] {
@@ -69,6 +72,7 @@
     linear-gradient(180deg, #10080c 0%, #0a090d 55%, #07070a 100%);
 }
 
+/* Grid só ativa após o clipPath desligar (zero custo de mask-image durante o zoom!) */
 .gp-portal-grid {
   position: absolute;
   inset: 0;
@@ -78,6 +82,9 @@
   background-size: 50px 50px;
   mask-image: radial-gradient(ellipse 78% 76% at 50% 50%, #000 32%, transparent 92%);
   -webkit-mask-image: radial-gradient(ellipse 78% 76% at 50% 50%, #000 32%, transparent 92%);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease;
   pointer-events: none;
 }
 
@@ -86,8 +93,9 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg, #ffffff 0%, #f4f4f8 72%, #ffd4d6 100%);
-  opacity: var(--gp-ink-veil, 1);
+  opacity: 1;
   pointer-events: none;
+  transform: translateZ(0);
   will-change: opacity;
 }
 
@@ -210,8 +218,10 @@
   font-size: 0.68rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  opacity: var(--gp-caption, 1);
-  pointer-events: var(--gp-caption-hit, auto);
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateZ(0);
+  will-change: opacity;
 }
 
 .gp-automacao [data-gp-hint] {
@@ -268,6 +278,7 @@
   justify-content: space-between;
   gap: 0.5rem;
   box-sizing: border-box;
+  contain: layout style;
 }
 
 /* Topbar estilo AntennaNavbar */
@@ -595,6 +606,7 @@
   gap: clamp(1rem, 2.5vw, 2.2rem);
   padding-top: 0.9rem;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
+  will-change: transform, opacity;
 }
 
 .robot-deck-main {
