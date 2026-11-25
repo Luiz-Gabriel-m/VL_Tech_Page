@@ -1121,3 +1121,123 @@
     display: none !important;
   }
 }
+
+/* ==========================================================================
+   SLOTS "EM BREVE" (NOTEBOOK & CELULAR 3D)
+   ========================================================================== */
+.resp-tab-pane--soon {
+  background:
+    radial-gradient(ellipse 65% 60% at 50% 48%, rgba(255, 30, 38, 0.16) 0%, rgba(255, 30, 38, 0.04) 45%, transparent 74%),
+    linear-gradient(160deg, #130b0f 0%, #0a0a0e 60%, #07070a 100%);
+}
+
+.resp-coming-soon {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 1.5rem 2rem;
+  text-align: center;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.resp-coming-soon__wm {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: 'Anton', Impact, sans-serif;
+  font-size: clamp(5rem, 14vw, 11rem);
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.035);
+  pointer-events: none;
+  user-select: none;
+}
+
+.resp-coming-soon__pill {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.24rem 0.72rem;
+  border-radius: 999px;
+  background: rgba(14, 10, 12, 0.9);
+  border: 1px solid rgba(255, 30, 38, 0.48);
+  font-family: var(--font-mono, monospace);
+  font-size: 0.56rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.resp-coming-soon__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--color--red, #FF1E26);
+  box-shadow: 0 0 8px rgba(255, 30, 38, 0.95);
+}
+
+.resp-coming-soon__title {
+  position: relative;
+  z-index: 2;
+  font-family: 'Anton', Impact, 'Arial Narrow', sans-serif;
+  font-weight: 400;
+  font-size: clamp(2rem, 4.6vw, 3.6rem);
+  line-height: 0.92;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.resp-coming-soon__desc {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  max-width: 42ch;
+  font-size: clamp(0.68rem, 0.9vw, 0.82rem);
+  line-height: 1.5;
+  color: rgba(248, 248, 252, 0.68);
+}
+
+.phone-3d-screen--soon {
+  background:
+    radial-gradient(circle at 50% 42%, rgba(255, 30, 38, 0.18) 0%, transparent 62%),
+    linear-gradient(180deg, #130b0f 0%, #09090d 100%) !important;
+}
+
+.phone-coming-emblem {
+  width: 68px;
+  height: 68px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px dashed rgba(255, 30, 38, 0.52);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.12rem;
+}
+
+.phone-coming-emblem__vl {
+  font-family: 'Anton', Impact, sans-serif;
+  font-size: 1.45rem;
+  line-height: 1;
+  color: #ffffff;
+  letter-spacing: 0.04em;
+}
+
+.phone-coming-emblem__sub {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.44rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--color--red, #FF1E26);
+}

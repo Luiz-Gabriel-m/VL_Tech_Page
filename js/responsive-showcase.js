@@ -12,36 +12,48 @@
 import { gsap } from './core/gsap.js';
 import { playClick, playHover } from './sound.js';
 
+const WA_RESERVE_URL =
+  'https://wa.me/5535997362208?text=Ol%C3%A1%2C%20quero%20reservar%20o%20pr%C3%B3ximo%20projeto%20de%20site%20com%20a%20VL%20Tech';
+
 const PROJECTS = [
-  {
-    key: 'maciel-fit',
-    name: 'MACIEL FIT',
-    category: 'STUDIO FITNESS',
-    url: 'https://macielfit-studio-eta.vercel.app/',
-  },
-  {
-    key: 'g4-batatas',
-    name: 'G4 BATATAS',
-    category: 'INDÚSTRIA & AGRO',
-    url: 'https://project-zil-g4-batatas.vercel.app/',
-  },
-  {
-    key: 'marinho-odonto',
-    name: 'MARINHO ODONTO',
-    category: 'SAÚDE & ESTÉTICA',
-    url: 'https://marinhoodonto.vercel.app/',
-  },
   {
     key: 'ribeiro-team',
     name: 'RIBEIRO TEAM',
     category: 'CENTRO DE LUTAS',
     url: 'https://ribeiro-team.vercel.app/',
+    comingSoon: false,
   },
   {
-    key: 'zildo-oliveira',
-    name: 'ZILDO OLIVEIRA',
-    category: 'PORTAL OFICIAL',
-    url: 'https://project-zil-zildo.vercel.app/',
+    key: 'em-breve-02',
+    name: 'EM BREVE',
+    category: 'SLOT 02 · EM PRODUÇÃO',
+    url: 'https://vltech.com/em-breve',
+    ctaUrl: WA_RESERVE_URL,
+    comingSoon: true,
+  },
+  {
+    key: 'em-breve-03',
+    name: 'EM BREVE',
+    category: 'SLOT 03 · EM PRODUÇÃO',
+    url: 'https://vltech.com/em-breve',
+    ctaUrl: WA_RESERVE_URL,
+    comingSoon: true,
+  },
+  {
+    key: 'em-breve-04',
+    name: 'EM BREVE',
+    category: 'SLOT 04 · EM PRODUÇÃO',
+    url: 'https://vltech.com/em-breve',
+    ctaUrl: WA_RESERVE_URL,
+    comingSoon: true,
+  },
+  {
+    key: 'em-breve-05',
+    name: 'EM BREVE',
+    category: 'SLOT 05 · VAGA ABERTA',
+    url: 'https://vltech.com/em-breve',
+    ctaUrl: WA_RESERVE_URL,
+    comingSoon: true,
   },
 ];
 
@@ -236,6 +248,7 @@ export function initResponsiveShowcase() {
   const activeNameEl = section.querySelector('#respActiveName');
   const activeMetaEl = section.querySelector('#respActiveMeta');
   const visitLink = section.querySelector('#respVisitLink');
+  const optTagEl = section.querySelector('#respMonitorOptTag');
 
   const prevBtn = section.querySelector('#respPrevBtn');
   const nextBtn = section.querySelector('#respNextBtn');
@@ -255,7 +268,7 @@ export function initResponsiveShowcase() {
   let hasOpenedOnce = prefersReduced;
 
   function ensureIframeLoaded(index) {
-    const iframe = heroIframes[index];
+    const iframe = tabPanes[index]?.querySelector('.resp-hero-iframe');
     if (!iframe || iframe.dataset.mounted === '1') return;
     const src = iframe.dataset.src;
     if (!src) return;
@@ -402,9 +415,19 @@ export function initResponsiveShowcase() {
     if (laptopUrl) laptopUrl.textContent = project.url;
     if (activeNameEl) activeNameEl.textContent = project.name;
     if (activeMetaEl) {
-      activeMetaEl.innerHTML = `${project.category} · <span class="text-red">OTIMIZADO MONITOR &amp; MOBILE</span>`;
+      activeMetaEl.innerHTML = project.comingSoon
+        ? `${project.category} · <span class="text-red">PRÓXIMO PROJETO VL TECH</span>`
+        : `${project.category} · <span class="text-red">OTIMIZADO MONITOR &amp; MOBILE</span>`;
     }
-    if (visitLink) visitLink.href = project.url;
+    if (optTagEl) {
+      optTagEl.innerHTML = project.comingSoon
+        ? '<strong>EM BREVE</strong> · VAGA ABERTA'
+        : '<strong>HERO AO VIVO</strong> · OTIMIZADO MONITOR';
+    }
+    if (visitLink) {
+      visitLink.href = project.comingSoon ? project.ctaUrl : project.url;
+      visitLink.textContent = project.comingSoon ? 'Quero o meu site ↗' : 'Abrir site ↗';
+    }
 
     if (withTransition && !prefersReduced && isCarouselRevealed) {
       matrix.pulse();
