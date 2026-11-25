@@ -27,7 +27,7 @@ const FOUNDERS_DATA = {
     stackLine: 'Three.js · WebGL · GSAP 3 · Next.js · IA',
     idCode: 'VL-ENG-01 · SAO-HQ',
     whatsappHref:
-      'https://wa.me/5511999999999?text=Ol%C3%A1%20Luiz%20Gabriel%2C%20gostaria%20de%20conversar%20sobre%20um%20projeto%20com%20a%20VL%20Tech',
+      'https://wa.me/5535997363608?text=Ol%C3%A1%20Luiz%20Gabriel%2C%20gostaria%20de%20conversar%20sobre%20um%20projeto%20com%20a%20VL%20Tech',
     whatsappLabel: 'Falar com Luiz',
     flipBtnLabel: 'GIRAR PARA VICTOR (VERSO)',
     targetAngle: 0,
