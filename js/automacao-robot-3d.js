@@ -35,7 +35,7 @@ const MODES = {
     metricA: { val: '1.4s', label: 'Resposta na DM' },
     metricB: { val: '+340%', label: 'Engajamento ativo' },
     ctaHref:
-      'https://wa.me/5535997363608?text=Ol%C3%A1%2C%20quero%20automatizar%20meu%20Instagram%20com%20o%20rob%C3%B4%20da%20VL%20Tech',
+      'https://wa.me/5535997362208?text=Ol%C3%A1%2C%20quero%20automatizar%20meu%20Instagram%20com%20o%20rob%C3%B4%20da%20VL%20Tech',
     ctaLabel: 'Automatizar Insta',
     accentHex: '#ff245b',
     accentRgb: '255, 36, 91',
@@ -61,7 +61,7 @@ const MODES = {
     metricA: { val: '24/7', label: 'Plantão comercial' },
     metricB: { val: '< 2s', label: 'Tempo de resposta' },
     ctaHref:
-      'https://wa.me/5535997363608?text=Ol%C3%A1%2C%20quero%20um%20agente%20de%20IA%20no%20WhatsApp%20da%20VL%20Tech',
+      'https://wa.me/5535997362208?text=Ol%C3%A1%2C%20quero%20um%20agente%20de%20IA%20no%20WhatsApp%20da%20VL%20Tech',
     ctaLabel: 'Ativar WhatsApp IA',
     accentHex: '#00ffc6',
     accentRgb: '0, 255, 198',
@@ -87,7 +87,7 @@ const MODES = {
     metricA: { val: '0%', label: 'Leads perdidos' },
     metricB: { val: '100%', label: 'Dados rastreados' },
     ctaHref:
-      'https://wa.me/5535997363608?text=Ol%C3%A1%2C%20quero%20integrar%20meu%20CRM%20e%20funil%20de%20vendas%20com%20a%20VL%20Tech',
+      'https://wa.me/5535997362208?text=Ol%C3%A1%2C%20quero%20integrar%20meu%20CRM%20e%20funil%20de%20vendas%20com%20a%20VL%20Tech',
     ctaLabel: 'Integrar CRM',
     accentHex: '#ff1e26',
     accentRgb: '255, 30, 38',
@@ -113,7 +113,7 @@ const MODES = {
     metricA: { val: '-80%', label: 'Tarefas manuais' },
     metricB: { val: '99.98%', label: 'Uptime em nuvem' },
     ctaHref:
-      'https://wa.me/5535997363608?text=Ol%C3%A1%2C%20quero%20automatizar%20processos%20internos%20com%20a%20VL%20Tech',
+      'https://wa.me/5535997362208?text=Ol%C3%A1%2C%20quero%20automatizar%20processos%20internos%20com%20a%20VL%20Tech',
     ctaLabel: 'Criar Meu Robô',
     accentHex: '#ff6b2b',
     accentRgb: '255, 107, 43',
