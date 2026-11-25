@@ -23,17 +23,62 @@ import { playClick, playHover, playIgnite } from './sound.js';
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 
 const MODES = {
+  whatsapp: {
+    key: 'whatsapp',
+    label: 'WHATSAPP IA',
+    bgWord: 'WHATSAPP',
+    ctaHref:
+      'https://wa.me/5535997362208?text=Ol%C3%A1%2C%20quero%20um%20agente%20de%20IA%20no%20WhatsApp%20da%20VL%20Tech',
+    ctaLabel: 'Ativar WhatsApp IA',
+    accentHex: '#00ffc6',
+    accentRgb: '0, 255, 198',
+    screenColor: '#00ffc6',
+    screenIntensity: 1.32,
+    eyeHex: 0xeafffa,
+    rimHex: 0x00ffc6,
+    features: [
+      {
+        tag: 'ATENDIMENTO 24/7',
+        bubble: '✓ Lead respondeu no WhatsApp → qualificado em 1.8s',
+        title: 'ATENDIMENTO HUMANIZADO 24/7.',
+        desc: 'Na API oficial do WhatsApp, nossa IA conversa com a voz da sua marca, tira dúvidas sobre serviços e qualifica clientes interessados a qualquer hora.',
+        chips: ['API Oficial Meta', 'Linguagem Natural', 'Plantão 24 Horas'],
+        metricA: { val: '< 2s', label: 'Tempo de resposta' },
+        metricB: { val: '24/7', label: 'Plantão comercial' },
+      },
+      {
+        tag: 'ÁUDIOS & PROPOSTAS',
+        bubble: '✓ Áudio de 42s transcrito → orçamento personalizado enviado',
+        title: 'OUVE ÁUDIOS E ENVIA PROPOSTAS.',
+        desc: 'Seu cliente mandou áudio ou foto? O agente entende na hora, consulta sua tabela atualizada e já responde com o orçamento pronto em texto ou PDF.',
+        chips: ['Transcreve Áudios', 'Tabela de Preços', 'Orçamento em PDF'],
+        metricA: { val: '100%', label: 'Áudios entendidos' },
+        metricB: { val: '3x', label: 'Velocidade de venda' },
+      },
+      {
+        tag: 'AGENDAMENTO AUTO',
+        bubble: '✓ Reunião agendada: Amanhã às 15h + link Google Meet',
+        title: 'AGENDA REUNIÕES SOZINHO.',
+        desc: 'Consulta seus horários livres no Google Agenda, oferece opções ao cliente, confirma a reunião e envia lembretes automáticos para zerar faltas.',
+        chips: ['Google Agenda', 'Lembrete Anti-Falta', 'Link Google Meet'],
+        metricA: { val: '-70%', label: 'Faltas em reuniões' },
+        metricB: { val: '0', label: 'Trabalho manual' },
+      },
+      {
+        tag: 'FOLLOW-UP & VENDAS',
+        bubble: '✓ Follow-up 24h enviado → cliente reativado e venda fechada',
+        title: 'FOLLOW-UP QUE RECUPERA VENDAS.',
+        desc: 'Cliente esfriou no meio da conversa? O agente retoma no timing certo com contexto real, envia link PIX/cartão e chama seu vendedor só na hora de fechar.',
+        chips: ['Follow-up Automático', 'Link PIX / Cartão', 'Transbordo Humano'],
+        metricA: { val: '+45%', label: 'Conversão no funil' },
+        metricB: { val: '0%', label: 'Leads esquecidos' },
+      },
+    ],
+  },
   instagram: {
     key: 'instagram',
+    label: 'INSTAGRAM 24/7',
     bgWord: 'INSTAGRAM',
-    badge: 'MODO INSTA · PILOTO AUTOMÁTICO',
-    bubble: 'Respondendo DMs e comentários do seu Insta em 1.4s',
-    loveBubble: 'Cuidando do seu Insta com carinho ❤',
-    title: 'CUIDAMOS DO SEU INSTA 24/7.',
-    desc: 'Nosso agente responde Directs, reage a comentários em Reels e posts ("comenta EU QUERO"), envia links e qualifica seguidores automaticamente.',
-    chips: ['DMs & Comentários', 'Link no Direct', 'Filtro p/ WhatsApp'],
-    metricA: { val: '1.4s', label: 'Resposta na DM' },
-    metricB: { val: '+340%', label: 'Engajamento ativo' },
     ctaHref:
       'https://wa.me/5535997362208?text=Ol%C3%A1%2C%20quero%20automatizar%20meu%20Instagram%20com%20o%20rob%C3%B4%20da%20VL%20Tech',
     ctaLabel: 'Automatizar Insta',
@@ -43,49 +88,40 @@ const MODES = {
     screenIntensity: 1.35,
     eyeHex: 0xffffff,
     rimHex: 0xff245b,
-    simulations: [
-      '✓ Comentário "EU QUERO" respondido com catálogo no Direct (1.1s)',
-      '✓ Menção nos Stories respondida com cupom exclusivo (0.8s)',
-      '✓ Seguidor qualificado encaminhado para seu WhatsApp (1.2s)',
-    ],
-  },
-  whatsapp: {
-    key: 'whatsapp',
-    bgWord: 'WHATSAPP',
-    badge: 'MODO WHATSAPP · AGENTE IA OFICIAL',
-    bubble: 'Qualificando leads e agendando reuniões no WhatsApp',
-    loveBubble: 'Atendimento humanizado 24 horas ❤',
-    title: 'VENDAS E ATENDIMENTO NO WHATSAPP.',
-    desc: 'Agente treinado com a linguagem da sua marca na API oficial do WhatsApp: tira dúvidas, envia propostas e agenda horários no Google Agenda.',
-    chips: ['API Oficial Meta', 'IA Treinada', 'Agendamento Auto'],
-    metricA: { val: '24/7', label: 'Plantão comercial' },
-    metricB: { val: '< 2s', label: 'Tempo de resposta' },
-    ctaHref:
-      'https://wa.me/5535997362208?text=Ol%C3%A1%2C%20quero%20um%20agente%20de%20IA%20no%20WhatsApp%20da%20VL%20Tech',
-    ctaLabel: 'Ativar WhatsApp IA',
-    accentHex: '#00ffc6',
-    accentRgb: '0, 255, 198',
-    screenColor: '#00ffc6',
-    screenIntensity: 1.3,
-    eyeHex: 0xeafffa,
-    rimHex: 0x00ffc6,
-    simulations: [
-      '✓ Áudio do cliente transcrito e orçamento enviado (1.5s)',
-      '✓ Reunião agendada automaticamente para amanhã às 15h (0.9s)',
-      '✓ Follow-up inteligente enviado para proposta em aberto (0.6s)',
+    features: [
+      {
+        tag: 'COMENTÁRIOS → DM',
+        bubble: '✓ Comentário "EU QUERO" → catálogo enviado no Direct em 1.1s',
+        title: 'RESPOSTA INSTANTÂNEA EM REELS & POSTS.',
+        desc: 'Alguém comentou no seu vídeo ou post? O agente responde o comentário publicamente e já chama a pessoa no Direct com link, oferta ou catálogo.',
+        chips: ['Gatilho por Palavra', 'Direct Automático', 'API Oficial IG'],
+        metricA: { val: '1.1s', label: 'Resposta na DM' },
+        metricB: { val: '+340%', label: 'Engajamento ativo' },
+      },
+      {
+        tag: 'STORIES & MENÇÕES',
+        bubble: '✓ Menção nos Stories → agradecimento + cupom exclusivo enviado',
+        title: 'STORIES QUE VIRAM CONVERSA REAL.',
+        desc: 'Reage automaticamente a respostas e menções nos Stories, entregando materiais, cupons ou links de agendamento enquanto o interesse está quente.',
+        chips: ['Reação a Stories', 'Envio de Cupom', 'Captura de Contato'],
+        metricA: { val: '100%', label: 'Menções respondidas' },
+        metricB: { val: '24/7', label: 'Ativo sem pausa' },
+      },
+      {
+        tag: 'FILTRO P/ WHATSAPP',
+        bubble: '✓ Seguidor qualificado → encaminhado pronto ao WhatsApp',
+        title: 'TRANSFORMA SEGUIDOR EM CLIENTE.',
+        desc: 'Faz perguntas rápidas no Direct para filtrar curiosos de compradores reais e direciona os leads prontos direto para o seu WhatsApp comercial.',
+        chips: ['Qualificação no Direct', 'Integração WhatsApp', 'Zero Curioso'],
+        metricA: { val: '3.2x', label: 'Mais leads prontos' },
+        metricB: { val: '1.4s', label: 'Tempo médio' },
+      },
     ],
   },
   crm: {
     key: 'crm',
+    label: 'CRM & LEADS',
     bgWord: 'CRM & LEADS',
-    badge: 'MODO PIPELINE · ZERO LEAD PERDIDO',
-    bubble: 'Sincronizando anúncios, site e CRM em tempo real',
-    loveBubble: 'Nenhum lead fica para trás ❤',
-    title: 'SEU FUNIL CONECTADO SEM DIGITAÇÃO.',
-    desc: 'Ligamos seu site, Meta/Google Ads, HubSpot, RD Station, Pipedrive e pagamentos via webhooks instantâneos com alerta imediato ao vendedor.',
-    chips: ['Meta & Google Ads', 'HubSpot / RD / Pipedrive', 'Follow-up Auto'],
-    metricA: { val: '0%', label: 'Leads perdidos' },
-    metricB: { val: '100%', label: 'Dados rastreados' },
     ctaHref:
       'https://wa.me/5535997362208?text=Ol%C3%A1%2C%20quero%20integrar%20meu%20CRM%20e%20funil%20de%20vendas%20com%20a%20VL%20Tech',
     ctaLabel: 'Integrar CRM',
@@ -95,23 +131,40 @@ const MODES = {
     screenIntensity: 1.4,
     eyeHex: 0xffffff,
     rimHex: 0xff1e26,
-    simulations: [
-      '✓ Novo lead do Meta Ads criado no Pipedrive + alerta enviado (0.4s)',
-      '✓ Pagamento PIX confirmado → etapa atualizada no funil (0.3s)',
-      '✓ Proposta em PDF gerada e disparada por e-mail (0.7s)',
+    features: [
+      {
+        tag: 'CAPTURA EM TEMPO REAL',
+        bubble: '✓ Novo lead do Meta Ads criado no CRM + alerta imediato (0.4s)',
+        title: 'SEU FUNIL CONECTADO SEM DIGITAÇÃO.',
+        desc: 'Ligamos seu site, Meta Ads e Google Ads diretamente ao HubSpot, RD Station, Pipedrive ou Kommo via webhooks instantâneos — zero cópia manual.',
+        chips: ['Meta & Google Ads', 'HubSpot / RD / Pipedrive', 'Webhooks < 0.5s'],
+        metricA: { val: '0%', label: 'Leads perdidos' },
+        metricB: { val: '0.4s', label: 'Sync em tempo real' },
+      },
+      {
+        tag: 'AUTOMAÇÃO POR ETAPA',
+        bubble: '✓ Card movido para Proposta → PDF gerado e enviado ao cliente',
+        title: 'CADA ETAPA DISPARA A AÇÃO CERTA.',
+        desc: 'Moveu o negócio no funil? O sistema envia proposta, dispara follow-up no WhatsApp, cria tarefas para o time e atualiza o status automaticamente.',
+        chips: ['Gatilhos por Etapa', 'Follow-up Auto', 'Alerta ao Vendedor'],
+        metricA: { val: '+52%', label: 'Velocidade no funil' },
+        metricB: { val: '100%', label: 'Dados rastreados' },
+      },
+      {
+        tag: 'PAGAMENTO & PÓS-VENDA',
+        bubble: '✓ PIX aprovado → contrato disparado + onboarding iniciado',
+        title: 'DO PIX AO ONBOARDING AUTOMÁTICO.',
+        desc: 'Conectamos gateways de pagamento (Stripe, Asaas, Mercado Pago) ao seu CRM para liberar acesso, emitir recibo e iniciar o pós-venda sozinho.',
+        chips: ['PIX & Cartão', 'Onboarding Auto', 'Zero Erro Humano'],
+        metricA: { val: '0.3s', label: 'Confirmação PIX' },
+        metricB: { val: '24/7', label: 'Operação contínua' },
+      },
     ],
   },
   backoffice: {
     key: 'backoffice',
+    label: 'BACKOFFICE IA',
     bgWord: 'IA 24/7',
-    badge: 'MODO BACKOFFICE · FLUXOS AUTÔNOMOS',
-    bubble: 'Gerando relatórios, contratos e cobranças em nuvem',
-    loveBubble: 'Menos trabalho manual, mais escala ❤',
-    title: 'ROTINAS INTERNAS NO PILOTO AUTOMÁTICO.',
-    desc: 'Eliminamos planilhas repetitivas com robôs sob medida: contratos, faturas, relatórios diários no WhatsApp e monitoramento em nuvem.',
-    chips: ['Contratos & PDFs', 'Relatório Diário', 'Cloud 99.98%'],
-    metricA: { val: '-80%', label: 'Tarefas manuais' },
-    metricB: { val: '99.98%', label: 'Uptime em nuvem' },
     ctaHref:
       'https://wa.me/5535997362208?text=Ol%C3%A1%2C%20quero%20automatizar%20processos%20internos%20com%20a%20VL%20Tech',
     ctaLabel: 'Criar Meu Robô',
@@ -121,10 +174,34 @@ const MODES = {
     screenIntensity: 1.35,
     eyeHex: 0xfff4ed,
     rimHex: 0xff6b2b,
-    simulations: [
-      '✓ Contrato assinado → Nota fiscal e boleto emitidos (1.0s)',
-      '✓ Resumo diário de vendas enviado no WhatsApp dos sócios (0.5s)',
-      '✓ Conciliação de 48 lançamentos concluída sem erros (1.3s)',
+    features: [
+      {
+        tag: 'CONTRATOS & COBRANÇA',
+        bubble: '✓ Contrato assinado → nota fiscal e boleto emitidos em 1.0s',
+        title: 'CONTRATOS E FATURAS NO PILOTO AUTOMÁTICO.',
+        desc: 'Eliminamos tarefas burocráticas gerando contratos personalizados, enviando para assinatura digital e disparando cobranças automaticamente.',
+        chips: ['Contratos PDF', 'Assinatura Digital', 'Emissão de Faturas'],
+        metricA: { val: '-80%', label: 'Tarefas manuais' },
+        metricB: { val: '1.0s', label: 'Geração de docs' },
+      },
+      {
+        tag: 'RELATÓRIOS NO WHATSAPP',
+        bubble: '✓ Resumo diário de vendas e caixa enviado aos sócios às 19h',
+        title: 'DADOS DA EMPRESA NA PALMA DA MÃO.',
+        desc: 'Todo dia no horário combinado, seu robô consolida vendas, leads, faturamento e metas e entrega um resumo executivo limpo direto no WhatsApp.',
+        chips: ['Resumo Diário', 'KPIs em Tempo Real', 'Alertas de Meta'],
+        metricA: { val: '100%', label: 'Visibilidade diária' },
+        metricB: { val: '0', label: 'Planilhas manuais' },
+      },
+      {
+        tag: 'CLOUD WORKERS 99.98%',
+        bubble: '✓ Conciliação de 48 lançamentos concluída sem erros na nuvem',
+        title: 'FLUXOS AUTÔNOMOS EM NUVEM.',
+        desc: 'Pipelines sob medida rodando em infraestrutura cloud com monitoramento contínuo, logs auditáveis e estabilidade de 99.98% uptime.',
+        chips: ['Infraestrutura Cloud', 'Logs & Segurança', '99.98% Uptime'],
+        metricA: { val: '99.98%', label: 'Uptime em nuvem' },
+        metricB: { val: '24/7', label: 'Monitoramento' },
+      },
     ],
   },
 };
@@ -366,11 +443,11 @@ export function initAutomacaoRobot() {
   fillLight.position.set(-4.2, 1.8, 3.0);
   scene.add(fillLight);
 
-  const rimLight = new THREE.DirectionalLight(MODES.instagram.rimHex, 2.4);
+  const rimLight = new THREE.DirectionalLight(MODES.whatsapp.rimHex, 2.4);
   rimLight.position.set(0, 2.2, -4.2);
   scene.add(rimLight);
 
-  const bottomBounce = new THREE.PointLight(MODES.instagram.rimHex, 0.95, 6);
+  const bottomBounce = new THREE.PointLight(MODES.whatsapp.rimHex, 0.95, 6);
   bottomBounce.position.set(0, -1.1, 1.35);
   scene.add(bottomBounce);
 
@@ -461,9 +538,9 @@ export function initAutomacaoRobot() {
   headGroup.add(headMesh);
 
   const glassUniforms = {
-    color: { value: new THREE.Color(MODES.instagram.screenColor) },
+    color: { value: new THREE.Color(MODES.whatsapp.screenColor) },
     power: { value: 3.5 },
-    intensity: { value: MODES.instagram.screenIntensity },
+    intensity: { value: MODES.whatsapp.screenIntensity },
   };
   const glassMat = new THREE.ShaderMaterial({
     uniforms: glassUniforms,
@@ -605,10 +682,10 @@ export function initAutomacaoRobot() {
   updateResponsiveScale();
 
   // =========================================================================
-  // 3. INTERAÇÕES: ABAS + SIMULAÇÃO + CARINHO (OLHOS DE CORAÇÃO)
+  // 3. INTERAÇÕES: ABAS + CLIQUE NO ROBÔ ALTERNANDO FUNÇÕES + OLHOS DE CORAÇÃO
   // =========================================================================
-  let activeModeKey = 'instagram';
-  let simCursor = 0;
+  let activeModeKey = 'whatsapp';
+  let featureIndex = 0;
   let isLoved = false;
   let loveTimer = null;
 
@@ -617,7 +694,7 @@ export function initAutomacaoRobot() {
   let scalePulse = 0;
   let nodImpulse = 0;
 
-  // Arrasto interativo 3D livre no robô (arrastar gira 360°; clique rápido dá coração!)
+  // Arrasto interativo 3D livre no robô (arrastar gira 360°; clique rápido mostra próxima função + coração!)
   let isDraggingRobot = false;
   let dragMoved = false;
   let dragStartX = 0;
@@ -632,9 +709,9 @@ export function initAutomacaoRobot() {
   let pointerY = 0;
   let lastPointerTime = 0;
 
-  const targetGlassColor = new THREE.Color(MODES.instagram.screenColor);
-  const targetRimColor = new THREE.Color(MODES.instagram.rimHex);
-  let targetGlassIntensity = MODES.instagram.screenIntensity;
+  const targetGlassColor = new THREE.Color(MODES.whatsapp.screenColor);
+  const targetRimColor = new THREE.Color(MODES.whatsapp.rimHex);
+  let targetGlassIntensity = MODES.whatsapp.screenIntensity;
 
   function applyThemeVars(mode) {
     const host = section || stage;
@@ -643,25 +720,32 @@ export function initAutomacaoRobot() {
     stage.dataset.activeMode = mode.key;
   }
 
-  function renderModeUI(mode, animate = true) {
+  function renderFeatureUI(mode, idx, animate = true, animateBgWord = false) {
+    const features = mode.features || [];
+    const feat = features[idx] || features[0];
+    if (!feat) return;
+
+    const num = String(idx + 1).padStart(2, '0');
+    const total = String(features.length).padStart(2, '0');
+
     const apply = () => {
       if (bgWordEl) bgWordEl.textContent = mode.bgWord;
-      if (badgeEl) badgeEl.textContent = mode.badge;
-      if (bubbleTextEl) bubbleTextEl.textContent = isLoved ? mode.loveBubble : mode.bubble;
-      if (titleEl) titleEl.textContent = mode.title;
-      if (descEl) descEl.textContent = mode.desc;
+      if (badgeEl) badgeEl.textContent = `${mode.label} · FUNÇÃO ${num} / ${total} · ${feat.tag}`;
+      if (bubbleTextEl) bubbleTextEl.textContent = feat.bubble;
+      if (titleEl) titleEl.textContent = feat.title;
+      if (descEl) descEl.textContent = feat.desc;
       if (chipsEl) {
         chipsEl.innerHTML = '';
-        mode.chips.forEach((label) => {
+        feat.chips.forEach((label) => {
           const li = document.createElement('li');
           li.textContent = label;
           chipsEl.appendChild(li);
         });
       }
-      if (metricAVal) metricAVal.textContent = mode.metricA.val;
-      if (metricALabel) metricALabel.textContent = mode.metricA.label;
-      if (metricBVal) metricBVal.textContent = mode.metricB.val;
-      if (metricBLabel) metricBLabel.textContent = mode.metricB.label;
+      if (metricAVal) metricAVal.textContent = feat.metricA.val;
+      if (metricALabel) metricALabel.textContent = feat.metricA.label;
+      if (metricBVal) metricBVal.textContent = feat.metricB.val;
+      if (metricBLabel) metricBLabel.textContent = feat.metricB.label;
       if (ctaLink) ctaLink.href = mode.ctaHref;
       if (ctaLabelEl) ctaLabelEl.textContent = mode.ctaLabel;
     };
@@ -671,7 +755,7 @@ export function initAutomacaoRobot() {
       return;
     }
 
-    if (bgWordEl) {
+    if (animateBgWord && bgWordEl) {
       gsap.fromTo(
         bgWordEl,
         { opacity: 0.02, scale: 0.94 },
@@ -693,10 +777,15 @@ export function initAutomacaoRobot() {
   function setMode(key, userTriggered = false) {
     const mode = MODES[key];
     if (!mode) return;
-    if (key === activeModeKey && userTriggered) return;
+
+    // Clicar novamente na aba já ativa (ex.: WhatsApp IA) avança para a próxima função!
+    if (key === activeModeKey && userTriggered) {
+      nextFeature(false);
+      return;
+    }
 
     activeModeKey = key;
-    simCursor = 0;
+    featureIndex = 0;
     applyThemeVars(mode);
 
     modeBtns.forEach((btn) => {
@@ -718,47 +807,41 @@ export function initAutomacaoRobot() {
       nodImpulse = 0.55;
     }
 
-    renderModeUI(mode, userTriggered);
+    renderFeatureUI(mode, featureIndex, userTriggered, userTriggered);
     if (!rafId) renderOnce();
   }
 
-  function triggerSimulation() {
+  function nextFeature(withLoveEyes = false) {
     const mode = MODES[activeModeKey];
-    if (!mode || !mode.simulations?.length) return;
+    if (!mode || !mode.features?.length) return;
 
-    const msg = mode.simulations[simCursor % mode.simulations.length];
-    simCursor += 1;
+    featureIndex = (featureIndex + 1) % mode.features.length;
+    bounceVel = withLoveEyes ? 1.25 : 0.95;
+    scalePulse = withLoveEyes ? 0.09 : 0.065;
+    nodImpulse = 0.65;
 
-    try { playClick(); } catch (_) {}
-    bounceVel = 1.0;
-    scalePulse = 0.07;
-    nodImpulse = 0.72;
-
-    if (bubbleTextEl && !isLoved) {
-      bubbleTextEl.textContent = msg;
+    if (withLoveEyes) {
+      isLoved = true;
+      stage.classList.add('is-loved');
+      try { playIgnite(); } catch (_) {}
+      clearTimeout(loveTimer);
+      loveTimer = setTimeout(() => {
+        isLoved = false;
+        stage.classList.remove('is-loved');
+      }, 1700);
+    } else {
+      try { playClick(); } catch (_) {}
     }
+
+    renderFeatureUI(mode, featureIndex, true, false);
+  }
+
+  function triggerSimulation() {
+    nextFeature(false);
   }
 
   function triggerLove() {
-    isLoved = true;
-    bounceVel = 1.35;
-    scalePulse = 0.1;
-    nodImpulse = 0.42;
-
-    try { playIgnite(); } catch (_) {}
-    if (bubbleTextEl) {
-      bubbleTextEl.textContent = MODES[activeModeKey].loveBubble;
-    }
-    stage.classList.add('is-loved');
-
-    clearTimeout(loveTimer);
-    loveTimer = setTimeout(() => {
-      isLoved = false;
-      stage.classList.remove('is-loved');
-      if (bubbleTextEl) {
-        bubbleTextEl.textContent = MODES[activeModeKey].bubble;
-      }
-    }, 2400);
+    nextFeature(true);
   }
 
   modeBtns.forEach((btn) => {
@@ -1017,7 +1100,7 @@ export function initAutomacaoRobot() {
   }
   window.addEventListener('resize', onResize, { passive: true });
 
-  setMode('instagram', false);
+  setMode('whatsapp', false);
   syncSize();
   renderOnce();
 

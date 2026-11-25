@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="css/sections/hero-sticker.css?v=7.2">
   <link rel="stylesheet" href="css/sections/responsive-showcase.css?v=8.9">
   <link rel="stylesheet" href="css/sections/diferenciais-tunnel.css?v=8.0">
-  <link rel="stylesheet" href="css/sections/automacao-portal.css?v=8.6">
+  <link rel="stylesheet" href="css/sections/automacao-portal.css?v=9.0">
   <link rel="stylesheet" href="css/sections/why-choose-wall.css?v=8.3">
   <link rel="stylesheet" href="css/sections/partners-wheel.css?v=8.3">
   <link rel="stylesheet" href="css/sections/founders-badge.css?v=7.5">
@@ -730,15 +730,15 @@
 
         <!-- PALCO DO ROBOZINHO 3D (DENTRO DO MESMO STICKY VIEWPORT — 100% INTERATIVO & ARRASTÁVEL) -->
         <div class="gp-robot-layer" id="gpRobotLayer">
-          <div class="robot-stage" id="autoRobotStage" data-active-mode="instagram">
-            <!-- Topbar estilo AntennaNavbar -->
+          <div class="robot-stage" id="autoRobotStage" data-active-mode="whatsapp">
+            <!-- Topbar estilo AntennaNavbar (WhatsApp IA como produto principal ativo!) -->
             <div class="robot-topbar" id="automacao-robo" role="toolbar" aria-label="Modos de Automação do Robô VL Tech">
               <div class="robot-modes-group">
-                <button type="button" class="robot-mode-btn is-active" data-robot-mode="instagram" aria-pressed="true">
-                  Instagram 24/7
-                </button>
-                <button type="button" class="robot-mode-btn" data-robot-mode="whatsapp" aria-pressed="false">
+                <button type="button" class="robot-mode-btn is-active" data-robot-mode="whatsapp" aria-pressed="true">
                   WhatsApp IA
+                </button>
+                <button type="button" class="robot-mode-btn" data-robot-mode="instagram" aria-pressed="false">
+                  Instagram 24/7
                 </button>
                 <button type="button" class="robot-mode-btn" data-robot-mode="crm" aria-pressed="false">
                   CRM &amp; Leads
@@ -748,9 +748,9 @@
                 </button>
               </div>
 
-              <!-- Mini-rosto central (pisca no hover · olhos de coração 3D no clique!) -->
+              <!-- Mini-rosto central (pisca no hover · clique avança função + olhos de coração 3D!) -->
               <button type="button" class="robot-mini-face" id="autoRobotMiniFace"
-                aria-label="Fazer carinho no robô VL Tech (ativar olhos de coração)" title="Clique para fazer carinho no robô!">
+                aria-label="Interagir com o robô VL Tech (próxima função e olhos de coração)" title="Clique no robô para ver cada função!">
                 <span class="robot-mini-ear robot-mini-ear--left" aria-hidden="true"></span>
                 <span class="robot-mini-head" aria-hidden="true">
                   <span class="robot-mini-visor">
@@ -762,9 +762,9 @@
               </button>
 
               <div class="robot-topbar-right">
-                <a href="https://wa.me/5535997362208?text=Ol%C3%A1%2C%20quero%20automatizar%20meu%20Instagram%20com%20o%20rob%C3%B4%20da%20VL%20Tech"
+                <a href="https://wa.me/5535997362208?text=Ol%C3%A1%2C%20quero%20um%20agente%20de%20IA%20no%20WhatsApp%20da%20VL%20Tech"
                   target="_blank" rel="noopener noreferrer" class="robot-top-cta" id="autoRobotCta">
-                  <span id="autoRobotCtaLabel">Automatizar Insta</span>
+                  <span id="autoRobotCtaLabel">Ativar WhatsApp IA</span>
                   <span aria-hidden="true">↗</span>
                 </a>
               </div>
@@ -773,51 +773,51 @@
             <!-- Arena Central 3D: Wordmark Gigante + Robô Three.js PBR + Balão Live -->
             <div class="robot-arena" id="autoRobotArena">
               <div class="robot-arena-glow" aria-hidden="true"></div>
-              <div class="robot-bg-word" id="autoRobotBgWord" aria-hidden="true">INSTAGRAM</div>
+              <div class="robot-bg-word" id="autoRobotBgWord" aria-hidden="true">WHATSAPP</div>
 
               <div class="robot-bubble" id="autoRobotBubble" aria-live="polite">
                 <span class="robot-bubble__dot" aria-hidden="true"></span>
-                <span id="autoRobotBubbleText">Respondendo DMs e comentários do seu Insta em 1.4s</span>
+                <span id="autoRobotBubbleText">Lead respondeu no WhatsApp → qualificado em 1.8s</span>
               </div>
 
               <div class="robot-canvas-wrap" id="autoRobotCanvasWrap">
                 <canvas id="autoRobotCanvas" class="robot-canvas"
-                  aria-label="Robô 3D interativo de Automação da VL Tech. Arraste para girar em 3D, mova o mouse para ele acompanhar e clique para ativar olhos de coração."></canvas>
+                  aria-label="Robô 3D interativo de Automação da VL Tech. Clique no robô para alternar entre as funções ou arraste para girar em 3D."></canvas>
               </div>
 
-              <span class="robot-tap-hint" aria-hidden="true">ARRASTE PARA GIRAR O ROBÔ 3D · CLIQUE PARA OLHOS DE CORAÇÃO · TROQUE AS ABAS ACIMA</span>
+              <span class="robot-tap-hint" aria-hidden="true">CLIQUE NO ROBÔ PARA VER CADA FUNÇÃO · ARRASTE PARA GIRAR EM 3D · TROQUE OS CANAIS ACIMA</span>
             </div>
 
-            <!-- Faixa Editorial Inferior Enxuta -->
+            <!-- Faixa Editorial Inferior Enxuta (muda a cada clique no robô demonstrando funções!) -->
             <div class="robot-bottom-deck" id="autoRobotInfoPanel">
               <div class="robot-deck-main">
-                <span class="robot-deck-badge" id="autoRobotModeBadge">MODO INSTA · PILOTO AUTOMÁTICO</span>
-                <h2 class="robot-deck-title" id="autoRobotModeTitle">CUIDAMOS DO SEU INSTA 24/7.</h2>
+                <span class="robot-deck-badge" id="autoRobotModeBadge">WHATSAPP IA · FUNÇÃO 01 / 04 · ATENDIMENTO 24/7</span>
+                <h2 class="robot-deck-title" id="autoRobotModeTitle">ATENDIMENTO HUMANIZADO 24/7.</h2>
                 <p class="robot-deck-desc" id="autoRobotModeDesc">
-                  Nosso agente responde Directs, reage a comentários em Reels e posts ("comenta EU QUERO"), envia links e qualifica seguidores automaticamente.
+                  Na API oficial do WhatsApp, nossa IA conversa com a voz da sua marca, tira dúvidas sobre serviços e qualifica clientes interessados a qualquer hora.
                 </p>
                 <ul class="robot-deck-chips" id="autoRobotModeChips">
-                  <li>DMs &amp; Comentários</li>
-                  <li>Link no Direct</li>
-                  <li>Filtro p/ WhatsApp</li>
+                  <li>API Oficial Meta</li>
+                  <li>Linguagem Natural</li>
+                  <li>Plantão 24 Horas</li>
                 </ul>
               </div>
 
               <div class="robot-deck-right">
                 <div class="robot-deck-metrics">
                   <div class="auto-metric">
-                    <span class="auto-metric__value" id="autoMetricAVal">1.4s</span>
-                    <span class="auto-metric__label" id="autoMetricALabel">Resposta na DM</span>
+                    <span class="auto-metric__value" id="autoMetricAVal">&lt; 2s</span>
+                    <span class="auto-metric__label" id="autoMetricALabel">Tempo de resposta</span>
                   </div>
                   <div class="auto-metric">
-                    <span class="auto-metric__value" id="autoMetricBVal">+340%</span>
-                    <span class="auto-metric__label" id="autoMetricBLabel">Engajamento ativo</span>
+                    <span class="auto-metric__value" id="autoMetricBVal">24/7</span>
+                    <span class="auto-metric__label" id="autoMetricBLabel">Plantão comercial</span>
                   </div>
                 </div>
 
-                <button type="button" class="robot-sim-btn" id="autoRobotSimulateBtn" aria-label="Simular ação do robô">
+                <button type="button" class="robot-sim-btn" id="autoRobotSimulateBtn" aria-label="Ver próxima função do robô">
                   <span class="robot-sim-btn__dot" aria-hidden="true"></span>
-                  <span>Testar Ação</span>
+                  <span>Próxima Função →</span>
                 </button>
               </div>
             </div>
@@ -1510,7 +1510,7 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 
   <!-- Aplicação (módulos ES) -->
-  <script type="module" src="js/main.js?v=8.9"></script>
+  <script type="module" src="js/main.js?v=9.0"></script>
 </body>
 
 </html>

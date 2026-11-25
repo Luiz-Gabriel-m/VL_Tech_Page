@@ -14,8 +14,8 @@
   --gp-ink: #F8F8FC;
   --gp-field: #0B0709;
   --gp-accent: #FF1E26;
-  --robot-accent: #ff245b;
-  --robot-accent-rgb: 255, 36, 91;
+  --robot-accent: #00ffc6;
+  --robot-accent-rgb: 0, 255, 198;
 
   position: relative;
   isolation: isolate;

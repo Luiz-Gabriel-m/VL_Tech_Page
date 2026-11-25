@@ -27,7 +27,7 @@ import { initPartnersTech } from './partners-tech.js?v=8.4';
 import { initResponsiveShowcase } from './responsive-showcase.js?v=8.9';
 import { initDiferenciaisTunnel } from './diferenciais-tunnel.js?v=8.0';
 import { initAutomacaoPortal } from './automacao-portal.js?v=8.6';
-import { initAutomacaoRobot } from './automacao-robot-3d.js?v=8.8';
+import { initAutomacaoRobot } from './automacao-robot-3d.js?v=9.0';
 import { initWhyChooseWall } from './why-choose-wall.js?v=8.3';
 import { initBadge3D } from './badge-3d.js?v=8.8';
 
